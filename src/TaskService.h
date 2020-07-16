@@ -5,6 +5,7 @@
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "FullTask.h"
+#include "TaskID.h"
 #include <map>
 
 class TaskService {
@@ -13,16 +14,16 @@ class TaskService {
   ~TaskService();
 
  public:
-  void AddTask(const Task& task, const Task::Priority priority);
-  void AddSubtask(unsigned int rootTaskID, const  Task& subtask, Task::Priority priority);
+  void AddTask(const Task& task, const Task::Priority& priority);
+  void AddSubtask(unsigned int rootTaskID, const Task& subtask,const Task::Priority& priority);
 
-  std::shared_ptr<TaskEntity> GetTaskByName(const std::string name) const; //for test
+  std::shared_ptr<TaskEntity> GetTaskByName(const std::string& name) const; //for test
 
-  unsigned int GetTaskIDByName(const std::string name) const;
+  unsigned int GetTaskIDByName(const std::string& name) const;
  private:
   std::vector<std::shared_ptr<FullTask>> tasks;
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>> byPriority;
-  int tasksID;
+  TaskID taskID;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_
