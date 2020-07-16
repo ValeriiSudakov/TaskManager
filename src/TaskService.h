@@ -26,16 +26,16 @@ class TaskService {
 
   static Date CreateDate(int date, int month, int year, int weekDay){
     if (date < 1 || date > 31){
-      std::runtime_error{"Incorrect date"};
+      throw std::runtime_error{"Incorrect date"};
     }
     if (month < 0 || date > 11){
-      std::runtime_error{"Incorrect month"};
+      throw std::runtime_error{"Incorrect month"};
     }
     if (year != 2020){
-      std::runtime_error{"Incorrect year"};
+      throw std::runtime_error{"Incorrect year"};
     }
     if (weekDay < 0 || weekDay > 6) {
-      std::runtime_error{"Incorrect week day"};
+      throw std::runtime_error{"Incorrect week day"};
     }
     Date datetime;
     datetime.dueDate.tm_mday = date;
