@@ -7,6 +7,8 @@
 //
 #include <gtest/gtest.h>
 #include "TaskEntity.h"
+#include "TaskService.h"
+#include "Date.h"
 #include <iostream>
 
 class TestTaskEntityClass : public ::testing::Test {
@@ -14,12 +16,11 @@ class TestTaskEntityClass : public ::testing::Test {
 };
 
 TEST_F(TestTaskEntityClass, testCreate){
-  tm date = tm();
-  date.tm_year = 2020;
-  date.tm_mon = 10;
-  date.tm_mday = 16;
-  date.tm_wday = 1;
-  Task task = Task::Create("task name", "label", Task::Priority::HIGH, date);
+
+  Date date = TaskService::CreateDate(11, 10, 2020, 3);
+  Date date1 = TaskService::CreateDate(22, 1, 2020, 2);
+
+  Task task = Task::Create("task name", "label", Task::Priority::HIGH, date.GetDate());
   auto taskPtr = std::make_shared<Task>(task);
   TaskEntity task_entity(taskPtr, 1);
 
