@@ -28,7 +28,7 @@ class TaskService {
     if (date < 1 || date > 31){
       throw std::runtime_error{"Incorrect date"};
     }
-    if (month < 0 || date > 11){
+    if (month < 0 || month > 11){
       throw std::runtime_error{"Incorrect month"};
     }
     if (year != 2020){
