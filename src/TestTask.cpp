@@ -25,6 +25,7 @@ TEST_F(TestTaskEntityClass, testCreate){
 
   ASSERT_EQ(task_entity.GetTaskName(), "task name");
   ASSERT_EQ(task_entity.GetTaskLabel(),"label");
+
   ASSERT_EQ(Task::Priority::HIGH, task_entity.GetTaskPriority());
 
   ASSERT_EQ(task_entity.GetTaskDueDate().tm_wday, 1);

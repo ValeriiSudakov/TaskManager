@@ -9,7 +9,7 @@
 
 class TaskEntity {
  public:
-  TaskEntity(const std::shared_ptr<Task> &task, unsigned int id);
+  TaskEntity(const std::shared_ptr<Task> &task,const unsigned int id);
   ~TaskEntity();
 
  public:
@@ -19,6 +19,7 @@ class TaskEntity {
   const std::string GetTaskPriorityStr() const;
   const Task::Priority GetTaskPriority() const;
   const std::string GetTaskName() const;
+  const std::shared_ptr<Task> &GetTask() const;
   tm GetTaskDueDate() const;
   void SetComplete();
   void PrintTaskDueDate() const;

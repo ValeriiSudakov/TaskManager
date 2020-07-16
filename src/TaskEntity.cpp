@@ -3,7 +3,7 @@
 //
 
 #include "TaskEntity.h"
-TaskEntity::TaskEntity(const std::shared_ptr<Task> &task, unsigned int id)
+TaskEntity::TaskEntity(const std::shared_ptr<Task> &task, const unsigned int id)
     : task(task), ID(id), complete(false) {}
 
 TaskEntity::~TaskEntity() = default;
@@ -56,5 +56,8 @@ void TaskEntity::PrintTaskDueDate() const{
 }
 const std::string TaskEntity::GetTaskName() const{
   return task->GetName();
+}
+const std::shared_ptr<Task> &TaskEntity::GetTask() const {
+  return task;
 }
 
