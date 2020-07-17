@@ -25,7 +25,6 @@ class Task {
   const std::string &GetLabel() const;
   Priority GetPriority() const;
   const tm &GetDueDate() const;
-
   const std::string &GetName() const;
  private:
   std::string name;

@@ -13,16 +13,16 @@ class TaskEntity {
   ~TaskEntity();
 
  public:
-  unsigned int GetId() const;
   bool IsComplete() const;
+
+  unsigned int GetId() const;
   const std::string GetTaskLabel() const;
-  const std::string GetTaskPriorityStr() const;
   const Task::Priority GetTaskPriority() const;
   const std::string GetTaskName() const;
   const std::shared_ptr<Task> &GetTask() const;
   tm GetTaskDueDate() const;
+
   void SetComplete();
-  void PrintTaskDueDate() const;
 
  private:
   std::shared_ptr<Task> task;
