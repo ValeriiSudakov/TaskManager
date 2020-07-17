@@ -4,7 +4,13 @@
 
 #include "FullTask.h"
 FullTask::FullTask(const std::shared_ptr<TaskEntity> &root_task) : rootTask(root_task) {}
-FullTask::~FullTask() = default;
+FullTask::~FullTask() {
+  if (!subtasks.empty()){
+    for (auto task : subtasks){
+      task.reset();
+    }
+  }
+}
 
 unsigned int FullTask::GetID() const{
   return rootTask->GetId();
