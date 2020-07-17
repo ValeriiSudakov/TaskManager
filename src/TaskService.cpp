@@ -9,7 +9,7 @@ TaskService::~TaskService() = default;
 
 std::shared_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) const {
     std::shared_ptr<TaskEntity> sp;
-    for (auto taskInfo : byPriority){
+    for (const auto& taskInfo : byPriority){
       sp = taskInfo.second.lock();
       if (sp->GetTaskName() == name){
         return sp;
@@ -28,14 +28,22 @@ void TaskService::AddTask(const Task& task, const Task::Priority& priority){
   byPriority.insert(std::make_pair(priority, newTaskPtr));
 }
 
+
+/// ПОДУМАТЬ
+/// В фулл таск добавлять подстаски через weak ptr
+/// мб переделать AddTask
+/// если передалею - переделать тесты
 void TaskService::AddSubtask(unsigned int rootTaskID, const Task& subtask,const Task::Priority& priority){
   for (auto task : tasks) {
     if (task->GetID() == rootTaskID) {
       AddTask(subtask, priority);
       return;
     } else if (!task->GetSubtasks().empty()) {
+      std::shared_ptr<FullTask> subtaskPtr;
       for (auto subtask : task->GetSubtasks()) {
-        Task &rootTask = *(subtask->FindSubtask(rootTaskID).GetTask());
+        subtaskPtr = subtask.lock();
+        Task &roooTask = *subtaskPtr->FindSubtask(rootTaskID).GetTask();
+        subtaskPtr.reset();
       }
     }
   }

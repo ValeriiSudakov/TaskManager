@@ -16,8 +16,8 @@ unsigned int FullTask::GetID() const{
   return rootTask->GetId();
 }
 
-void FullTask::AddSubtask(std::shared_ptr<TaskEntity>& root_task){
-  subtasks.push_back(std::make_shared<FullTask>(FullTask(root_task)));
+void FullTask::AddSubtask(std::weak_ptr<FullTask>& fullTask){
+  subtasks.push_back(fullTask);
 }
 
 std::string FullTask::GetName() const{
@@ -25,15 +25,18 @@ std::string FullTask::GetName() const{
 }
 
 TaskEntity& FullTask::FindSubtask(unsigned int rootTaskID){
+  std::shared_ptr<FullTask> sp;
   for (auto task : subtasks){
-    if(task->GetID() == rootTaskID){
-      return *task->rootTask;
-    } else if (!task->subtasks.empty()){
+    sp = task.lock();
+    if(sp->GetID() == rootTaskID){
+      return *sp->rootTask;
+    } else if (!sp->subtasks.empty()){
       FindSubtask(rootTaskID);
     }
+    sp.reset();
   }
 }
 
-std::vector<std::shared_ptr<FullTask>> &FullTask::GetSubtasks() {
+std::vector<std::weak_ptr<FullTask>> &FullTask::GetSubtasks() {
   return subtasks;
 }

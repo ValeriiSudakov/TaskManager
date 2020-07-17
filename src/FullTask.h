@@ -16,17 +16,16 @@ class FullTask {
   std::string GetName() const;
   unsigned int GetID() const;
 
-  void AddSubtask(std::shared_ptr<TaskEntity>& root_task);
-
-  void PrintTaskInfo() const;
+  void AddSubtask(std::weak_ptr<FullTask>& fullTask);
 
   TaskEntity& FindSubtask(unsigned int rootTaskID);
 
-  std::vector<std::shared_ptr<FullTask>> &GetSubtasks();
+  std::vector<std::weak_ptr<FullTask>> &GetSubtasks();
 
  private:
+  // подумать о том, что тут таски хранятся shared_ptr и в TaskService тоже Shared_ptr
   std::shared_ptr<TaskEntity> rootTask;
-  std::vector<std::shared_ptr<FullTask>> subtasks;
+  std::vector<std::weak_ptr<FullTask>> subtasks;
 };
 
 #endif //TASKMANAGER_SRC_FULLTASK_H_
