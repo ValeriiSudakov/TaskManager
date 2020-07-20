@@ -12,10 +12,10 @@ class TaskOutput {
   TaskOutput();
   ~TaskOutput();
  public:
-  void Print(const Task& task) const;
+  void                Print(const Task& task) const;
  private:
-  const std::string GetTaskPriorityStr(const Task::Priority& priority) const;
-  void PrintTaskDueDateStr(const tm& date) const;
+  const std::string   GetTaskPriorityStr(const Task::Priority& priority) const;
+  void                PrintTaskDueDateStr(const tm& date) const;
 
 };
 

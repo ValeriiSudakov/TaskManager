@@ -5,29 +5,31 @@
 #ifndef TASKMANAGER_SRC_TASKENTITY_H_
 #define TASKMANAGER_SRC_TASKENTITY_H_
 #include "Task.h"
+#include "TaskID.h"
 #include <memory>
 
 class TaskEntity {
  public:
-  TaskEntity(const std::shared_ptr<Task> &task,const unsigned int id);
+  TaskEntity(const std::shared_ptr<Task> &task,std::string id);
   ~TaskEntity();
 
  public:
-  bool IsComplete() const;
+  bool                          IsComplete() const;
 
-  unsigned int GetId() const;
-  const std::string GetTaskLabel() const;
-  const Task::Priority GetTaskPriority() const;
-  const std::string GetTaskName() const;
-  const std::shared_ptr<Task> &GetTask() const;
-  tm GetTaskDueDate() const;
+  const std::string             GetId() const;
+  const std::string             GetTaskLabel() const;
+  const Task::Priority          GetTaskPriority() const;
+  const std::string             GetTaskName() const;
+  const std::shared_ptr<Task>&  GetTask() const;
+  tm                            GetTaskDueDate() const;
 
-  void SetComplete();
+  void                          SetComplete();
 
  private:
-  std::shared_ptr<Task> task;
-  unsigned int ID;
-  bool complete;
+  std::shared_ptr<Task>   task;
+  std::string             ID;
+  bool                    complete;
+  TaskID                  numberOfSubtasks;
 
  private:
   TaskEntity(const TaskEntity&);

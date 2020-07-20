@@ -22,15 +22,15 @@ class Task {
   Task(const Task& task);
  public:
   ~Task();
-  const std::string &GetLabel() const;
-  Priority GetPriority() const;
-  const tm &GetDueDate() const;
-  const std::string &GetName() const;
+  const std::string&   GetLabel() const;
+  Priority             GetPriority() const;
+  const tm&            GetDueDate() const;
+  const std::string&   GetName() const;
  private:
-  std::string name;
-  std::string label;
-  Priority priority;
-  tm dueDate;
+  std::string   name;
+  std::string   label;
+  Priority      priority;
+  tm            dueDate;
 
  private:
   Task(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);
