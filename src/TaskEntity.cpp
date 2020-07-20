@@ -3,7 +3,9 @@
 //
 
 #include "TaskEntity.h"
-TaskEntity::TaskEntity(const std::shared_ptr<Task> &task, const unsigned int id)
+#include <exception>
+
+TaskEntity::TaskEntity(const std::shared_ptr<Task> &task, std::string id)
     : task(task), ID(id), complete(false) {}
 
 TaskEntity::~TaskEntity() = default;
@@ -13,7 +15,7 @@ TaskEntity::TaskEntity(const TaskEntity&){ }
 void TaskEntity::operator=(const TaskEntity&){ }
 
 
-unsigned int TaskEntity::GetId() const {
+const std::string TaskEntity::GetId() const {
   return ID;
 }
 
@@ -41,6 +43,7 @@ tm TaskEntity::GetTaskDueDate() const{
 const std::string TaskEntity::GetTaskName() const{
   return task->GetName();
 }
+
 const std::shared_ptr<Task> &TaskEntity::GetTask() const {
   return task;
 }
