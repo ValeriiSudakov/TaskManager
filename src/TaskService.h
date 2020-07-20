@@ -23,27 +23,10 @@ class TaskService {
 
   unsigned int GetTaskIDByName(const std::string& name) const;
 
-
-  static Date CreateDate(int date, int month, int year, int weekDay){
-    if (date < 1 || date > 31){
-      throw std::runtime_error{"Incorrect date"};
-    }
-    if (month < 0 || month > 11){
-      throw std::runtime_error{"Incorrect month"};
-    }
-    if (year != 2020){
-      throw std::runtime_error{"Incorrect year"};
-    }
-    if (weekDay < 0 || weekDay > 6) {
-      throw std::runtime_error{"Incorrect week day"};
-    }
-    Date datetime;
-    datetime.dueDate.tm_mday = date;
-    datetime.dueDate.tm_mon = month;
-    datetime.dueDate.tm_year = year;
-    datetime.dueDate.tm_wday = weekDay;
-    return datetime;
-  }
+  void ShowAllTasks(bool SortedByPrioriry);
+  void ShowAllTodayTasks(bool SortedByPrioriry);
+  void ShowAllWeekTasks(bool SortedByPrioriry);
+  void ShowAllTaskByLabel(std::string label, bool SortedByPrioriry);
 
  private:
   std::vector<std::shared_ptr<FullTask>> tasks;

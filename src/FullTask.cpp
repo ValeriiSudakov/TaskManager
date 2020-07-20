@@ -40,3 +40,6 @@ TaskEntity& FullTask::FindSubtask(unsigned int rootTaskID){
 std::vector<std::weak_ptr<FullTask>> &FullTask::GetSubtasks() {
   return subtasks;
 }
+const std::shared_ptr<TaskEntity> &FullTask::GetRootTask() const {
+  return rootTask;
+}

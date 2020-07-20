@@ -4,13 +4,13 @@
 
 #include "TaskOutput.h"
 
-TaskOutput::TaskOutput() = default;
+TaskOutput::TaskOutput() {};
 TaskOutput::~TaskOutput() = default;
 
 void TaskOutput::Print(const Task& task) const{
   std::cout<<"Task name: "<<task.GetName()<<std::endl;
   std::cout<<"Task label: "<<task.GetLabel()<<std::endl;
-  std::cout<<"Task priority: "<<GetTaskPriorityStr(task.GetPriority());
+  std::cout<<"Task priority: "<<GetTaskPriorityStr(task.GetPriority())<<std::endl;
   std::cout<<"Task due date: ";
   PrintTaskDueDateStr(task.GetDueDate());
 }

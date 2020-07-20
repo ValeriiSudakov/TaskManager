@@ -7,13 +7,9 @@
 #include <ctime>
 #include <stdexcept>
 
-class Date {
- public:
-  tm dueDate;
- public:
-  Date();
-  ~Date();
-  tm GetDate() const;
+namespace Date{
+  tm GetCurrentTime();
+  tm CreateDate(int date, int month, int year, int weekDay);
 };
 
 #endif //TASKMANAGER_SRC_DATE_H_

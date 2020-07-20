@@ -17,9 +17,9 @@ class TestTaskEntityClass : public ::testing::Test {
 
 TEST_F(TestTaskEntityClass, testCreate){
 
-  Date date = TaskService::CreateDate(11, 10, 2020, 3);
+  tm date = Date::CreateDate(11, 10, 2020, 3);
 
-  Task task = Task::Create("task name", "label", Task::Priority::HIGH, date.GetDate());
+  Task task = Task::Create("task name", "label", Task::Priority::HIGH, date);
   auto taskPtr = std::make_shared<Task>(task);
   TaskEntity task_entity(taskPtr, 1);
 

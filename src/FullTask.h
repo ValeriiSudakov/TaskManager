@@ -17,6 +17,7 @@ class FullTask {
   unsigned int GetID() const;
 
   void AddSubtask(std::weak_ptr<FullTask>& fullTask);
+  const std::shared_ptr<TaskEntity> &GetRootTask() const;
 
   TaskEntity& FindSubtask(unsigned int rootTaskID);
 
