@@ -3,6 +3,7 @@
 //
 
 #include "TaskService.h"
+#include "TaskOutput.h"
 #include <string>
 
 TaskService::TaskService() : taskID(){}
@@ -46,6 +47,16 @@ const std::string& TaskService::GetTaskIDByName(const std::string& name) const{
 
 
 void TaskService::ShowAllTasks(bool SortedByPrioriry){
+  TaskOutput to;
+  if (SortedByPrioriry){
+    for (auto const& [key, val] : byPriority) {
+      to.Print(*val.lock()->GetTask());
+    }
+  } else {
+    for (auto const& [key, val] : tasks){
+      to.Print(*val->GetTask());
+    }
+  }
 
 }
 
