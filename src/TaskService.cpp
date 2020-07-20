@@ -69,5 +69,18 @@ void TaskService::ShowAllWeekTasks(bool SortedByPrioriry){
 }
 
 void TaskService::ShowAllTaskByLabel(std::string label, bool SortedByPrioriry){
-
+  TaskOutput to;
+  if (SortedByPrioriry){
+    for (auto const& [key, val] : byPriority) {
+      if (val.lock()->GetTaskLabel() == label){
+        to.Print(*val.lock()->GetTask());
+      }
+    }
+  } else {
+    for (auto const& [key, val] : tasks){
+      if (val->GetTaskLabel() == label){
+        to.Print(*val->GetTask());
+      }
+    }
+  }
 }
