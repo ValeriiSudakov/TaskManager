@@ -61,19 +61,16 @@ void TaskService::ShowAllTasks(bool SortedByPrioriry){
 }
 
 void TaskService::ShowAllTodayTasks(bool SortedByPrioriry){
-  tm currentDate = Date::GetCurrentTime();
   TaskOutput to;
   if (SortedByPrioriry){
     for (auto const& [key, val] : byPriority) {
-      if (val.lock()->GetTaskDueDate().tm_mon == currentDate.tm_mon &&
-          val.lock()->GetTaskDueDate().tm_mday == currentDate.tm_mday){
+      if (Date::IsThisWeek(val.lock()->GetTaskDueDate())){
         to.Print(*val.lock()->GetTask());
       }
     }
   } else {
     for (auto const& [key, val] : tasks){
-      if (val->GetTaskDueDate().tm_mon == currentDate.tm_mon &&
-          val->GetTaskDueDate().tm_mday == currentDate.tm_mday){
+      if (Date::IsThisWeek(val->GetTaskDueDate())){
         to.Print(*val->GetTask());
       }
     }

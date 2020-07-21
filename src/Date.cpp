@@ -30,3 +30,30 @@ tm Date::CreateDate(int date, int month, int year, int weekDay){
   dueDate.tm_wday = weekDay;
   return dueDate;
 }
+
+bool Date::IsToday(tm date){
+  tm currentDate = GetCurrentTime();
+
+  return date.tm_mon == currentDate.tm_mon &&
+        date.tm_mday == currentDate.tm_mday;
+}
+
+bool Date::IsThisWeek(tm date) {
+  tm currentDate = GetCurrentTime();
+  int daysToEndOfWeek = 7 - currentDate.tm_wday;
+  tm endOfWeek = GetCurrentTime();
+  // find the end of the week date
+  if (currentDate.tm_mday + daysToEndOfWeek > 31){
+    endOfWeek.tm_mday = (31 + daysToEndOfWeek) - 31;
+    endOfWeek.tm_mon++;
+  } else {
+    endOfWeek.tm_mday = currentDate.tm_mday + daysToEndOfWeek;
+    endOfWeek.tm_mon = currentDate.tm_mon;
+  }
+  // decrease year for compare by mktime
+  if (date.tm_year == 2020) {
+    date.tm_year -= 1900;
+  }
+  return mktime(&currentDate) <= mktime(&date) &&
+        mktime(&date) <= mktime(&endOfWeek);
+}
