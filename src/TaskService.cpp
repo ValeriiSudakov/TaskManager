@@ -64,6 +64,23 @@ void TaskService::ShowAllTodayTasks(bool SortedByPrioriry){
   TaskOutput to;
   if (SortedByPrioriry){
     for (auto const& [key, val] : byPriority) {
+      if (Date::IsToday(val.lock()->GetTaskDueDate())){
+        to.Print(*val.lock()->GetTask());
+      }
+    }
+  } else {
+    for (auto const& [key, val] : tasks){
+      if (Date::IsToday(val->GetTaskDueDate())){
+        to.Print(*val->GetTask());
+      }
+    }
+  }
+}
+
+void TaskService::ShowAllWeekTasks(bool SortedByPrioriry){
+  TaskOutput to;
+  if (SortedByPrioriry){
+    for (auto const& [key, val] : byPriority) {
       if (Date::IsThisWeek(val.lock()->GetTaskDueDate())){
         to.Print(*val.lock()->GetTask());
       }
@@ -75,10 +92,6 @@ void TaskService::ShowAllTodayTasks(bool SortedByPrioriry){
       }
     }
   }
-}
-
-void TaskService::ShowAllWeekTasks(bool SortedByPrioriry){
-
 }
 
 void TaskService::ShowAllTaskByLabel(std::string label, bool SortedByPrioriry){
