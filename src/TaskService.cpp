@@ -43,9 +43,6 @@ void TaskService::RemoveTaskFromTasks(const std::string& taskID){
   std::vector<std::map<std::string, std::shared_ptr<TaskEntity>>::iterator> toDelete;
   // find task to delete
   auto i = tasks.find(taskID);
-  if (i == tasks.end()){
-    throw std::runtime_error{"task not found"};
-  }
   while (i!=tasks.end()){
     // find all subtasks of this task
     if (i->first.find(taskID) != std::string::npos){
