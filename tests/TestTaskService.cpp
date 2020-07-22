@@ -58,3 +58,10 @@ TEST_F(TestTaskServiceClass, DontFindSubtaskByName) {
   EXPECT_THROW(ts.GetTaskByName("sub task213"), std::runtime_error);
 }
 
+TEST_F(TestTaskServiceClass, RemoveTask){
+  TaskService ts;
+  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  ts.AddTask(task, Task::Priority::HIGH);
+  ts.RemoveTask(ts.GetTaskIDByName("task"));
+  EXPECT_THROW(ts.GetTaskIDByName("task"),std::runtime_error);
+}

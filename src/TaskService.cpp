@@ -5,18 +5,16 @@
 #include "TaskService.h"
 #include "TaskOutput.h"
 #include <string>
+#include <vector>
 
 TaskService::TaskService() : taskID(){}
 TaskService::~TaskService() = default;
 
 std::shared_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) const {
-    std::shared_ptr<TaskEntity> sp;
-    for (const auto& taskInfo : byPriority){
-      sp = taskInfo.second.lock();
-      if (sp->GetTaskName() == name){
-        return sp;
+    for (const auto& taskInfo : tasks){
+      if (taskInfo.second->GetTaskName() == name){
+        return taskInfo.second;
       }
-      sp.reset();
     }
   throw std::runtime_error{"Task not found"};
 }
@@ -36,10 +34,50 @@ void TaskService::AddSubtask(const std::string& rootTaskID, const Task& subtask,
   byPriority.insert(std::make_pair(priority, newEntityTask));
 }
 
+void TaskService::RemoveTask(const std::string& taskID){
+  RemoveTaskFromByPriority(taskID); //weak_ptr to task
+  RemoveTaskFromTasks(taskID);      //shared_ptr to task
+}
+
+void TaskService::RemoveTaskFromTasks(const std::string& taskID){
+  std::vector<std::map<std::string, std::shared_ptr<TaskEntity>>::iterator> toDelete;
+  // find task to delete
+  auto i = tasks.find(taskID);
+  if (i == tasks.end()){
+    throw std::runtime_error{"task not found"};
+  }
+  while (i!=tasks.end()){
+    // find all subtasks of this task
+    if (i->first.find(taskID) != std::string::npos){
+      toDelete.push_back(i);
+      ++i;
+    } else break;
+  }
+  for (int i = 0; i < toDelete.size();++i){
+    tasks.erase(toDelete[i]);
+  }
+}
+
+void TaskService::RemoveTaskFromByPriority(const std::string& taskID){
+  std::vector<std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>::iterator> toDelete;
+  for (auto i = byPriority.begin(); i != byPriority.end(); ++i){
+    if (i->second.lock()->GetId().find(taskID) != std::string::npos){
+      toDelete.push_back(i);
+    }
+  }
+  if (toDelete.empty()){
+    throw std::runtime_error{"task not found"};
+  }
+  for (int i = 0; i < toDelete.size();++i){
+    byPriority.erase(toDelete[i]);
+  }
+}
+
+
 const std::string& TaskService::GetTaskIDByName(const std::string& name) const{
-  for (auto const& [key, val] : tasks) {
-    if (val->GetTaskName() == name){
-      return key;
+  for (auto const& taskInfo : tasks) {
+    if (taskInfo.second->GetTaskName() == name){
+      return taskInfo.first;
     }
   }
   throw std::runtime_error{"Task not found"};
