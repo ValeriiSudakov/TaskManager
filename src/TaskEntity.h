@@ -28,7 +28,6 @@ class TaskEntity {
   std::shared_ptr<Task>   task;
   std::string             ID;
   bool                    complete;
-  TaskID                  numberOfSubtasks;
 
  private:
   TaskEntity(const TaskEntity&);
