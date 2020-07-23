@@ -65,3 +65,18 @@ TEST_F(TestTaskServiceClass, RemoveTask){
   ts.RemoveTask(ts.GetTaskIDByName("task"));
   EXPECT_THROW(ts.GetTaskIDByName("task"),std::runtime_error);
 }
+
+TEST_F(TestTaskServiceClass, SetTaskComplete){
+  TaskService ts;
+  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  ts.AddTask(task, Task::Priority::HIGH);
+  EXPECT_FALSE(ts.GetTaskByName("task")->IsComplete());
+
+  Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, tm());
+  ts.AddSubtask(ts.GetTaskIDByName("task"), subTask, Task::Priority::HIGH);
+  EXPECT_FALSE(ts.GetTaskByName("sub task")->IsComplete());
+
+  ts.SetTaskComplete(ts.GetTaskIDByName("task"));
+  EXPECT_TRUE(ts.GetTaskByName("task")->IsComplete());
+  EXPECT_TRUE(ts.GetTaskByName("sub task")->IsComplete());
+}

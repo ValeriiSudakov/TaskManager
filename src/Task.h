@@ -15,13 +15,15 @@ class Task {
     NONE
   };
 
-  static Task Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate){
+  static Task          Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate){
     return Task(name, label, priority, dueDate);
   }
 
-  Task(const Task& task);
  public:
   ~Task();
+  Task(const Task& task);
+ public:
+
   const std::string&   GetLabel() const;
   Priority             GetPriority() const;
   const tm&            GetDueDate() const;

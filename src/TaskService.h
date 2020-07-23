@@ -18,7 +18,7 @@ class TaskService {
  public:
   void                        AddTask(const Task& task, const Task::Priority& priority);
   void                        AddSubtask(const std::string& rootTaskID, const Task& subtask,const Task::Priority& priority);
-
+  void                        SetTaskComplete(const std::string& taskID);
   void                        RemoveTask(const std::string& taskID);
 
   std::shared_ptr<TaskEntity> GetTaskByName(const std::string& name) const; //for test

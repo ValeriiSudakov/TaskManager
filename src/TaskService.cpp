@@ -39,9 +39,21 @@ void TaskService::RemoveTask(const std::string& taskID){
   RemoveTaskFromTasks(taskID);      //shared_ptr to task
 }
 
+void TaskService::SetTaskComplete(const std::string& taskID){
+  // find root task
+  auto i = tasks.find(taskID);
+  while (i!=tasks.end()){
+    // find all subtasks of this task
+    if (i->first.find(taskID) != std::string::npos){
+      i->second->SetComplete();
+      ++i;
+    } else break;
+  }
+}
+
 void TaskService::RemoveTaskFromTasks(const std::string& taskID){
   std::vector<std::map<std::string, std::shared_ptr<TaskEntity>>::iterator> toDelete;
-  // find task to delete
+  // find root task to remove
   auto i = tasks.find(taskID);
   while (i!=tasks.end()){
     // find all subtasks of this task
@@ -50,8 +62,8 @@ void TaskService::RemoveTaskFromTasks(const std::string& taskID){
       ++i;
     } else break;
   }
-  for (int i = 0; i < toDelete.size();++i){
-    tasks.erase(toDelete[i]);
+  for (auto & i : toDelete){
+    tasks.erase(i);
   }
 }
 

@@ -24,7 +24,6 @@ class TaskEntity {
   tm                            GetTaskDueDate() const;
 
   void                          SetComplete();
-
  private:
   std::shared_ptr<Task>   task;
   std::string             ID;
@@ -34,8 +33,6 @@ class TaskEntity {
  private:
   TaskEntity(const TaskEntity&);
   void operator=(const TaskEntity&);
-
-
 };
 
 #endif //TASKMANAGER_SRC_TASKENTITY_H_
