@@ -48,3 +48,7 @@ const std::shared_ptr<Task> &TaskEntity::GetTask() const {
   return task;
 }
 
+void TaskEntity::SetTask(const Task &newTask) {
+  task.reset();
+  task = std::make_shared<Task>(newTask);
+}

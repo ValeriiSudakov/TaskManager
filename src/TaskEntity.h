@@ -24,6 +24,7 @@ class TaskEntity {
   tm                            GetTaskDueDate() const;
 
   void                          SetComplete();
+  void                          SetTask(const Task& newTask);
  private:
   std::shared_ptr<Task>   task;
   std::string             ID;

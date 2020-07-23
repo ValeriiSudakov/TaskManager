@@ -80,3 +80,16 @@ TEST_F(TestTaskServiceClass, SetTaskComplete){
   EXPECT_TRUE(ts.GetTaskByName("task")->IsComplete());
   EXPECT_TRUE(ts.GetTaskByName("sub task")->IsComplete());
 }
+
+TEST_F(TestTaskServiceClass, PostponeDate){
+  TaskService ts;
+  tm date = Date::GetCurrentTime();
+  Task task = Task::Create("task", "label", Task::Priority::HIGH, date);
+  ts.AddTask(task, Task::Priority::HIGH);
+
+  date.tm_mday++;
+  ts.PostponeDate(ts.GetTaskIDByName("task"), date);
+
+  tm taskDate = ts.GetTaskByName("task")->GetTaskDueDate();
+  ASSERT_EQ(mktime(&taskDate), mktime(&date));
+}

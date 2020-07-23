@@ -22,7 +22,6 @@ std::shared_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) 
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
   std::string newID = "t" + std::to_string(taskID.CreateID());
   auto newEntityTask = std::make_shared<TaskEntity>(std::make_shared<Task>(task), newID);
-
   tasks.insert(std::make_pair(newID, newEntityTask));
   byPriority.insert(std::make_pair(priority, newEntityTask));
 }
@@ -80,6 +79,13 @@ void TaskService::RemoveTaskFromByPriority(const std::string& taskID){
   for (int i = 0; i < toDelete.size();++i){
     byPriority.erase(toDelete[i]);
   }
+}
+
+
+void TaskService::PostponeDate(const std::string& taskID, const tm& postponeDate){
+  auto taskInfo = tasks[taskID];
+  tasks[taskID]->SetTask(Task::Create(taskInfo->GetTaskName(), taskInfo->GetTaskLabel(),
+                                                taskInfo->GetTaskPriority(), postponeDate));
 }
 
 
