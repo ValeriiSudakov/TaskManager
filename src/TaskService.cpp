@@ -101,12 +101,12 @@ const std::string& TaskService::GetTaskIDByName(const std::string& name) const{
 std::vector<Task> TaskService::GetAllTasks(bool SortedByPrioriry){
   std::vector<Task> returnTasks;
   if (SortedByPrioriry){
-    for (auto const& [key, val] : byPriority) {
-      returnTasks.push_back(*val.lock()->GetTask());
+    for (auto task : byPriority) {
+      returnTasks.push_back(*task.second.lock()->GetTask());
     }
   } else {
-    for (auto const& [key, val] : tasks){
-      returnTasks.push_back(*val->GetTask());
+    for (auto task : tasks){
+      returnTasks.push_back(*task.second->GetTask());
     }
   }
   return returnTasks;
@@ -115,15 +115,15 @@ std::vector<Task> TaskService::GetAllTasks(bool SortedByPrioriry){
 std::vector<Task> TaskService::GetAllTodayTasks(bool SortedByPrioriry){
   std::vector<Task> returnTasks;
   if (SortedByPrioriry){
-    for (auto const& [key, val] : byPriority) {
-      if (Date::IsToday(val.lock()->GetTaskDueDate())){
-        returnTasks.push_back(*val.lock()->GetTask());
+    for (auto task : byPriority) {
+      if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
+        returnTasks.push_back(*task.second.lock()->GetTask());
       }
     }
   } else {
-    for (auto const& [key, val] : tasks){
-      if (Date::IsToday(val->GetTaskDueDate())){
-        returnTasks.push_back(*val->GetTask());
+    for (auto task : tasks){
+      if (Date::IsToday(task.second->GetTaskDueDate())){
+        returnTasks.push_back(*task.second->GetTask());
       }
     }
   }
@@ -133,15 +133,15 @@ std::vector<Task> TaskService::GetAllTodayTasks(bool SortedByPrioriry){
 std::vector<Task> TaskService::GetAllWeekTasks(bool SortedByPrioriry){
   std::vector<Task> returnTasks;
   if (SortedByPrioriry){
-    for (auto const& [key, val] : byPriority) {
-      if (Date::IsThisWeek(val.lock()->GetTaskDueDate())){
-        returnTasks.push_back(*val.lock()->GetTask());
+    for (auto task : byPriority) {
+      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
+        returnTasks.push_back(*task.second.lock()->GetTask());
       }
     }
   } else {
-    for (auto const& [key, val] : tasks){
-      if (Date::IsThisWeek(val->GetTaskDueDate())){
-        returnTasks.push_back(*val->GetTask());
+    for (auto task : tasks){
+      if (Date::IsThisWeek(task.second->GetTaskDueDate())){
+        returnTasks.push_back(*task.second->GetTask());
       }
     }
   }
@@ -151,15 +151,15 @@ std::vector<Task> TaskService::GetAllWeekTasks(bool SortedByPrioriry){
 std::vector<Task> TaskService::GetAllTaskByLabel(std::string label, bool SortedByPrioriry){
   std::vector<Task> returnTasks;
   if (SortedByPrioriry){
-    for (auto const& [key, val] : byPriority) {
-      if (val.lock()->GetTaskLabel() == label){
-        returnTasks.push_back(*val.lock()->GetTask());
+    for (auto task : byPriority) {
+      if (task.second.lock()->GetTaskLabel() == label){
+        returnTasks.push_back(*task.second.lock()->GetTask());
       }
     }
   } else {
-    for (auto const& [key, val] : tasks){
-      if (val->GetTaskLabel() == label){
-        returnTasks.push_back(*val->GetTask());
+    for (auto task : tasks){
+      if (task.second->GetTaskLabel() == label){
+        returnTasks.push_back(*task.second->GetTask());
       }
     }
   }
