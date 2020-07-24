@@ -20,14 +20,13 @@ class TaskService {
   ~TaskService();
 
  public:
-  void                        AddTask(const Task& task, const Task::Priority& priority);
-  void                        AddSubtask(const std::string& rootTaskID, const Task& subtask,const Task::Priority& priority);
-  void                        SetTaskComplete(const std::string& taskID);
-  void                        RemoveTask(const std::string& taskID);
-  void                        PostponeDate(const std::string& taskID, const tm& postponeDate);
+  void                         AddTask(const Task& task, const Task::Priority& priority);
+  void                         AddSubtask(const std::string& rootTaskName, const Task& subtask,const Task::Priority& priority);
+  void                         SetTaskComplete(const std::string& taskName);
+  void                         RemoveTask(const std::string& taskName);
+  void                         PostponeDate(const std::string& taskName, const tm& postponeDate);
 
-  std::shared_ptr<TaskEntity> GetTaskByName(const std::string& name) const; //for test
-  const std::string&          GetTaskIDByName(const std::string& name) const;
+  std::shared_ptr<TaskEntity>  GetTaskByName(const std::string& name) const; //for test
 
   std::vector<Task>            GetAllTasks(bool SortedByPrioriry);
   std::vector<Task>            GetAllTodayTasks(bool SortedByPrioriry);
@@ -35,8 +34,9 @@ class TaskService {
   std::vector<Task>            GetAllTaskByLabel(std::string label, bool SortedByPrioriry);
 
  private:
-  void                        RemoveTaskFromTasks(const std::string& taskID);
-  void                        RemoveTaskFromByPriority(const std::string& taskID);
+  void                         RemoveTaskFromTasks(const std::string& taskName);
+  void                         RemoveTaskFromByPriority(const std::string& taskName);
+  const std::string&           GetTaskIDByName(const std::string& name) const;
 
  private:
   std::map<std::string, std::shared_ptr<TaskEntity>>        tasks;

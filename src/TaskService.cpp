@@ -26,19 +26,23 @@ void TaskService::AddTask(const Task& task, const Task::Priority& priority){
   byPriority.insert(std::make_pair(priority, newEntityTask));
 }
 
-void TaskService::AddSubtask(const std::string& rootTaskID, const Task& subtask,const Task::Priority& priority){
+void TaskService::AddSubtask(const std::string& rootTaskName, const Task& subtask,const Task::Priority& priority){
+  std::string rootTaskID = GetTaskIDByName(rootTaskName);
+
   std::string newID = rootTaskID + "s" + std::to_string(taskID.CreateID());
   auto newEntityTask = std::make_shared<TaskEntity>(std::make_shared<Task>(subtask), newID);
   tasks.insert(std::make_pair(newID, newEntityTask));
   byPriority.insert(std::make_pair(priority, newEntityTask));
 }
 
-void TaskService::RemoveTask(const std::string& taskID){
+void TaskService::RemoveTask(const std::string& taskName){
+  std::string taskID = GetTaskIDByName(taskName);
   RemoveTaskFromByPriority(taskID); //weak_ptr to task
   RemoveTaskFromTasks(taskID);      //shared_ptr to task
 }
 
-void TaskService::SetTaskComplete(const std::string& taskID){
+void TaskService::SetTaskComplete(const std::string& taskName){
+  std::string taskID = GetTaskIDByName(taskName);
   // find root task
   auto i = tasks.find(taskID);
   while (i!=tasks.end()){
@@ -50,7 +54,9 @@ void TaskService::SetTaskComplete(const std::string& taskID){
   }
 }
 
-void TaskService::RemoveTaskFromTasks(const std::string& taskID){
+void TaskService::RemoveTaskFromTasks(const std::string& taskName){
+  std::string taskID = GetTaskIDByName(taskName);
+
   std::vector<std::map<std::string, std::shared_ptr<TaskEntity>>::iterator> toDelete;
   // find root task to remove
   auto i = tasks.find(taskID);
@@ -66,7 +72,9 @@ void TaskService::RemoveTaskFromTasks(const std::string& taskID){
   }
 }
 
-void TaskService::RemoveTaskFromByPriority(const std::string& taskID){
+void TaskService::RemoveTaskFromByPriority(const std::string& taskName){
+  std::string taskID = GetTaskIDByName(taskName);
+
   std::vector<std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>::iterator> toDelete;
   for (auto i = byPriority.begin(); i != byPriority.end(); ++i){
     if (i->second.lock()->GetId().find(taskID) != std::string::npos){
@@ -82,7 +90,9 @@ void TaskService::RemoveTaskFromByPriority(const std::string& taskID){
 }
 
 
-void TaskService::PostponeDate(const std::string& taskID, const tm& postponeDate){
+void TaskService::PostponeDate(const std::string& taskName, const tm& postponeDate){
+  std::string taskID = GetTaskIDByName(taskName);
+
   auto taskInfo = tasks[taskID];
   tasks[taskID]->SetTask(Task::Create(taskInfo->GetTaskName(), taskInfo->GetTaskLabel(),
                                                 taskInfo->GetTaskPriority(), postponeDate));

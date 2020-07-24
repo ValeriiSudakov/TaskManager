@@ -35,7 +35,7 @@ TEST_F(TestTaskServiceClass, CreateSubTask) {
   Task task = Task::Create("task", "label", Task::Priority::HIGH, tm());
   ts.AddTask(task, Task::Priority::HIGH);
     Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, tm());
-    ts.AddSubtask(ts.GetTaskIDByName("task"), subTask, Task::Priority::HIGH);
+    ts.AddSubtask("task", subTask, Task::Priority::HIGH);
     auto subtaskTest = ts.GetTaskByName("sub task");
     ASSERT_NE(subtaskTest, nullptr);
 }
@@ -45,7 +45,7 @@ TEST_F(TestTaskServiceClass, CreateSubTaskWithIncorrectID) {
   Task task = Task::Create("task", "label", Task::Priority::HIGH, tm());
   ts.AddTask(task, Task::Priority::HIGH);
   Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, tm());
-  EXPECT_THROW(ts.AddSubtask(ts.GetTaskIDByName("sub task312321"), subTask,
+  EXPECT_THROW(ts.AddSubtask("sub task312321", subTask,
       Task::Priority::HIGH), std::runtime_error);
 }
 
@@ -54,7 +54,7 @@ TEST_F(TestTaskServiceClass, DontFindSubtaskByName) {
   Task task = Task::Create("task", "label", Task::Priority::HIGH, tm());
   ts.AddTask(task, Task::Priority::HIGH);
   Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, tm());
-  ts.AddSubtask(ts.GetTaskIDByName("task"), subTask, Task::Priority::HIGH);
+  ts.AddSubtask("task", subTask, Task::Priority::HIGH);
   EXPECT_THROW(ts.GetTaskByName("sub task213"), std::runtime_error);
 }
 
@@ -62,8 +62,8 @@ TEST_F(TestTaskServiceClass, RemoveTask){
   TaskService ts;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
   ts.AddTask(task, Task::Priority::HIGH);
-  ts.RemoveTask(ts.GetTaskIDByName("task"));
-  EXPECT_THROW(ts.GetTaskIDByName("task"),std::runtime_error);
+  ts.RemoveTask("task");
+  EXPECT_THROW(ts.GetTaskByName("task"),std::runtime_error);
 }
 
 TEST_F(TestTaskServiceClass, SetTaskComplete){
@@ -73,10 +73,10 @@ TEST_F(TestTaskServiceClass, SetTaskComplete){
   EXPECT_FALSE(ts.GetTaskByName("task")->IsComplete());
 
   Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, tm());
-  ts.AddSubtask(ts.GetTaskIDByName("task"), subTask, Task::Priority::HIGH);
+  ts.AddSubtask("task", subTask, Task::Priority::HIGH);
   EXPECT_FALSE(ts.GetTaskByName("sub task")->IsComplete());
 
-  ts.SetTaskComplete(ts.GetTaskIDByName("task"));
+  ts.SetTaskComplete("task");
   EXPECT_TRUE(ts.GetTaskByName("task")->IsComplete());
   EXPECT_TRUE(ts.GetTaskByName("sub task")->IsComplete());
 }
@@ -88,7 +88,7 @@ TEST_F(TestTaskServiceClass, PostponeDate){
   ts.AddTask(task, Task::Priority::HIGH);
 
   date.tm_mday++;
-  ts.PostponeDate(ts.GetTaskIDByName("task"), date);
+  ts.PostponeDate("task", date);
 
   tm taskDate = ts.GetTaskByName("task")->GetTaskDueDate();
   ASSERT_EQ(mktime(&taskDate), mktime(&date));
