@@ -1,7 +1,7 @@
 //
 // Created by R2D2 on 16.07.2020.
 //
-
+#define _CRT_SECURE_NO_WARNINGS
 #include "Date.h"
 
 tm Date::GetCurrentTime() {
