@@ -31,7 +31,7 @@ tm Date::CreateDate(int date, int month, int year, int weekDay){
   return dueDate;
 }
 
-bool Date::IsToday(tm date){
+bool Date::IsToday(const tm& date){
   tm currentDate = GetCurrentTime();
 
   return date.tm_mon == currentDate.tm_mon &&
@@ -56,4 +56,13 @@ bool Date::IsThisWeek(tm date) {
   }
   return mktime(&currentDate) <= mktime(&date) &&
         mktime(&date) <= mktime(&endOfWeek);
+}
+
+void Date::PrintDate(const tm& date){
+  std::cout << "Year:"  << 1900 + date.tm_year << std::endl;
+  std::cout << "Month: "<< 1 + date.tm_mon<< std::endl;
+  std::cout << "Day: "  <<  date.tm_mday << std::endl;
+  std::cout << "Time: " << 1 + date.tm_hour << ":"
+            << 1 + date.tm_min << ":"
+            << 1 + date.tm_sec << std::endl;
 }

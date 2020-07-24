@@ -14,6 +14,7 @@
 class TaskService {
  public:
   TaskOutput taskOutput;
+
  public:
   TaskService();
   ~TaskService();
@@ -36,8 +37,8 @@ class TaskService {
  private:
   void                        RemoveTaskFromTasks(const std::string& taskID);
   void                        RemoveTaskFromByPriority(const std::string& taskID);
- private:
 
+ private:
   std::map<std::string, std::shared_ptr<TaskEntity>>        tasks;
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority;
   TaskID                                                    taskID;

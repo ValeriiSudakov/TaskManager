@@ -16,7 +16,6 @@ class TaskOutput {
   void Print(const std::vector<Task>& tasks) const;
  private:
   const std::string   GetTaskPriorityStr(const Task::Priority& priority) const;
-  void                PrintTaskDueDateStr(const tm& date) const;
 
 };
 
