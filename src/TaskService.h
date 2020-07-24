@@ -7,10 +7,13 @@
 #include "TaskID.h"
 #include "TaskEntity.h"
 #include "Date.h"
+#include "TaskOutput.h"
 
 #include <map>
 
 class TaskService {
+ public:
+  TaskOutput taskOutput;
  public:
   TaskService();
   ~TaskService();
@@ -25,10 +28,10 @@ class TaskService {
   std::shared_ptr<TaskEntity> GetTaskByName(const std::string& name) const; //for test
   const std::string&          GetTaskIDByName(const std::string& name) const;
 
-  void                        ShowAllTasks(bool SortedByPrioriry);
-  void                        ShowAllTodayTasks(bool SortedByPrioriry);
-  void                        ShowAllWeekTasks(bool SortedByPrioriry);
-  void                        ShowAllTaskByLabel(std::string label, bool SortedByPrioriry);
+  std::vector<Task>            GetAllTasks(bool SortedByPrioriry);
+  std::vector<Task>            GetAllTodayTasks(bool SortedByPrioriry);
+  std::vector<Task>            GetAllWeekTasks(bool SortedByPrioriry);
+  std::vector<Task>            GetAllTaskByLabel(std::string label, bool SortedByPrioriry);
 
  private:
   void                        RemoveTaskFromTasks(const std::string& taskID);

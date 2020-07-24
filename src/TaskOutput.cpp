@@ -7,12 +7,14 @@
 TaskOutput::TaskOutput() {};
 TaskOutput::~TaskOutput() = default;
 
-void TaskOutput::Print(const Task& task) const{
-  std::cout<<"Task name: "<<task.GetName()<<std::endl;
-  std::cout<<"Task label: "<<task.GetLabel()<<std::endl;
-  std::cout<<"Task priority: "<<GetTaskPriorityStr(task.GetPriority())<<std::endl;
-  std::cout<<"Task due date: ";
-  PrintTaskDueDateStr(task.GetDueDate());
+void TaskOutput::Print(const std::vector<Task>& tasks) const{
+  for (auto task : tasks){
+    std::cout<<"Task name: "<<task.GetName()<<std::endl;
+    std::cout<<"Task label: "<<task.GetLabel()<<std::endl;
+    std::cout<<"Task priority: "<<GetTaskPriorityStr(task.GetPriority())<<std::endl;
+    std::cout<<"Task due date: ";
+    PrintTaskDueDateStr(task.GetDueDate());
+  }
 }
 
 const std::string TaskOutput::GetTaskPriorityStr(const Task::Priority& priority) const{

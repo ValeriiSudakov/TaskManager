@@ -98,68 +98,70 @@ const std::string& TaskService::GetTaskIDByName(const std::string& name) const{
   throw std::runtime_error{"Task not found"};
 }
 
-
-void TaskService::ShowAllTasks(bool SortedByPrioriry){
-  TaskOutput to;
+std::vector<Task> TaskService::GetAllTasks(bool SortedByPrioriry){
+  std::vector<Task> returnTasks;
   if (SortedByPrioriry){
     for (auto const& [key, val] : byPriority) {
-      to.Print(*val.lock()->GetTask());
+      returnTasks.push_back(*val.lock()->GetTask());
     }
   } else {
     for (auto const& [key, val] : tasks){
-      to.Print(*val->GetTask());
+      returnTasks.push_back(*val->GetTask());
     }
   }
-
+  return returnTasks;
 }
 
-void TaskService::ShowAllTodayTasks(bool SortedByPrioriry){
-  TaskOutput to;
+std::vector<Task> TaskService::GetAllTodayTasks(bool SortedByPrioriry){
+  std::vector<Task> returnTasks;
   if (SortedByPrioriry){
     for (auto const& [key, val] : byPriority) {
       if (Date::IsToday(val.lock()->GetTaskDueDate())){
-        to.Print(*val.lock()->GetTask());
+        returnTasks.push_back(*val.lock()->GetTask());
       }
     }
   } else {
     for (auto const& [key, val] : tasks){
       if (Date::IsToday(val->GetTaskDueDate())){
-        to.Print(*val->GetTask());
+        returnTasks.push_back(*val->GetTask());
       }
     }
   }
+  return returnTasks;
 }
 
-void TaskService::ShowAllWeekTasks(bool SortedByPrioriry){
-  TaskOutput to;
+std::vector<Task> TaskService::GetAllWeekTasks(bool SortedByPrioriry){
+  std::vector<Task> returnTasks;
   if (SortedByPrioriry){
     for (auto const& [key, val] : byPriority) {
       if (Date::IsThisWeek(val.lock()->GetTaskDueDate())){
-        to.Print(*val.lock()->GetTask());
+        returnTasks.push_back(*val.lock()->GetTask());
       }
     }
   } else {
     for (auto const& [key, val] : tasks){
       if (Date::IsThisWeek(val->GetTaskDueDate())){
-        to.Print(*val->GetTask());
+        returnTasks.push_back(*val->GetTask());
       }
     }
   }
+  return returnTasks;
 }
 
-void TaskService::ShowAllTaskByLabel(std::string label, bool SortedByPrioriry){
-  TaskOutput to;
+std::vector<Task> TaskService::GetAllTaskByLabel(std::string label, bool SortedByPrioriry){
+  std::vector<Task> returnTasks;
   if (SortedByPrioriry){
     for (auto const& [key, val] : byPriority) {
       if (val.lock()->GetTaskLabel() == label){
-        to.Print(*val.lock()->GetTask());
+        returnTasks.push_back(*val.lock()->GetTask());
       }
     }
   } else {
     for (auto const& [key, val] : tasks){
       if (val->GetTaskLabel() == label){
-        to.Print(*val->GetTask());
+        returnTasks.push_back(*val->GetTask());
       }
     }
   }
+  return returnTasks;
 }
