@@ -28,7 +28,6 @@ int main() {
   Task subTask3 = Task::Create("sub task3", "label", Task::Priority::HIGH, date);
   ts.AddSubtask("sub task", subTask3, Task::Priority::HIGH);
 
-
   //ts.taskOutput.Print(ts.GetAllTasks(false));
   std::cout<<"______________________\n";
   try {

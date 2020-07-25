@@ -54,8 +54,7 @@ void TaskService::SetTaskComplete(const std::string& taskName){
   }
 }
 
-void TaskService::RemoveTaskFromTasks(const std::string& taskName){
-  std::string taskID = GetTaskIDByName(taskName);
+void TaskService::RemoveTaskFromTasks(const std::string& taskID){
 
   std::vector<std::map<std::string, std::shared_ptr<TaskEntity>>::iterator> toDelete;
   // find root task to remove
@@ -72,8 +71,7 @@ void TaskService::RemoveTaskFromTasks(const std::string& taskName){
   }
 }
 
-void TaskService::RemoveTaskFromByPriority(const std::string& taskName){
-  std::string taskID = GetTaskIDByName(taskName);
+void TaskService::RemoveTaskFromByPriority(const std::string& taskID){
 
   std::vector<std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>::iterator> toDelete;
   for (auto i = byPriority.begin(); i != byPriority.end(); ++i){

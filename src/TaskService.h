@@ -34,8 +34,8 @@ class TaskService {
   std::vector<Task>            GetAllTaskByLabel(std::string label, bool SortedByPrioriry);
 
  private:
-  void                         RemoveTaskFromTasks(const std::string& taskName);
-  void                         RemoveTaskFromByPriority(const std::string& taskName);
+  void                         RemoveTaskFromTasks(const std::string& taskID);
+  void                         RemoveTaskFromByPriority(const std::string& taskID);
   const std::string&           GetTaskIDByName(const std::string& name) const;
 
  private:

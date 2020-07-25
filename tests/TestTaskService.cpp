@@ -62,6 +62,9 @@ TEST_F(TestTaskServiceClass, RemoveTask){
   TaskService ts;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
   ts.AddTask(task, Task::Priority::HIGH);
+  tm tm1 = Date::GetCurrentTime();
+  tm1.tm_mday++;
+  ts.PostponeDate("task", tm1);
   ts.RemoveTask("task");
   EXPECT_THROW(ts.GetTaskByName("task"),std::runtime_error);
 }
