@@ -124,8 +124,8 @@ std::vector<Task> TaskService::GetAllTasks(bool SortedByPrioriry){
       returnTasks.push_back(*task.second.lock()->GetTask());
     }
   } else {
-    for (auto task : tasks){
-      returnTasks.push_back(*task.second->GetTask());
+    for (auto task : byDate){
+      returnTasks.push_back(*task.second.lock()->GetTask());
     }
   }
   return returnTasks;
@@ -140,9 +140,9 @@ std::vector<Task> TaskService::GetAllTodayTasks(bool SortedByPrioriry){
       }
     }
   } else {
-    for (auto task : tasks){
-      if (Date::IsToday(task.second->GetTaskDueDate())){
-        returnTasks.push_back(*task.second->GetTask());
+    for (auto task : byDate){
+      if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
+        returnTasks.push_back(*task.second.lock()->GetTask());
       }
     }
   }
@@ -158,9 +158,9 @@ std::vector<Task> TaskService::GetAllWeekTasks(bool SortedByPrioriry){
       }
     }
   } else {
-    for (auto task : tasks){
-      if (Date::IsThisWeek(task.second->GetTaskDueDate())){
-        returnTasks.push_back(*task.second->GetTask());
+    for (auto task : byDate){
+      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
+        returnTasks.push_back(*task.second.lock()->GetTask());
       }
     }
   }
@@ -176,9 +176,27 @@ std::vector<Task> TaskService::GetAllTaskByLabel(std::string label, bool SortedB
       }
     }
   } else {
-    for (auto task : tasks){
-      if (task.second->GetTaskLabel() == label){
-        returnTasks.push_back(*task.second->GetTask());
+    for (auto task : byLabel){
+      if (task.second.lock()->GetTaskLabel() == label){
+        returnTasks.push_back(*task.second.lock()->GetTask());
+      }
+    }
+  }
+  return returnTasks;
+}
+
+std::vector<Task> TaskService::GetAllTaskByName(std::string name, bool SortedByPrioriry){
+  std::vector<Task> returnTasks;
+  if (SortedByPrioriry){
+    for (auto task : byPriority) {
+      if (task.second.lock()->GetTaskLabel() == name){
+        returnTasks.push_back(*task.second.lock()->GetTask());
+      }
+    }
+  } else {
+    for (auto task : byName){
+      if (task.second.lock()->GetTaskLabel() == name){
+        returnTasks.push_back(*task.second.lock()->GetTask());
       }
     }
   }

@@ -32,6 +32,7 @@ class TaskService {
   std::vector<Task>            GetAllTodayTasks(bool SortedByPrioriry);
   std::vector<Task>            GetAllWeekTasks(bool SortedByPrioriry);
   std::vector<Task>            GetAllTaskByLabel(std::string label, bool SortedByPrioriry);
+  std::vector<Task>            GetAllTaskByName(std::string name, bool SortedByPrioriry);
 
  private:
 
@@ -45,8 +46,8 @@ class TaskService {
 
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority;
   std::map<std::string, std::weak_ptr<TaskEntity>>          byName;
-  std::map<std::string, std::weak_ptr<TaskEntity>>          byLabel;
-  std::map<time_t, std::weak_ptr<TaskEntity>>               byDate;
+  std::multimap<std::string, std::weak_ptr<TaskEntity>>     byLabel;
+  std::multimap<time_t, std::weak_ptr<TaskEntity>>          byDate;
 
   TaskID                                                    taskID;
 };
