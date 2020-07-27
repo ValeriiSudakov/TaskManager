@@ -24,10 +24,10 @@ class Task {
  public:
 
   // убрать конст ссылка
-  const std::string&   GetLabel() const;
+  std::string    GetLabel() const;
   Priority             GetPriority() const;
-  const tm&            GetDueDate() const;
-  const std::string&   GetName() const;
+  tm             GetDueDate() const;
+  std::string    GetName() const;
  private:
   std::string   name;
   std::string   label;

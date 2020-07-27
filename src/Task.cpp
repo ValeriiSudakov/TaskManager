@@ -15,16 +15,16 @@ Task Task::Create(const std::string &name, const std::string &label, Priority pr
   return Task(name, label, priority, dueDate);
 }
 
-const std::string &Task::GetName() const {
+std::string Task::GetName() const {
   return name;
 }
-const std::string &Task::GetLabel() const {
+std::string Task::GetLabel() const {
   return label;
 }
 Task::Priority Task::GetPriority() const {
   return priority;
 }
 
-const tm &Task::GetDueDate() const {
+tm Task::GetDueDate() const {
   return dueDate;
 }

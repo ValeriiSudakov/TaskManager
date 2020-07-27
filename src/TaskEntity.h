@@ -27,7 +27,6 @@ class TaskEntity {
   void                          SetComplete();
   void                          SetTask(const Task& newTask);
  private:
-  // на просто таск
   Task                    task;
   // изменить id
   // найти таск id по имени - через вьюхи
