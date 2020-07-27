@@ -22,8 +22,14 @@ std::shared_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) 
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
   std::string newID = "t" + std::to_string(taskID.CreateID());
   auto newEntityTask = std::make_shared<TaskEntity>(std::make_shared<Task>(task), newID);
+
   tasks.insert(std::make_pair(newID, newEntityTask));
   byPriority.insert(std::make_pair(priority, newEntityTask));
+  byLabel.insert(std::make_pair(task.GetLabel(), newEntityTask));
+  byName.insert(std::make_pair(task.GetName(), newEntityTask));
+  tm taskDate = task.GetDueDate();
+  time_t date = mktime(&taskDate);
+  byDate.insert(std::make_pair(date, newEntityTask));
 }
 
 void TaskService::AddSubtask(const std::string& rootTaskName, const Task& subtask,const Task::Priority& priority){
@@ -33,6 +39,11 @@ void TaskService::AddSubtask(const std::string& rootTaskName, const Task& subtas
   auto newEntityTask = std::make_shared<TaskEntity>(std::make_shared<Task>(subtask), newID);
   tasks.insert(std::make_pair(newID, newEntityTask));
   byPriority.insert(std::make_pair(priority, newEntityTask));
+  byName.insert(std::make_pair(subtask.GetName(), newEntityTask));
+  byLabel.insert(std::make_pair(subtask.GetLabel(), newEntityTask));
+  tm taskDate = subtask.GetDueDate();
+  time_t date = mktime(&taskDate);
+  byDate.insert(std::make_pair(date, newEntityTask));
 }
 
 void TaskService::RemoveTask(const std::string& taskName){

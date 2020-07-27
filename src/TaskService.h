@@ -34,13 +34,20 @@ class TaskService {
   std::vector<Task>            GetAllTaskByLabel(std::string label, bool SortedByPrioriry);
 
  private:
+
   void                         RemoveTaskFromTasks(const std::string& taskID);
   void                         RemoveTaskFromByPriority(const std::string& taskID);
+
   const std::string&           GetTaskIDByName(const std::string& name) const;
 
  private:
   std::map<std::string, std::shared_ptr<TaskEntity>>        tasks;
+
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority;
+  std::map<std::string, std::weak_ptr<TaskEntity>>          byName;
+  std::map<std::string, std::weak_ptr<TaskEntity>>          byLabel;
+  std::map<time_t, std::weak_ptr<TaskEntity>>               byDate;
+
   TaskID                                                    taskID;
 };
 
