@@ -20,19 +20,21 @@ class TaskService {
   ~TaskService();
 
  public:
-  void                         AddTask(const Task& task, const Task::Priority& priority);
-  void                         AddSubtask(const std::string& rootTaskName, const Task& subtask,const Task::Priority& priority);
-  void                         SetTaskComplete(const std::string& taskName);
-  void                         RemoveTask(const std::string& taskName);
-  void                         PostponeDate(const std::string& taskName, const tm& postponeDate);
+  void                  AddTask(const Task& task, const Task::Priority& priority);
+  void                  AddSubtask(const std::string& rootTaskName, const Task& subtask,const Task::Priority& priority);
+  void                  SetTaskComplete(const std::string& taskName);
+  void                  RemoveTask(const std::string& taskName);
+  void                  PostponeDate(const std::string& taskName, const tm& postponeDate);
 
-  std::weak_ptr<TaskEntity>  GetTaskByName(const std::string& name) const; //for test
+  // поменять на Task (не птр)
+  std::shared_ptr<TaskEntity>     GetTaskByName(const std::string& name) const; //for test
 
-  std::vector<Task>            GetAllTasks(bool SortedByPrioriry);
-  std::vector<Task>            GetAllTodayTasks(bool SortedByPrioriry);
-  std::vector<Task>            GetAllWeekTasks(bool SortedByPrioriry);
-  std::vector<Task>            GetAllTaskByLabel(std::string label, bool SortedByPrioriry);
-  std::vector<Task>            GetAllTaskByName(std::string name, bool SortedByPrioriry);
+  // поменять на taskDTO
+  std::vector<Task>                    GetAllTasks(bool SortedByPrioriry);
+  std::vector<Task>                    GetAllTodayTasks(bool SortedByPrioriry);
+  std::vector<Task>                    GetAllWeekTasks(bool SortedByPrioriry);
+  std::vector<Task>                    GetAllTaskByLabel(const std::string& label, bool SortedByPrioriry);
+  std::vector<Task>                    GetAllTaskByName(const std::string& name, bool SortedByPrioriry);
 
  private:
 
@@ -44,6 +46,9 @@ class TaskService {
  private:
   std::map<std::string, std::shared_ptr<TaskEntity>>        tasks;
 
+  // сделать класс-вьюху для всех сортировок для хранения всех этих мапов ↓
+  // при добавлении нового таска засовываем его в tasks и передаем во вьюху
+  // для распихивания по мапам
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority;
   std::map<std::string, std::weak_ptr<TaskEntity>>          byName;
   std::multimap<std::string, std::weak_ptr<TaskEntity>>     byLabel;

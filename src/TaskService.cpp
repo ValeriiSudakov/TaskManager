@@ -10,7 +10,7 @@
 TaskService::TaskService() : taskID(){}
 TaskService::~TaskService() = default;
 
-std::weak_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) const {
+std::shared_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) const {
     for (const auto& taskInfo : tasks){
       if (taskInfo.second->GetTaskName() == name){
         return taskInfo.second;
@@ -21,7 +21,7 @@ std::weak_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) co
 
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
   std::string newID = "t" + std::to_string(taskID.CreateID());
-  auto newEntityTask = std::make_shared<TaskEntity>(std::make_shared<Task>(task), newID);
+  auto newEntityTask = std::make_shared<TaskEntity>(task, newID);
 
   tasks.insert(std::make_pair(newID, newEntityTask));
   byPriority.insert(std::make_pair(priority, newEntityTask));
@@ -36,7 +36,7 @@ void TaskService::AddSubtask(const std::string& rootTaskName, const Task& subtas
   std::string rootTaskID = GetTaskIDByName(rootTaskName);
 
   std::string newID = rootTaskID + "s" + std::to_string(taskID.CreateID());
-  auto newEntityTask = std::make_shared<TaskEntity>(std::make_shared<Task>(subtask), newID);
+  auto newEntityTask = std::make_shared<TaskEntity>(subtask, newID);
   tasks.insert(std::make_pair(newID, newEntityTask));
   byPriority.insert(std::make_pair(priority, newEntityTask));
   byName.insert(std::make_pair(subtask.GetName(), newEntityTask));
@@ -121,11 +121,11 @@ std::vector<Task> TaskService::GetAllTasks(bool SortedByPrioriry){
   std::vector<Task> returnTasks;
   if (SortedByPrioriry){
     for (auto task : byPriority) {
-      returnTasks.push_back(*task.second.lock()->GetTask());
+      returnTasks.push_back(task.second.lock()->GetTask());
     }
   } else {
     for (auto task : byDate){
-      returnTasks.push_back(*task.second.lock()->GetTask());
+      returnTasks.push_back(task.second.lock()->GetTask());
     }
   }
   return returnTasks;
@@ -136,13 +136,13 @@ std::vector<Task> TaskService::GetAllTodayTasks(bool SortedByPrioriry){
   if (SortedByPrioriry){
     for (auto task : byPriority) {
       if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   } else {
     for (auto task : byDate){
       if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   }
@@ -154,49 +154,49 @@ std::vector<Task> TaskService::GetAllWeekTasks(bool SortedByPrioriry){
   if (SortedByPrioriry){
     for (auto task : byPriority) {
       if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   } else {
     for (auto task : byDate){
       if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   }
   return returnTasks;
 }
 
-std::vector<Task> TaskService::GetAllTaskByLabel(std::string label, bool SortedByPrioriry){
+std::vector<Task> TaskService::GetAllTaskByLabel(const std::string& label, bool SortedByPrioriry){
   std::vector<Task> returnTasks;
   if (SortedByPrioriry){
     for (auto task : byPriority) {
       if (task.second.lock()->GetTaskLabel() == label){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   } else {
     for (auto task : byLabel){
       if (task.second.lock()->GetTaskLabel() == label){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   }
   return returnTasks;
 }
 
-std::vector<Task> TaskService::GetAllTaskByName(std::string name, bool SortedByPrioriry){
+std::vector<Task> TaskService::GetAllTaskByName(const std::string& name, bool SortedByPrioriry){
   std::vector<Task> returnTasks;
   if (SortedByPrioriry){
     for (auto task : byPriority) {
       if (task.second.lock()->GetTaskLabel() == name){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   } else {
     for (auto task : byName){
       if (task.second.lock()->GetTaskLabel() == name){
-        returnTasks.push_back(*task.second.lock()->GetTask());
+        returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   }

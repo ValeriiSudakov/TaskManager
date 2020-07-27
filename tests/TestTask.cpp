@@ -20,8 +20,7 @@ TEST_F(TestTaskEntityClass, testCreate){
   tm date = Date::CreateDate(11, 10, 2020, 3);
 
   Task task = Task::Create("task name", "label", Task::Priority::HIGH, date);
-  auto taskPtr = std::make_shared<Task>(task);
-  TaskEntity task_entity(taskPtr, "t1");
+  TaskEntity task_entity(task, "t1");
 
   ASSERT_EQ(task_entity.GetTaskName(), "task name");
   ASSERT_EQ(task_entity.GetTaskLabel(),"label");

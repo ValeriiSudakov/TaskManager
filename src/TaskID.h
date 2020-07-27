@@ -5,6 +5,9 @@
 #ifndef TASKMANAGER_SRC_TASKID_H_
 #define TASKMANAGER_SRC_TASKID_H_
 
+
+// таск гениратор
+// подумать, как сделать это в мой стринг id
 class TaskID {
  public:
   TaskID();

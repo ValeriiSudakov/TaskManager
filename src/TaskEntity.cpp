@@ -5,14 +5,10 @@
 #include "TaskEntity.h"
 #include <exception>
 
-TaskEntity::TaskEntity(const std::shared_ptr<Task> &task, std::string id)
+TaskEntity::TaskEntity(const Task& task, std::string id)
     : task(task), ID(id), complete(false) {}
 
 TaskEntity::~TaskEntity() = default;
-
-TaskEntity::TaskEntity(const TaskEntity&){ }
-
-void TaskEntity::operator=(const TaskEntity&){ }
 
 
 const std::string TaskEntity::GetId() const {
@@ -28,27 +24,26 @@ void TaskEntity::SetComplete() {
 }
 
 const std::string TaskEntity::GetTaskLabel() const{
-  return task->GetLabel();
+  return task.GetLabel();
 }
 
 
 const Task::Priority TaskEntity::GetTaskPriority() const {
-  return task->GetPriority();
+  return task.GetPriority();
 }
 
 tm TaskEntity::GetTaskDueDate() const{
-  return task->GetDueDate();
+  return task.GetDueDate();
 }
 
 const std::string TaskEntity::GetTaskName() const{
-  return task->GetName();
+  return task.GetName();
 }
 
-const std::shared_ptr<Task> &TaskEntity::GetTask() const {
+const Task TaskEntity::GetTask() const {
   return task;
 }
 
 void TaskEntity::SetTask(const Task &newTask) {
-  task.reset();
-  task = std::make_shared<Task>(newTask);
+  task = newTask;
 }

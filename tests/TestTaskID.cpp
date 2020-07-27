@@ -14,5 +14,5 @@ TEST_F(TestTaskIDClass, shouldIncrement){
   TaskID taskID;
   unsigned int first = taskID.CreateID();
   unsigned int second = taskID.CreateID();
-  ASSERT_LE(first, second);
+  ASSERT_EQ(first+1, second);
 }

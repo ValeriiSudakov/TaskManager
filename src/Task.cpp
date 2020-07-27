@@ -11,6 +11,10 @@ Task::Task(const Task& task)
 
 Task::~Task() = default;
 
+Task Task::Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate){
+  return Task(name, label, priority, dueDate);
+}
+
 const std::string &Task::GetName() const {
   return name;
 }

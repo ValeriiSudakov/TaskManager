@@ -10,7 +10,8 @@
 
 class TaskEntity {
  public:
-  TaskEntity(const std::shared_ptr<Task> &task,std::string id);
+  TaskEntity(const Task& task,std::string id);
+  TaskEntity(const TaskEntity&) = delete;
   ~TaskEntity();
 
  public:
@@ -20,19 +21,18 @@ class TaskEntity {
   const std::string             GetTaskLabel() const;
   const Task::Priority          GetTaskPriority() const;
   const std::string             GetTaskName() const;
-  const std::shared_ptr<Task>&  GetTask() const;
+  const Task                    GetTask() const;
   tm                            GetTaskDueDate() const;
 
   void                          SetComplete();
   void                          SetTask(const Task& newTask);
  private:
-  std::shared_ptr<Task>   task;
+  // на просто таск
+  Task                    task;
+  // изменить id
+  // найти таск id по имени - через вьюхи
   std::string             ID;
   bool                    complete;
-
- private:
-  TaskEntity(const TaskEntity&);
-  void operator=(const TaskEntity&);
 };
 
 #endif //TASKMANAGER_SRC_TASKENTITY_H_
