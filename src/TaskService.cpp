@@ -10,7 +10,7 @@
 TaskService::TaskService() : taskID(){}
 TaskService::~TaskService() = default;
 
-std::shared_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) const {
+std::weak_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) const {
     for (const auto& taskInfo : tasks){
       if (taskInfo.second->GetTaskName() == name){
         return taskInfo.second;

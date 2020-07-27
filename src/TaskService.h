@@ -26,7 +26,7 @@ class TaskService {
   void                         RemoveTask(const std::string& taskName);
   void                         PostponeDate(const std::string& taskName, const tm& postponeDate);
 
-  std::shared_ptr<TaskEntity>  GetTaskByName(const std::string& name) const; //for test
+  std::weak_ptr<TaskEntity>  GetTaskByName(const std::string& name) const; //for test
 
   std::vector<Task>            GetAllTasks(bool SortedByPrioriry);
   std::vector<Task>            GetAllTodayTasks(bool SortedByPrioriry);

@@ -73,15 +73,15 @@ TEST_F(TestTaskServiceClass, SetTaskComplete){
   TaskService ts;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
   ts.AddTask(task, Task::Priority::HIGH);
-  EXPECT_FALSE(ts.GetTaskByName("task")->IsComplete());
+  EXPECT_FALSE(ts.GetTaskByName("task").lock()->IsComplete());
 
   Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, tm());
   ts.AddSubtask("task", subTask, Task::Priority::HIGH);
-  EXPECT_FALSE(ts.GetTaskByName("sub task")->IsComplete());
+  EXPECT_FALSE(ts.GetTaskByName("sub task").lock()->IsComplete());
 
   ts.SetTaskComplete("task");
-  EXPECT_TRUE(ts.GetTaskByName("task")->IsComplete());
-  EXPECT_TRUE(ts.GetTaskByName("sub task")->IsComplete());
+  EXPECT_TRUE(ts.GetTaskByName("task").lock()->IsComplete());
+  EXPECT_TRUE(ts.GetTaskByName("sub task").lock()->IsComplete());
 }
 
 TEST_F(TestTaskServiceClass, PostponeDate){
@@ -93,6 +93,6 @@ TEST_F(TestTaskServiceClass, PostponeDate){
   date.tm_mday++;
   ts.PostponeDate("task", date);
 
-  tm taskDate = ts.GetTaskByName("task")->GetTaskDueDate();
+  tm taskDate = ts.GetTaskByName("task").lock()->GetTaskDueDate();
   ASSERT_EQ(mktime(&taskDate), mktime(&date));
 }
