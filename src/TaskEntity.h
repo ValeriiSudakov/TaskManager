@@ -28,8 +28,6 @@ class TaskEntity {
   void                          SetTask(const Task& newTask);
  private:
   Task                    task;
-  // изменить id
-  // найти таск id по имени - через вьюхи
   std::string             ID;
   bool                    complete;
 };

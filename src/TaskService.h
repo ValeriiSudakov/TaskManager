@@ -8,7 +8,7 @@
 #include "TaskEntity.h"
 #include "Date.h"
 #include "TaskOutput.h"
-
+#include "TaskView.h"
 #include <map>
 
 class TaskService {
@@ -26,34 +26,16 @@ class TaskService {
   void                  RemoveTask(const std::string& taskName);
   void                  PostponeDate(const std::string& taskName, const tm& postponeDate);
 
-  // поменять на Task (не птр)
   std::shared_ptr<TaskEntity>     GetTaskByName(const std::string& name) const; //for test
 
-  // поменять на taskDTO
-  std::vector<Task>                    GetAllTasks(bool SortedByPrioriry);
-  std::vector<Task>                    GetAllTodayTasks(bool SortedByPrioriry);
-  std::vector<Task>                    GetAllWeekTasks(bool SortedByPrioriry);
-  std::vector<Task>                    GetAllTaskByLabel(const std::string& label, bool SortedByPrioriry);
-  std::vector<Task>                    GetAllTaskByName(const std::string& name, bool SortedByPrioriry);
-
  private:
-
   void                         RemoveTaskFromTasks(const std::string& taskID);
-  void                         RemoveTaskFromByPriority(const std::string& taskID);
 
   const std::string&           GetTaskIDByName(const std::string& name) const;
 
  private:
   std::map<std::string, std::shared_ptr<TaskEntity>>        tasks;
-
-  // сделать класс-вьюху для всех сортировок для хранения всех этих мапов ↓
-  // при добавлении нового таска засовываем его в tasks и передаем во вьюху
-  // для распихивания по мапам
-  std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority;
-  std::map<std::string, std::weak_ptr<TaskEntity>>          byName;
-  std::multimap<std::string, std::weak_ptr<TaskEntity>>     byLabel;
-  std::multimap<time_t, std::weak_ptr<TaskEntity>>          byDate;
-
+  TaskView                                                  taskView;
   TaskID                                                    taskID;
 };
 

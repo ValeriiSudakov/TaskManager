@@ -24,12 +24,8 @@ void TaskService::AddTask(const Task& task, const Task::Priority& priority){
   auto newEntityTask = std::make_shared<TaskEntity>(task, newID);
 
   tasks.insert(std::make_pair(newID, newEntityTask));
-  byPriority.insert(std::make_pair(priority, newEntityTask));
-  byLabel.insert(std::make_pair(task.GetLabel(), newEntityTask));
-  byName.insert(std::make_pair(task.GetName(), newEntityTask));
-  tm taskDate = task.GetDueDate();
-  time_t date = mktime(&taskDate);
-  byDate.insert(std::make_pair(date, newEntityTask));
+
+  taskView.AddTask(newEntityTask);
 }
 
 void TaskService::AddSubtask(const std::string& rootTaskName, const Task& subtask,const Task::Priority& priority){
@@ -38,18 +34,14 @@ void TaskService::AddSubtask(const std::string& rootTaskName, const Task& subtas
   std::string newID = rootTaskID + "s" + std::to_string(taskID.CreateID());
   auto newEntityTask = std::make_shared<TaskEntity>(subtask, newID);
   tasks.insert(std::make_pair(newID, newEntityTask));
-  byPriority.insert(std::make_pair(priority, newEntityTask));
-  byName.insert(std::make_pair(subtask.GetName(), newEntityTask));
-  byLabel.insert(std::make_pair(subtask.GetLabel(), newEntityTask));
-  tm taskDate = subtask.GetDueDate();
-  time_t date = mktime(&taskDate);
-  byDate.insert(std::make_pair(date, newEntityTask));
+
+  taskView.AddTask(newEntityTask);
 }
 
 void TaskService::RemoveTask(const std::string& taskName){
   std::string taskID = GetTaskIDByName(taskName);
-  RemoveTaskFromByPriority(taskID); //weak_ptr to task
   RemoveTaskFromTasks(taskID);      //shared_ptr to task
+  taskView.RemoveTask(taskID);
 }
 
 void TaskService::SetTaskComplete(const std::string& taskName){
@@ -82,23 +74,6 @@ void TaskService::RemoveTaskFromTasks(const std::string& taskID){
   }
 }
 
-void TaskService::RemoveTaskFromByPriority(const std::string& taskID){
-
-  std::vector<std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>::iterator> toDelete;
-  for (auto i = byPriority.begin(); i != byPriority.end(); ++i){
-    if (i->second.lock()->GetId().find(taskID) != std::string::npos){
-      toDelete.push_back(i);
-    }
-  }
-  if (toDelete.empty()){
-    throw std::runtime_error{"task not found"};
-  }
-  for (int i = 0; i < toDelete.size();++i){
-    byPriority.erase(toDelete[i]);
-  }
-}
-
-
 void TaskService::PostponeDate(const std::string& taskName, const tm& postponeDate){
   std::string taskID = GetTaskIDByName(taskName);
 
@@ -117,88 +92,3 @@ const std::string& TaskService::GetTaskIDByName(const std::string& name) const{
   throw std::runtime_error{"Task not found"};
 }
 
-std::vector<Task> TaskService::GetAllTasks(bool SortedByPrioriry){
-  std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
-    for (auto task : byPriority) {
-      returnTasks.push_back(task.second.lock()->GetTask());
-    }
-  } else {
-    for (auto task : byDate){
-      returnTasks.push_back(task.second.lock()->GetTask());
-    }
-  }
-  return returnTasks;
-}
-
-std::vector<Task> TaskService::GetAllTodayTasks(bool SortedByPrioriry){
-  std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
-    for (auto task : byPriority) {
-      if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  } else {
-    for (auto task : byDate){
-      if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  }
-  return returnTasks;
-}
-
-std::vector<Task> TaskService::GetAllWeekTasks(bool SortedByPrioriry){
-  std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
-    for (auto task : byPriority) {
-      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  } else {
-    for (auto task : byDate){
-      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  }
-  return returnTasks;
-}
-
-std::vector<Task> TaskService::GetAllTaskByLabel(const std::string& label, bool SortedByPrioriry){
-  std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
-    for (auto task : byPriority) {
-      if (task.second.lock()->GetTaskLabel() == label){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  } else {
-    for (auto task : byLabel){
-      if (task.second.lock()->GetTaskLabel() == label){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  }
-  return returnTasks;
-}
-
-std::vector<Task> TaskService::GetAllTaskByName(const std::string& name, bool SortedByPrioriry){
-  std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
-    for (auto task : byPriority) {
-      if (task.second.lock()->GetTaskLabel() == name){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  } else {
-    for (auto task : byName){
-      if (task.second.lock()->GetTaskLabel() == name){
-        returnTasks.push_back(task.second.lock()->GetTask());
-      }
-    }
-  }
-  return returnTasks;
-}
