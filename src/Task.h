@@ -25,7 +25,7 @@ class Task {
 
   // убрать конст ссылка
   std::string    GetLabel() const;
-  Priority             GetPriority() const;
+  Priority       GetPriority() const;
   tm             GetDueDate() const;
   std::string    GetName() const;
  private:
