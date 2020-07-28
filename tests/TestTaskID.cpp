@@ -12,7 +12,8 @@ class TestTaskIDClass : public ::testing::Test {
 
 TEST_F(TestTaskIDClass, shouldIncrement){
   TaskID taskID;
-  unsigned int first = taskID.CreateID();
-  unsigned int second = taskID.CreateID();
-  ASSERT_EQ(first+1, second);
+  auto id1 = taskID.GenerateID();
+  auto id2 = taskID.GenerateID();
+  ASSERT_NE(id1,id2);
+  ASSERT_EQ(id1+1,id2);
 }

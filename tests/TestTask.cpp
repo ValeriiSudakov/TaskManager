@@ -17,10 +17,10 @@ class TestTaskEntityClass : public ::testing::Test {
 
 TEST_F(TestTaskEntityClass, testCreate){
 
+  TaskID taskID;
   tm date = Date::CreateDate(11, 10, 2020, 3);
-
   Task task = Task::Create("task name", "label", Task::Priority::HIGH, date);
-  TaskEntity task_entity(task, "t1");
+  TaskEntity task_entity(task, taskID.GenerateID());
 
   ASSERT_EQ(task_entity.GetTaskName(), "task name");
   ASSERT_EQ(task_entity.GetTaskLabel(),"label");

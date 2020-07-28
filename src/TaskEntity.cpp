@@ -5,13 +5,13 @@
 #include "TaskEntity.h"
 #include <exception>
 
-TaskEntity::TaskEntity(const Task& task, std::string id)
+TaskEntity::TaskEntity(const Task& task, TaskID id)
     : task(task), ID(id), complete(false) {}
 
 TaskEntity::~TaskEntity() = default;
 
 
-const std::string TaskEntity::GetId() const {
+const TaskID TaskEntity::GetId() const {
   return ID;
 }
 

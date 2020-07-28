@@ -9,8 +9,13 @@
 class TaskID {
  public:
   TaskID();
+  TaskID(unsigned int id);
   ~TaskID();
-  unsigned int CreateID();
+
+ public:
+  unsigned int GenerateID();
+  unsigned int GetID() const;
+
  private:
   unsigned int ID;
 };

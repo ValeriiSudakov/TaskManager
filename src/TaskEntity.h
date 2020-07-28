@@ -10,14 +10,14 @@
 
 class TaskEntity {
  public:
-  TaskEntity(const Task& task,std::string id);
+  TaskEntity(const Task& task,TaskID id);
   TaskEntity(const TaskEntity&) = delete;
   ~TaskEntity();
 
  public:
   bool                          IsComplete() const;
 
-  const std::string             GetId() const;
+  const TaskID                  GetId() const;
   const std::string             GetTaskLabel() const;
   const Task::Priority          GetTaskPriority() const;
   const std::string             GetTaskName() const;
@@ -28,7 +28,7 @@ class TaskEntity {
   void                          SetTask(const Task& newTask);
  private:
   Task                    task;
-  std::string             ID;
+  TaskID                  ID;
   bool                    complete;
 };
 
