@@ -44,6 +44,7 @@ const Task TaskEntity::GetTask() const {
   return task;
 }
 
-void TaskEntity::SetTask(const Task &newTask) {
-  task = newTask;
+
+void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
+    subtasks.push_back(subtask);
 }

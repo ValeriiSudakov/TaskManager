@@ -10,50 +10,33 @@
 TaskService::TaskService() : taskID(){}
 TaskService::~TaskService() = default;
 
-std::shared_ptr<TaskEntity> TaskService::GetTaskByName(const std::string& name) const {
-    for (const auto& taskInfo : tasks){
-      if (taskInfo.second->GetTaskName() == name){
-        return taskInfo.second;
-      }
-    }
-  throw std::runtime_error{"Task not found"};
-}
-
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
-  auto newEntityTask = std::make_shared<TaskEntity>(task, TaskID(taskID.GenerateID()));
-  tasks.insert(std::make_pair(taskID.GenerateID(), newEntityTask));
+  TaskID newTaskID = taskID.GenerateID();
+  auto newEntityTask = std::make_shared<TaskEntity>(task, newTaskID);
+  tasks.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
   taskView.AddTask(newEntityTask);
 }
 
-void TaskService::AddSubtask(const TaskID& rootTaskName, const Task& subtask,const Task::Priority& priority){
-  auto newEntityTask = std::make_shared<TaskEntity>(subtask, TaskID(taskID.GenerateID()));
-  tasks.insert(std::make_pair(taskID.GenerateID(), newEntityTask));
+bool TaskService::AddSubtask(const TaskID& rootTaskID, const Task& subtask,const Task::Priority& priority){
+  if (tasks.find(rootTaskID.GetID()) == tasks.end()){
+    return false;
+  }
+  TaskID newTaskID = taskID.GenerateID();
+  auto newEntityTask = std::make_shared<TaskEntity>(subtask, TaskID(newTaskID));
+  tasks[rootTaskID.GetID()]->AddSubtasks(newEntityTask);
+  tasks.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
   taskView.AddTask(newEntityTask);
+  return true;
 }
 
-void TaskService::RemoveTask(const std::string& taskName){
-
-}
-
-void TaskService::SetTaskComplete(const TaskID& taskID){
-
-}
-
-void TaskService::RemoveTaskFromTasks(const TaskID& taskID){
-
-}
-
-void TaskService::PostponeDate(const std::string& taskName, const tm& postponeDate){
-
-}
-
-
-const TaskID& TaskService::GetTaskIDByName(const std::string& name) const{
-  for (auto const& taskInfo : tasks) {
-    if (taskInfo.second->GetTaskName() == name){
-      return taskInfo.first;
+std::vector<TaskEntity> TaskService::GetTasksByName(const std::string &taskName) {
+  std::vector<TaskEntity> result;
+  for (auto const& task : tasks){
+    if (task.second->GetTaskName() == taskName){
+      result.push_back(*task.second);
     }
   }
-  throw std::runtime_error{"Task not found"};
+  return result;
 }
+
 

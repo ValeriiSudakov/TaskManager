@@ -20,16 +20,21 @@ TEST_F(TestTaskServiceClass, CreateTask) {
   TaskService ts;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, date);
   ts.AddTask(task, Task::Priority::HIGH);
-  try {
-    auto taskTest = ts.GetTaskByName("task");
-    ASSERT_NE(taskTest, nullptr);
-  } catch (const std::exception &ex) {
-    std::cout << ex.what();
-  }
+  auto taskTest = ts.GetTasksByName("task");
+  ASSERT_NE(taskTest.size(), 0);
 }
 
 
 TEST_F(TestTaskServiceClass, CreateSubTask) {
+  TaskService ts;
+  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  ts.AddTask(task, Task::Priority::HIGH);
+
+  Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  TaskID rootID = ts.GetTasksByName("task")[0].GetId();
+  ts.AddSubtask(rootID, subTask, Task::Priority::HIGH);
+  auto taskTest = ts.GetTasksByName("sub task");
+  ASSERT_NE(taskTest.size(), 0);
 }
 
 TEST_F(TestTaskServiceClass, CreateSubTaskWithIncorrectID) {

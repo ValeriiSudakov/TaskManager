@@ -20,17 +20,10 @@ class TaskService {
   ~TaskService();
 
  public:
-  void                  AddTask(const Task& task, const Task::Priority& priority);
-  void                  AddSubtask(const TaskID& rootTaskName, const Task& subtask, const Task::Priority& priority);
-  void                  SetTaskComplete(const TaskID& taskName);
-  void                  RemoveTask(const std::string& taskName);
-  void                  PostponeDate(const std::string& taskName, const tm& postponeDate);
+  void                      AddTask(const Task& task, const Task::Priority& priority);
+  bool                      AddSubtask(const TaskID& rootTaskID, const Task& subtask, const Task::Priority& priority);
 
-  std::shared_ptr<TaskEntity>     GetTaskByName(const std::string& name) const; //for test
-
- private:
-  void                            RemoveTaskFromTasks(const TaskID& taskID);
-  const TaskID&                   GetTaskIDByName(const std::string& name) const;
+  std::vector<TaskEntity>   GetTasksByName(const std::string& taskName);
 
  private:
   std::map<unsigned int, std::shared_ptr<TaskEntity>>       tasks;
