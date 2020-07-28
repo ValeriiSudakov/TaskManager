@@ -18,9 +18,9 @@ void TaskView::RemoveTask(const std::string& taskID) {
 }
 
 
-std::vector<Task> TaskView::GetTasks(bool SortedByPrioriry){
+std::vector<Task> TaskView::GetTasks(bool SortedByPriority){
   std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
+  if (SortedByPriority){
     for (auto task : byPriority) {
       returnTasks.push_back(task.second.lock()->GetTask());
     }
@@ -32,9 +32,9 @@ std::vector<Task> TaskView::GetTasks(bool SortedByPrioriry){
   return returnTasks;
 }
 
-std::vector<Task> TaskView::GetTodayTasks(bool SortedByPrioriry){
+std::vector<Task> TaskView::GetTodayTasks(bool SortedByPriority){
   std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
+  if (SortedByPriority){
     for (auto task : byPriority) {
       if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
         returnTasks.push_back(task.second.lock()->GetTask());
@@ -50,9 +50,9 @@ std::vector<Task> TaskView::GetTodayTasks(bool SortedByPrioriry){
   return returnTasks;
 }
 
-std::vector<Task> TaskView::GetWeekTasks(bool SortedByPrioriry){
+std::vector<Task> TaskView::GetWeekTasks(bool SortedByPriority){
   std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
+  if (SortedByPriority){
     for (auto task : byPriority) {
       if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
         returnTasks.push_back(task.second.lock()->GetTask());
@@ -68,9 +68,9 @@ std::vector<Task> TaskView::GetWeekTasks(bool SortedByPrioriry){
   return returnTasks;
 }
 
-std::vector<Task> TaskView::GetTasksByLabel(const std::string& label, bool SortedByPrioriry){
+std::vector<Task> TaskView::GetTasksByLabel(const std::string& label, bool SortedByPriority){
   std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
+  if (SortedByPriority){
     for (auto task : byPriority) {
       if (task.second.lock()->GetTaskLabel() == label){
         returnTasks.push_back(task.second.lock()->GetTask());
@@ -86,19 +86,29 @@ std::vector<Task> TaskView::GetTasksByLabel(const std::string& label, bool Sorte
   return returnTasks;
 }
 
-std::vector<Task> TaskView::GetTasksByName(const std::string& name, bool SortedByPrioriry){
+std::vector<Task> TaskView::GetTasksByName(const std::string& name, bool SortedByPriority){
   std::vector<Task> returnTasks;
-  if (SortedByPrioriry){
+  if (SortedByPriority){
     for (auto task : byPriority) {
-      if (task.second.lock()->GetTaskLabel() == name){
+      if (task.second.lock()->GetTaskName() == name){
         returnTasks.push_back(task.second.lock()->GetTask());
       }
     }
   } else {
     for (auto task : byName){
-      if (task.second.lock()->GetTaskLabel() == name){
+      if (task.second.lock()->GetTaskName() == name){
         returnTasks.push_back(task.second.lock()->GetTask());
       }
+    }
+  }
+  return returnTasks;
+}
+
+std::vector<Task> TaskView::GetTasksByPriority(Task::Priority taskPriority){
+  std::vector<Task> returnTasks;
+  for (auto task : byPriority){
+    if (task.first == taskPriority){
+      returnTasks.push_back(task.second.lock()->GetTask());
     }
   }
   return returnTasks;

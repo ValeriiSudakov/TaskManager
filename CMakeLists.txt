@@ -11,5 +11,5 @@ include_directories(src)
 enable_testing()
 
 add_executable(TestsExecutable tests/TestTask.cpp src/Task.cpp src/TaskEntity.cpp src/TaskService.cpp
-        tests/TestTaskService.cpp tests/TestTaskID.cpp src/TaskID.cpp src/Date.cpp src/TaskView.cpp tests/TestDate.cpp src/TaskOutput.cpp)
+        tests/TestTaskService.cpp tests/TestTaskID.cpp src/TaskID.cpp src/Date.cpp src/TaskView.cpp tests/TestDate.cpp src/TaskOutput.cpp tests/TestTaskView.cpp)
 target_link_libraries(TestsExecutable gtest gtest_main)
