@@ -39,14 +39,22 @@ std::vector<TaskDTO> TaskView::GetTasks(bool SortedByPriority){
 
 std::vector<TaskDTO> TaskView::GetTodayTasks(bool SortedByPriority){
   std::vector<TaskDTO> returnTasks;
+
   if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
+    std::multimap<Task::Priority, TaskDTO> tempTasksByPriority; // for store data by priority
+
+    for (auto task : byDate) {
+      if (Date::IsToday((task.second.lock()->GetTaskDueDate()))){
+        tempTasksByPriority.insert(std::make_pair(task.second.lock()->GetTaskPriority(),
+                                                  TaskDTO(task.second.lock()->GetTask(),
+                                                               task.second.lock()->IsComplete(),
+                                                               task.second.lock()->GetId())));
       }
     }
+    for (auto task : tempTasksByPriority){
+      returnTasks.push_back(task.second);
+    }
+    return returnTasks;
   } else {
     for (auto task : byDate){
       if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
@@ -61,14 +69,22 @@ std::vector<TaskDTO> TaskView::GetTodayTasks(bool SortedByPriority){
 
 std::vector<TaskDTO> TaskView::GetWeekTasks(bool SortedByPriority){
   std::vector<TaskDTO> returnTasks;
+
   if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
+      std::multimap<Task::Priority, TaskDTO> tempTasksByPriority; // for store data by priority
+
+      for (auto task : byDate) {
+        if (Date::IsThisWeek((task.second.lock()->GetTaskDueDate()))){
+          tempTasksByPriority.insert(std::make_pair(task.second.lock()->GetTaskPriority(),
+                                                    TaskDTO(task.second.lock()->GetTask(),
+                                                                  task.second.lock()->IsComplete(),
+                                                                  task.second.lock()->GetId())));
+        }
       }
-    }
+      for (auto task : tempTasksByPriority){
+        returnTasks.push_back(task.second);
+      }
+      return returnTasks;
   } else {
     for (auto task : byDate){
       if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
@@ -83,17 +99,25 @@ std::vector<TaskDTO> TaskView::GetWeekTasks(bool SortedByPriority){
 
 std::vector<TaskDTO> TaskView::GetTasksByLabel(const std::string& label, bool SortedByPriority){
   std::vector<TaskDTO> returnTasks;
+
   if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (task.second.lock()->GetTaskLabel() == label){
-         returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                       task.second.lock()->IsComplete(),
-                                       task.second.lock()->GetId()));
+    std::multimap<Task::Priority, TaskDTO> tempTasksByPriority; // for store data by priority
+
+    for (auto task : byLabel) {
+      if (task.first == label){
+        tempTasksByPriority.insert(std::make_pair(task.second.lock()->GetTaskPriority(),
+                                                  TaskDTO(task.second.lock()->GetTask(),
+                                                                task.second.lock()->IsComplete(),
+                                                                task.second.lock()->GetId())));
       }
     }
+    for (auto task : tempTasksByPriority){
+      returnTasks.push_back(task.second);
+    }
+    return returnTasks;
   } else {
     for (auto task : byLabel){
-      if (task.second.lock()->GetTaskLabel() == label){
+      if (task.first == label){
         returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
                                       task.second.lock()->IsComplete(),
                                       task.second.lock()->GetId()));
@@ -105,14 +129,22 @@ std::vector<TaskDTO> TaskView::GetTasksByLabel(const std::string& label, bool So
 
 std::vector<TaskDTO> TaskView::GetTasksByName(const std::string& name, bool SortedByPriority){
   std::vector<TaskDTO> returnTasks;
+
   if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (task.second.lock()->GetTaskName() == name){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
+    std::multimap<Task::Priority, TaskDTO> tempTasksByPriority; // for store data by priority
+
+    for (auto task : byName) {
+      if (task.first == name){
+        tempTasksByPriority.insert(std::make_pair(task.second.lock()->GetTaskPriority(),
+                                                  TaskDTO(task.second.lock()->GetTask(),
+                                                                task.second.lock()->IsComplete(),
+                                                                task.second.lock()->GetId())));
       }
     }
+    for (auto task : tempTasksByPriority){
+      returnTasks.push_back(task.second);
+    }
+    return returnTasks;
   } else {
     for (auto task : byName){
       if (task.second.lock()->GetTaskName() == name){
