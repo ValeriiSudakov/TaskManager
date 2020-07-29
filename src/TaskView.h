@@ -21,7 +21,6 @@ class TaskView {
   std::vector<Task>  GetTasksByPriority(Task::Priority taskPriority);
 
  private:
-
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority;
   std::map<std::string, std::weak_ptr<TaskEntity>>          byName;
   std::multimap<std::string, std::weak_ptr<TaskEntity>>     byLabel;
