@@ -29,14 +29,4 @@ bool TaskService::AddSubtask(const TaskID& rootTaskID, const Task& subtask,const
   return true;
 }
 
-std::vector<TaskEntity> TaskService::GetTasksByName(const std::string &taskName) {
-  std::vector<TaskEntity> result;
-  for (auto const& task : tasks){
-    if (task.second->GetTaskName() == taskName){
-      result.push_back(*task.second);
-    }
-  }
-  return result;
-}
-
 

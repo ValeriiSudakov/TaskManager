@@ -20,8 +20,8 @@ TEST_F(TestTaskServiceClass, CreateTask) {
   TaskService ts;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, date);
   ts.AddTask(task, Task::Priority::HIGH);
-  auto taskTest = ts.GetTasksByName("task");
-  ASSERT_NE(taskTest.size(), 0);
+  auto taskTest = ts.taskView.GetTasksByName("task", false);
+  ASSERT_FALSE(taskTest.empty());
 }
 
 
@@ -31,23 +31,32 @@ TEST_F(TestTaskServiceClass, CreateSubTask) {
   ts.AddTask(task, Task::Priority::HIGH);
 
   Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
-  TaskID rootID = ts.GetTasksByName("task")[0].GetId();
-  ts.AddSubtask(rootID, subTask, Task::Priority::HIGH);
-  auto taskTest = ts.GetTasksByName("sub task");
-  ASSERT_NE(taskTest.size(), 0);
+  auto resultSearch = ts.taskView.GetTasksByName("task", false);
+  ASSERT_TRUE(ts.AddSubtask(resultSearch[0].taskID, subTask, Task::Priority::HIGH));
 }
 
 TEST_F(TestTaskServiceClass, CreateSubTaskWithIncorrectID) {
+  TaskService ts;
+  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  ts.AddTask(task, Task::Priority::HIGH);
+
+  Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  TaskID incorrectID(4);
+  ASSERT_FALSE(ts.AddSubtask(incorrectID, subTask, Task::Priority::HIGH));
 }
 
-TEST_F(TestTaskServiceClass, DontFindSubtaskByName) {
+TEST_F(TestTaskServiceClass, NotFoundTaskByName) {
+  TaskService ts;
+  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  ts.AddTask(task, Task::Priority::HIGH);
+  auto resultSearch = ts.taskView.GetTasksByName("asf125safs", false);
+  ASSERT_TRUE(resultSearch.empty());
 }
 
-TEST_F(TestTaskServiceClass, RemoveTask){
-}
-
-TEST_F(TestTaskServiceClass, SetTaskComplete){
-}
-
-TEST_F(TestTaskServiceClass, PostponeDate){
+TEST_F(TestTaskServiceClass, FoundTaskByName) {
+  TaskService ts;
+  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  ts.AddTask(task, Task::Priority::HIGH);
+  auto resultSearch = ts.taskView.GetTasksByName("asf125safs", false);
+  ASSERT_TRUE(resultSearch.empty());
 }

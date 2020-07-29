@@ -13,8 +13,8 @@
 
 class TaskService {
  public:
-  TaskOutput taskOutput;
-
+  TaskOutput  taskOutput;
+  TaskView    taskView;
  public:
   TaskService();
   ~TaskService();
@@ -23,12 +23,9 @@ class TaskService {
   void                      AddTask(const Task& task, const Task::Priority& priority);
   bool                      AddSubtask(const TaskID& rootTaskID, const Task& subtask, const Task::Priority& priority);
 
-  std::vector<TaskEntity>   GetTasksByName(const std::string& taskName);
-
  private:
   std::map<unsigned int, std::shared_ptr<TaskEntity>>       tasks;
   TaskID                                                    taskID;
-  TaskView                                                  taskView;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_
