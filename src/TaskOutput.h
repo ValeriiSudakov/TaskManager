@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_SRC_TASKOUTPUT_H_
 #define TASKMANAGER_SRC_TASKOUTPUT_H_
 #include "TaskEntity.h"
-#include "Task.h"
+#include "TaskDTO.h"
 #include <vector>
 
 class TaskOutput {
@@ -13,7 +13,7 @@ class TaskOutput {
   TaskOutput();
   ~TaskOutput();
  public:
-  void Print(const std::vector<Task>& tasks) const;
+  void Print(const std::vector<TaskDTO>& tasks) const;
  private:
   const std::string   GetTaskPriorityStr(const Task::Priority& priority) const;
 

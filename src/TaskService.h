@@ -27,8 +27,8 @@ class TaskService {
 
  private:
   std::map<unsigned int, std::shared_ptr<TaskEntity>>       tasks;
-  TaskView                                                  taskView;
   TaskID                                                    taskID;
+  TaskView                                                  taskView;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_

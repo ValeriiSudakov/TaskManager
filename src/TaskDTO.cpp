@@ -3,3 +3,8 @@
 //
 
 #include "TaskDTO.h"
+
+TaskDTO::TaskDTO() {}
+
+TaskDTO::TaskDTO(const Task& task, const bool& complete, const TaskID& id)
+    : task(task), taskComplete(complete), taskID(id) {}

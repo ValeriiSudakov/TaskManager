@@ -9,6 +9,8 @@ Task::Task(const std::string &name, const std::string &label, Task::Priority pri
 Task::Task(const Task& task)
     : name(task.name), label(task.label), priority(task.priority), dueDate(task.dueDate){}
 
+Task::Task(){}
+
 Task::~Task() = default;
 
 Task Task::Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate){

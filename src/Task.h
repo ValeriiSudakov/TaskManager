@@ -20,6 +20,7 @@ class Task {
 
  public:
   ~Task();
+  Task();
   Task(const Task& task);
  public:
 

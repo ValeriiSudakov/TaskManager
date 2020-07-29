@@ -8,13 +8,18 @@
 TaskOutput::TaskOutput() {};
 TaskOutput::~TaskOutput() = default;
 
-void TaskOutput::Print(const std::vector<Task>& tasks) const{
+void TaskOutput::Print(const std::vector<TaskDTO>& tasks) const{
   for (auto task : tasks){
-    std::cout<<"Task name: "<<task.GetName()<<std::endl;
-    std::cout<<"Task label: "<<task.GetLabel()<<std::endl;
-    std::cout<<"Task priority: "<<GetTaskPriorityStr(task.GetPriority())<<std::endl;
+    std::cout<<"Task name: "<<task.task.GetName()<<std::endl;
+    std::cout<<"Task label: "<<task.task.GetLabel()<<std::endl;
+    std::cout<<"Task priority: "<<GetTaskPriorityStr(task.task.GetPriority())<<std::endl;
     std::cout<<"Task due date: ";
-    Date::PrintDate(task.GetDueDate());
+    Date::PrintDate(task.task.GetDueDate());
+    if (task.taskComplete){
+      std::cout<<"Task complete\n\n";
+    } else {
+      std::cout<<"Task not completed\n\n";
+    }
   }
 }
 

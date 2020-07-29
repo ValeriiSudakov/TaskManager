@@ -6,13 +6,15 @@
 #define TASKMANAGER_SRC_TASKDTO_H_
 #include "Task.h"
 #include "TaskID.h"
-struct TaskDTO {
+class TaskDTO {
+ public:
   Task task;
   bool taskComplete;
   TaskID taskID;
 
-  TaskDTO(const Task& task, const bool& complete, const TaskID& id)
-    : task(task), taskComplete(complete), taskID(id) {}
+ public:
+  TaskDTO();
+  TaskDTO(const Task& task, const bool& complete, const TaskID& id);
 };
 
 #endif //TASKMANAGER_SRC_TASKDTO_H_
