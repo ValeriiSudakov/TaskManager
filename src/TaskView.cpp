@@ -19,119 +19,61 @@ void TaskView::RemoveTask(const std::string& taskID) {
 }
 
 
-std::vector<TaskDTO> TaskView::GetTasks(bool SortedByPriority){
-  std::vector<TaskDTO> returnTasks;
-  if (SortedByPriority){
-    for (auto task : byPriority) {
-      returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                    task.second.lock()->IsComplete(),
-                                    task.second.lock()->GetId()));
-    }
-  } else {
+std::vector<TaskEntity> TaskView::GetTasks(){
+  std::vector<TaskEntity> returnTasks;
     for (auto task : byDate){
-      returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                    task.second.lock()->IsComplete(),
-                                    task.second.lock()->GetId()));
+      returnTasks.push_back(*task.second.lock());
     }
   }
   return returnTasks;
 }
 
-std::vector<TaskDTO> TaskView::GetTodayTasks(bool SortedByPriority){
-  std::vector<TaskDTO> returnTasks;
-  if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
-      }
-    }
-  } else {
+std::vector<TaskEntity> TaskView::GetTodayTasks(){
+  std::vector<TaskEntity> returnTasks;
+
     for (auto task : byDate){
       if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
+        returnTasks.push_back(*task.second.lock());
       }
     }
-  }
   return returnTasks;
 }
 
-std::vector<TaskDTO> TaskView::GetWeekTasks(bool SortedByPriority){
-  std::vector<TaskDTO> returnTasks;
-  if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
-      }
-    }
-  } else {
+std::vector<TaskEntity> TaskView::GetWeekTasks(){
+  std::vector<TaskEntity> returnTasks;
     for (auto task : byDate){
       if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
+        returnTasks.push_back(*task.second.lock());
       }
     }
-  }
   return returnTasks;
 }
 
-std::vector<TaskDTO> TaskView::GetTasksByLabel(const std::string& label, bool SortedByPriority){
-  std::vector<TaskDTO> returnTasks;
-  if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (task.second.lock()->GetTaskLabel() == label){
-         returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                       task.second.lock()->IsComplete(),
-                                       task.second.lock()->GetId()));
-      }
-    }
-  } else {
+std::vector<TaskEntity> TaskView::GetTasksByLabel(const std::string& label){
+  std::vector<TaskEntity> returnTasks;
     for (auto task : byLabel){
-      if (task.second.lock()->GetTaskLabel() == label){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
+      if (task.first == label){
+        returnTasks.push_back(*task.second.lock());
       }
     }
-  }
   return returnTasks;
 }
 
-std::vector<TaskDTO> TaskView::GetTasksByName(const std::string& name, bool SortedByPriority){
-  std::vector<TaskDTO> returnTasks;
-  if (SortedByPriority){
-    for (auto task : byPriority) {
-      if (task.second.lock()->GetTaskName() == name){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
-      }
-    }
-  } else {
+std::vector<TaskEntity> TaskView::GetTasksByName(const std::string& name){
+  std::vector<TaskEntity> returnTasks;
     for (auto task : byName){
-      if (task.second.lock()->GetTaskName() == name){
-        returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                      task.second.lock()->IsComplete(),
-                                      task.second.lock()->GetId()));
+      if(task.first == name){
+         returnTasks.push_back(*task.second.lock());
       }
     }
-  }
   return returnTasks;
 }
 
-std::vector<TaskDTO> TaskView::GetTasksByPriority(Task::Priority taskPriority){
-  std::vector<TaskDTO> returnTasks;
+std::vector<TaskEntity> TaskView::GetTasksByPriority(Task::Priority taskPriority){
+  std::vector<TaskEntity> returnTasks;
   for (auto task : byPriority){
     if (task.first == taskPriority){
-      returnTasks.push_back(TaskDTO(task.second.lock()->GetTask(),
-                                    task.second.lock()->IsComplete(),
-                                    task.second.lock()->GetId()));
+      returnTasks.push_back(*task.second.lock());
     }
   }
   return returnTasks;
