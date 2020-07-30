@@ -12,7 +12,7 @@ class TestTaskDTOClass : public ::testing::Test {
 
 };
 
-TEST_F(TestTaskDTOClass, CreateTaskDTO){
+TEST_F(TestTaskDTOClass, shouldCreateTaskDTO){
   TaskIDGenerate taskIDGenerate;
   tm date = Date::GetCurrentTime();
   std::optional<Task> task = Task::Create("task name", "label", Task::Priority::NONE, date);

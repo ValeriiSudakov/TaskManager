@@ -13,20 +13,17 @@ class TestTaskServiceClass : public ::testing::Test {
 
 
 
-TEST_F(TestTaskServiceClass, CreateTask) {
-
-  tm date = Date::CreateDate(11, 10, 2020, 3);
-
+TEST_F(TestTaskServiceClass, shouldCreateTask) {
   // CreateTask
   TaskService ts;
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, date);
+  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ts.AddTask(task.value(), Task::Priority::NONE);
   auto taskTest = ts.GetTasksByName("task", false);
   ASSERT_FALSE(taskTest.empty());
 }
 
 
-TEST_F(TestTaskServiceClass, CreateSubTask) {
+TEST_F(TestTaskServiceClass, shouldCreateSubTask) {
   TaskService ts;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ts.AddTask(task.value(), Task::Priority::NONE);
@@ -36,7 +33,7 @@ TEST_F(TestTaskServiceClass, CreateSubTask) {
   ASSERT_TRUE(ts.AddSubtask(taskTest[0].taskID_.GetID(), subTask.value(), Task::Priority::NONE));
 }
 
-TEST_F(TestTaskServiceClass, CreateSubTaskWithIncorrectID) {
+TEST_F(TestTaskServiceClass, shouldntCreateSubTaskWithIncorrectID) {
   TaskService ts;
   TaskIDGenerate idGenerate;
 
@@ -48,7 +45,7 @@ TEST_F(TestTaskServiceClass, CreateSubTaskWithIncorrectID) {
   ASSERT_FALSE(ts.AddSubtask(incorrectID, subTask.value(), Task::Priority::NONE));
 }
 
-TEST_F(TestTaskServiceClass, NotFoundTaskByName) {
+TEST_F(TestTaskServiceClass, shouldNotFoundTaskByName) {
   TaskService ts;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ts.AddTask(task.value(), Task::Priority::NONE);
@@ -56,7 +53,7 @@ TEST_F(TestTaskServiceClass, NotFoundTaskByName) {
   ASSERT_TRUE(resultSearch.empty());
 }
 
-TEST_F(TestTaskServiceClass, FoundTaskByName) {
+TEST_F(TestTaskServiceClass, shouldFoundTaskByName) {
   TaskService ts;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ts.AddTask(task.value(), Task::Priority::NONE);
