@@ -45,16 +45,16 @@ TEST_F(TestTaskViewClass, shouldGetNotSortedDate){
   tv.AddTask(newTask);
 
   auto resultByName = tv.GetTasksByName("task");
-  ASSERT_NE(resultByName.size(), 0);
+  ASSERT_FALSE(resultByName.empty());
 
   auto resultByLabel = tv.GetTasksByLabel("label");
-  ASSERT_NE(resultByLabel.size(), 0);
+  ASSERT_FALSE(resultByLabel.empty());
 
   auto resultByPriority = tv.GetTasksByPriority(Task::Priority::NONE);
-  ASSERT_NE(resultByPriority.size(), 0);
+  ASSERT_FALSE(resultByPriority.empty());
 
   auto resultForToday = tv.GetTodayTasks();
-  ASSERT_NE(resultForToday.size(), 0);
+  ASSERT_FALSE(resultForToday.empty());
 }
 
 TEST_F(TestTaskViewClass, shouldGetSortedDate){
@@ -66,14 +66,14 @@ TEST_F(TestTaskViewClass, shouldGetSortedDate){
   tv.AddTask(newTask);
 
   auto resultByName = tv.GetTasksByName("task");
-  ASSERT_NE(resultByName.size(), 0);
+  ASSERT_FALSE(resultByName.empty());
 
   auto resultByLabel = tv.GetTasksByLabel("label");
-  ASSERT_NE(resultByLabel.size(), 0);
+  ASSERT_FALSE(resultByLabel.empty());
 
   auto resultByPriority = tv.GetTasksByPriority(Task::Priority::NONE);
-  ASSERT_NE(resultByPriority.size(), 0);
+  ASSERT_FALSE(resultByPriority.empty());
 
   auto resultForToday = tv.GetTodayTasks();
-  ASSERT_NE(resultForToday.size(), 0);
+  ASSERT_FALSE(resultForToday.empty());
 }
