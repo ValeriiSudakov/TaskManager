@@ -7,11 +7,11 @@
 #include <string>
 #include <vector>
 
-TaskService::TaskService() : taskID(){}
+TaskService::TaskService() : taskIDGenerate(){}
 TaskService::~TaskService() = default;
 
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
-  TaskID newTaskID = taskID.GenerateID();
+  TaskID newTaskID = taskIDGenerate.Generate();
   auto newEntityTask = std::make_shared<TaskEntity>(task, newTaskID);
   tasks.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
   taskView.AddTask(newEntityTask);
@@ -21,7 +21,7 @@ bool TaskService::AddSubtask(const TaskID& rootTaskID, const Task& subtask,const
   if (tasks.find(rootTaskID.GetID()) == tasks.end()){
     return false;
   }
-  TaskID newTaskID = taskID.GenerateID();
+  TaskID newTaskID =  taskIDGenerate.Generate();
   auto newEntityTask = std::make_shared<TaskEntity>(subtask, TaskID(newTaskID));
   tasks[rootTaskID.GetID()]->AddSubtasks(newEntityTask);
   tasks.insert(std::make_pair(newTaskID.GetID(), newEntityTask));

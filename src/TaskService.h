@@ -9,6 +9,7 @@
 #include "Date.h"
 #include "TaskOutput.h"
 #include "TaskView.h"
+#include "TaskIDGenerate.h"
 #include <map>
 
 class TaskService {
@@ -32,7 +33,7 @@ class TaskService {
 
  private:
   std::map<unsigned int, std::shared_ptr<TaskEntity>>    tasks;
-  TaskID                                                 taskID;
+  TaskIDGenerate                                         taskIDGenerate;
   TaskView                                               taskView;
 
  private:

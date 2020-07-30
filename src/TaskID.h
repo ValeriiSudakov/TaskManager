@@ -8,16 +8,14 @@
 
 class TaskID {
  public:
+  TaskID(unsigned int ID);
   TaskID();
-  TaskID(unsigned int id);
-  ~TaskID();
 
  public:
-  unsigned int GenerateID();
   unsigned int GetID() const;
 
  private:
-  unsigned int ID;
+  unsigned int id;
 };
 
 #endif //TASKMANAGER_SRC_TASKID_H_

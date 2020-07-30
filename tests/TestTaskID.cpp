@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include "TaskID.h"
+#include "TaskIDGenerate.h"
 #include <iostream>
 
 class TestTaskIDClass : public ::testing::Test {
@@ -11,9 +12,10 @@ class TestTaskIDClass : public ::testing::Test {
 };
 
 TEST_F(TestTaskIDClass, shouldIncrement){
-  TaskID taskID;
-  auto id1 = taskID.GenerateID();
-  auto id2 = taskID.GenerateID();
+  TaskIDGenerate taskIDGenerate;
+  TaskID taskID =  taskIDGenerate.Generate();
+  auto id1 = taskIDGenerate.Generate();
+  auto id2 = taskIDGenerate.Generate();
   ASSERT_NE(id1,id2);
   ASSERT_EQ(id1+1,id2);
 }

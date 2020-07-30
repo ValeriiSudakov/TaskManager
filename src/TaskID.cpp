@@ -4,15 +4,10 @@
 
 #include "TaskID.h"
 
-TaskID::TaskID() :ID(0) {}
-TaskID::TaskID(unsigned int id) : ID(id) {}
-TaskID::~TaskID() = default;
+TaskID::TaskID(unsigned int ID) : id(ID) {}
 
-
-unsigned int TaskID::GenerateID() {
-  return ID++;
-}
+TaskID::TaskID() : id(0){}
 
 unsigned int TaskID::GetID() const {
-  return ID;
+  return id;
 }

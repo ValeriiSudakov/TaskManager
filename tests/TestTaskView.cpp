@@ -12,10 +12,9 @@ class TestTaskViewClass : public ::testing::Test {
 
 TEST_F(TestTaskViewClass, AddedToMaps){
   TaskView tv;
-  TaskID taskID;
-
+  TaskIDGenerate taskIDGenerate;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
-  auto newTask = std::make_shared<TaskEntity>(task, taskID.GenerateID());
+  auto newTask = std::make_shared<TaskEntity>(task,  taskIDGenerate.Generate());
   tv.AddTask(newTask);
   auto result = tv.GetTasks();
   ASSERT_FALSE(result.empty());
@@ -24,10 +23,9 @@ TEST_F(TestTaskViewClass, AddedToMaps){
 
 TEST_F(TestTaskViewClass, GetNotSortedDate){
   TaskView tv;
-  TaskID taskID;
-
+  TaskIDGenerate taskIDGenerate;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
-  auto newTask = std::make_shared<TaskEntity>(task, taskID.GenerateID());
+  auto newTask = std::make_shared<TaskEntity>(task,  taskIDGenerate.Generate());
   tv.AddTask(newTask);
 
   auto resultByName = tv.GetTasksByName("task");
@@ -45,10 +43,10 @@ TEST_F(TestTaskViewClass, GetNotSortedDate){
 
 TEST_F(TestTaskViewClass, GetSortedDate){
   TaskView tv;
-  TaskID taskID;
+  TaskIDGenerate taskIDGenerate;
 
   Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
-  auto newTask = std::make_shared<TaskEntity>(task, taskID.GenerateID());
+  auto newTask = std::make_shared<TaskEntity>(task,  taskIDGenerate.Generate());
   tv.AddTask(newTask);
 
   auto resultByName = tv.GetTasksByName("task");
