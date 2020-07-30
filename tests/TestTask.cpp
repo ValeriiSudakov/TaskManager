@@ -31,3 +31,34 @@ TEST_F(TestTaskEntityClass, shouldCreateTask){
   task_entity.SetComplete();
   ASSERT_TRUE(task_entity.IsComplete());
 }
+
+TEST_F(TestTaskEntityClass, shouldFailCreateTask){
+  TaskIDGenerate taskIDGenerate;
+  std::optional<Task> task = Task::Create("", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  ASSERT_FALSE(task.has_value());
+
+  std::optional<Task> task1 = Task::Create("task name", "", Task::Priority::NONE, Date::GetCurrentTime());
+  ASSERT_FALSE(task.has_value());
+
+  tm date = Date::GetCurrentTime();
+  date.tm_mday--;
+  std::optional<Task> task2 = Task::Create("task name", "label", Task::Priority::NONE, date);
+  ASSERT_FALSE(task.has_value());
+
+  std::optional<Task> task4 = Task::Create("", "", Task::Priority::NONE, date);
+  ASSERT_FALSE(task.has_value());
+}
+
+TEST_F(TestTaskEntityClass, shouldBeCorrectDate) {
+  TaskIDGenerate taskIDGenerate;
+  tm date = Date::GetCurrentTime();
+  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, date);
+  ASSERT_TRUE(task.has_value());
+
+  ASSERT_EQ(task.value().GetName(), "task");
+  ASSERT_EQ(task.value().GetLabel(), "label");
+  ASSERT_EQ(task.value().GetPriority(), Task::Priority::NONE);
+  tm taskDate = task.value().GetDueDate();
+  ASSERT_EQ(mktime(&taskDate), mktime(&date));
+
+}
