@@ -15,17 +15,19 @@ class TestTaskEntityClass : public ::testing::Test {
 
 };
 
-TEST_F(TestTaskEntityClass, testCreate){
+TEST_F(TestTaskEntityClass, shouldCreateTask){
   TaskIDGenerate taskIDGenerate;
-  tm date = Date::CreateDate(11, 10, 2020, 3);
-  Task task = Task::Create("task name", "label", Task::Priority::NONE, date);
-  TaskEntity task_entity(task,  taskIDGenerate.Generate());
+  std::optional<Task> task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  ASSERT_TRUE(task.has_value());
+
+  TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
 
   ASSERT_EQ(task_entity.GetTaskName(), "task name");
   ASSERT_EQ(task_entity.GetTaskLabel(),"label");
 
   ASSERT_EQ(Task::Priority::NONE, task_entity.GetTaskPriority());
 
+  ASSERT_FALSE(task_entity.IsComplete());
   task_entity.SetComplete();
   ASSERT_TRUE(task_entity.IsComplete());
 }

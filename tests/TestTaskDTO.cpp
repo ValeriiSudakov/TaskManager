@@ -15,9 +15,9 @@ class TestTaskDTOClass : public ::testing::Test {
 TEST_F(TestTaskDTOClass, CreateTaskDTO){
   TaskIDGenerate taskIDGenerate;
   tm date = Date::GetCurrentTime();
-  Task task = Task::Create("task name", "label", Task::Priority::NONE, date);
+  std::optional<Task> task = Task::Create("task name", "label", Task::Priority::NONE, date);
 
-  TaskDTO taskDTO(task, false,  taskIDGenerate.Generate());
+  TaskDTO taskDTO(task.value(), false,  taskIDGenerate.Generate());
 
   ASSERT_EQ(taskDTO.task_.GetName(), "task name");
   ASSERT_EQ(taskDTO.task_.GetLabel(), "label");

@@ -6,6 +6,7 @@
 #define TASKMANAGER_SRC_TASK_H_
 #include <iostream>
 #include <ctime>
+#include <optional>
 
 class Task {
  public:
@@ -17,7 +18,7 @@ class Task {
   };
 
   // в срр
-  static Task          Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);
+  static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);
 
  public:
   ~Task();
