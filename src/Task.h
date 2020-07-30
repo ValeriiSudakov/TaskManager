@@ -10,8 +10,9 @@
 class Task {
  public:
   enum class Priority{
-    HIGH = 1,
-    LOW,
+    FIRST = 1,
+    SECOND,
+    THIRD,
     NONE
   };
 

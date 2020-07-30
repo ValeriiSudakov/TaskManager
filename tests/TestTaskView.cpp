@@ -13,7 +13,7 @@ class TestTaskViewClass : public ::testing::Test {
 TEST_F(TestTaskViewClass, AddedToMaps){
   TaskView tv;
   TaskIDGenerate taskIDGenerate;
-  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  Task task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task,  taskIDGenerate.Generate());
   tv.AddTask(newTask);
   auto result = tv.GetTasks();
@@ -24,7 +24,7 @@ TEST_F(TestTaskViewClass, AddedToMaps){
 TEST_F(TestTaskViewClass, GetNotSortedDate){
   TaskView tv;
   TaskIDGenerate taskIDGenerate;
-  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  Task task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task,  taskIDGenerate.Generate());
   tv.AddTask(newTask);
 
@@ -34,7 +34,7 @@ TEST_F(TestTaskViewClass, GetNotSortedDate){
   auto resultByLabel = tv.GetTasksByLabel("label");
   ASSERT_NE(resultByLabel.size(), 0);
 
-  auto resultByPriority = tv.GetTasksByPriority(Task::Priority::HIGH);
+  auto resultByPriority = tv.GetTasksByPriority(Task::Priority::NONE);
   ASSERT_NE(resultByPriority.size(), 0);
 
   auto resultForToday = tv.GetTodayTasks();
@@ -45,7 +45,7 @@ TEST_F(TestTaskViewClass, GetSortedDate){
   TaskView tv;
   TaskIDGenerate taskIDGenerate;
 
-  Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
+  Task task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task,  taskIDGenerate.Generate());
   tv.AddTask(newTask);
 
@@ -55,7 +55,7 @@ TEST_F(TestTaskViewClass, GetSortedDate){
   auto resultByLabel = tv.GetTasksByLabel("label");
   ASSERT_NE(resultByLabel.size(), 0);
 
-  auto resultByPriority = tv.GetTasksByPriority(Task::Priority::HIGH);
+  auto resultByPriority = tv.GetTasksByPriority(Task::Priority::NONE);
   ASSERT_NE(resultByPriority.size(), 0);
 
   auto resultForToday = tv.GetTodayTasks();

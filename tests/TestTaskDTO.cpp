@@ -15,13 +15,13 @@ class TestTaskDTOClass : public ::testing::Test {
 TEST_F(TestTaskDTOClass, CreateTaskDTO){
   TaskIDGenerate taskIDGenerate;
   tm date = Date::GetCurrentTime();
-  Task task = Task::Create("task name", "label", Task::Priority::HIGH, date);
+  Task task = Task::Create("task name", "label", Task::Priority::NONE, date);
 
   TaskDTO taskDTO(task, false,  taskIDGenerate.Generate());
 
   ASSERT_EQ(taskDTO.task_.GetName(), "task name");
   ASSERT_EQ(taskDTO.task_.GetLabel(), "label");
-  ASSERT_EQ(taskDTO.task_.GetPriority(), Task::Priority::HIGH);
+  ASSERT_EQ(taskDTO.task_.GetPriority(), Task::Priority::NONE);
   tm date1 = taskDTO.task_.GetDueDate();
   ASSERT_EQ(mktime(&date1), mktime(&date));
   ASSERT_EQ(taskDTO.taskID_.GetID(),  0);

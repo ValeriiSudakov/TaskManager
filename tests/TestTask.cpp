@@ -18,13 +18,13 @@ class TestTaskEntityClass : public ::testing::Test {
 TEST_F(TestTaskEntityClass, testCreate){
   TaskIDGenerate taskIDGenerate;
   tm date = Date::CreateDate(11, 10, 2020, 3);
-  Task task = Task::Create("task name", "label", Task::Priority::HIGH, date);
+  Task task = Task::Create("task name", "label", Task::Priority::NONE, date);
   TaskEntity task_entity(task,  taskIDGenerate.Generate());
 
   ASSERT_EQ(task_entity.GetTaskName(), "task name");
   ASSERT_EQ(task_entity.GetTaskLabel(),"label");
 
-  ASSERT_EQ(Task::Priority::HIGH, task_entity.GetTaskPriority());
+  ASSERT_EQ(Task::Priority::NONE, task_entity.GetTaskPriority());
 
   task_entity.SetComplete();
   ASSERT_TRUE(task_entity.IsComplete());
