@@ -49,7 +49,7 @@ TEST_F(TestTaskEntityClass, shouldFailCreateTask){
   ASSERT_FALSE(task.has_value());
 }
 
-TEST_F(TestTaskEntityClass, shouldBeCorrectDate) {
+TEST_F(TestTaskEntityClass, shouldBeCorrectData) {
   TaskIDGenerate taskIDGenerate;
   tm date = Date::GetCurrentTime();
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, date);
