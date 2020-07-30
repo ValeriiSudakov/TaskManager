@@ -10,7 +10,7 @@ class TestTaskViewClass : public ::testing::Test {
 
 };
 
-TEST_F(TestTaskViewClass, AddedToMaps){
+TEST_F(TestTaskViewClass, shouldAddTask){
   TaskView tv;
   TaskIDGenerate taskIDGenerate;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
@@ -18,10 +18,26 @@ TEST_F(TestTaskViewClass, AddedToMaps){
   tv.AddTask(newTask);
   auto result = tv.GetTasks();
   ASSERT_FALSE(result.empty());
-
 }
 
-TEST_F(TestTaskViewClass, GetNotSortedDate){
+TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
+  TaskView tv;
+  TaskIDGenerate taskIDGenerate;
+  TaskID id(taskIDGenerate.Generate());
+  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  auto newTask = std::make_shared<TaskEntity>(task.value(),  id);
+  tv.AddTask(newTask);
+  auto result = tv.GetTasks();
+  ASSERT_FALSE(result.empty());
+
+  ASSERT_FALSE(result[0].IsComplete());
+  ASSERT_EQ(result[0].GetId().GetID(), id.GetID());
+  ASSERT_EQ(result[0].GetTaskPriority(), Task::Priority::NONE);
+  ASSERT_EQ(result[0].GetTaskLabel(), "label");
+  ASSERT_EQ(result[0].GetTaskName(), "task");
+}
+
+TEST_F(TestTaskViewClass, shouldGetNotSortedDate){
   TaskView tv;
   TaskIDGenerate taskIDGenerate;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
@@ -41,7 +57,7 @@ TEST_F(TestTaskViewClass, GetNotSortedDate){
   ASSERT_NE(resultForToday.size(), 0);
 }
 
-TEST_F(TestTaskViewClass, GetSortedDate){
+TEST_F(TestTaskViewClass, shouldGetSortedDate){
   TaskView tv;
   TaskIDGenerate taskIDGenerate;
 
