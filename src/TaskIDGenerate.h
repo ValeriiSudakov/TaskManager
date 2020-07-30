@@ -11,7 +11,7 @@ class TaskIDGenerate {
   unsigned int Generate();
 
  private:
-  unsigned int id;
+  unsigned int id_;
 };
 
 #endif //TASKMANAGER_SRC_TASKIDGENERATE_H_

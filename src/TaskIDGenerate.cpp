@@ -4,8 +4,8 @@
 
 #include "TaskIDGenerate.h"
 
-TaskIDGenerate::TaskIDGenerate() : id(0){}
+TaskIDGenerate::TaskIDGenerate() : id_(0){}
 
 unsigned int TaskIDGenerate::Generate() {
-  return id++;
+  return id_++;
 }

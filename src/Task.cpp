@@ -4,10 +4,10 @@
 
 #include "Task.h"
 Task::Task(const std::string &name, const std::string &label, Task::Priority priority, const tm &dueDate)
-    : name(name), label(label), priority(priority), dueDate(dueDate) {}
+    : name_(name), label_(label), priority_(priority), dueDate_(dueDate) {}
 
 Task::Task(const Task& task)
-    : name(task.name), label(task.label), priority(task.priority), dueDate(task.dueDate){}
+    : name_(task.name_), label_(task.label_), priority_(task.priority_), dueDate_(task.dueDate_){}
 
 Task::Task(){}
 
@@ -18,15 +18,15 @@ Task Task::Create(const std::string &name, const std::string &label, Priority pr
 }
 
 std::string Task::GetName() const {
-  return name;
+  return name_;
 }
 std::string Task::GetLabel() const {
-  return label;
+  return label_;
 }
 Task::Priority Task::GetPriority() const {
-  return priority;
+  return priority_;
 }
 
 tm Task::GetDueDate() const {
-  return dueDate;
+  return dueDate_;
 }

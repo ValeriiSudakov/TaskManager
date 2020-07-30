@@ -8,9 +8,9 @@
 #include "TaskID.h"
 class TaskDTO {
  public:
-  Task task;
-  bool taskComplete;
-  TaskID taskID;
+  Task task_;
+  bool taskComplete_;
+  TaskID taskID_;
 
  public:
   TaskDTO();

@@ -7,4 +7,4 @@
 TaskDTO::TaskDTO() {}
 
 TaskDTO::TaskDTO(const Task& task, const bool& complete, const TaskID& id)
-    : task(task), taskComplete(complete), taskID(id) {}
+    : task_(task), taskComplete_(complete), taskID_(id) {}

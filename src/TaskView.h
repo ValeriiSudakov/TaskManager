@@ -5,7 +5,6 @@
 #ifndef TASKMANAGER_SRC_TASKVIEW_H_
 #define TASKMANAGER_SRC_TASKVIEW_H_
 #include "TaskEntity.h"
-#include "TaskDTO.h"
 #include <map>
 #include <vector>
 
@@ -22,10 +21,10 @@ class TaskView {
   std::vector<TaskEntity>  GetTasksByPriority(Task::Priority taskPriority);
 
  private:
-  std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority;
-  std::map<std::string, std::weak_ptr<TaskEntity>>          byName;
-  std::multimap<std::string, std::weak_ptr<TaskEntity>>     byLabel;
-  std::multimap<time_t, std::weak_ptr<TaskEntity>>          byDate;
+  std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority_;
+  std::map<std::string, std::weak_ptr<TaskEntity>>          byName_;
+  std::multimap<std::string, std::weak_ptr<TaskEntity>>     byLabel_;
+  std::multimap<time_t, std::weak_ptr<TaskEntity>>          byDate_;
 
 };
 

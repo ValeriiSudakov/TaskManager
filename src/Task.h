@@ -30,10 +30,10 @@ class Task {
   tm             GetDueDate() const;
   std::string    GetName() const;
  private:
-  std::string   name;
-  std::string   label;
-  Priority      priority;
-  tm            dueDate;
+  std::string   name_;
+  std::string   label_;
+  Priority      priority_;
+  tm            dueDate_;
 
  private:
   Task(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);

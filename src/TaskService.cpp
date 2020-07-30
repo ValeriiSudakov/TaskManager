@@ -3,59 +3,58 @@
 //
 
 #include "TaskService.h"
-#include "TaskOutput.h"
 #include <string>
 #include <vector>
 
-TaskService::TaskService() : taskIDGenerate(){}
+TaskService::TaskService() : taskIDGenerate_(){}
 TaskService::~TaskService() = default;
 
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
-  TaskID newTaskID = taskIDGenerate.Generate();
+  TaskID newTaskID = taskIDGenerate_.Generate();
   auto newEntityTask = std::make_shared<TaskEntity>(task, newTaskID);
-  tasks.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
-  taskView.AddTask(newEntityTask);
+  tasks_.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
+  taskView_.AddTask(newEntityTask);
 }
 
 bool TaskService::AddSubtask(const TaskID& rootTaskID, const Task& subtask,const Task::Priority& priority){
-  if (tasks.find(rootTaskID.GetID()) == tasks.end()){
+  if (tasks_.find(rootTaskID.GetID()) == tasks_.end()){
     return false;
   }
-  TaskID newTaskID =  taskIDGenerate.Generate();
+  TaskID newTaskID =  taskIDGenerate_.Generate();
   auto newEntityTask = std::make_shared<TaskEntity>(subtask, TaskID(newTaskID));
-  tasks[rootTaskID.GetID()]->AddSubtasks(newEntityTask);
-  tasks.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
-  taskView.AddTask(newEntityTask);
+  tasks_[rootTaskID.GetID()]->AddSubtasks(newEntityTask);
+  tasks_.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
+  taskView_.AddTask(newEntityTask);
   return true;
 }
 
 std::vector<TaskDTO> TaskService::GetTasks(const bool& byPriority){
-  auto sortedTasks = taskView.GetTasks();
+  auto sortedTasks = taskView_.GetTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTodayTasks(const bool& byPriority){
-  auto sortedTasks = taskView.GetTodayTasks();
+  auto sortedTasks = taskView_.GetTodayTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetWeekTasks(const bool& byPriority){
-  auto sortedTasks = taskView.GetWeekTasks();
+  auto sortedTasks = taskView_.GetWeekTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByLabel(const std::string& label, const bool& byPriority){
-  auto sortedTasks = taskView.GetTasksByLabel(label);
+  auto sortedTasks = taskView_.GetTasksByLabel(label);
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByName(const std::string& name, const bool& byPriority){
-  auto sortedTasks = taskView.GetTasksByName(name);
+  auto sortedTasks = taskView_.GetTasksByName(name);
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByPriority(Task::Priority priority){
-  auto sortedTasks = taskView.GetTasksByPriority(priority);
+  auto sortedTasks = taskView_.GetTasksByPriority(priority);
   return MakeTasksDTO(sortedTasks);
 }
 

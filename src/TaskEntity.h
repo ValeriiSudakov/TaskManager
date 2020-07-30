@@ -11,7 +11,7 @@
 
 class TaskEntity {
  public:
-  TaskEntity(const Task& task,TaskID id);
+  TaskEntity(const Task& task,TaskID ID);
   ~TaskEntity();
 
  public:
@@ -29,10 +29,10 @@ class TaskEntity {
   void                          SetComplete();
 
  private:
-  Task                                   task;
-  TaskID                                 ID;
-  bool                                   complete;
-  std::vector<std::weak_ptr<TaskEntity>> subtasks;
+  Task                                   task_;
+  TaskID                                 id_;
+  bool                                   complete_;
+  std::vector<std::weak_ptr<TaskEntity>> subtasks_;
 };
 
 #endif //TASKMANAGER_SRC_TASKENTITY_H_

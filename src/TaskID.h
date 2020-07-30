@@ -15,7 +15,7 @@ class TaskID {
   unsigned int GetID() const;
 
  private:
-  unsigned int id;
+  unsigned int id_;
 };
 
 #endif //TASKMANAGER_SRC_TASKID_H_

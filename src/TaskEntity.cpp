@@ -5,46 +5,46 @@
 #include "TaskEntity.h"
 #include <exception>
 
-TaskEntity::TaskEntity(const Task& task, TaskID id)
-    : task(task), ID(id), complete(false) {}
+TaskEntity::TaskEntity(const Task& task, TaskID ID)
+    : task_(task), id_(ID), complete_(false) {}
 
 TaskEntity::~TaskEntity() = default;
 
 
 const TaskID TaskEntity::GetId() const {
-  return ID;
+  return id_;
 }
 
 bool TaskEntity::IsComplete() const {
-  return complete;
+  return complete_;
 }
 
 void TaskEntity::SetComplete() {
-  complete = true;
+  complete_ = true;
 }
 
 const std::string TaskEntity::GetTaskLabel() const{
-  return task.GetLabel();
+  return task_.GetLabel();
 }
 
 
 const Task::Priority TaskEntity::GetTaskPriority() const {
-  return task.GetPriority();
+  return task_.GetPriority();
 }
 
 tm TaskEntity::GetTaskDueDate() const{
-  return task.GetDueDate();
+  return task_.GetDueDate();
 }
 
 const std::string TaskEntity::GetTaskName() const{
-  return task.GetName();
+  return task_.GetName();
 }
 
 const Task TaskEntity::GetTask() const {
-  return task;
+  return task_;
 }
 
 
 void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
-    subtasks.push_back(subtask);
+    subtasks_.push_back(subtask);
 }
