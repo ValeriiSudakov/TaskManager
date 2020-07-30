@@ -24,7 +24,6 @@ std::vector<TaskEntity> TaskView::GetTasks(){
     for (auto task : byDate){
       returnTasks.push_back(*task.second.lock());
     }
-  }
   return returnTasks;
 }
 

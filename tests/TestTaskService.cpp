@@ -20,7 +20,7 @@ TEST_F(TestTaskServiceClass, CreateTask) {
   TaskService ts;
   Task task = Task::Create("task", "label", Task::Priority::HIGH, date);
   ts.AddTask(task, Task::Priority::HIGH);
-  auto taskTest = ts.GetTasksByName("task");
+  auto taskTest = ts.GetTasksByName("task", false);
   ASSERT_NE(taskTest.size(), 0);
 }
 
@@ -31,9 +31,9 @@ TEST_F(TestTaskServiceClass, CreateSubTask) {
   ts.AddTask(task, Task::Priority::HIGH);
 
   Task subTask = Task::Create("sub task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
-  TaskID rootID = ts.GetTasksByName("task")[0].GetId();
+  TaskID rootID = ts.GetTasksByName("task", false)[0].taskID.GetID();
   ts.AddSubtask(rootID, subTask, Task::Priority::HIGH);
-  auto taskTest = ts.GetTasksByName("sub task");
+  auto taskTest = ts.GetTasksByName("sub task", false);
   ASSERT_NE(taskTest.size(), 0);
 }
 

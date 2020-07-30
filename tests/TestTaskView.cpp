@@ -17,7 +17,7 @@ TEST_F(TestTaskViewClass, AddedToMaps){
   Task task = Task::Create("task", "label", Task::Priority::HIGH, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task, taskID.GenerateID());
   tv.AddTask(newTask);
-  auto result = tv.GetTasks(false);
+  auto result = tv.GetTasks();
   ASSERT_FALSE(result.empty());
 
 }
@@ -30,16 +30,16 @@ TEST_F(TestTaskViewClass, GetNotSortedDate){
   auto newTask = std::make_shared<TaskEntity>(task, taskID.GenerateID());
   tv.AddTask(newTask);
 
-  auto resultByName = tv.GetTasksByName("task", false);
+  auto resultByName = tv.GetTasksByName("task");
   ASSERT_NE(resultByName.size(), 0);
 
-  auto resultByLabel = tv.GetTasksByLabel("label", false);
+  auto resultByLabel = tv.GetTasksByLabel("label");
   ASSERT_NE(resultByLabel.size(), 0);
 
   auto resultByPriority = tv.GetTasksByPriority(Task::Priority::HIGH);
   ASSERT_NE(resultByPriority.size(), 0);
 
-  auto resultForToday = tv.GetTodayTasks(false);
+  auto resultForToday = tv.GetTodayTasks();
   ASSERT_NE(resultForToday.size(), 0);
 }
 
@@ -51,15 +51,15 @@ TEST_F(TestTaskViewClass, GetSortedDate){
   auto newTask = std::make_shared<TaskEntity>(task, taskID.GenerateID());
   tv.AddTask(newTask);
 
-  auto resultByName = tv.GetTasksByName("task", true);
+  auto resultByName = tv.GetTasksByName("task");
   ASSERT_NE(resultByName.size(), 0);
 
-  auto resultByLabel = tv.GetTasksByLabel("label", true);
+  auto resultByLabel = tv.GetTasksByLabel("label");
   ASSERT_NE(resultByLabel.size(), 0);
 
   auto resultByPriority = tv.GetTasksByPriority(Task::Priority::HIGH);
   ASSERT_NE(resultByPriority.size(), 0);
 
-  auto resultForToday = tv.GetTodayTasks(true);
+  auto resultForToday = tv.GetTodayTasks();
   ASSERT_NE(resultForToday.size(), 0);
 }

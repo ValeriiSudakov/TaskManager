@@ -13,8 +13,7 @@
 
 class TaskService {
  public:
-  TaskOutput taskOutput;
-
+  TaskOutput  taskOutput;
  public:
   TaskService();
   ~TaskService();
@@ -23,12 +22,23 @@ class TaskService {
   void                      AddTask(const Task& task, const Task::Priority& priority);
   bool                      AddSubtask(const TaskID& rootTaskID, const Task& subtask, const Task::Priority& priority);
 
-  std::vector<TaskEntity>   GetTasksByName(const std::string& taskName);
+ public:
+  std::vector<TaskDTO>      GetTasks(const bool& byPriority);
+  std::vector<TaskDTO>      GetTodayTasks(const bool& byPriority);
+  std::vector<TaskDTO>      GetWeekTasks(const bool& byPriority);
+  std::vector<TaskDTO>      GetTasksByLabel(const std::string& label,const bool& byPriority);
+  std::vector<TaskDTO>      GetTasksByName(const std::string& name, const bool& byPriority);
+  std::vector<TaskDTO>      GetTasksByPriority(Task::Priority priority);
 
  private:
-  std::map<unsigned int, std::shared_ptr<TaskEntity>>       tasks;
-  TaskID                                                    taskID;
-  TaskView                                                  taskView;
+  std::map<unsigned int, std::shared_ptr<TaskEntity>>    tasks;
+  TaskID                                                 taskID;
+  TaskView                                               taskView;
+
+ private:
+  std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO);
+  std::vector<TaskDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO);
+  TaskDTO                   CreateDTO(const TaskEntity& task);
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_
