@@ -52,7 +52,6 @@ std::vector<TaskEntity> TaskView::GetTasksByLabel(const std::string& label){
   std::vector<TaskEntity> returnTasks;
 
   auto i = byLabel_.find(label); // find pos of label in map
-
   while(i != byLabel_.end()){
     returnTasks.push_back(*i->second.lock());
     if (i++->first != label) break;
@@ -64,9 +63,7 @@ std::vector<TaskEntity> TaskView::GetTasksByName(const std::string& name){
   std::vector<TaskEntity> returnTasks;
 
   auto i = byName_.find(name); // find pos of name in map
-
   while(i != byName_.end()){
-
     returnTasks.push_back(*i->second.lock());
     if (i++->first != name) break;
   }
@@ -77,7 +74,6 @@ std::vector<TaskEntity> TaskView::GetTasksByPriority(Task::Priority taskPriority
   std::vector<TaskEntity> returnTasks;
 
   auto i = byPriority_.find(taskPriority); // find pos of priority in map
-
   while(i != byPriority_.end()){
     returnTasks.push_back(*i->second.lock());
     if (i++->first != taskPriority) break;

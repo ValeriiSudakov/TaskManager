@@ -16,21 +16,20 @@ Task::Task(){}
 Task::~Task() = default;
 
 std::optional<Task> Task::Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate){
-  std::optional<Task> task;
   if (name == ""){
-    return task;
+    return std::nullopt;
   }
   if (label == ""){
-    return task;
+    return std::nullopt;
   }
   tm currentDate = Date::GetCurrentTime();
   currentDate.tm_sec = 0;
   tm inputDate = dueDate;
   inputDate.tm_sec = 0;
   if (mktime(&inputDate) < mktime(&currentDate)){
-    return task;
+    return std::nullopt;
   }
-  return (task = Task(name, label, priority, dueDate));
+  return Task(name, label, priority, dueDate);
 }
 
 std::string Task::GetName() const {

@@ -6,29 +6,21 @@
 #include <string>
 #include <vector>
 
-TaskService::TaskService() : taskIDGenerate_(){}
+TaskService::TaskService() : tasksRepository_(TaskRepository()){}
 TaskService::~TaskService() = default;
 
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
-  TaskID newTaskID = taskIDGenerate_.Generate();
-  auto newEntityTask = std::make_shared<TaskEntity>(task, newTaskID);
-
-  tasks_.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
-  taskView_.AddTask(newEntityTask);
+  taskView_.AddTask(tasksRepository_.AddTask(task, priority));
 }
 
 bool TaskService::AddSubtask(const TaskID& rootTaskID, const Task& subtask,const Task::Priority& priority){
-  if (tasks_.find(rootTaskID.GetID()) == tasks_.end()){
-    return false;
+
+  auto newTask = tasksRepository_.AddSubtask(rootTaskID, subtask, priority);
+  if (newTask.has_value()){
+    taskView_.AddTask(newTask.value());
+    return true;
   }
-  TaskID newTaskID =  taskIDGenerate_.Generate();
-  auto newEntityTask = std::make_shared<TaskEntity>(subtask, TaskID(newTaskID));
-
-  tasks_[rootTaskID.GetID()]->AddSubtasks(newEntityTask);
-  tasks_.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
-  taskView_.AddTask(newEntityTask);
-
-  return true;
+  return false;
 }
 
 std::vector<TaskDTO> TaskService::GetTasks(const bool& byPriority){

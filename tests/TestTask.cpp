@@ -17,7 +17,7 @@ class TestTaskEntityClass : public ::testing::Test {
 
 TEST_F(TestTaskEntityClass, shouldCreateTask){
   TaskIDGenerate taskIDGenerate;
-  std::optional<Task> task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ASSERT_TRUE(task.has_value());
 
   TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
@@ -34,7 +34,7 @@ TEST_F(TestTaskEntityClass, shouldCreateTask){
 
 TEST_F(TestTaskEntityClass, shouldFailCreateTask){
   TaskIDGenerate taskIDGenerate;
-  std::optional<Task> task = Task::Create("", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  auto task = Task::Create("", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ASSERT_FALSE(task.has_value());
 
   std::optional<Task> task1 = Task::Create("task name", "", Task::Priority::NONE, Date::GetCurrentTime());
@@ -52,7 +52,7 @@ TEST_F(TestTaskEntityClass, shouldFailCreateTask){
 TEST_F(TestTaskEntityClass, shouldBeCorrectData) {
   TaskIDGenerate taskIDGenerate;
   tm date = Date::GetCurrentTime();
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, date);
+  auto task = Task::Create("task", "label", Task::Priority::NONE, date);
   ASSERT_TRUE(task.has_value());
 
   ASSERT_EQ(task.value().GetName(), "task");

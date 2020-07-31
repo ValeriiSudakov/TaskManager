@@ -5,12 +5,10 @@
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "TaskID.h"
-#include "TaskEntity.h"
 #include "Date.h"
 #include "TaskDTO.h"
 #include "TaskView.h"
-#include "TaskIDGenerate.h"
-#include <map>
+#include "TaskRepository.h"
 
 class TaskService {
  public:
@@ -31,9 +29,8 @@ class TaskService {
   std::vector<TaskDTO>      GetTasksByPriority(Task::Priority priority);
 
  private:
-  std::map<unsigned int, std::shared_ptr<TaskEntity>>    tasks_;
-  TaskIDGenerate                                         taskIDGenerate_;
-  TaskView                                               taskView_;
+  TaskView                  taskView_;
+  TaskRepository            tasksRepository_;
 
  private:
   std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO);
