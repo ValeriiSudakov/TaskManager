@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_SRC_TASKVIEW_H_
 #define TASKMANAGER_SRC_TASKVIEW_H_
-#include "TaskEntity.h"
+#include "Memory Model/TaskEntity.h"
 #include <map>
 #include <vector>
 

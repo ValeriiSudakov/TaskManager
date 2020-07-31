@@ -4,8 +4,8 @@
 
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
-#include "TaskID.h"
-#include "Date.h"
+#include "Memory Model/TaskID.h"
+#include "Memory Model/Date.h"
 #include "TaskDTO.h"
 #include "TaskView.h"
 #include "TaskRepository.h"

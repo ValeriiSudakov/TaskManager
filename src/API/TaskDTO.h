@@ -4,8 +4,8 @@
 
 #ifndef TASKMANAGER_SRC_TASKDTO_H_
 #define TASKMANAGER_SRC_TASKDTO_H_
-#include "Task.h"
-#include "TaskID.h"
+#include "Memory Model/Task.h"
+#include "Memory Model/TaskID.h"
 class TaskDTO {
  public:
   Task task_;

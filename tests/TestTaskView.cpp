@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "TaskService.h"
+#include "API/TaskService.h"
 #include <iostream>
 
 class TestTaskViewClass : public ::testing::Test {

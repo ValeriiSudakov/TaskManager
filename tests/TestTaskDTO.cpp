@@ -3,9 +3,9 @@
 //
 
 #include <gtest/gtest.h>
-#include "TaskDTO.h"
-#include "Date.h"
-#include "TaskIDGenerate.h"
+#include "API/TaskDTO.h"
+#include "Memory Model/Date.h"
+#include "API/TaskIDGenerate.h"
 #include <iostream>
 
 class TestTaskDTOClass : public ::testing::Test {

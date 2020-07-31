@@ -3,7 +3,7 @@
 //
 
 #include "TaskView.h"
-#include "Date.h"
+#include "Memory Model/Date.h"
 
 void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   byPriority_.insert(std::make_pair(task.lock()->GetTaskPriority(), task));
