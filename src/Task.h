@@ -17,20 +17,19 @@ class Task {
     NONE
   };
 
-  // в срр
   static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);
 
  public:
   ~Task();
   Task();
   Task(const Task& task);
- public:
 
-  // убрать конст ссылка
+ public:
   std::string    GetLabel() const;
   Priority       GetPriority() const;
   tm             GetDueDate() const;
   std::string    GetName() const;
+
  private:
   std::string   name_;
   std::string   label_;
