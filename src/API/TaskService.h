@@ -7,7 +7,6 @@
 #include "Memory Model/TaskID.h"
 #include "Memory Model/Date.h"
 #include "TaskDTO.h"
-#include "TaskView.h"
 #include "TaskRepository.h"
 
 class TaskService {
@@ -29,7 +28,6 @@ class TaskService {
   std::vector<TaskDTO>      GetTasksByPriority(Task::Priority priority);
 
  private:
-  TaskView                  taskView_;
   TaskRepository            tasksRepository_;
 
  private:

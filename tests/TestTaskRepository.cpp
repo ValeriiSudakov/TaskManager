@@ -12,29 +12,50 @@ class TestTaskRepository : public ::testing::Test {
 TEST_F(TestTaskRepository, shouldAddTaskToRepository){
   TaskRepository tr;
   auto task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  auto result = tr.AddTask(task.value(), Task::Priority::NONE);
-  ASSERT_TRUE(result.lock() );
+  tr.AddTask(task.value(), Task::Priority::NONE);
+  auto temp = tr.GetTasks();
+  ASSERT_FALSE(temp.empty());
+}
+
+TEST_F(TestTaskRepository, shoouldGetTaskByID){
+  TaskRepository tr;
+  auto task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  tr.AddTask(task.value(), Task::Priority::NONE);
+  TaskID id(0);
+  auto temp = tr.GetTask(id);
+  ASSERT_TRUE(temp.has_value());
+}
+
+
+TEST_F(TestTaskRepository, shoouldntGetTaskByID){
+  TaskRepository tr;
+  auto task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  tr.AddTask(task.value(), Task::Priority::NONE);
+  TaskID id(1252);
+  auto temp = tr.GetTask(id);
+  ASSERT_FALSE(temp.has_value());
 }
 
 TEST_F(TestTaskRepository, shouldAddSubtaskToRepository){
   TaskRepository tr;
   auto task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  auto taskEntity = tr.AddTask(task.value(), Task::Priority::NONE);
+  tr.AddTask(task.value(), Task::Priority::NONE);
 
+  TaskID id(0);
   auto subtask = Task::Create("sub task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  auto subtaskEntity = tr.AddSubtask(taskEntity.lock()->GetId().GetID(), subtask.value(), Task::Priority::NONE);
-  ASSERT_TRUE(subtaskEntity.has_value());
+  auto success = tr.AddSubtask(id, subtask.value(), Task::Priority::NONE);
+  ASSERT_TRUE(success);
 }
 
 TEST_F(TestTaskRepository, shouldntAddSubtaskToRepository){
   TaskRepository tr;
   auto task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  auto taskEntity = tr.AddTask(task.value(), Task::Priority::NONE);
+  tr.AddTask(task.value(), Task::Priority::NONE);
 
   auto subtask = Task::Create("sub task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   TaskID incorrectID(2121);
-  auto subtaskEntity = tr.AddSubtask(incorrectID.GetID(), subtask.value(), Task::Priority::NONE);
-  ASSERT_FALSE(subtaskEntity.has_value());
+  auto success = tr.AddSubtask(incorrectID.GetID(), subtask.value(), Task::Priority::NONE);
+  ASSERT_FALSE(success);
 }
 
 

@@ -10,46 +10,42 @@ TaskService::TaskService() : tasksRepository_(TaskRepository()){}
 TaskService::~TaskService() = default;
 
 void TaskService::AddTask(const Task& task, const Task::Priority& priority){
-  taskView_.AddTask(tasksRepository_.AddTask(task, priority));
+  tasksRepository_.AddTask(task, priority);
 }
 
 bool TaskService::AddSubtask(const TaskID& rootTaskID, const Task& subtask,const Task::Priority& priority){
 
-  auto newTask = tasksRepository_.AddSubtask(rootTaskID, subtask, priority);
-  if (newTask.has_value()){
-    taskView_.AddTask(newTask.value());
-    return true;
-  }
-  return false;
+  bool result = tasksRepository_.AddSubtask(rootTaskID, subtask, priority);
+  return result;
 }
 
 std::vector<TaskDTO> TaskService::GetTasks(const bool& byPriority){
-  auto sortedTasks = taskView_.GetTasks();
+  auto sortedTasks = tasksRepository_.GetTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTodayTasks(const bool& byPriority){
-  auto sortedTasks = taskView_.GetTodayTasks();
+  auto sortedTasks = tasksRepository_.GetTodayTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetWeekTasks(const bool& byPriority){
-  auto sortedTasks = taskView_.GetWeekTasks();
+  auto sortedTasks = tasksRepository_.GetWeekTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByLabel(const std::string& label, const bool& byPriority){
-  auto sortedTasks = taskView_.GetTasksByLabel(label);
+  auto sortedTasks = tasksRepository_.GetTasksByLabel(label);
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByName(const std::string& name, const bool& byPriority){
-  auto sortedTasks = taskView_.GetTasksByName(name);
+  auto sortedTasks = tasksRepository_.GetTasksByName(name);
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByPriority(Task::Priority priority){
-  auto sortedTasks = taskView_.GetTasksByPriority(priority);
+  auto sortedTasks = tasksRepository_.GetTasksByPriority(priority);
   return MakeTasksDTO(sortedTasks);
 }
 
