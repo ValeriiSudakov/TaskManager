@@ -13,8 +13,10 @@ class TestTaskIDClass : public ::testing::Test {
 
 TEST_F(TestTaskIDClass, shouldIncrement){
   TaskIDGenerate taskIDGenerate;
-  auto id1 = taskIDGenerate.Generate();
-  auto id2 = taskIDGenerate.Generate();
-  ASSERT_NE(id1,id2);
-  ASSERT_EQ(id1+1,id2);
+
+  TaskID id1(taskIDGenerate.Generate());
+  TaskID id2(taskIDGenerate.Generate());
+
+  ASSERT_NE(id1.GetID(),id2.GetID());
+  ASSERT_EQ(id1.GetID()+1,id2.GetID());
 }
