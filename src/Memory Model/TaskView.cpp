@@ -15,10 +15,6 @@ void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   byLabel_.insert(std::make_pair(task.lock()->GetTaskLabel(), task));
 }
 
-void TaskView::RemoveTask(const std::string& taskID) {
-
-}
-
 std::vector<TaskEntity> TaskView::GetTasks(){
   std::vector<TaskEntity> returnTasks;
     for (auto task : byDate_){
@@ -29,7 +25,6 @@ std::vector<TaskEntity> TaskView::GetTasks(){
 
 std::vector<TaskEntity> TaskView::GetTodayTasks(){
   std::vector<TaskEntity> returnTasks;
-
     for (auto task : byDate_){
       if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
         returnTasks.push_back(*task.second.lock());
@@ -50,7 +45,6 @@ std::vector<TaskEntity> TaskView::GetWeekTasks(){
 
 std::vector<TaskEntity> TaskView::GetTasksByLabel(const std::string& label){
   std::vector<TaskEntity> returnTasks;
-
   auto i = byLabel_.find(label); // find pos of label in map
   while(i != byLabel_.end()){
     returnTasks.push_back(*i->second.lock());
@@ -61,7 +55,6 @@ std::vector<TaskEntity> TaskView::GetTasksByLabel(const std::string& label){
 
 std::vector<TaskEntity> TaskView::GetTasksByName(const std::string& name){
   std::vector<TaskEntity> returnTasks;
-
   auto i = byName_.find(name); // find pos of name in map
   while(i != byName_.end()){
     returnTasks.push_back(*i->second.lock());
@@ -72,7 +65,6 @@ std::vector<TaskEntity> TaskView::GetTasksByName(const std::string& name){
 
 std::vector<TaskEntity> TaskView::GetTasksByPriority(Task::Priority taskPriority){
   std::vector<TaskEntity> returnTasks;
-
   auto i = byPriority_.find(taskPriority); // find pos of priority in map
   while(i != byPriority_.end()){
     returnTasks.push_back(*i->second.lock());

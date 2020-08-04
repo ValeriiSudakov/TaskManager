@@ -11,9 +11,6 @@ Task::Task(const std::string &name, const std::string &label, Task::Priority pri
 Task::Task(const Task& task)
     : name_(task.name_), label_(task.label_), priority_(task.priority_), dueDate_(task.dueDate_){}
 
-Task::Task(){}
-
-Task::~Task() = default;
 
 std::optional<Task> Task::Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate){
   if (name == ""){

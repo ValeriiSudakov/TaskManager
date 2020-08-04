@@ -11,8 +11,8 @@
 class TaskView {
  public:
   void AddTask(const std::weak_ptr<TaskEntity>& task);
-  void RemoveTask(const std::string& taskID);
 
+ public:
   std::vector<TaskEntity>  GetTasks();
   std::vector<TaskEntity>  GetTodayTasks();
   std::vector<TaskEntity>  GetWeekTasks();
