@@ -45,10 +45,7 @@ TEST_F(TestDateNamespaceClass, TestIsToday){
 
 TEST_F(TestDateNamespaceClass, TestIsThisWeek){
   tm testDate = Date::GetCurrentTime();
-  testDate.tm_mday = 24;
   ASSERT_TRUE(Date::IsThisWeek(testDate));
-  testDate.tm_mday = 26;
-  ASSERT_TRUE(Date::IsThisWeek(testDate));
-  testDate.tm_mday = 27;
+  testDate.tm_mday+=7;
   ASSERT_FALSE(Date::IsThisWeek(testDate));
 }
