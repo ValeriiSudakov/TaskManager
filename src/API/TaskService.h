@@ -7,7 +7,7 @@
 #include "Memory Model/TaskID.h"
 #include "Memory Model/Date.h"
 #include "TaskDTO.h"
-#include "TaskRepository.h"
+#include "Memory Model/TaskRepository.h"
 
 class TaskService {
  public:
@@ -25,7 +25,7 @@ class TaskService {
   std::vector<TaskDTO>      GetWeekTasks(const bool& byPriority);
   std::vector<TaskDTO>      GetTasksByLabel(const std::string& label,const bool& byPriority);
   std::vector<TaskDTO>      GetTasksByName(const std::string& name, const bool& byPriority);
-  std::vector<TaskDTO>      GetTasksByPriority(Task::Priority priority);
+  std::vector<TaskDTO>      GetTasksByPriority(const Task::Priority& priority);
 
  private:
   TaskRepository            tasksRepository_;

@@ -44,7 +44,7 @@ std::vector<TaskDTO> TaskService::GetTasksByName(const std::string& name, const 
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
-std::vector<TaskDTO> TaskService::GetTasksByPriority(Task::Priority priority){
+std::vector<TaskDTO> TaskService::GetTasksByPriority(const Task::Priority& priority){
   auto sortedTasks = tasksRepository_.GetTasksByPriority(priority);
   return MakeTasksDTO(sortedTasks);
 }
