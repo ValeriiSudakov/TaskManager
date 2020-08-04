@@ -11,11 +11,6 @@
 
 class TaskService {
  public:
- public:
-  TaskService();
-  ~TaskService();
-
- public:
   void                      AddTask(const TaskDTO& task, const Task::Priority& priority);
   bool                      AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
 

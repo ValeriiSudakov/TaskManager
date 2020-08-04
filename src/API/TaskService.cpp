@@ -6,8 +6,6 @@
 #include <string>
 #include <vector>
 
-TaskService::TaskService() : tasksRepository_(TaskRepository()){}
-TaskService::~TaskService() = default;
 
 void TaskService::AddTask(const TaskDTO& task, const Task::Priority& priority){
   auto newTask = tasksRepository_.GetTaskStorage().AddTask(task.GetTask(), priority);

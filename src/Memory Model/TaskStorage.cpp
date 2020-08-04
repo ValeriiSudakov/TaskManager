@@ -4,8 +4,6 @@
 
 #include "TaskStorage.h"
 
-TaskStorage::TaskStorage(){}
-TaskStorage::~TaskStorage() {}
 
 std::shared_ptr<TaskEntity> TaskStorage::AddTask(const Task& task, const Task::Priority& priority){
   TaskID newTaskID = taskIDGenerate_.Generate();
