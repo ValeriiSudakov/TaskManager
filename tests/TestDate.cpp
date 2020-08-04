@@ -18,7 +18,7 @@ TEST_F(TestDateNamespaceClass, TestCurrentTimeCorrect){
 
   tm currentTime = Date::GetCurrentTime();
   ASSERT_EQ(mktime(now), mktime(&currentTime));
-  now->tm_mon--;
+  currentTime.tm_mday+=5;
   ASSERT_NE(mktime(now),mktime(&currentTime));
 }
 

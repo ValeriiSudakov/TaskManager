@@ -8,11 +8,12 @@
 
 class TestTaskViewClass : public ::testing::Test {
 
+ protected:
+  TaskView tv;
+  TaskIDGenerate taskIDGenerate;
 };
 
 TEST_F(TestTaskViewClass, shouldAddTask){
-  TaskView tv;
-  TaskIDGenerate taskIDGenerate;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
@@ -21,12 +22,9 @@ TEST_F(TestTaskViewClass, shouldAddTask){
 }
 
 TEST_F(TestTaskViewClass, shouldGetData){
-  TaskView tv;
-  TaskIDGenerate taskIDGenerate;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
-
   auto resultByName = tv.GetTasksByName("task");
   ASSERT_FALSE(resultByName.empty());
 
@@ -41,12 +39,9 @@ TEST_F(TestTaskViewClass, shouldGetData){
 }
 
 TEST_F(TestTaskViewClass, shouldntGetData){
-  TaskView tv;
-  TaskIDGenerate taskIDGenerate;
   std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
-
   auto resultByName = tv.GetTasksByName("");
   ASSERT_TRUE(resultByName.empty());
 
@@ -58,12 +53,11 @@ TEST_F(TestTaskViewClass, shouldntGetData){
 }
 
 TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
-  TaskView tv;
+  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
+  tv.AddTask(newTask);
   TaskIDGenerate taskIDGenerate;
   TaskID id(taskIDGenerate.Generate());
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  auto newTask = std::make_shared<TaskEntity>(task.value(),  id);
-  tv.AddTask(newTask);
   auto result = tv.GetTasks();
   ASSERT_FALSE(result.empty());
 
