@@ -9,13 +9,12 @@
 TaskService::TaskService() : tasksRepository_(TaskRepository()){}
 TaskService::~TaskService() = default;
 
-void TaskService::AddTask(const Task& task, const Task::Priority& priority){
-  tasksRepository_.AddTask(task, priority);
+void TaskService::AddTask(const TaskDTO& task, const Task::Priority& priority){
+  tasksRepository_.AddTask(task.GetTask(), priority);
 }
 
-bool TaskService::AddSubtask(const TaskID& rootTaskID, const Task& subtask,const Task::Priority& priority){
-
-  bool result = tasksRepository_.AddSubtask(rootTaskID, subtask, priority);
+bool TaskService::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask,const Task::Priority& priority){
+  bool result = tasksRepository_.AddSubtask(rootTaskID, subtask.GetTask(), priority);
   return result;
 }
 
