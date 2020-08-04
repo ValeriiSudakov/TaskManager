@@ -19,12 +19,12 @@ TEST_F(TestTaskDTOClass, shouldCreateTaskDTO){
 
   TaskDTO taskDTO(task.value(), false,  taskIDGenerate.Generate());
 
-  ASSERT_EQ(taskDTO.task_.GetName(), "task name");
-  ASSERT_EQ(taskDTO.task_.GetLabel(), "label");
-  ASSERT_EQ(taskDTO.task_.GetPriority(), Task::Priority::NONE);
-  tm date1 = taskDTO.task_.GetDueDate();
+  ASSERT_EQ(taskDTO.GetTask().GetName(), "task name");
+  ASSERT_EQ(taskDTO.GetTask().GetLabel(), "label");
+  ASSERT_EQ(taskDTO.GetTask().GetPriority(), Task::Priority::NONE);
+  tm date1 = taskDTO.GetTask().GetDueDate();
   ASSERT_EQ(mktime(&date1), mktime(&date));
-  ASSERT_EQ(taskDTO.taskID_.GetID(),  0);
-  ASSERT_EQ(taskDTO.taskComplete_, false);
+  ASSERT_EQ(taskDTO.GetTaskId().GetID(),  0);
+  ASSERT_EQ(taskDTO.IsTaskComplete(), false);
 
 }

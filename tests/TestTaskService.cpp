@@ -32,7 +32,7 @@ TEST_F(TestTaskServiceClass, shouldCreateTask) {
 TEST_F(TestTaskServiceClass, shouldCreateSubTask) {
  std::optional<Task> subTask = Task::Create("sub task", "label", Task::Priority::NONE, Date::GetCurrentTime());
   auto taskTest = ts.GetTasksByName("task", false);
-  ASSERT_TRUE(ts.AddSubtask(taskTest[0].taskID_.GetID(), subTask.value(), Task::Priority::NONE));
+  ASSERT_TRUE(ts.AddSubtask(taskTest[0].GetTaskId().GetID(), subTask.value(), Task::Priority::NONE));
 }
 
 TEST_F(TestTaskServiceClass, shouldntCreateSubTaskWithIncorrectID) {

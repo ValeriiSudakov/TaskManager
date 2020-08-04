@@ -8,13 +8,16 @@
 #include "Memory Model/TaskID.h"
 class TaskDTO {
  public:
+  TaskDTO();
+  TaskDTO(const Task& task, const bool& complete, const TaskID& id);
+  const Task &GetTask() const;
+  bool IsTaskComplete() const;
+  const TaskID &GetTaskId() const;
+
+ private:
   Task task_;
   bool taskComplete_;
   TaskID taskID_;
-
- public:
-  TaskDTO();
-  TaskDTO(const Task& task, const bool& complete, const TaskID& id);
 };
 
 #endif //TASKMANAGER_SRC_TASKDTO_H_
