@@ -6,9 +6,9 @@
 // Created by R2D2 on 15.07.2020.
 //
 #include <gtest/gtest.h>
-#include "Memory Model/TaskEntity.h"
+#include "Memory_Model/TaskEntity.h"
 #include "API/TaskService.h"
-#include "Memory Model/Date.h"
+#include "Memory_Model/Date.h"
 #include <iostream>
 
 class TestTaskEntityClass : public ::testing::Test {

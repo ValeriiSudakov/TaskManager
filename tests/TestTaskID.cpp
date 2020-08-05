@@ -3,8 +3,8 @@
 //
 
 #include <gtest/gtest.h>
-#include "Memory Model/TaskID.h"
-#include "Memory Model/TaskIDGenerate.h"
+#include "Memory_Model/TaskID.h"
+#include "Memory_Model/TaskIDGenerate.h"
 #include <iostream>
 
 class TestTaskIDClass : public ::testing::Test {
