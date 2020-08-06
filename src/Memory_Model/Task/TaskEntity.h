@@ -22,7 +22,7 @@ class TaskEntity {
   const Task::Priority          GetTaskPriority() const;
   const std::string             GetTaskName() const;
   const Task                    GetTask() const;
-  tm                            GetTaskDueDate() const;
+  Date                          GetTaskDueDate() const;
 
  public:
   void                          AddSubtasks(std::weak_ptr<TaskEntity> subtask);

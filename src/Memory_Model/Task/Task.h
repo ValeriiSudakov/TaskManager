@@ -7,6 +7,7 @@
 #include <iostream>
 #include <ctime>
 #include <optional>
+#include "Memory_Model/Date.h"
 
 class Task {
  public:
@@ -16,7 +17,7 @@ class Task {
     THIRD,
     NONE
   };
-  static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);
+  static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const Date& dueDate);
 
  public:
   Task(const Task& task);
@@ -24,17 +25,17 @@ class Task {
  public:
   std::string    GetLabel() const;
   Priority       GetPriority() const;
-  tm             GetDueDate() const;
+  Date           GetDueDate() const;
   std::string    GetName() const;
 
  private:
   std::string   name_;
   std::string   label_;
   Priority      priority_;
-  tm            dueDate_;
+  Date          dueDate_;
 
  private:
-  Task(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);
+  Task(const std::string &name, const std::string &label, Priority priority, const Date& dueDate);
 };
 
 #endif //TASKMANAGER_SRC_TASK_H_

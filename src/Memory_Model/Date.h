@@ -7,11 +7,24 @@
 #include <ctime>
 #include <stdexcept>
 #include <iostream>
+#include "boost/date_time/gregorian/gregorian.hpp"
 
-namespace Date{
-  tm    GetCurrentTime();
-  bool  IsToday(const tm& date);
-  bool  IsThisWeek(tm date);
+class Date{
+ public:
+  Date(std::string date);
+  Date(boost::gregorian::date date);
+
+ public:
+  static boost::gregorian::date     GetCurrentTime();
+  boost::gregorian::date            Get() const;
+  std::string                       ToString();
+
+ public:
+  static bool                       IsThisWeek(const unsigned int& day);
+  static bool                       IsToday(const unsigned int& day);
+ private:
+  boost::gregorian::date date_;
+
 };
 
 #endif //TASKMANAGER_SRC_DATE_H_

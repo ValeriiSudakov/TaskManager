@@ -5,27 +5,21 @@
 #include "Task.h"
 #include "Memory_Model/Date.h"
 
-Task::Task(const std::string &name, const std::string &label, Task::Priority priority, const tm &dueDate)
+Task::Task(const std::string &name, const std::string &label, Task::Priority priority, const Date& dueDate)
     : name_(name), label_(label), priority_(priority), dueDate_(dueDate) {}
 
 Task::Task(const Task& task)
     : name_(task.name_), label_(task.label_), priority_(task.priority_), dueDate_(task.dueDate_){}
 
 
-std::optional<Task> Task::Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate){
+std::optional<Task> Task::Create(const std::string &name, const std::string &label, Priority priority, const Date& dueDate){
   if (name == ""){
     return std::nullopt;
   }
   if (label == ""){
     return std::nullopt;
   }
-  tm currentDate = Date::GetCurrentTime();
-  currentDate.tm_sec = 0;
-  tm inputDate = dueDate;
-  inputDate.tm_sec = 0;
-  if (mktime(&inputDate) < mktime(&currentDate)){
-    return std::nullopt;
-  }
+
   return Task(name, label, priority, dueDate);
 }
 
@@ -39,6 +33,6 @@ Task::Priority Task::GetPriority() const {
   return priority_;
 }
 
-tm Task::GetDueDate() const {
+Date Task::GetDueDate() const {
   return dueDate_;
 }
