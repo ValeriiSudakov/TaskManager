@@ -16,7 +16,6 @@ class Task {
     THIRD,
     NONE
   };
-
   static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const tm &dueDate);
 
  public:

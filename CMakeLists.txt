@@ -28,10 +28,19 @@ add_executable(TaskManager main.cpp
         src/Memory_Model/TaskStorage.h)
 
 
-set(BOOST_ROOT "/home/valeriisudakov/Libs/boost/version.hpp")
-include_directories(${Boost_INCLUDE_DIR})
+#set(BOOST_ROOT "/home/valeriisudakov/Libs/boost/version.hpp")
+#include_directories(${Boost_INCLUDE_DIR})
 
+find_package(Boost 1.74.0 REQUIRED system)
 
+set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
+set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
+set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME    OFF)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
 
 include(GoogleTest)
 find_package(GTest REQUIRED)
