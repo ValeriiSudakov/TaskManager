@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(TaskManager)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(src)
 
@@ -26,8 +27,11 @@ add_executable(TaskManager main.cpp
         src/Memory_Model/TaskStorage.cpp
         src/Memory_Model/TaskStorage.h)
 
-#set(BOOST_ROOT "D:/c++/libs/boost")
-#include_directories(${Boost_INCLUDE_DIR})
+
+set(BOOST_ROOT "/home/valeriisudakov/Libs/boost/version.hpp")
+include_directories(${Boost_INCLUDE_DIR})
+
+
 
 include(GoogleTest)
 find_package(GTest REQUIRED)
