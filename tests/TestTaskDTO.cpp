@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "API/TaskDTO.h"
 #include "Memory_Model/Date.h"
-#include "Memory_Model/TaskIDGenerate.h"
+#include "Memory_Model/Task/TaskIDGenerate.h"
 #include <iostream>
 
 class TestTaskDTOClass : public ::testing::Test {

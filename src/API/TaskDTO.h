@@ -4,8 +4,8 @@
 
 #ifndef TASKMANAGER_SRC_TASKDTO_H_
 #define TASKMANAGER_SRC_TASKDTO_H_
-#include "Memory_Model/Task.h"
-#include "Memory_Model/TaskID.h"
+#include "Memory_Model/Task/Task.h"
+#include "Memory_Model/Task/TaskID.h"
 class TaskDTO {
  public:
   TaskDTO(const Task& task, const bool& complete, const TaskID& id);

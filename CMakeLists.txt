@@ -7,25 +7,25 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories(src)
 
 add_executable(TaskManager main.cpp
-        src/Memory_Model/Task.cpp
-        src/Memory_Model/Task.h
-        src/Memory_Model/TaskEntity.cpp
-        src/Memory_Model/TaskEntity.h
+        src/Memory_Model/Task/Task.cpp
+        src/Memory_Model/Task/Task.h
+        src/Memory_Model/Task/TaskEntity.cpp
+        src/Memory_Model/Task/TaskEntity.h
         src/API/TaskService.cpp
         src/API/TaskService.h
-        src/Memory_Model/TaskID.cpp
-        src/Memory_Model/TaskID.h
+        src/Memory_Model/Task/TaskID.cpp
+        src/Memory_Model/Task/TaskID.h
         src/Memory_Model/Date.cpp
         src/Memory_Model/Date.h
         src/Memory_Model/Storage/TaskView.cpp
         src/Memory_Model/Storage/TaskView.h
         src/API/TaskDTO.cpp src/API/TaskDTO.h
-        src/Memory_Model/TaskIDGenerate.cpp
-        src/Memory_Model/TaskIDGenerate.h
+        src/Memory_Model/Task/TaskIDGenerate.cpp
+        src/Memory_Model/Task/TaskIDGenerate.h
         src/Memory_Model/Storage/TaskRepository.cpp
         src/Memory_Model/Storage/TaskRepository.h
         src/Memory_Model/Storage/TaskStorage.cpp
-        src/Memory_Model/Storage/TaskStorage.h src/Memory_Model/AddTaskResult.h)
+        src/Memory_Model/Storage/TaskStorage.h src/Memory_Model/Task/AddTaskResult.h)
 
 
 #set(BOOST_ROOT "/home/valeriisudakov/Libs/boost/version.hpp")
@@ -48,12 +48,12 @@ enable_testing()
 
 include_directories(tests)
 add_executable(TestsExe tests/TestTask.cpp
-        src/Memory_Model/Task.cpp
-        src/Memory_Model/TaskEntity.cpp
+        src/Memory_Model/Task/Task.cpp
+        src/Memory_Model/Task/TaskEntity.cpp
         src/API/TaskService.cpp
         tests/TestTaskService.cpp
         tests/TestTaskID.cpp
-        src/Memory_Model/TaskID.cpp
+        src/Memory_Model/Task/TaskID.cpp
         src/Memory_Model/Date.cpp
         src/Memory_Model/Storage/TaskView.cpp
         tests/TestDate.cpp
@@ -61,7 +61,7 @@ add_executable(TestsExe tests/TestTask.cpp
         src/API/TaskDTO.cpp
         src/API/TaskDTO.h
         tests/TestTaskDTO.cpp
-        src/Memory_Model/TaskIDGenerate.cpp
+        src/Memory_Model/Task/TaskIDGenerate.cpp
         src/Memory_Model/Storage/TaskRepository.cpp
         src/Memory_Model/Storage/TaskStorage.cpp
         tests/TestTaskStorage.cpp
