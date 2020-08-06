@@ -25,7 +25,7 @@ add_executable(TaskManager main.cpp
         src/Memory_Model/TaskRepository.cpp
         src/Memory_Model/TaskRepository.h
         src/Memory_Model/TaskStorage.cpp
-        src/Memory_Model/TaskStorage.h)
+        src/Memory_Model/TaskStorage.h src/Memory_Model/AddTaskResult.h)
 
 
 #set(BOOST_ROOT "/home/valeriisudakov/Libs/boost/version.hpp")

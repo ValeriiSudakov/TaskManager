@@ -8,11 +8,11 @@
 #include "Memory_Model/Date.h"
 #include "TaskDTO.h"
 #include "Memory_Model/TaskRepository.h"
-
+#include "Memory_Model/AddTaskResult.h"
 class TaskService {
  public:
-  void                      AddTask(const TaskDTO& task, const Task::Priority& priority);
-  bool                      AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
+  AddTaskResult             AddTask(const TaskDTO& task, const Task::Priority& priority);
+  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
 
  public:
   std::vector<TaskDTO>      GetTasks(const bool& byPriority);
