@@ -5,8 +5,8 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 
-#include "TaskEntity.h"
-#include "TaskIDGenerate.h"
+#include "Memory_Model/TaskEntity.h"
+#include "Memory_Model/TaskIDGenerate.h"
 #include <map>
 
 class TaskStorage {

@@ -1,7 +1,4 @@
-#include <iostream>
-#include "API/TaskService.h"
-
-int main() {
+int main(){
 
   return 0;
 }

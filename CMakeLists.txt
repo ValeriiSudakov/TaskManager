@@ -17,15 +17,15 @@ add_executable(TaskManager main.cpp
         src/Memory_Model/TaskID.h
         src/Memory_Model/Date.cpp
         src/Memory_Model/Date.h
-        src/Memory_Model/TaskView.cpp
-        src/Memory_Model/TaskView.h
+        src/Memory_Model/Storage/TaskView.cpp
+        src/Memory_Model/Storage/TaskView.h
         src/API/TaskDTO.cpp src/API/TaskDTO.h
         src/Memory_Model/TaskIDGenerate.cpp
         src/Memory_Model/TaskIDGenerate.h
-        src/Memory_Model/TaskRepository.cpp
-        src/Memory_Model/TaskRepository.h
-        src/Memory_Model/TaskStorage.cpp
-        src/Memory_Model/TaskStorage.h src/Memory_Model/AddTaskResult.h)
+        src/Memory_Model/Storage/TaskRepository.cpp
+        src/Memory_Model/Storage/TaskRepository.h
+        src/Memory_Model/Storage/TaskStorage.cpp
+        src/Memory_Model/Storage/TaskStorage.h src/Memory_Model/AddTaskResult.h)
 
 
 #set(BOOST_ROOT "/home/valeriisudakov/Libs/boost/version.hpp")
@@ -55,15 +55,15 @@ add_executable(TestsExe tests/TestTask.cpp
         tests/TestTaskID.cpp
         src/Memory_Model/TaskID.cpp
         src/Memory_Model/Date.cpp
-        src/Memory_Model/TaskView.cpp
+        src/Memory_Model/Storage/TaskView.cpp
         tests/TestDate.cpp
         tests/TestTaskView.cpp
         src/API/TaskDTO.cpp
         src/API/TaskDTO.h
         tests/TestTaskDTO.cpp
         src/Memory_Model/TaskIDGenerate.cpp
-        src/Memory_Model/TaskRepository.cpp
-        src/Memory_Model/TaskStorage.cpp
+        src/Memory_Model/Storage/TaskRepository.cpp
+        src/Memory_Model/Storage/TaskStorage.cpp
         tests/TestTaskStorage.cpp
         tests/TestTaskRepository.cpp)
 

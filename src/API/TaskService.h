@@ -7,7 +7,7 @@
 #include "Memory_Model/TaskID.h"
 #include "Memory_Model/Date.h"
 #include "TaskDTO.h"
-#include "Memory_Model/TaskRepository.h"
+#include "Memory_Model/Storage/TaskRepository.h"
 #include "Memory_Model/AddTaskResult.h"
 class TaskService {
  public:
