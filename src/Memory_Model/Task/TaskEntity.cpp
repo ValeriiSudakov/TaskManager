@@ -16,11 +16,24 @@ const TaskID TaskEntity::GetId() const {
 }
 
 bool TaskEntity::IsComplete() const {
-  return complete_;
+  if (subtasks_.empty()){
+    return complete_;
+  }
+  for (auto subtask : subtasks_){
+   if (!subtask.lock()->IsComplete()){
+     return false;
+   }
+  }
+  return true;
 }
 
 void TaskEntity::SetComplete() {
   complete_ = true;
+  for (auto subtask : subtasks_){
+    if (subtask.lock() != nullptr){
+      subtask.lock()->SetComplete();
+    }
+  }
 }
 
 const std::string TaskEntity::GetTaskLabel() const{
@@ -47,4 +60,5 @@ const Task TaskEntity::GetTask() const {
 
 void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
     subtasks_.push_back(subtask);
+    complete_ = false;
 }

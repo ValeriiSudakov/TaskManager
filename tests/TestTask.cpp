@@ -28,8 +28,6 @@ TEST_F(TestTaskEntityClass, shouldCreateTask){
   ASSERT_EQ(Task::Priority::NONE, task_entity.GetTaskPriority());
 
   ASSERT_FALSE(task_entity.IsComplete());
-  task_entity.SetComplete();
-  ASSERT_TRUE(task_entity.IsComplete());
 }
 
 TEST_F(TestTaskEntityClass, shouldFailCreateTask){
@@ -60,4 +58,18 @@ TEST_F(TestTaskEntityClass, shouldBeCorrectData) {
   Date taskDate = task.value().GetDueDate();
   ASSERT_EQ(taskDate.Get().day_number(), date.Get().day_number());
 
+}
+
+TEST_F(TestTaskEntityClass, shouldComplite){
+  TaskIDGenerate taskIDGenerate;
+  auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  ASSERT_TRUE(task.has_value());
+  TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+
+  auto subTask = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  auto ptrSubtask = std::make_shared<TaskEntity>(subTask.value(), taskIDGenerate.Generate());
+  task_entity.AddSubtasks(ptrSubtask);
+  ASSERT_FALSE(task_entity.IsComplete());
+  task_entity.SetComplete();
+  ASSERT_TRUE(task_entity.IsComplete());
 }
