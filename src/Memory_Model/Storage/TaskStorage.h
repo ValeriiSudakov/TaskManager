@@ -5,14 +5,14 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 
-#include "TaskEntity.h"
-#include "TaskIDGenerate.h"
+#include "Memory_Model/Task/TaskEntity.h"
+#include "Memory_Model/Task/TaskIDGenerate.h"
 #include <map>
 
 class TaskStorage {
  public:
   std::optional<std::shared_ptr<TaskEntity>>             GetTask(const TaskID& taskID);
-  std::shared_ptr<TaskEntity>                            AddTask(const Task& task, const Task::Priority& priority);
+  std::optional<std::shared_ptr<TaskEntity>>             AddTask(const Task& task, const Task::Priority& priority);
   std::optional<std::shared_ptr<TaskEntity>>             AddSubtask(const TaskID& rootTaskID, const Task& subtask,
                                                              const Task::Priority& priority);
  private:

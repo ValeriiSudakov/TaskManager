@@ -4,15 +4,15 @@
 
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
-#include "Memory_Model/TaskID.h"
+#include "Memory_Model/Task/TaskID.h"
 #include "Memory_Model/Date.h"
 #include "TaskDTO.h"
-#include "Memory_Model/TaskRepository.h"
-
+#include "Memory_Model/Storage/TaskRepository.h"
+#include "Memory_Model/Task/AddTaskResult.h"
 class TaskService {
  public:
-  void                      AddTask(const TaskDTO& task, const Task::Priority& priority);
-  bool                      AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
+  AddTaskResult             AddTask(const TaskDTO& task, const Task::Priority& priority);
+  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
 
  public:
   std::vector<TaskDTO>      GetTasks(const bool& byPriority);

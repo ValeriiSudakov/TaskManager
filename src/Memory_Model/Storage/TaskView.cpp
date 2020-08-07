@@ -3,13 +3,13 @@
 //
 
 #include "TaskView.h"
-#include "Date.h"
+#include "Memory_Model/Date.h"
 
 void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   byPriority_.insert(std::make_pair(task.lock()->GetTaskPriority(), task));
 
-  tm date = task.lock()->GetTaskDueDate();
-  byDate_.insert(std::make_pair(mktime(&date), task));
+  unsigned int date = task.lock()->GetTaskDueDate().Get().day_number();
+  byDate_.insert(std::make_pair(date, task));
 
   byName_.insert(std::make_pair(task.lock()->GetTaskName(), task));
   byLabel_.insert(std::make_pair(task.lock()->GetTaskLabel(), task));
@@ -26,7 +26,7 @@ std::vector<TaskEntity> TaskView::GetTasks(){
 std::vector<TaskEntity> TaskView::GetTodayTasks(){
   std::vector<TaskEntity> returnTasks;
     for (auto task : byDate_){
-      if (Date::IsToday(task.second.lock()->GetTaskDueDate())){
+      if (Date::IsToday(task.second.lock()->GetTaskDueDate().Get().day_number())){
         returnTasks.push_back(*task.second.lock());
       }
     }
@@ -36,7 +36,7 @@ std::vector<TaskEntity> TaskView::GetTodayTasks(){
 std::vector<TaskEntity> TaskView::GetWeekTasks(){
   std::vector<TaskEntity> returnTasks;
     for (auto task : byDate_){
-      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate())){
+      if (Date::IsThisWeek(task.second.lock()->GetTaskDueDate().Get().day_number())){
         returnTasks.push_back(*task.second.lock());
       }
     }

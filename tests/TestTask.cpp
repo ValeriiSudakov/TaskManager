@@ -6,7 +6,7 @@
 // Created by R2D2 on 15.07.2020.
 //
 #include <gtest/gtest.h>
-#include "Memory_Model/TaskEntity.h"
+#include "Memory_Model/Task/TaskEntity.h"
 #include "API/TaskService.h"
 #include "Memory_Model/Date.h"
 #include <iostream>
@@ -40,8 +40,7 @@ TEST_F(TestTaskEntityClass, shouldFailCreateTask){
   std::optional<Task> task1 = Task::Create("task name", "", Task::Priority::NONE, Date::GetCurrentTime());
   ASSERT_FALSE(task.has_value());
 
-  tm date = Date::GetCurrentTime();
-  date.tm_mday--;
+  Date date("2000-1-1");
   std::optional<Task> task2 = Task::Create("task name", "label", Task::Priority::NONE, date);
   ASSERT_FALSE(task.has_value());
 
@@ -51,14 +50,14 @@ TEST_F(TestTaskEntityClass, shouldFailCreateTask){
 
 TEST_F(TestTaskEntityClass, shouldBeCorrectData) {
   TaskIDGenerate taskIDGenerate;
-  tm date = Date::GetCurrentTime();
+  Date date = Date::GetCurrentTime();
   auto task = Task::Create("task", "label", Task::Priority::NONE, date);
   ASSERT_TRUE(task.has_value());
 
   ASSERT_EQ(task.value().GetName(), "task");
   ASSERT_EQ(task.value().GetLabel(), "label");
   ASSERT_EQ(task.value().GetPriority(), Task::Priority::NONE);
-  tm taskDate = task.value().GetDueDate();
-  ASSERT_EQ(mktime(&taskDate), mktime(&date));
+  Date taskDate = task.value().GetDueDate();
+  ASSERT_EQ(taskDate.Get().day_number(), date.Get().day_number());
 
 }

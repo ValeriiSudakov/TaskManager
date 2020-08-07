@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_SRC_TASKVIEW_H_
 #define TASKMANAGER_SRC_TASKVIEW_H_
-#include "TaskEntity.h"
+#include "Memory_Model/Task/TaskEntity.h"
 #include <map>
 #include <vector>
 
@@ -24,7 +24,7 @@ class TaskView {
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>  byPriority_;
   std::map<std::string, std::weak_ptr<TaskEntity>>          byName_;
   std::multimap<std::string, std::weak_ptr<TaskEntity>>     byLabel_;
-  std::multimap<time_t, std::weak_ptr<TaskEntity>>          byDate_;
+  std::multimap<unsigned int, std::weak_ptr<TaskEntity>>    byDate_;
 
 };
 

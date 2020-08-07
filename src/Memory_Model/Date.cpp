@@ -4,32 +4,27 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Date.h"
 
-tm Date::GetCurrentTime() {
-  std::time_t t = std::time(0);   // get time now
-  std::tm* now = std::localtime(&t);
-  return *now;
+Date::Date(std::string date) : date_(boost::gregorian::from_string(date)){}
+Date::Date(boost::gregorian::date date) : date_(date) { }
+
+boost::gregorian::date Date::GetCurrentTime(){
+  return boost::gregorian::day_clock::local_day();
 }
 
-
-bool Date::IsToday(const tm& date){
-  tm currentDate = GetCurrentTime();
-
-  return date.tm_mon == currentDate.tm_mon &&
-        date.tm_mday == currentDate.tm_mday;
+boost::gregorian::date Date::Get() const{
+  return date_;
 }
 
-bool Date::IsThisWeek(tm date) {
-  tm currentDate = GetCurrentTime();
-  int daysToEndOfWeek = 7 - currentDate.tm_wday;
-  tm endOfWeek = GetCurrentTime();
-  // find the end of the week date
-  if (currentDate.tm_mday + daysToEndOfWeek > 31){
-    endOfWeek.tm_mday = (31 + daysToEndOfWeek) - 31;
-    endOfWeek.tm_mon++;
-  } else {
-    endOfWeek.tm_mday = currentDate.tm_mday + daysToEndOfWeek;
-    endOfWeek.tm_mon = currentDate.tm_mon;
-  }
-  return mktime(&currentDate) <= mktime(&date) &&
-        mktime(&date) <= mktime(&endOfWeek);
+std::string Date::ToString(){
+  return boost::gregorian::to_iso_extended_string(date_);
+}
+
+bool Date::IsToday(const unsigned int& day){
+  return Date::GetCurrentTime().day_number() == day;
+}
+
+bool Date::IsThisWeek(const unsigned int& day){
+  Date currentDate(Date::GetCurrentTime());
+  int endOfWeek = currentDate.Get().day_number() + 7 - currentDate.Get().day_of_week();
+  return currentDate.Get().day_number() <= day && day <= endOfWeek;
 }

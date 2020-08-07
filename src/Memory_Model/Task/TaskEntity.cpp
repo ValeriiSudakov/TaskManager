@@ -32,7 +32,7 @@ const Task::Priority TaskEntity::GetTaskPriority() const {
   return task_.GetPriority();
 }
 
-tm TaskEntity::GetTaskDueDate() const{
+Date TaskEntity::GetTaskDueDate() const{
   return task_.GetDueDate();
 }
 
