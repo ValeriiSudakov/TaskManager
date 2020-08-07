@@ -19,12 +19,12 @@ std::string Date::ToString(){
   return boost::gregorian::to_iso_extended_string(date_);
 }
 
-bool Date::IsToday(const unsigned int& day){
-  return Date::GetCurrentTime().day_number() == day;
+bool Date::IsToday(const boost::gregorian::date& day){
+  return Date::GetCurrentTime().day_number() == day.day_number();
 }
 
-bool Date::IsThisWeek(const unsigned int& day){
+bool Date::IsThisWeek(const boost::gregorian::date& day){
   Date currentDate(Date::GetCurrentTime());
   int endOfWeek = currentDate.Get().day_number() + 7 - currentDate.Get().day_of_week();
-  return currentDate.Get().day_number() <= day && day <= endOfWeek;
+  return currentDate.Get().day_number() <= day.day_number() && day.day_number() <= endOfWeek;
 }

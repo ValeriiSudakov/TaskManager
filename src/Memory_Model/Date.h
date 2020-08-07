@@ -20,8 +20,8 @@ class Date{
   std::string                       ToString();
 
  public:
-  static bool                       IsThisWeek(const unsigned int& day);
-  static bool                       IsToday(const unsigned int& day);
+  static bool                       IsThisWeek(const boost::gregorian::date& day);
+  static bool                       IsToday(const boost::gregorian::date& day);
  private:
   boost::gregorian::date date_;
 

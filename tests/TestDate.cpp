@@ -41,26 +41,28 @@ TEST_F(TestDateClass, shouldntCreateDate){
 }
 
 TEST_F(TestDateClass, shouldBeToday){
-  ASSERT_TRUE(Date::IsToday(Date::GetCurrentTime().day_number()));
+  ASSERT_TRUE(Date::IsToday(Date::GetCurrentTime()));
 }
 
 TEST_F(TestDateClass, shouldntBeToday){
-  ASSERT_FALSE(Date::IsToday(Date("2013-1-1").Get().day_number()));
-  ASSERT_FALSE(Date::IsToday(Date("2091-3-5").Get().day_number()));
-  ASSERT_FALSE(Date::IsToday(Date("1434-2-3").Get().day_number()));
-  ASSERT_FALSE(Date::IsToday(Date("9924-4-4").Get().day_number()));
-  ASSERT_FALSE(Date::IsToday(Date("8412-12-4").Get().day_number()));
-  ASSERT_FALSE(Date::IsToday(Date("2041-8-7").Get().day_number()));
+  ASSERT_FALSE(Date::IsToday(Date("2013-1-1").Get()));
+  ASSERT_FALSE(Date::IsToday(Date("2091-3-5").Get()));
+  ASSERT_FALSE(Date::IsToday(Date("1434-2-3").Get()));
+  ASSERT_FALSE(Date::IsToday(Date("9924-4-4").Get()));
+  ASSERT_FALSE(Date::IsToday(Date("8412-12-4").Get()));
+  ASSERT_FALSE(Date::IsToday(Date("2041-8-7").Get()));
 }
 
 TEST_F(TestDateClass, shouldBeThisWeek){
   Date date(Date::GetCurrentTime());
-  ASSERT_TRUE(Date::IsThisWeek(date.Get().day_number()));
+  ASSERT_TRUE(Date::IsThisWeek(date.Get()));
 }
 
 TEST_F(TestDateClass, shouldntBeThisWeek){
-  Date date(Date::GetCurrentTime());                              // culc day after end of week
-  ASSERT_FALSE(Date::IsThisWeek(date.Get().day_number() + 7 - date.Get().day_of_week() + 1));
+  Date date(Date::GetCurrentTime());
+                                                // culc day after end of week
+  Date dayAfterEndOfWeek(boost::gregorian::date(date.Get().day_number() + 7 - date.Get().day_of_week() + 1));
+  ASSERT_FALSE(Date::IsThisWeek(dayAfterEndOfWeek.Get()));
 }
 
 TEST_F(TestDateClass, shouldConvertToString){
