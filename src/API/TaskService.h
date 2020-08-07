@@ -8,7 +8,7 @@
 #include "Memory_Model/Date/Date.h"
 #include "TaskDTO.h"
 #include "Memory_Model/Storage/TaskRepository.h"
-#include "Memory_Model/Task/AddTaskResult.h"
+
 class TaskService {
  public:
   AddTaskResult             AddTask(const TaskDTO& task, const Task::Priority& priority);
