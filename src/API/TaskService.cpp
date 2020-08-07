@@ -8,21 +8,13 @@
 
 
 AddTaskResult TaskService::AddTask(const TaskDTO& task, const Task::Priority& priority){
-  auto newTask = tasksRepository_.GetTaskStorage().AddTask(task.GetTask(), priority);
-  if (newTask.has_value()) {
-    tasksRepository_.GetTaskView().AddTask(newTask.value());
-    return AddTaskResult(true);
-  }
-  return AddTaskResult(AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY, false);
+  AddTaskResult addNewTask = tasksRepository_.AddTask(task, priority);
+  return addNewTask.success_;
 }
 
 AddTaskResult TaskService::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask,const Task::Priority& priority){
-  auto newSubtask = tasksRepository_.GetTaskStorage().AddSubtask(rootTaskID, subtask.GetTask(), priority);
-  if (newSubtask.has_value()){
-    tasksRepository_.GetTaskView().AddTask(newSubtask.value());
-    return AddTaskResult(true);
-  }
-  return AddTaskResult(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK, false);
+  auto addNewSubtask = tasksRepository_.AddSubtask(rootTaskID, subtask, priority);
+  return addNewSubtask.success_;
 }
 
 std::vector<TaskDTO> TaskService::GetTasks(const bool& byPriority){
