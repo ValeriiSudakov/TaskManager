@@ -17,6 +17,11 @@ AddTaskResult TaskService::AddSubtask(const TaskID& rootTaskID, const TaskDTO& s
   return addNewSubtask.success_;
 }
 
+bool TaskService::RemoveTask(const TaskID& ID){
+  auto result = tasksRepository_.RemoveTask(ID);
+  return result;
+}
+
 std::vector<TaskDTO> TaskService::GetTasks(const bool& byPriority){
   auto sortedTasks = tasksRepository_.GetTaskView().GetTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);

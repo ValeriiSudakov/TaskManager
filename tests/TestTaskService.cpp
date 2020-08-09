@@ -140,3 +140,13 @@ TEST_F(TestTaskServiceClass, shouldNotFoundTasksPriority) {
   auto resultSearch = ts.GetTasksByPriority(Task::Priority::FIRST);
   ASSERT_TRUE(resultSearch.empty());
 }
+
+TEST_F(TestTaskServiceClass, shouldRemoveTask){
+  auto result = ts.RemoveTask(TaskID(0));
+  ASSERT_TRUE(result);
+}
+
+TEST_F(TestTaskServiceClass, shouldntRemoveTask){
+  auto result = ts.RemoveTask(TaskID(421));
+  ASSERT_FALSE(result);
+}
