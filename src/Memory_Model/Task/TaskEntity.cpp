@@ -45,7 +45,7 @@ const Task::Priority TaskEntity::GetTaskPriority() const {
   return task_.GetPriority();
 }
 
-Date TaskEntity::GetTaskDueDate() const{
+const Date TaskEntity::GetTaskDueDate() const{
   return task_.GetDueDate();
 }
 
@@ -61,4 +61,7 @@ const Task TaskEntity::GetTask() const {
 void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
     subtasks_.push_back(subtask);
     complete_ = false;
+}
+const std::vector<std::weak_ptr<TaskEntity>> TaskEntity::GetSubtasks() const {
+  return subtasks_;
 }

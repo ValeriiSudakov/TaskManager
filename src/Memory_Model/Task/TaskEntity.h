@@ -15,18 +15,19 @@ class TaskEntity {
   ~TaskEntity();
 
  public:
-  bool                          IsComplete() const;
+  bool                                          IsComplete() const;
 
-  const TaskID                  GetId() const;
-  const std::string             GetTaskLabel() const;
-  const Task::Priority          GetTaskPriority() const;
-  const std::string             GetTaskName() const;
-  const Task                    GetTask() const;
-  Date                          GetTaskDueDate() const;
+  const TaskID                                  GetId() const;
+  const std::string                             GetTaskLabel() const;
+  const Task::Priority                          GetTaskPriority() const;
+  const std::string                             GetTaskName() const;
+  const Task                                    GetTask() const;
+  const Date                                    GetTaskDueDate() const;
+  const std::vector<std::weak_ptr<TaskEntity>>  GetSubtasks() const;
 
  public:
-  void                          AddSubtasks(std::weak_ptr<TaskEntity> subtask);
-  void                          SetComplete();
+  void                                          AddSubtasks(std::weak_ptr<TaskEntity> subtask);
+  void                                          SetComplete();
 
  private:
   Task                                   task_;
