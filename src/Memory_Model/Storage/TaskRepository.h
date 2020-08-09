@@ -20,7 +20,7 @@ class TaskRepository {
 
   AddTaskResult             AddTask(const TaskDTO& task, const Task::Priority& priority);
   AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
-
+  bool                      RemoveTask(const TaskID& id);
 
  private:
   TaskView      taskView_;

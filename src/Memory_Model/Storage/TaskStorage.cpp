@@ -32,3 +32,13 @@ std::optional<std::shared_ptr<TaskEntity>> TaskStorage::GetTask(const TaskID& ta
   }
   return tasks_[taskID.GetID()];
 }
+
+bool TaskStorage::RemoveTask(const TaskID &id) {
+  auto task = tasks_.find(id.GetID());
+  if (task != tasks_.end()){
+    task->second.reset();
+    tasks_.erase(task);
+    return true;
+  }
+  return false;
+}

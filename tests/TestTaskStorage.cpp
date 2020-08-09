@@ -51,4 +51,10 @@ TEST_F(TestTaskStorage, shouldntAddSubtaskToStorage){
   ASSERT_FALSE(success);
 }
 
+TEST_F(TestTaskStorage, shouldRemoveTask){
+  ASSERT_TRUE(ts.RemoveTask(TaskID(0)));
+}
 
+TEST_F(TestTaskStorage, shouldntRemoveTask){
+  ASSERT_FALSE(ts.RemoveTask(TaskID(1242131)));
+}

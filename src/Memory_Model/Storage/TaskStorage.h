@@ -15,6 +15,7 @@ class TaskStorage {
   std::optional<std::shared_ptr<TaskEntity>>             AddTask(const Task& task, const Task::Priority& priority);
   std::optional<std::shared_ptr<TaskEntity>>             AddSubtask(const TaskID& rootTaskID, const Task& subtask,
                                                              const Task::Priority& priority);
+  bool                                                   RemoveTask(const TaskID& id);
  private:
   TaskIDGenerate                                         taskIDGenerate_;
   std::map<unsigned int, std::shared_ptr<TaskEntity>>    tasks_;
