@@ -67,9 +67,47 @@ TEST_F(TestTaskEntityClass, shouldComplite){
   TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
 
   auto subTask = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  auto ptrSubtask = std::make_shared<TaskEntity>(subTask.value(), taskIDGenerate.Generate());
+  auto ptrSubtask = std::make_shared<TaskEntity>(subTask.value(), TaskID(0), taskIDGenerate.Generate());
   task_entity.AddSubtasks(ptrSubtask);
   ASSERT_FALSE(task_entity.IsComplete());
   task_entity.SetComplete();
   ASSERT_TRUE(task_entity.IsComplete());
+}
+
+TEST_F(TestTaskEntityClass, shouldGetParentID){
+    TaskIDGenerate taskIDGenerate;
+    auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    ASSERT_TRUE(task.has_value());
+    TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+
+    auto subTask = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    auto ptrSubtask = std::make_shared<TaskEntity>(subTask.value(), taskIDGenerate.Generate(), task_entity.GetId());
+    task_entity.AddSubtasks(ptrSubtask);
+
+    ASSERT_EQ(task_entity.GetId().GetID(), task_entity.GetParentId().GetID());
+    auto parentIDofSubtask = task_entity.GetSubtasks().begin()->second.lock()->GetParentId();
+    ASSERT_EQ(task_entity.GetId().GetID(), parentIDofSubtask.GetID());
+
+}
+
+TEST_F(TestTaskEntityClass, shouldRemoveSubtas){
+    TaskIDGenerate taskIDGenerate;
+    auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    ASSERT_TRUE(task.has_value());
+    TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+
+    auto subTask = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    auto ptrSubtask = std::make_shared<TaskEntity>(subTask.value(), taskIDGenerate.Generate(), task_entity.GetId());
+    task_entity.AddSubtasks(ptrSubtask);
+    auto result = task_entity.RemoveTaskFromSubtasks(TaskID(1));
+    ASSERT_TRUE(result);
+}
+
+TEST_F(TestTaskEntityClass, shouldntRemoveSubtas){
+    TaskIDGenerate taskIDGenerate;
+    auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    ASSERT_TRUE(task.has_value());
+    TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+    auto result = task_entity.RemoveTaskFromSubtasks(TaskID(21311));
+    ASSERT_FALSE(result);
 }

@@ -6,7 +6,11 @@
 #include <exception>
 
 TaskEntity::TaskEntity(const Task& task, TaskID ID)
-    : task_(task), id_(ID), complete_(false) {}
+    : task_(task), id_(ID), parentID_(ID), complete_(false) {}
+
+
+TaskEntity::TaskEntity(const Task &task, TaskID ID, TaskID parentID)
+: task_(task), id_(ID), parentID_(parentID), complete_(false)  { }
 
 TaskEntity::~TaskEntity() = default;
 
@@ -15,12 +19,16 @@ const TaskID TaskEntity::GetId() const {
   return id_;
 }
 
+const TaskID TaskEntity::GetParentId() const {
+    return parentID_;
+}
+
 bool TaskEntity::IsComplete() const {
   if (subtasks_.empty()){
     return complete_;
   }
   for (auto subtask : subtasks_){
-   if (!subtask.lock()->IsComplete()){
+   if (!subtask.second.lock()->IsComplete()){
      return false;
    }
   }
@@ -30,8 +38,8 @@ bool TaskEntity::IsComplete() const {
 void TaskEntity::SetComplete() {
   complete_ = true;
   for (auto subtask : subtasks_){
-    if (subtask.lock() != nullptr){
-      subtask.lock()->SetComplete();
+    if (subtask.second.lock() != nullptr){
+      subtask.second.lock()->SetComplete();
     }
   }
 }
@@ -57,11 +65,20 @@ const Task TaskEntity::GetTask() const {
   return task_;
 }
 
+bool TaskEntity::RemoveTaskFromSubtasks(const TaskID& id){
+  auto subtask = subtasks_.find(id.GetID());
+  if (subtask != subtasks_.end()){
+      subtasks_.erase(subtask);
+      return true;
+  }
+  return false;
+}
 
 void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
-    subtasks_.push_back(subtask);
+    subtasks_.insert(std::make_pair(subtask.lock()->GetId().GetID(), subtask));
     complete_ = false;
 }
-const std::vector<std::weak_ptr<TaskEntity>> TaskEntity::GetSubtasks() const {
+
+const std::map<unsigned int, std::weak_ptr<TaskEntity>> TaskEntity::GetSubtasks() const {
   return subtasks_;
 }

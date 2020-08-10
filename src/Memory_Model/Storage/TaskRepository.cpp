@@ -38,7 +38,7 @@ bool TaskRepository::RemoveTask(const TaskID& id){
   }
   std::vector<TaskID> idTaskToDelete;
   for (auto subtask : task.value()->GetSubtasks()){
-    TaskID subtaskID = subtask.lock()->GetId();
+    TaskID subtaskID = subtask.second.lock()->GetId();
     idTaskToDelete.push_back(subtaskID);
     // recursive delete subtasks of those subtasks
     RemoveTask(subtaskID);
@@ -49,5 +49,9 @@ bool TaskRepository::RemoveTask(const TaskID& id){
   }
   // remove task
   taskStorage_.RemoveTask(task.value()->GetId());
+  auto taskParentID = task.value()->GetParentId();
+  if (taskParentID.GetID() != task.value()->GetId().GetID()){
+      taskStorage_.GetTask(taskParentID).value()->RemoveTaskFromSubtasks(id);
+  }
   return true;
 }
