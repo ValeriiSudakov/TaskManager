@@ -85,7 +85,7 @@ TEST_F(TestTaskEntityClass, shouldGetParentID){
     task_entity.AddSubtasks(ptrSubtask);
 
     ASSERT_EQ(task_entity.GetId().GetID(), task_entity.GetParentId().GetID());
-    auto parentIDofSubtask = task_entity.GetSubtasks()[0].lock()->GetParentId();
+    auto parentIDofSubtask = task_entity.GetSubtasks().begin()->second.lock()->GetParentId();
     ASSERT_EQ(task_entity.GetId().GetID(), parentIDofSubtask.GetID());
 
 }

@@ -28,7 +28,7 @@ bool TaskEntity::IsComplete() const {
     return complete_;
   }
   for (auto subtask : subtasks_){
-   if (!subtask.lock()->IsComplete()){
+   if (!subtask.second.lock()->IsComplete()){
      return false;
    }
   }
@@ -38,8 +38,8 @@ bool TaskEntity::IsComplete() const {
 void TaskEntity::SetComplete() {
   complete_ = true;
   for (auto subtask : subtasks_){
-    if (subtask.lock() != nullptr){
-      subtask.lock()->SetComplete();
+    if (subtask.second.lock() != nullptr){
+      subtask.second.lock()->SetComplete();
     }
   }
 }
@@ -67,9 +67,10 @@ const Task TaskEntity::GetTask() const {
 
 
 void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
-    subtasks_.push_back(subtask);
+    subtasks_.insert(std::make_pair(subtask.lock()->GetId().GetID(), subtask));
     complete_ = false;
 }
-const std::vector<std::weak_ptr<TaskEntity>> TaskEntity::GetSubtasks() const {
+
+const std::map<unsigned int, std::weak_ptr<TaskEntity>> TaskEntity::GetSubtasks() const {
   return subtasks_;
 }
