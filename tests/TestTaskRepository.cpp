@@ -67,7 +67,6 @@ TEST_F(TestTaskRepository, shouldRemoveTask){
   tr.AddSubtask(tr.GetTaskView().GetTasksByName("sub task")[0].GetId(), newSubtask1, Task::Priority::NONE);
 
   ASSERT_TRUE(tr.RemoveTask(TaskID(0)));
-
   ASSERT_FALSE(tr.GetTaskStorage().GetTask(TaskID(0)).has_value());
   ASSERT_FALSE(tr.GetTaskStorage().GetTask(TaskID(1)).has_value());
   ASSERT_FALSE(tr.GetTaskStorage().GetTask(TaskID(2)).has_value());
