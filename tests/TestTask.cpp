@@ -89,3 +89,25 @@ TEST_F(TestTaskEntityClass, shouldGetParentID){
     ASSERT_EQ(task_entity.GetId().GetID(), parentIDofSubtask.GetID());
 
 }
+
+TEST_F(TestTaskEntityClass, shouldRemoveSubtas){
+    TaskIDGenerate taskIDGenerate;
+    auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    ASSERT_TRUE(task.has_value());
+    TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+
+    auto subTask = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    auto ptrSubtask = std::make_shared<TaskEntity>(subTask.value(), taskIDGenerate.Generate(), task_entity.GetId());
+    task_entity.AddSubtasks(ptrSubtask);
+    auto result = task_entity.RemoveTaskFromSubtasks(TaskID(1));
+    ASSERT_TRUE(result);
+}
+
+TEST_F(TestTaskEntityClass, shouldntRemoveSubtas){
+    TaskIDGenerate taskIDGenerate;
+    auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    ASSERT_TRUE(task.has_value());
+    TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+    auto result = task_entity.RemoveTaskFromSubtasks(TaskID(21311));
+    ASSERT_FALSE(result);
+}

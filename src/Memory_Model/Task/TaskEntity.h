@@ -17,6 +17,7 @@ class TaskEntity {
 
  public:
   bool                                                      IsComplete() const;
+  bool                                                      RemoveTaskFromSubtasks(const TaskID& id);
 
   const TaskID                                              GetId() const;
   const TaskID                                              GetParentId() const;

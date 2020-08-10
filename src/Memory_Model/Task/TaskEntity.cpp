@@ -65,6 +65,14 @@ const Task TaskEntity::GetTask() const {
   return task_;
 }
 
+bool TaskEntity::RemoveTaskFromSubtasks(const TaskID& id){
+  auto subtask = subtasks_.find(id.GetID());
+  if (subtask != subtasks_.end()){
+      subtasks_.erase(subtask);
+      return true;
+  }
+  return false;
+}
 
 void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
     subtasks_.insert(std::make_pair(subtask.lock()->GetId().GetID(), subtask));
