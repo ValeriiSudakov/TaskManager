@@ -6,13 +6,21 @@
 #include <exception>
 
 TaskEntity::TaskEntity(const Task& task, TaskID ID)
-    : task_(task), id_(ID), complete_(false) {}
+    : task_(task), id_(ID), parentID_(ID), complete_(false) {}
+
+
+TaskEntity::TaskEntity(const Task &task, TaskID ID, TaskID parentID)
+: task_(task), id_(ID), parentID_(parentID), complete_(false)  { }
 
 TaskEntity::~TaskEntity() = default;
 
 
 const TaskID TaskEntity::GetId() const {
   return id_;
+}
+
+const TaskID TaskEntity::GetParentId() const {
+    return parentID_;
 }
 
 bool TaskEntity::IsComplete() const {

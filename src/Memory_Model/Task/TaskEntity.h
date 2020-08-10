@@ -12,12 +12,14 @@
 class TaskEntity {
  public:
   TaskEntity(const Task& task,TaskID ID);
+  TaskEntity(const Task& task,TaskID ID, TaskID parentID);
   ~TaskEntity();
 
  public:
   bool                                          IsComplete() const;
 
   const TaskID                                  GetId() const;
+  const TaskID                                  GetParentId() const;
   const std::string                             GetTaskLabel() const;
   const Task::Priority                          GetTaskPriority() const;
   const std::string                             GetTaskName() const;
@@ -32,6 +34,7 @@ class TaskEntity {
  private:
   Task                                   task_;
   TaskID                                 id_;
+  TaskID                                 parentID_;
   bool                                   complete_;
   std::vector<std::weak_ptr<TaskEntity>> subtasks_;
 };
