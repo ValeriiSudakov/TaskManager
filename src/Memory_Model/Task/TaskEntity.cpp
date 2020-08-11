@@ -44,6 +44,20 @@ void TaskEntity::SetComplete() {
   }
 }
 
+
+bool TaskEntity::PostponeDate(const Date& newDate){
+    if (newDate.Get().day_number() < Date::GetCurrentTime().day_number()){
+        return false;
+    }
+
+    auto newTask = Task::Create(task_.GetName(), task_.GetLabel(), task_.GetPriority(), newDate);
+    if (newTask.has_value()){
+        task_ = newTask.value();
+        return true;
+    }
+    return false;
+}
+
 const std::string TaskEntity::GetTaskLabel() const{
   return task_.GetLabel();
 }
