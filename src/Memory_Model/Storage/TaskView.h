@@ -22,7 +22,7 @@ class TaskView {
 
  private:
   std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>            byPriority_;
-  std::map<std::string, std::weak_ptr<TaskEntity>>                    byName_;
+  std::multimap<std::string, std::weak_ptr<TaskEntity>>               byName_;
   std::multimap<std::string, std::weak_ptr<TaskEntity>>               byLabel_;
   std::multimap<boost::gregorian::date, std::weak_ptr<TaskEntity>>    byDate_;
 
