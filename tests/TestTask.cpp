@@ -117,8 +117,8 @@ TEST_F(TestTaskEntity, shouldPostpone){
     auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
     ASSERT_TRUE(task.has_value());
     TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
-    boost::gregorian::date rowDate(Date::GetCurrentTime().day_number() + 5);
-    Date date(rowDate);
+    boost::gregorian::date rawDate(Date::GetCurrentTime().day_number() + 5);
+    Date date(rawDate);
     ASSERT_TRUE(task_entity.PostponeDate(date));
 }
 
@@ -127,7 +127,7 @@ TEST_F(TestTaskEntity, shouldntPostpone){
     auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
     ASSERT_TRUE(task.has_value());
     TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
-    boost::gregorian::date rowDate(Date::GetCurrentTime().day_number() - 5);
-    Date date(rowDate);
+    boost::gregorian::date rawDate(Date::GetCurrentTime().day_number() - 5);
+    Date date(rawDate);
     ASSERT_FALSE(task_entity.PostponeDate(date));
 }
