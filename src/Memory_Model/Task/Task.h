@@ -17,10 +17,10 @@ public:
   Task(const Task& task);
 
  public:
-  std::string    GetLabel() const;
-  Priority       GetPriority() const;
-  Date           GetDueDate() const;
-  std::string    GetName() const;
+  const std::string&          GetName() const;
+  const std::string&          GetLabel() const;
+  Priority                    GetPriority() const;
+  const Date&                 GetDueDate() const;
 
  private:
   std::string   name_;
