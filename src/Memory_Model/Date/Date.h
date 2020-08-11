@@ -22,6 +22,7 @@ class Date{
  public:
   static bool                       IsThisWeek(const boost::gregorian::date& day);
   static bool                       IsToday(const boost::gregorian::date& day);
+  static unsigned int               DayForEndOfWeek();
  private:
   boost::gregorian::date date_;
 
