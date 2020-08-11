@@ -7,12 +7,12 @@
 #include <vector>
 
 
-AddTaskResult TaskService::AddTask(const TaskDTO& task, const Task::Priority& priority){
+AddTaskResult TaskService::AddTask(const TaskDTO& task, const Priority& priority){
   AddTaskResult addNewTask = tasksRepository_.AddTask(task, priority);
   return addNewTask.success_;
 }
 
-AddTaskResult TaskService::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask,const Task::Priority& priority){
+AddTaskResult TaskService::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask,const Priority& priority){
   auto addNewSubtask = tasksRepository_.AddSubtask(rootTaskID, subtask, priority);
   return addNewSubtask.success_;
 }
@@ -47,20 +47,21 @@ std::vector<TaskDTO> TaskService::GetTasksByName(const std::string& name, const 
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);
 }
 
-std::vector<TaskDTO> TaskService::GetTasksByPriority(const Task::Priority& priority){
+std::vector<TaskDTO> TaskService::GetTasksByPriority(const Priority& priority){
   auto sortedTasks = tasksRepository_.GetTaskView().GetTasksByPriority(priority);
   return MakeTasksDTO(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO){
-  std::multimap<Task::Priority, TaskEntity> sortedStore;
+  std::multimap<Priority, TaskEntity> sortedStore;
   for (auto task : tasksForDTO){
     sortedStore.insert(std::make_pair(task.GetTaskPriority(), task));
   }
 
   std::vector<TaskDTO> tasksDTO;
   for (auto task : sortedStore){
-    tasksDTO.push_back(CreateDTO(task.second));
+    auto dto = TaskDTO::CreateFromTaskEntity(task.second);
+    tasksDTO.push_back(dto);
   }
 
   return tasksDTO;
@@ -69,11 +70,8 @@ std::vector<TaskDTO> TaskService::MakeTasksDTObyPriority(const std::vector<TaskE
 std::vector<TaskDTO> TaskService::MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO){
   std::vector<TaskDTO> tasksDTO;
   for (auto task : tasksForDTO){
-    tasksDTO.push_back(CreateDTO(task));
+    auto dto = TaskDTO::CreateFromTaskEntity(task);
+    tasksDTO.push_back(dto);
   }
   return tasksDTO;
-}
-
-TaskDTO TaskService::CreateDTO(const TaskEntity& task) {
-  return TaskDTO(task.GetTask(), task.IsComplete(), task.GetId());
 }

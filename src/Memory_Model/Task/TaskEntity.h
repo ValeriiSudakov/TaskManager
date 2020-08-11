@@ -23,7 +23,7 @@ class TaskEntity {
   const TaskID                                              GetId() const;
   const TaskID                                              GetParentId() const;
   const std::string                                         GetTaskLabel() const;
-  const Task::Priority                                      GetTaskPriority() const;
+  const Priority                                            GetTaskPriority() const;
   const std::string                                         GetTaskName() const;
   const Task                                                GetTask() const;
   const Date                                                GetTaskDueDate() const;

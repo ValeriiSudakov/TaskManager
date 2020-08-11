@@ -60,7 +60,7 @@ std::vector<TaskEntity> TaskView::GetTasksByName(const std::string& name){
   return returnTasks;
 }
 
-std::vector<TaskEntity> TaskView::GetTasksByPriority(Task::Priority taskPriority){
+std::vector<TaskEntity> TaskView::GetTasksByPriority(Priority taskPriority){
   std::vector<TaskEntity> returnTasks;
   auto i = byPriority_.find(taskPriority); // find pos of priority in map
   while(i != byPriority_.end()){

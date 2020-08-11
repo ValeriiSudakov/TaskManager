@@ -5,7 +5,7 @@
 #include "Task.h"
 #include "Memory_Model/Date/Date.h"
 
-Task::Task(const std::string &name, const std::string &label, Task::Priority priority, const Date& dueDate)
+Task::Task(const std::string &name, const std::string &label, Priority priority, const Date& dueDate)
     : name_(name), label_(label), priority_(priority), dueDate_(dueDate) {}
 
 Task::Task(const Task& task)
@@ -22,17 +22,17 @@ std::optional<Task> Task::Create(const std::string &name, const std::string &lab
 
   return Task(name, label, priority, dueDate);
 }
-
-std::string Task::GetName() const {
+const std::string &Task::GetName() const {
   return name_;
 }
-std::string Task::GetLabel() const {
+const std::string &Task::GetLabel() const {
   return label_;
 }
-Task::Priority Task::GetPriority() const {
+Priority Task::GetPriority() const {
   return priority_;
 }
-
-Date Task::GetDueDate() const {
+const Date &Task::GetDueDate() const {
   return dueDate_;
 }
+
+

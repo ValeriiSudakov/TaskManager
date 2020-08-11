@@ -11,8 +11,8 @@
 
 class TaskService {
  public:
-  AddTaskResult             AddTask(const TaskDTO& task, const Task::Priority& priority);
-  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
+  AddTaskResult             AddTask(const TaskDTO& task, const Priority& priority);
+  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority);
   bool                      RemoveTask(const TaskID& ID);
 
  public:
@@ -21,7 +21,7 @@ class TaskService {
   std::vector<TaskDTO>      GetWeekTasks(const bool& byPriority);
   std::vector<TaskDTO>      GetTasksByLabel(const std::string& label,const bool& byPriority);
   std::vector<TaskDTO>      GetTasksByName(const std::string& name, const bool& byPriority);
-  std::vector<TaskDTO>      GetTasksByPriority(const Task::Priority& priority);
+  std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority);
 
  private:
   TaskRepository            tasksRepository_;
@@ -29,7 +29,6 @@ class TaskService {
  private:
   std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO);
   std::vector<TaskDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO);
-  TaskDTO                   CreateDTO(const TaskEntity& task);
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_

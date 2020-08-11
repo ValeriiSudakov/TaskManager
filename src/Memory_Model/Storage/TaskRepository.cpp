@@ -13,8 +13,12 @@ TaskStorage& TaskRepository::GetTaskStorage() {
   return taskStorage_;
 }
 
-AddTaskResult TaskRepository::AddTask(const TaskDTO& task, const Task::Priority& priority){
-  auto newTask = taskStorage_.AddTask(task.GetTask(), priority);
+AddTaskResult TaskRepository::AddTask(const TaskDTO& task, const Priority& priority){
+  auto taskFromDTO = Task::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate());
+  if (!taskFromDTO.has_value()){
+    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
+  }
+  auto newTask = taskStorage_.AddTask(taskFromDTO.value(), priority);
   if (newTask.has_value()) {
     taskView_.AddTask(newTask.value());
     return AddTaskResult(true);
@@ -22,8 +26,12 @@ AddTaskResult TaskRepository::AddTask(const TaskDTO& task, const Task::Priority&
   return AddTaskResult(AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY, false);
 }
 
-AddTaskResult TaskRepository::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask,const Task::Priority& priority){
-  auto newSubtask = taskStorage_.AddSubtask(rootTaskID, subtask.GetTask(), priority);
+AddTaskResult TaskRepository::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask,const Priority& priority){
+  auto subtaskFromDTO = Task::Create(subtask.GetName(), subtask.GetLabel(), subtask.GetPriority(), subtask.GetDate());
+  if (!subtaskFromDTO.has_value()){
+    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
+  }
+  auto newSubtask = taskStorage_.AddSubtask(rootTaskID, subtaskFromDTO.value(), priority);
   if (newSubtask.has_value()){
     taskView_.AddTask(newSubtask.value());
     return AddTaskResult(true);

@@ -14,17 +14,17 @@ class TestTaskServiceClass : public ::testing::Test {
 
   }
   virtual void SetUp() {
-    std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-    TaskDTO newTask(task.value(), false, TaskID());
-    ts.AddTask(newTask, Task::Priority::NONE);
+    std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+    auto dto = TaskDTO::CreateFromTask(task.value());
+    ts.AddTask(dto, Priority::NONE);
   }
   TaskService ts;
 };
 
 TEST_F(TestTaskServiceClass, shouldAddTask) {
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  TaskDTO newTask(task.value(), false, TaskID());
-  auto result = ts.AddTask(newTask, Task::Priority::NONE);
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+  auto dto = TaskDTO::CreateFromTask(task.value());
+  auto result = ts.AddTask(dto, Priority::NONE);
   ASSERT_TRUE(result.success_);
 }
 
@@ -36,19 +36,19 @@ TEST_F(TestTaskServiceClass, shouldCreateTask) {
 
 
 TEST_F(TestTaskServiceClass, shouldCreateSubTask) {
-  std::optional<Task> subTask = Task::Create("sub task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  TaskDTO newTask(subTask.value(), false, TaskID());
+  std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
+  auto dto = TaskDTO::CreateFromTask(subTask.value());
   auto taskTest = ts.GetTasksByName("task", false);
-  auto result = ts.AddSubtask(taskTest[0].GetTaskId().GetID(), newTask, Task::Priority::NONE);
+  auto result = ts.AddSubtask(taskTest[0].GetTaskId().GetID(), dto, Priority::NONE);
   ASSERT_TRUE(result.success_);
 }
 
 TEST_F(TestTaskServiceClass, shouldntCreateSubTaskWithIncorrectID) {
   TaskIDGenerate idGenerate;
-  std::optional<Task> subTask = Task::Create("sub task", "label", Task::Priority::NONE, Date::GetCurrentTime());
-  TaskDTO newTask(subTask.value(), false, TaskID());
+  std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
+  auto dto = TaskDTO::CreateFromTask(subTask.value());
   TaskID incorrectID(987);
-  auto result = ts.AddSubtask(incorrectID, newTask, Task::Priority::NONE);
+  auto result = ts.AddSubtask(incorrectID, dto, Priority::NONE);
   ASSERT_FALSE(result.success_);
 }
 
@@ -132,12 +132,12 @@ TEST_F(TestTaskServiceClass, shouldNotFoundWeekTasks) {
 }
 
 TEST_F(TestTaskServiceClass, shouldFoundTasksPriority) {
-  auto resultSearch = ts.GetTasksByPriority(Task::Priority::NONE);
+  auto resultSearch = ts.GetTasksByPriority(Priority::NONE);
   ASSERT_FALSE(resultSearch.empty());
 }
 
 TEST_F(TestTaskServiceClass, shouldNotFoundTasksPriority) {
-  auto resultSearch = ts.GetTasksByPriority(Task::Priority::FIRST);
+  auto resultSearch = ts.GetTasksByPriority(Priority::FIRST);
   ASSERT_TRUE(resultSearch.empty());
 }
 

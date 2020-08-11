@@ -12,9 +12,9 @@
 class TaskStorage {
  public:
   std::optional<std::shared_ptr<TaskEntity>>             GetTask(const TaskID& taskID);
-  std::optional<std::shared_ptr<TaskEntity>>             AddTask(const Task& task, const Task::Priority& priority);
+  std::optional<std::shared_ptr<TaskEntity>>             AddTask(const Task& task, const Priority& priority);
   std::optional<std::shared_ptr<TaskEntity>>             AddSubtask(const TaskID& rootTaskID, const Task& subtask,
-                                                             const Task::Priority& priority);
+                                                             const Priority& priority);
   bool                                                   RemoveTask(const TaskID& id);
  private:
   TaskIDGenerate                                         taskIDGenerate_;
