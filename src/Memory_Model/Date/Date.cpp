@@ -25,6 +25,10 @@ bool Date::IsToday(const boost::gregorian::date& day){
 
 bool Date::IsThisWeek(const boost::gregorian::date& day){
   Date currentDate(Date::GetCurrentTime());
-  int endOfWeek = currentDate.Get().day_number() + 7 - currentDate.Get().day_of_week();
+  int endOfWeek = DayForEndOfWeek();
   return currentDate.Get().day_number() <= day.day_number() && day.day_number() <= endOfWeek;
+}
+
+unsigned int Date::DayForEndOfWeek(){
+  return Date::GetCurrentTime().day_number() + 7 - Date::GetCurrentTime().day_of_week();
 }
