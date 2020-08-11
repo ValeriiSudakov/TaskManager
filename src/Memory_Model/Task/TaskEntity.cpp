@@ -63,7 +63,7 @@ const std::string TaskEntity::GetTaskLabel() const{
 }
 
 
-const Task::Priority TaskEntity::GetTaskPriority() const {
+const Priority TaskEntity::GetTaskPriority() const {
   return task_.GetPriority();
 }
 

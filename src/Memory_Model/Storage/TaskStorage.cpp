@@ -5,7 +5,7 @@
 #include "TaskStorage.h"
 
 
-std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddTask(const Task& task, const Task::Priority& priority){
+std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddTask(const Task& task, const Priority& priority){
   TaskID newTaskID = taskIDGenerate_.Generate();
   auto newEntityTask = std::make_shared<TaskEntity>(task, newTaskID);
   tasks_.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
@@ -13,7 +13,7 @@ std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddTask(const Task& task
 }
 
 std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddSubtask(const TaskID &rootTaskID, const Task &subtask,
-                                                                    const Task::Priority &priority) {
+                                                                    const Priority &priority) {
 
   if (tasks_.find(rootTaskID.GetID()) != tasks_.end()){ // if task exist
     TaskID newTaskID = taskIDGenerate_.Generate();

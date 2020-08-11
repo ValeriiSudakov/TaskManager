@@ -8,18 +8,12 @@
 #include <ctime>
 #include <optional>
 #include "Memory_Model/Date/Date.h"
+#include "API/Priority.h"
 
 class Task {
- public:
-  enum class Priority{
-    FIRST = 1,
-    SECOND,
-    THIRD,
-    NONE
-  };
-  static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const Date& dueDate);
 
- public:
+public:
+  static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const Date& dueDate);
   Task(const Task& task);
 
  public:

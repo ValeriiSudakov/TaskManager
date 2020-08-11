@@ -8,6 +8,7 @@
 #include "TaskStorage.h"
 #include "Memory_Model/Task/AddTaskResult.h"
 #include "API/TaskDTO.h"
+#include "API/Priority.h"
 
 class TaskRepository {
  public:
@@ -18,8 +19,8 @@ class TaskRepository {
   TaskView&                 GetTaskView();
   TaskStorage&              GetTaskStorage();
 
-  AddTaskResult             AddTask(const TaskDTO& task, const Task::Priority& priority);
-  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Task::Priority& priority);
+  AddTaskResult             AddTask(const TaskDTO& task, const Priority& priority);
+  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority);
   bool                      RemoveTask(const TaskID& id);
 
  private:

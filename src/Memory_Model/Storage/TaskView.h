@@ -5,6 +5,7 @@
 #ifndef TASKMANAGER_SRC_TASKVIEW_H_
 #define TASKMANAGER_SRC_TASKVIEW_H_
 #include "Memory_Model/Task/TaskEntity.h"
+#include "API/Priority.h"
 #include <map>
 #include <vector>
 
@@ -18,10 +19,10 @@ class TaskView {
   std::vector<TaskEntity>  GetWeekTasks();
   std::vector<TaskEntity>  GetTasksByLabel(const std::string& label);
   std::vector<TaskEntity>  GetTasksByName(const std::string& name);
-  std::vector<TaskEntity>  GetTasksByPriority(Task::Priority taskPriority);
+  std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority);
 
  private:
-  std::multimap<Task::Priority, std::weak_ptr<TaskEntity>>            byPriority_;
+  std::multimap<Priority, std::weak_ptr<TaskEntity>>                  byPriority_;
   std::multimap<std::string, std::weak_ptr<TaskEntity>>               byName_;
   std::multimap<std::string, std::weak_ptr<TaskEntity>>               byLabel_;
   std::multimap<boost::gregorian::date, std::weak_ptr<TaskEntity>>    byDate_;

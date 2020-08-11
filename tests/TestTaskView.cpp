@@ -14,7 +14,7 @@ class TestTaskViewClass : public ::testing::Test {
 };
 
 TEST_F(TestTaskViewClass, shouldAddTask){
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
   auto result = tv.GetTasks();
@@ -22,7 +22,7 @@ TEST_F(TestTaskViewClass, shouldAddTask){
 }
 
 TEST_F(TestTaskViewClass, shouldGetData){
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
   auto resultByName = tv.GetTasksByName("task");
@@ -31,7 +31,7 @@ TEST_F(TestTaskViewClass, shouldGetData){
   auto resultByLabel = tv.GetTasksByLabel("label");
   ASSERT_FALSE(resultByLabel.empty());
 
-  auto resultByPriority = tv.GetTasksByPriority(Task::Priority::NONE);
+  auto resultByPriority = tv.GetTasksByPriority(Priority::NONE);
   ASSERT_FALSE(resultByPriority.empty());
 
   auto resultForToday = tv.GetTodayTasks();
@@ -39,7 +39,7 @@ TEST_F(TestTaskViewClass, shouldGetData){
 }
 
 TEST_F(TestTaskViewClass, shouldntGetData){
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
   auto resultByName = tv.GetTasksByName("");
@@ -48,12 +48,12 @@ TEST_F(TestTaskViewClass, shouldntGetData){
   auto resultByLabel = tv.GetTasksByLabel("");
   ASSERT_TRUE(resultByLabel.empty());
 
-  auto resultByPriority = tv.GetTasksByPriority(Task::Priority::FIRST);
+  auto resultByPriority = tv.GetTasksByPriority(Priority::FIRST);
   ASSERT_TRUE(resultByPriority.empty());
 }
 
 TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
-  std::optional<Task> task = Task::Create("task", "label", Task::Priority::NONE, Date::GetCurrentTime());
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
   TaskIDGenerate taskIDGenerate;
@@ -63,7 +63,7 @@ TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
 
   ASSERT_FALSE(result[0].IsComplete());
   ASSERT_EQ(result[0].GetId().GetID(), id.GetID());
-  ASSERT_EQ(result[0].GetTaskPriority(), Task::Priority::NONE);
+  ASSERT_EQ(result[0].GetTaskPriority(), Priority::NONE);
   ASSERT_EQ(result[0].GetTaskLabel(), "label");
   ASSERT_EQ(result[0].GetTaskName(), "task");
 }
