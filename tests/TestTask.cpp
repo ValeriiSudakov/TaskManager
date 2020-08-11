@@ -11,11 +11,11 @@
 #include "Memory_Model/Date/Date.h"
 #include <iostream>
 
-class TestTaskEntityClass : public ::testing::Test {
+class TestTaskEntity : public ::testing::Test {
 
 };
 
-TEST_F(TestTaskEntityClass, shouldCreateTask){
+TEST_F(TestTaskEntity, shouldCreateTask){
   TaskIDGenerate taskIDGenerate;
   auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ASSERT_TRUE(task.has_value());
@@ -30,7 +30,7 @@ TEST_F(TestTaskEntityClass, shouldCreateTask){
   ASSERT_FALSE(task_entity.IsComplete());
 }
 
-TEST_F(TestTaskEntityClass, shouldFailCreateTask){
+TEST_F(TestTaskEntity, shouldFailCreateTask){
   TaskIDGenerate taskIDGenerate;
   auto task = Task::Create("", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ASSERT_FALSE(task.has_value());
@@ -46,7 +46,7 @@ TEST_F(TestTaskEntityClass, shouldFailCreateTask){
   ASSERT_FALSE(task.has_value());
 }
 
-TEST_F(TestTaskEntityClass, shouldBeCorrectData) {
+TEST_F(TestTaskEntity, shouldBeCorrectData) {
   TaskIDGenerate taskIDGenerate;
   Date date = Date::GetCurrentTime();
   auto task = Task::Create("task", "label", Task::Priority::NONE, date);
@@ -60,7 +60,7 @@ TEST_F(TestTaskEntityClass, shouldBeCorrectData) {
 
 }
 
-TEST_F(TestTaskEntityClass, shouldComplite){
+TEST_F(TestTaskEntity, shouldComplite){
   TaskIDGenerate taskIDGenerate;
   auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
   ASSERT_TRUE(task.has_value());
@@ -74,7 +74,7 @@ TEST_F(TestTaskEntityClass, shouldComplite){
   ASSERT_TRUE(task_entity.IsComplete());
 }
 
-TEST_F(TestTaskEntityClass, shouldGetParentID){
+TEST_F(TestTaskEntity, shouldGetParentID){
     TaskIDGenerate taskIDGenerate;
     auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
     ASSERT_TRUE(task.has_value());
@@ -90,7 +90,7 @@ TEST_F(TestTaskEntityClass, shouldGetParentID){
 
 }
 
-TEST_F(TestTaskEntityClass, shouldRemoveSubtas){
+TEST_F(TestTaskEntity, shouldRemoveSubtas){
     TaskIDGenerate taskIDGenerate;
     auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
     ASSERT_TRUE(task.has_value());
@@ -103,11 +103,31 @@ TEST_F(TestTaskEntityClass, shouldRemoveSubtas){
     ASSERT_TRUE(result);
 }
 
-TEST_F(TestTaskEntityClass, shouldntRemoveSubtas){
+TEST_F(TestTaskEntity, shouldntRemoveSubtas){
     TaskIDGenerate taskIDGenerate;
     auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
     ASSERT_TRUE(task.has_value());
     TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
     auto result = task_entity.RemoveTaskFromSubtasks(TaskID(21311));
     ASSERT_FALSE(result);
+}
+
+TEST_F(TestTaskEntity, shouldPostpone){
+    TaskIDGenerate taskIDGenerate;
+    auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    ASSERT_TRUE(task.has_value());
+    TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+    boost::gregorian::date rawDate(Date::GetCurrentTime().day_number() + 5);
+    Date date(rawDate);
+    ASSERT_TRUE(task_entity.PostponeDate(date));
+}
+
+TEST_F(TestTaskEntity, shouldntPostpone){
+    TaskIDGenerate taskIDGenerate;
+    auto task = Task::Create("task name", "label", Task::Priority::NONE, Date::GetCurrentTime());
+    ASSERT_TRUE(task.has_value());
+    TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
+    boost::gregorian::date rawDate(Date::GetCurrentTime().day_number() - 5);
+    Date date(rawDate);
+    ASSERT_FALSE(task_entity.PostponeDate(date));
 }
