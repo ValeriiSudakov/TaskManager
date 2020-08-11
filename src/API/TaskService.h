@@ -29,7 +29,6 @@ class TaskService {
  private:
   std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO);
   std::vector<TaskDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO);
-  TaskDTO                   CreateDTO(const TaskEntity& task);
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_

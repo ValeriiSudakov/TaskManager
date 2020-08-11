@@ -60,7 +60,8 @@ std::vector<TaskDTO> TaskService::MakeTasksDTObyPriority(const std::vector<TaskE
 
   std::vector<TaskDTO> tasksDTO;
   for (auto task : sortedStore){
-    tasksDTO.push_back(CreateDTO(task.second));
+    auto dto = TaskDTO::CreateFromTaskEntity(task.second);
+    tasksDTO.push_back(dto);
   }
 
   return tasksDTO;
@@ -69,11 +70,8 @@ std::vector<TaskDTO> TaskService::MakeTasksDTObyPriority(const std::vector<TaskE
 std::vector<TaskDTO> TaskService::MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO){
   std::vector<TaskDTO> tasksDTO;
   for (auto task : tasksForDTO){
-    tasksDTO.push_back(CreateDTO(task));
+    auto dto = TaskDTO::CreateFromTaskEntity(task);
+    tasksDTO.push_back(dto);
   }
   return tasksDTO;
-}
-
-TaskDTO TaskService::CreateDTO(const TaskEntity& task) {
-  return TaskDTO(task.GetTask(), task.IsComplete(), task.GetId());
 }
