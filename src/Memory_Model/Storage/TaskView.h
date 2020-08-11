@@ -22,10 +22,10 @@ class TaskView {
   std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority);
 
  private:
-  std::multimap<Priority, std::weak_ptr<TaskEntity>>                  byPriority_;
-  std::multimap<std::string, std::weak_ptr<TaskEntity>>               byName_;
-  std::multimap<std::string, std::weak_ptr<TaskEntity>>               byLabel_;
-  std::multimap<boost::gregorian::date, std::weak_ptr<TaskEntity>>    byDate_;
+  std::map<Priority, std::map<unsigned int, std::weak_ptr<TaskEntity>>>                  byPriority_;
+  std::map<std::string, std::map<unsigned int, std::weak_ptr<TaskEntity>>>               byName_;
+  std::map<std::string, std::map<unsigned int, std::weak_ptr<TaskEntity>>>               byLabel_;
+  std::map<boost::gregorian::date, std::map<unsigned int, std::weak_ptr<TaskEntity>>>    byDate_;
 
 };
 
