@@ -73,4 +73,5 @@ TEST_F(TestTaskViewClass, shuuldRemove){
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
   ASSERT_TRUE(tv.RemoveTask(newTask));
+  ASSERT_TRUE(tv.GetTasks().empty());
 }
