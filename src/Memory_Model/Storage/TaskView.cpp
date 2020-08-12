@@ -13,15 +13,16 @@ void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   byLabel_[task.lock()->GetTaskLabel()].insert(std::make_pair(id.GetID(), task));
 }
 
-template <typename CollectionType>
-bool TaskView::RemoveFromMap(std::map<CollectionType, std::map<unsigned int, std::weak_ptr<TaskEntity>>>& container,
-                             TaskID id, CollectionType findValue){
-
-  auto tasks = container.find(findValue);
-  if (tasks != container.end()){
+template <typename CollectionType, typename FindValueType>
+bool TaskView::RemoveFromMap(CollectionType& collection,const TaskID& id, const FindValueType& findValue){
+  auto tasks = collection.find(findValue);
+  if (tasks != collection.end()){
     auto task = tasks->second.find(id.GetID());
     if (task != tasks->second.end()){
       tasks->second.erase(id.GetID());
+      if (tasks->second.empty()){
+        collection.erase(tasks);
+      }
       return true;
     }
   }
