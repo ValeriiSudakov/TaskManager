@@ -14,12 +14,12 @@ class TaskView {
   void AddTask(const std::weak_ptr<TaskEntity>& task);
 
  public:
-  std::vector<TaskEntity>  GetTasks();
-  std::vector<TaskEntity>  GetTodayTasks();
-  std::vector<TaskEntity>  GetWeekTasks();
-  std::vector<TaskEntity>  GetTasksByLabel(const std::string& label);
-  std::vector<TaskEntity>  GetTasksByName(const std::string& name);
-  std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority);
+  std::vector<TaskEntity>  GetTasks() const;
+  std::vector<TaskEntity>  GetTodayTasks() const;
+  std::vector<TaskEntity>  GetWeekTasks() const;
+  std::vector<TaskEntity>  GetTasksByLabel(const std::string& label) const;
+  std::vector<TaskEntity>  GetTasksByName(const std::string& name) const;
+  std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority) const;
 
  private:
   std::map<Priority, std::map<unsigned int, std::weak_ptr<TaskEntity>>>                  byPriority_;

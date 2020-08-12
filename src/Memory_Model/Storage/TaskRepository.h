@@ -16,12 +16,12 @@ class TaskRepository {
   TaskRepository();
 
  public:
-  TaskView&                 GetTaskView();
-  TaskStorage&              GetTaskStorage();
+  const TaskView&                 GetTaskView() const;
+  const TaskStorage&              GetTaskStorage() const;
 
-  AddTaskResult             AddTask(const TaskDTO& task, const Priority& priority);
-  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority);
-  bool                      RemoveTask(const TaskID& id);
+  AddTaskResult                   AddTask(const TaskDTO& task, const Priority& priority);
+  AddTaskResult                   AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority);
+  bool                            RemoveTask(const TaskID& id);
 
  private:
   TaskView      taskView_;
