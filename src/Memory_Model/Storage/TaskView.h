@@ -12,6 +12,7 @@
 class TaskView {
  public:
   void AddTask(const std::weak_ptr<TaskEntity>& task);
+  bool RemoveTask(const std::weak_ptr<TaskEntity>& task);
 
  public:
   std::vector<TaskEntity>  GetTasks() const;

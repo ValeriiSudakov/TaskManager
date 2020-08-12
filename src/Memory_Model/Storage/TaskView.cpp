@@ -13,6 +13,35 @@ void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   byLabel_[task.lock()->GetTaskLabel()].insert(std::make_pair(id.GetID(), task));
 }
 
+
+bool TaskView::RemoveTask(const std::weak_ptr<TaskEntity>& task){
+  TaskID id = task.lock()->GetId();
+  auto byPriority = byPriority_.find(task.lock()->GetTaskPriority());
+  if (byPriority == byPriority_.end()){
+    return false;
+  }
+  byPriority->second.erase(id.GetID());
+
+  auto byDate = byDate_.find(task.lock()->GetTaskDueDate().Get());
+  if (byDate == byDate_.end()){
+    return false;
+  }
+  byDate->second.erase(id.GetID());
+
+  auto byName = byName_.find(task.lock()->GetTaskName());
+  if (byName == byName_.end()){
+    return false;
+  }
+  byName->second.erase(id.GetID());
+
+  auto byLabel = byLabel_.find(task.lock()->GetTaskLabel());
+  if (byLabel == byLabel_.end()){
+    return false;
+  }
+  byLabel->second.erase(id.GetID());
+  return true;
+}
+
 std::vector<TaskEntity> TaskView::GetTasks() const{
   std::vector<TaskEntity> returnTasks;
     for (const auto& dates : byDate_){
