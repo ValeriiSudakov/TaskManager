@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_SRC_TASKDTO_H_
 #define TASKMANAGER_SRC_TASKDTO_H_
 #include "Memory_Model/Task/TaskEntity.h"
-
+#include "Date/Date.h"
 class TaskDTO {
  public:
     TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
