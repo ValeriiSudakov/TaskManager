@@ -16,19 +16,19 @@ class TaskService {
   bool                      RemoveTask(const TaskID& ID);
 
  public:
-  std::vector<TaskDTO>      GetTasks(const bool& byPriority);
-  std::vector<TaskDTO>      GetTodayTasks(const bool& byPriority);
-  std::vector<TaskDTO>      GetWeekTasks(const bool& byPriority);
-  std::vector<TaskDTO>      GetTasksByLabel(const std::string& label,const bool& byPriority);
-  std::vector<TaskDTO>      GetTasksByName(const std::string& name, const bool& byPriority);
-  std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority);
+  std::vector<TaskDTO>      GetTasks(bool byPriority) const;
+  std::vector<TaskDTO>      GetTodayTasks(bool  byPriority) const;
+  std::vector<TaskDTO>      GetWeekTasks(bool  byPriority) const;
+  std::vector<TaskDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const;
+  std::vector<TaskDTO>      GetTasksByName(const std::string& name, bool byPriority) const;
+  std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const;
 
  private:
   TaskRepository            tasksRepository_;
 
  private:
-  std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO);
-  std::vector<TaskDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO);
+  std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO) const;
+  std::vector<TaskDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO) const;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_

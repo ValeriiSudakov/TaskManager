@@ -15,21 +15,22 @@ std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddTask(const Task& task
 std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddSubtask(const TaskID &rootTaskID, const Task &subtask,
                                                                     const Priority &priority) {
 
-  if (tasks_.find(rootTaskID.GetID()) != tasks_.end()){ // if task exist
+  auto task = tasks_.find(rootTaskID.GetID());
+  if (task != tasks_.end()){ // if task exist
     TaskID newTaskID = taskIDGenerate_.Generate();
     auto newEntityTask = std::make_shared<TaskEntity>(subtask, TaskID(newTaskID), rootTaskID);
 
-    tasks_[rootTaskID.GetID()]->AddSubtasks(newEntityTask);
+    task->second->AddSubtasks(newEntityTask);
     tasks_.insert(std::make_pair(newTaskID.GetID(), newEntityTask));
+
     return newEntityTask;
   }
+
   return std::nullopt;
 }
-std::optional<std::shared_ptr<TaskEntity>> TaskStorage::GetTask(const TaskID& taskID){
-  if (tasks_.find(taskID.GetID()) == tasks_.end()){
-    return std::nullopt;
-  }
-  return tasks_[taskID.GetID()];
+std::optional<std::shared_ptr<TaskEntity>> TaskStorage::GetTask(const TaskID& taskID) const{
+  auto task = tasks_.find(taskID.GetID());
+  return (task == tasks_.end()) ? std::nullopt : std::make_optional(task->second);
 }
 
 bool TaskStorage::RemoveTask(const TaskID &id) {

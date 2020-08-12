@@ -11,7 +11,7 @@
 
 class TaskStorage {
  public:
-  std::optional<std::shared_ptr<TaskEntity>>             GetTask(const TaskID& taskID);
+  std::optional<std::shared_ptr<TaskEntity>>             GetTask(const TaskID& taskID) const;
   std::optional<std::shared_ptr<TaskEntity>>             AddTask(const Task& task, const Priority& priority);
   std::optional<std::shared_ptr<TaskEntity>>             AddSubtask(const TaskID& rootTaskID, const Task& subtask,
                                                              const Priority& priority);
