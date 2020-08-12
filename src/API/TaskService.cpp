@@ -22,6 +22,11 @@ bool TaskService::RemoveTask(const TaskID& ID){
   return result;
 }
 
+std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
+  auto task = tasksRepository_.GetTaskStorage().GetTask(id.GetID());
+  return task.has_value() ? std::make_optional(TaskDTO::CreateFromTaskEntity(*task.value())) : std::nullopt;
+}
+
 std::vector<TaskDTO> TaskService::GetTasks(bool byPriority) const{
   auto sortedTasks = tasksRepository_.GetTaskView().GetTasks();
   return byPriority ? MakeTasksDTObyPriority(sortedTasks) : MakeTasksDTO(sortedTasks);

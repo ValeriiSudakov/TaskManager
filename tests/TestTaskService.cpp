@@ -29,7 +29,6 @@ TEST_F(TestTaskServiceClass, shouldAddTask) {
 }
 
 TEST_F(TestTaskServiceClass, shouldCreateTask) {
-  // CreateTask
   auto taskTest = ts.GetTasksByName("task", false);
   ASSERT_FALSE(taskTest.empty());
 }
@@ -52,6 +51,15 @@ TEST_F(TestTaskServiceClass, shouldntCreateSubTaskWithIncorrectID) {
   ASSERT_FALSE(result.success_);
 }
 
+TEST_F(TestTaskServiceClass, shouldGetByID) {
+  auto result = ts.GetTask(TaskID());
+  ASSERT_TRUE(result.has_value());
+}
+
+TEST_F(TestTaskServiceClass, shouldntGetByID) {
+  auto result = ts.GetTask(TaskID(1245563));
+  ASSERT_FALSE(result.has_value());
+}
 
 TEST_F(TestTaskServiceClass, shouldFoundTaskByName) {
   auto resultSearch = ts.GetTasksByName("task", false);

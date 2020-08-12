@@ -16,6 +16,7 @@ class TaskService {
   bool                      RemoveTask(const TaskID& ID);
 
  public:
+  std::optional<TaskDTO>    GetTask(const TaskID& id) const;
   std::vector<TaskDTO>      GetTasks(bool byPriority) const;
   std::vector<TaskDTO>      GetTodayTasks(bool  byPriority) const;
   std::vector<TaskDTO>      GetWeekTasks(bool  byPriority) const;
