@@ -12,6 +12,7 @@
 class TaskView {
  public:
   void AddTask(const std::weak_ptr<TaskEntity>& task);
+  bool RemoveTask(const std::weak_ptr<TaskEntity>& task);
 
  public:
   std::vector<TaskEntity>  GetTasks() const;
@@ -27,6 +28,9 @@ class TaskView {
   std::map<std::string, std::map<unsigned int, std::weak_ptr<TaskEntity>>>               byLabel_;
   std::map<boost::gregorian::date, std::map<unsigned int, std::weak_ptr<TaskEntity>>>    byDate_;
 
+  template <typename CollectionType>
+  bool RemoveFromMap(std::map<CollectionType, std::map<unsigned int, std::weak_ptr<TaskEntity>>>& container,
+                     TaskID id,CollectionType findValue);
 };
 
 #endif //TASKMANAGER_SRC_TASKVIEW_H_

@@ -67,3 +67,11 @@ TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
   ASSERT_EQ(result[0].GetTaskLabel(), "label");
   ASSERT_EQ(result[0].GetTaskName(), "task");
 }
+
+TEST_F(TestTaskViewClass, shuuldRemove){
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+  auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
+  tv.AddTask(newTask);
+  ASSERT_TRUE(tv.RemoveTask(newTask));
+  ASSERT_TRUE(tv.GetTasks().empty());
+}
