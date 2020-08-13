@@ -13,8 +13,8 @@
   const TaskView&                 GetTaskView() const override;
   const TaskStorage&              GetTaskStorage() const override;
 
-  AddTaskResult                   AddTask(const TaskDTO& task, const Priority& priority) override;
-  AddTaskResult                   AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority) override;
+  AddTaskResult                   AddTask(const TaskDTO& task) override;
+  AddTaskResult                   AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;
   bool                            RemoveTask(const TaskID& id) override;
 
  private:

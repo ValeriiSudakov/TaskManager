@@ -13,8 +13,8 @@ TaskDTO TaskDTO::CreateFromTask(const Task& task){
 }
 
 TaskDTO TaskDTO::CreateFromTaskEntity(const TaskEntity& taskEntity){
-  return TaskDTO(taskEntity.GetTaskName(), taskEntity.GetTaskLabel(), taskEntity.GetTaskPriority(),
-          taskEntity.GetTaskDueDate(), taskEntity.IsComplete(), taskEntity.GetId());
+  return TaskDTO(taskEntity.GetName(), taskEntity.GetLabel(), taskEntity.GetPriority(),
+          taskEntity.GetDueDate(), taskEntity.IsComplete(), taskEntity.GetId());
 }
 
 const std::string &TaskDTO::GetName() const {

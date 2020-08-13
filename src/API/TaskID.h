@@ -4,19 +4,18 @@
 
 #ifndef TASKMANAGER_SRC_TASKID_H_
 #define TASKMANAGER_SRC_TASKID_H_
-
+#include <cstdint>
 
 class TaskID {
  public:
-  TaskID(unsigned int ID);
+  TaskID(std::uint32_t ID);
   TaskID();
 
  public:
-  unsigned int Get() const;
+  std::uint32_t Get() const;
 
  private:
-
-  unsigned int id_;
+  std::uint32_t id_;
 };
 
 bool operator==(const TaskID& id1, const TaskID& id2);

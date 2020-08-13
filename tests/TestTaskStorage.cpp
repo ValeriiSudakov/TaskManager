@@ -14,14 +14,14 @@ class TestTaskStorage : public ::testing::Test {
   }
   virtual void SetUp() {
     auto task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-    ts.AddTask(task.value(), Priority::NONE);
+    ts.AddTask(task.value());
   }
   TaskStorage ts;
 };
 
 TEST_F(TestTaskStorage, shouldAddTaskToStorage){
   auto task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto newTask = ts.AddTask(task.value(), Priority::NONE);
+  auto newTask = ts.AddTask(task.value());
   ASSERT_NE(newTask, nullptr);
 }
 
@@ -40,14 +40,14 @@ TEST_F(TestTaskStorage, shoouldntGetTaskByID){
 TEST_F(TestTaskStorage, shouldAddSubtaskToStorage){
   TaskID id(0);
   auto subtask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto success = ts.AddSubtask(id, subtask.value(), Priority::NONE);
+  auto success = ts.AddSubtask(id, subtask.value());
   ASSERT_TRUE(success);
 }
 
 TEST_F(TestTaskStorage, shouldntAddSubtaskToStorage){
   auto subtask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
   TaskID incorrectID(2121);
-  auto success = ts.AddSubtask(incorrectID.Get(), subtask.value(), Priority::NONE);
+  auto success = ts.AddSubtask(incorrectID.Get(), subtask.value());
   ASSERT_FALSE(success);
 }
 
