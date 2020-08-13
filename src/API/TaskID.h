@@ -12,7 +12,12 @@ class TaskID {
   TaskID();
 
  public:
-  unsigned int GetID() const;
+  unsigned int Get() const;
+
+  bool operator==(const TaskID& input) const;
+  bool operator!=(const TaskID& input) const;
+  bool operator<(const TaskID& input) const;
+  bool operator>(const TaskID& input) const;
 
  private:
   unsigned int id_;
