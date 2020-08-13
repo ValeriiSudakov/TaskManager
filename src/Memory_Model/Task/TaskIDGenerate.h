@@ -9,7 +9,7 @@
 class TaskIDGenerate {
  public:
   TaskIDGenerate();
-  std::uint32_t Generate();
+  TaskID Generate();
 
  private:
   std::uint32_t id_;
