@@ -4,23 +4,20 @@
 
 #ifndef TASKMANAGER_SRC_TASKVIEW_H_
 #define TASKMANAGER_SRC_TASKVIEW_H_
-#include "Memory_Model/Task/TaskEntity.h"
-#include "API/Priority.h"
-#include <map>
-#include <vector>
+#include "TaskViewInterface.h"
 
-class TaskView {
+class TaskView : public TaskViewInterface{
  public:
-  void AddTask(const std::weak_ptr<TaskEntity>& task);
-  bool RemoveTask(const std::weak_ptr<TaskEntity>& task);
+  void AddTask(const std::weak_ptr<TaskEntity>& task) override;
+  bool RemoveTask(const std::weak_ptr<TaskEntity>& task) override;
 
  public:
-  std::vector<TaskEntity>  GetTasks() const;
-  std::vector<TaskEntity>  GetTodayTasks() const;
-  std::vector<TaskEntity>  GetWeekTasks() const;
-  std::vector<TaskEntity>  GetTasksByLabel(const std::string& label) const;
-  std::vector<TaskEntity>  GetTasksByName(const std::string& name) const;
-  std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority) const;
+  std::vector<TaskEntity>  GetTasks() const override;
+  std::vector<TaskEntity>  GetTodayTasks() const override;
+  std::vector<TaskEntity>  GetWeekTasks() const override;
+  std::vector<TaskEntity>  GetTasksByLabel(const std::string& label) const override;
+  std::vector<TaskEntity>  GetTasksByName(const std::string& name) const override;
+  std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority) const override;
 
  private:
   std::map<Priority, std::map<TaskID, std::weak_ptr<TaskEntity>>>                  byPriority_;

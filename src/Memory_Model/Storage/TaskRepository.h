@@ -4,29 +4,22 @@
 
 #ifndef TASKMANAGER_SRC_TASKREPOSITORY_H_
 #define TASKMANAGER_SRC_TASKREPOSITORY_H_
-#include "TaskView.h"
-#include "TaskStorage.h"
-#include "Memory_Model/Task/AddTaskResult.h"
-#include "API/TaskDTO.h"
-#include "API/Priority.h"
+#include "TaskRepositoryInterface.h"
 
-class TaskRepository {
- public:
-  ~TaskRepository();
-  TaskRepository();
+ class TaskRepository
+     : public TaskRepositoryInterface {
 
  public:
-  const TaskView&                 GetTaskView() const;
-  const TaskStorage&              GetTaskStorage() const;
+  const TaskView&                 GetTaskView() const override;
+  const TaskStorage&              GetTaskStorage() const override;
 
-  AddTaskResult                   AddTask(const TaskDTO& task, const Priority& priority);
-  AddTaskResult                   AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority);
-  bool                            RemoveTask(const TaskID& id);
+  AddTaskResult                   AddTask(const TaskDTO& task, const Priority& priority) override;
+  AddTaskResult                   AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority) override;
+  bool                            RemoveTask(const TaskID& id) override;
 
  private:
   TaskView      taskView_;
   TaskStorage   taskStorage_;
- private:
 };
 
 #endif //TASKMANAGER_SRC_TASKREPOSITORY_H_
