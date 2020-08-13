@@ -28,6 +28,7 @@ std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddSubtask(const TaskID 
 
   return std::nullopt;
 }
+
 std::optional<std::shared_ptr<TaskEntity>> TaskStorage::GetTask(const TaskID& taskID) const{
   auto task = tasks_.find(taskID);
   return (task == tasks_.end()) ? std::nullopt : std::make_optional(task->second);

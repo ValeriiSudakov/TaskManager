@@ -27,7 +27,7 @@ class TaskEntity {
   const std::string                                         GetTaskName() const;
   const Task                                                GetTask() const;
   const Date                                                GetTaskDueDate() const;
-  const std::map<unsigned int, std::weak_ptr<TaskEntity>>   GetSubtasks() const;
+  const std::map<TaskID, std::weak_ptr<TaskEntity>>         GetSubtasks() const;
 
  public:
   void                                                      AddSubtasks(std::weak_ptr<TaskEntity> subtask);
@@ -38,7 +38,7 @@ class TaskEntity {
   TaskID                                                id_;
   TaskID                                                parentID_;
   bool                                                  complete_;
-  std::map<unsigned int, std::weak_ptr<TaskEntity>>     subtasks_;
+  std::map<TaskID, std::weak_ptr<TaskEntity>>           subtasks_;
 };
 
 #endif //TASKMANAGER_SRC_TASKENTITY_H_
