@@ -4,11 +4,11 @@
 
 #include "TaskID.h"
 
-TaskID::TaskID(unsigned int ID) : id_(ID) {}
+TaskID::TaskID(std::uint32_t ID) : id_(ID) {}
 
 TaskID::TaskID() : id_(0){}
 
-unsigned int TaskID::Get() const {
+std::uint32_t TaskID::Get() const {
   return id_;
 }
 

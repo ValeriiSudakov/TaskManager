@@ -4,14 +4,15 @@
 
 #ifndef TASKMANAGER_SRC_TASKIDGENERATE_H_
 #define TASKMANAGER_SRC_TASKIDGENERATE_H_
+#include "API/TaskID.h"
 
 class TaskIDGenerate {
  public:
   TaskIDGenerate();
-  unsigned int Generate();
+  std::uint32_t Generate();
 
  private:
-  unsigned int id_;
+  std::uint32_t id_;
 };
 
 #endif //TASKMANAGER_SRC_TASKIDGENERATE_H_

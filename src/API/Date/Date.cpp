@@ -29,6 +29,6 @@ bool Date::IsThisWeek(const boost::gregorian::date& day){
   return currentDate.Get().day_number() <= day.day_number() && day.day_number() <= endOfWeek;
 }
 
-unsigned int Date::DayForEndOfWeek(){
+std::uint32_t Date::DayForEndOfWeek(){
   return Date::GetCurrentTime().day_number() + 7 - Date::GetCurrentTime().day_of_week();
 }

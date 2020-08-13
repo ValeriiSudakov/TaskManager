@@ -6,6 +6,6 @@
 
 TaskIDGenerate::TaskIDGenerate() : id_(0){}
 
-unsigned int TaskIDGenerate::Generate() {
+std::uint32_t TaskIDGenerate::Generate() {
   return id_++;
 }
