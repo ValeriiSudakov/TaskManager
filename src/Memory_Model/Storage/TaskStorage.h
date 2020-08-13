@@ -10,9 +10,8 @@
 class TaskStorage : public TaskStorageInterface{
  public:
   std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const override;
-  std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task, const Priority& priority) override;
-  std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask,
-                                                             const Priority& priority) override;
+  std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task) override;
+  std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) override;
   bool                                             RemoveTask(const TaskID& id) override;
  private:
   TaskIDGenerate                                   taskIDGenerate_;

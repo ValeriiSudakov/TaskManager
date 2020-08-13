@@ -13,9 +13,8 @@ class TaskStorageInterface{
 
  public:
   virtual std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const = 0;
-  virtual std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task, const Priority& priority) = 0;
-  virtual std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask,
-                                                              const Priority& priority) = 0;
+  virtual std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task) = 0;
+  virtual std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) = 0;
   virtual bool                                             RemoveTask(const TaskID& id) = 0;
 };
 

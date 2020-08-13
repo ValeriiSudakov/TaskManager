@@ -11,15 +11,16 @@
 
 class TaskService {
  public:
-  AddTaskResult             AddTask(const TaskDTO& task, const Priority& priority);
-  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority);
+
+  AddTaskResult             AddTask(const TaskDTO& task);
+  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask);
   bool                      RemoveTask(const TaskID& ID);
 
  public:
   std::optional<TaskDTO>    GetTask(const TaskID& id) const;
   std::vector<TaskDTO>      GetTasks(bool byPriority) const;
-  std::vector<TaskDTO>      GetTodayTasks(bool  byPriority) const;
-  std::vector<TaskDTO>      GetWeekTasks(bool  byPriority) const;
+  std::vector<TaskDTO>      GetTodayTasks(bool byPriority) const;
+  std::vector<TaskDTO>      GetWeekTasks(bool byPriority) const;
   std::vector<TaskDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const;
   std::vector<TaskDTO>      GetTasksByName(const std::string& name, bool byPriority) const;
   std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const;

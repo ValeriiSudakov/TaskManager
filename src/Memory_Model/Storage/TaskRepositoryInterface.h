@@ -18,8 +18,8 @@ class TaskRepositoryInterface{
   virtual const TaskView&         GetTaskView() const = 0;
   virtual const TaskStorage&      GetTaskStorage() const = 0;
 
-  virtual AddTaskResult           AddTask(const TaskDTO& task, const Priority& priority) = 0;
-  virtual AddTaskResult           AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask, const Priority& priority) = 0;
+  virtual AddTaskResult           AddTask(const TaskDTO& task) = 0;
+  virtual AddTaskResult           AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) = 0;
   virtual bool                    RemoveTask(const TaskID& id) = 0;
 };
 

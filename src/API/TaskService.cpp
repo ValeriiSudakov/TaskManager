@@ -7,13 +7,13 @@
 #include <vector>
 
 
-AddTaskResult TaskService::AddTask(const TaskDTO& task, const Priority& priority){
-  AddTaskResult addNewTask = tasksRepository_.AddTask(task, priority);
+AddTaskResult TaskService::AddTask(const TaskDTO& task){
+  AddTaskResult addNewTask = tasksRepository_.AddTask(task);
   return addNewTask.success_;
 }
 
-AddTaskResult TaskService::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask,const Priority& priority){
-  auto addNewSubtask = tasksRepository_.AddSubtask(rootTaskID, subtask, priority);
+AddTaskResult TaskService::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask){
+  auto addNewSubtask = tasksRepository_.AddSubtask(rootTaskID, subtask);
   return addNewSubtask.success_;
 }
 
