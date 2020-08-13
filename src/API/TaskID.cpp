@@ -12,19 +12,19 @@ unsigned int TaskID::Get() const {
   return id_;
 }
 
-bool TaskID::operator==(const TaskID &input) const {
-  return this->id_ == input.id_;
+bool operator==(const TaskID& id1, const TaskID& id2){
+  return id1.Get() == id2.Get();
 }
 
-bool TaskID::operator!=(const TaskID &input) const {
-  return this->id_ != input.id_;
+bool operator!=(const TaskID& id1, const TaskID& id2){
+  return id1.Get() != id2.Get();
+};
+
+bool operator<(const TaskID& id1, const TaskID& id2){
+  return id1.Get() < id2.Get();
 }
 
-bool TaskID::operator<(const TaskID& input) const{
-  return this->id_ < input.id_;
-}
-
-bool TaskID::operator>(const TaskID& input) const{
-  return this->id_ > input.id_;
+bool operator>(const TaskID& id1, const TaskID& id2){
+  return id1.Get() > id2.Get();
 }
 

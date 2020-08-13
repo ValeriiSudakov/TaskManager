@@ -38,14 +38,14 @@ TEST_F(TestTaskIDClass, shouldBeLess){
   TaskIDGenerate taskIDGenerate;
   TaskID id1(taskIDGenerate.Generate());
   TaskID id2(taskIDGenerate.Generate());
-  ASSERT_TRUE(id1.operator<(id2));
-  ASSERT_FALSE(id2.operator<(id1));
+  ASSERT_TRUE(operator<(id1, id2));
+  ASSERT_FALSE(operator<(id2, id1));
 }
 
 TEST_F(TestTaskIDClass, shoulBeBiggest){
   TaskIDGenerate taskIDGenerate;
   TaskID id1(taskIDGenerate.Generate());
   TaskID id2(taskIDGenerate.Generate());
-  ASSERT_TRUE(id2.operator>(id1));
-  ASSERT_FALSE(id1.operator>(id2));
+  ASSERT_TRUE(operator>(id2, id1));
+  ASSERT_FALSE(operator>(id1, id2));
 }
