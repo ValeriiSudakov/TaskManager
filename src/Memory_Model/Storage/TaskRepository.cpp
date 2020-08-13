@@ -53,12 +53,12 @@ bool TaskRepository::RemoveTask(const TaskID& id){
   }
   // remove subtasks
   for (const auto& id : idTaskToDelete){
-    taskStorage_.RemoveTask(id.GetID());
+    taskStorage_.RemoveTask(id.Get());
   }
   // remove task
   taskStorage_.RemoveTask(task.value()->GetId());
   auto taskParentID = task.value()->GetParentId();
-  if (taskParentID.GetID() != task.value()->GetId().GetID()){
+  if (taskParentID.Get() != task.value()->GetId().Get()){
       taskStorage_.GetTask(taskParentID).value()->RemoveTaskFromSubtasks(id);
   }
   return true;

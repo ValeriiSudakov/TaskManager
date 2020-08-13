@@ -43,6 +43,7 @@ endif()
 
 include(GoogleTest)
 find_package(GTest REQUIRED)
+
 enable_testing()
 
 include_directories(tests)

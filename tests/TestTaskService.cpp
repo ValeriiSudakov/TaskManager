@@ -38,7 +38,7 @@ TEST_F(TestTaskServiceClass, shouldCreateSubTask) {
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
   auto dto = TaskDTO::CreateFromTask(subTask.value());
   auto taskTest = ts.GetTasksByName("task", false);
-  auto result = ts.AddSubtask(taskTest[0].GetTaskId().GetID(), dto, Priority::NONE);
+  auto result = ts.AddSubtask(taskTest[0].GetTaskId().Get(), dto, Priority::NONE);
   ASSERT_TRUE(result.success_);
 }
 
