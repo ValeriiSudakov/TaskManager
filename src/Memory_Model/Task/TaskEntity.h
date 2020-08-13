@@ -22,11 +22,11 @@ class TaskEntity {
 
   const TaskID                                              GetId() const;
   const TaskID                                              GetParentId() const;
-  const std::string                                         GetTaskLabel() const;
-  const Priority                                            GetTaskPriority() const;
-  const std::string                                         GetTaskName() const;
+  const std::string                                         GetLabel() const;
+  const Priority                                            GetPriority() const;
+  const std::string                                         GetName() const;
   const Task                                                GetTask() const;
-  const Date                                                GetTaskDueDate() const;
+  const Date                                                GetDueDate() const;
   const std::map<TaskID, std::weak_ptr<TaskEntity>>         GetSubtasks() const;
 
  public:

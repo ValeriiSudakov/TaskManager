@@ -7,10 +7,10 @@
 
 void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   TaskID id = task.lock()->GetId();
-  byPriority_[task.lock()->GetTaskPriority()].insert(std::make_pair(id, task));
-  byDate_[task.lock()->GetTaskDueDate().Get()].insert(std::make_pair(id, task));
-  byName_[task.lock()->GetTaskName()].insert(std::make_pair(id, task));
-  byLabel_[task.lock()->GetTaskLabel()].insert(std::make_pair(id, task));
+  byPriority_[task.lock()->GetPriority()].insert(std::make_pair(id, task));
+  byDate_[task.lock()->GetDueDate().Get()].insert(std::make_pair(id, task));
+  byName_[task.lock()->GetName()].insert(std::make_pair(id, task));
+  byLabel_[task.lock()->GetLabel()].insert(std::make_pair(id, task));
 }
 
 template <typename CollectionType, typename FindValueType>
@@ -34,10 +34,10 @@ bool TaskView::RemoveTask(const std::weak_ptr<TaskEntity>& task){
   if (task.lock() == nullptr){
     return false;
   }
-  RemoveFromMap(byName_, id, task.lock()->GetTaskName());
-  RemoveFromMap(byLabel_, id, task.lock()->GetTaskLabel());
-  RemoveFromMap(byDate_, id, task.lock()->GetTaskDueDate().Get());
-  RemoveFromMap(byPriority_, id, task.lock()->GetTaskPriority());
+  RemoveFromMap(byName_, id, task.lock()->GetName());
+  RemoveFromMap(byLabel_, id, task.lock()->GetLabel());
+  RemoveFromMap(byDate_, id, task.lock()->GetDueDate().Get());
+  RemoveFromMap(byPriority_, id, task.lock()->GetPriority());
   return true;
 }
 

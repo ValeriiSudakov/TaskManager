@@ -58,20 +58,20 @@ bool TaskEntity::PostponeDate(const Date& newDate){
     return false;
 }
 
-const std::string TaskEntity::GetTaskLabel() const{
+const std::string TaskEntity::GetLabel() const{
   return task_.GetLabel();
 }
 
 
-const Priority TaskEntity::GetTaskPriority() const {
+const Priority TaskEntity::GetPriority() const {
   return task_.GetPriority();
 }
 
-const Date TaskEntity::GetTaskDueDate() const{
+const Date TaskEntity::GetDueDate() const{
   return task_.GetDueDate();
 }
 
-const std::string TaskEntity::GetTaskName() const{
+const std::string TaskEntity::GetName() const{
   return task_.GetName();
 }
 

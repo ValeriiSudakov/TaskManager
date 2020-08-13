@@ -23,10 +23,10 @@ TEST_F(TestTaskEntity, shouldCreateTask){
 
   TaskEntity task_entity(task.value(),  taskIDGenerate.Generate());
 
-  ASSERT_EQ(task_entity.GetTaskName(), "task name");
-  ASSERT_EQ(task_entity.GetTaskLabel(),"label");
+  ASSERT_EQ(task_entity.GetName(), "task name");
+  ASSERT_EQ(task_entity.GetLabel(),"label");
 
-  ASSERT_EQ(Priority::NONE, task_entity.GetTaskPriority());
+  ASSERT_EQ(Priority::NONE, task_entity.GetPriority());
 
   ASSERT_FALSE(task_entity.IsComplete());
 }
