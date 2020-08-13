@@ -85,9 +85,9 @@ TEST_F(TestTaskEntity, shouldGetParentID){
     auto ptrSubtask = std::make_shared<TaskEntity>(subTask.value(), taskIDGenerate.Generate(), task_entity.GetId());
     task_entity.AddSubtasks(ptrSubtask);
 
-    ASSERT_EQ(task_entity.GetId().GetID(), task_entity.GetParentId().GetID());
+    ASSERT_EQ(task_entity.GetId().Get(), task_entity.GetParentId().Get());
     auto parentIDofSubtask = task_entity.GetSubtasks().begin()->second.lock()->GetParentId();
-    ASSERT_EQ(task_entity.GetId().GetID(), parentIDofSubtask.GetID());
+    ASSERT_EQ(task_entity.GetId().Get(), parentIDofSubtask.Get());
 
 }
 

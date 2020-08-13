@@ -23,7 +23,7 @@ bool TaskService::RemoveTask(const TaskID& ID){
 }
 
 std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
-  auto task = tasksRepository_.GetTaskStorage().GetTask(id.GetID());
+  auto task = tasksRepository_.GetTaskStorage().GetTask(id.Get());
   return task.has_value() ? std::make_optional(TaskDTO::CreateFromTaskEntity(*task.value())) : std::nullopt;
 }
 

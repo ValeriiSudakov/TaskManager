@@ -25,7 +25,7 @@ TEST_F(TestTaskDTOClass, shouldCreateTaskDTO){
   ASSERT_EQ(taskDTO.GetPriority(), Priority::NONE);
   Date date1 = taskDTO.GetDate();
   ASSERT_EQ(date.Get().day_number(), date1.Get().day_number());
-  ASSERT_EQ(taskDTO.GetTaskId().GetID(),  0);
+  ASSERT_EQ(taskDTO.GetTaskId().Get(),  0);
   ASSERT_EQ(taskDTO.IsTaskComplete(), false);
 
 }

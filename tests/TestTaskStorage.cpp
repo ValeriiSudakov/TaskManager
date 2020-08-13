@@ -47,7 +47,7 @@ TEST_F(TestTaskStorage, shouldAddSubtaskToStorage){
 TEST_F(TestTaskStorage, shouldntAddSubtaskToStorage){
   auto subtask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
   TaskID incorrectID(2121);
-  auto success = ts.AddSubtask(incorrectID.GetID(), subtask.value(), Priority::NONE);
+  auto success = ts.AddSubtask(incorrectID.Get(), subtask.value(), Priority::NONE);
   ASSERT_FALSE(success);
 }
 

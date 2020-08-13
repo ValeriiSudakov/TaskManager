@@ -80,7 +80,7 @@ const Task TaskEntity::GetTask() const {
 }
 
 bool TaskEntity::RemoveTaskFromSubtasks(const TaskID& id){
-  auto subtask = subtasks_.find(id.GetID());
+  auto subtask = subtasks_.find(id.Get());
   if (subtask != subtasks_.end()){
       subtasks_.erase(subtask);
       return true;
@@ -89,7 +89,7 @@ bool TaskEntity::RemoveTaskFromSubtasks(const TaskID& id){
 }
 
 void TaskEntity::AddSubtasks(std::weak_ptr<TaskEntity> subtask) {
-    subtasks_.insert(std::make_pair(subtask.lock()->GetId().GetID(), subtask));
+    subtasks_.insert(std::make_pair(subtask.lock()->GetId().Get(), subtask));
     complete_ = false;
 }
 
