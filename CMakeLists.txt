@@ -26,7 +26,7 @@ add_executable(TaskManager main.cpp
         src/Memory_Model/Storage/TaskRepository.h
         src/Memory_Model/Storage/TaskStorage.cpp
         src/Memory_Model/Storage/TaskStorage.h
-        src/Memory_Model/Task/AddTaskResult.h src/API/Priority.h)
+        src/Memory_Model/Task/AddTaskResult.h src/API/Priority.h src/Memory_Model/Storage/TaskRepositoryInterface.h)
 
 
 

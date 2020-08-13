@@ -3,8 +3,6 @@
 //
 
 #include "TaskRepository.h"
-TaskRepository::TaskRepository() {}
-TaskRepository::~TaskRepository() = default;
 
 const TaskView& TaskRepository::GetTaskView() const{
   return taskView_;
