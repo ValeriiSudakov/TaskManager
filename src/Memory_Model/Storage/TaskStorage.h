@@ -5,17 +5,15 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 
-#include "Memory_Model/Task/TaskEntity.h"
-#include "Memory_Model/Task/TaskIDGenerate.h"
-#include <map>
+#include "TaskStorageInterface.h"
 
-class TaskStorage {
+class TaskStorage : public TaskStorageInterface{
  public:
-  std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const;
-  std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task, const Priority& priority);
+  std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const override;
+  std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task, const Priority& priority) override;
   std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask,
-                                                             const Priority& priority);
-  bool                                             RemoveTask(const TaskID& id);
+                                                             const Priority& priority) override;
+  bool                                             RemoveTask(const TaskID& id) override;
  private:
   TaskIDGenerate                                   taskIDGenerate_;
   std::map<TaskID, std::shared_ptr<TaskEntity>>    tasks_;
