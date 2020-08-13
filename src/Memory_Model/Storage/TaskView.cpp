@@ -7,19 +7,19 @@
 
 void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   TaskID id = task.lock()->GetId();
-  byPriority_[task.lock()->GetTaskPriority()].insert(std::make_pair(id.GetID(), task));
-  byDate_[task.lock()->GetTaskDueDate().Get()].insert(std::make_pair(id.GetID(), task));
-  byName_[task.lock()->GetTaskName()].insert(std::make_pair(id.GetID(), task));
-  byLabel_[task.lock()->GetTaskLabel()].insert(std::make_pair(id.GetID(), task));
+  byPriority_[task.lock()->GetTaskPriority()].insert(std::make_pair(id, task));
+  byDate_[task.lock()->GetTaskDueDate().Get()].insert(std::make_pair(id, task));
+  byName_[task.lock()->GetTaskName()].insert(std::make_pair(id, task));
+  byLabel_[task.lock()->GetTaskLabel()].insert(std::make_pair(id, task));
 }
 
 template <typename CollectionType, typename FindValueType>
 bool TaskView::RemoveFromMap(CollectionType& collection,const TaskID& id, const FindValueType& findValue){
   auto tasks = collection.find(findValue);
   if (tasks != collection.end()){
-    auto task = tasks->second.find(id.GetID());
+    auto task = tasks->second.find(id);
     if (task != tasks->second.end()){
-      tasks->second.erase(id.GetID());
+      tasks->second.erase(id);
       if (tasks->second.empty()){
         collection.erase(tasks);
       }
