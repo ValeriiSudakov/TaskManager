@@ -12,10 +12,16 @@ class TaskID {
   TaskID();
 
  public:
-  unsigned int GetID() const;
+  unsigned int Get() const;
 
  private:
+
   unsigned int id_;
 };
+
+bool operator==(const TaskID& id1, const TaskID& id2);
+bool operator!=(const TaskID& id1, const TaskID& id2);
+bool operator<(const TaskID& id1, const TaskID& id2);
+bool operator>(const TaskID& id1, const TaskID& id2);
 
 #endif //TASKMANAGER_SRC_TASKID_H_

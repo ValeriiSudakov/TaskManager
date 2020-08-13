@@ -62,7 +62,7 @@ TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
   ASSERT_FALSE(result.empty());
 
   ASSERT_FALSE(result[0].IsComplete());
-  ASSERT_EQ(result[0].GetId().GetID(), id.GetID());
+  ASSERT_EQ(result[0].GetId(), id);
   ASSERT_EQ(result[0].GetTaskPriority(), Priority::NONE);
   ASSERT_EQ(result[0].GetTaskLabel(), "label");
   ASSERT_EQ(result[0].GetTaskName(), "task");

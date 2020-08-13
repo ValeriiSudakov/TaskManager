@@ -23,10 +23,10 @@ class TaskView {
   std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority) const;
 
  private:
-  std::map<Priority, std::map<unsigned int, std::weak_ptr<TaskEntity>>>                  byPriority_;
-  std::map<std::string, std::map<unsigned int, std::weak_ptr<TaskEntity>>>               byName_;
-  std::map<std::string, std::map<unsigned int, std::weak_ptr<TaskEntity>>>               byLabel_;
-  std::map<boost::gregorian::date, std::map<unsigned int, std::weak_ptr<TaskEntity>>>    byDate_;
+  std::map<Priority, std::map<TaskID, std::weak_ptr<TaskEntity>>>                  byPriority_;
+  std::map<std::string, std::map<TaskID, std::weak_ptr<TaskEntity>>>               byName_;
+  std::map<std::string, std::map<TaskID, std::weak_ptr<TaskEntity>>>               byLabel_;
+  std::map<boost::gregorian::date, std::map<TaskID, std::weak_ptr<TaskEntity>>>    byDate_;
 
   template <typename CollectionType, typename FindValueType>
   bool RemoveFromMap(CollectionType& collection,const TaskID& id, const FindValueType& findValue);
