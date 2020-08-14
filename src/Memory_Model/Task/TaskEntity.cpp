@@ -24,20 +24,12 @@ const TaskID TaskEntity::GetParentId() const {
 }
 
 bool TaskEntity::IsComplete() const {
-  if (subtasks_.empty()){
-    return complete_;
-  }
-  for (auto subtask : subtasks_){
-   if (!subtask.second.lock()->IsComplete()){
-     return false;
-   }
-  }
-  return true;
+  return complete_;
 }
 
 void TaskEntity::SetComplete() {
   complete_ = true;
-  for (auto subtask : subtasks_){
+  for (const auto& subtask : subtasks_){
     if (subtask.second.lock() != nullptr){
       subtask.second.lock()->SetComplete();
     }
