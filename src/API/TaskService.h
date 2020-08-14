@@ -24,7 +24,7 @@ class TaskService {
  * @param: TaskDTO that contains info about task.
  * Only the members of the class will be used: name, label, Priority and Date.
  *
- * @return type: AddTaskResult that contains info about result of operation.
+ * @return-type: AddTaskResult that contains info about result of operation.
  */
   AddTaskResult             AddTask(const TaskDTO& task);
 
@@ -36,7 +36,7 @@ class TaskService {
  * @param: TaskDTO that contains info about subtask.
  * Only the members of the class will be used: name, label, Priority and Date.
  *
- * @return type: AddTaskResult that contains info about result of operation.
+ * @return-type: AddTaskResult that contains info about result of operation.
  */
   AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask);
 
@@ -45,7 +45,7 @@ class TaskService {
  *
  *  @param: TaskID that contains ID of task to delete
  *
- *  @return type: true if task was deleted successfully, false if not
+ *  @return-type: true if task was deleted successfully, false if not
  */
   bool                      RemoveTask(const TaskID& ID);
 
@@ -55,7 +55,7 @@ class TaskService {
  * @param: TaskID that contains ID of task to postpone.
  * @param: Date that contains new date of task (postpone).
  *
- * @return type: true if task was found and postponed, false if not
+ * @return-type: true if task was found and postponed, false if not
  */
   bool                      PostponeTask(const TaskID& ID, const Date& date);
 
@@ -65,7 +65,7 @@ class TaskService {
  *
  *  @param: TaskID that contains ID of task to return.
  *
- *  @return type: if task exist - return value of TaskDTO, std::nullopt if not.
+ *  @return-type: if task exist - return value of TaskDTO, std::nullopt if not.
  */
   std::optional<TaskDTO>    GetTask(const TaskID& id) const;
 
@@ -74,7 +74,7 @@ class TaskService {
  *
  * @param: byPriority. if true - returned tasks will be sorted by priority, not if false.
  *
- * @return: std::vector of TaskDTO.
+ * @return-type: std::vector of TaskDTO.
  */
   std::vector<TaskDTO>      GetTasks(bool byPriority) const;
 
@@ -83,7 +83,7 @@ class TaskService {
  *
  * @param: byPriority. if true - returned tasks will be sorted by priority, not if false.
  *
- * @return: std::vector of TaskDTO.
+ * @return-type: std::vector of TaskDTO.
  */
   std::vector<TaskDTO>      GetTodayTasks(bool byPriority) const;
 
@@ -92,7 +92,7 @@ class TaskService {
  *
  * @param: byPriority. if true - returned tasks will be sorted by priority, not if false.
  *
- * @return: std::vector of TaskDTO.
+ * @return-type: std::vector of TaskDTO.
  */
   std::vector<TaskDTO>      GetWeekTasks(bool byPriority) const;
 
@@ -102,7 +102,7 @@ class TaskService {
  * @param: label - search criteria for tasks in the system
  * @param byPriority. if true - returned tasks will be sorted by priority, not if false.
  *
- * @return: std::vector of TaskDTO.
+ * @return-type: std::vector of TaskDTO.
  */
   std::vector<TaskDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const;
 
@@ -112,7 +112,7 @@ class TaskService {
  * @param: name - search criteria for tasks in the system
  * @param byPriority. if true - returned tasks will be sorted by priority, not if false.
  *
- * @return: std::vector of TaskDTO.
+ * @return-type: std::vector of TaskDTO.
  */
   std::vector<TaskDTO>      GetTasksByName(const std::string& name, bool byPriority) const;
 
@@ -122,7 +122,7 @@ class TaskService {
  * @param: label - search criteria for tasks in the system
  * @param byPriority. if true - returned tasks will be sorted by priority, not if false.
  *
- * @return: std::vector of TaskDTO.
+ * @return-type: std::vector of TaskDTO.
  */
   std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const;
 
