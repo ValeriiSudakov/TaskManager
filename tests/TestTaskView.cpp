@@ -6,14 +6,14 @@
 #include "API/TaskService.h"
 #include <iostream>
 
-class TestTaskViewClass : public ::testing::Test {
+class TestTaskView : public ::testing::Test {
 
  protected:
   TaskView tv;
   TaskIDGenerate taskIDGenerate;
 };
 
-TEST_F(TestTaskViewClass, shouldAddTask){
+TEST_F(TestTaskView, shouldAddTask){
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
@@ -21,7 +21,7 @@ TEST_F(TestTaskViewClass, shouldAddTask){
   ASSERT_FALSE(result.empty());
 }
 
-TEST_F(TestTaskViewClass, shouldGetData){
+TEST_F(TestTaskView, shouldGetData){
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
@@ -38,7 +38,7 @@ TEST_F(TestTaskViewClass, shouldGetData){
   ASSERT_FALSE(resultForToday.empty());
 }
 
-TEST_F(TestTaskViewClass, shouldntGetData){
+TEST_F(TestTaskView, shouldntGetData){
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
@@ -52,7 +52,7 @@ TEST_F(TestTaskViewClass, shouldntGetData){
   ASSERT_TRUE(resultByPriority.empty());
 }
 
-TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
+TEST_F(TestTaskView, shouldGetCorrectTaskData){
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);
@@ -68,7 +68,7 @@ TEST_F(TestTaskViewClass, shouldGetCorrectTaskData){
   ASSERT_EQ(result[0].GetName(), "task");
 }
 
-TEST_F(TestTaskViewClass, shouldRemove){
+TEST_F(TestTaskView, shouldRemove){
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
   tv.AddTask(newTask);

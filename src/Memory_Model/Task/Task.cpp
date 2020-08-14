@@ -34,5 +34,3 @@ Priority Task::GetPriority() const {
 const Date &Task::GetDueDate() const {
   return dueDate_;
 }
-
-

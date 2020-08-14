@@ -7,12 +7,12 @@
 #include <iostream>
 #include <stdexcept>
 
-class TestDateClass : public ::testing::Test {
+class TestDate : public ::testing::Test {
 
 };
 
 
-TEST_F(TestDateClass, shouldCreateDate){
+TEST_F(TestDate, shouldCreateDate){
   Date d1(Date::GetCurrentTime());
   ASSERT_FALSE(d1.Get().is_not_a_date());
   Date d2("2005/2/7");
@@ -23,7 +23,7 @@ TEST_F(TestDateClass, shouldCreateDate){
   ASSERT_FALSE(d4.Get().is_not_a_date());
 }
 
-TEST_F(TestDateClass, shouldntCreateDate){
+TEST_F(TestDate, shouldntCreateDate){
   ASSERT_ANY_THROW(Date("-1231-1-0"));
   ASSERT_ANY_THROW(Date("141221231-1-0"));
   ASSERT_ANY_THROW(Date(""));
@@ -40,11 +40,11 @@ TEST_F(TestDateClass, shouldntCreateDate){
   ASSERT_ANY_THROW(Date("today"));
 }
 
-TEST_F(TestDateClass, shouldBeToday){
+TEST_F(TestDate, shouldBeToday){
   ASSERT_TRUE(Date::IsToday(Date::GetCurrentTime()));
 }
 
-TEST_F(TestDateClass, shouldntBeToday){
+TEST_F(TestDate, shouldntBeToday){
   ASSERT_FALSE(Date::IsToday(Date("2013-1-1").Get()));
   ASSERT_FALSE(Date::IsToday(Date("2091-3-5").Get()));
   ASSERT_FALSE(Date::IsToday(Date("1434-2-3").Get()));
@@ -53,19 +53,19 @@ TEST_F(TestDateClass, shouldntBeToday){
   ASSERT_FALSE(Date::IsToday(Date("2041-8-7").Get()));
 }
 
-TEST_F(TestDateClass, shouldBeThisWeek){
+TEST_F(TestDate, shouldBeThisWeek){
   Date date(Date::GetCurrentTime());
   ASSERT_TRUE(Date::IsThisWeek(date.Get()));
 }
 
-TEST_F(TestDateClass, shouldntBeThisWeek){
+TEST_F(TestDate, shouldntBeThisWeek){
   Date date(Date::GetCurrentTime());
                                                 // calc day after end of week
   Date dayAfterEndOfWeek(boost::gregorian::date(Date::DayForEndOfWeek() + 1));
   ASSERT_FALSE(Date::IsThisWeek(dayAfterEndOfWeek.Get()));
 }
 
-TEST_F(TestDateClass, shouldConvertToString){
+TEST_F(TestDate, shouldConvertToString){
   Date d1("2020-2-2");
   Date d2("2020/2/2");
   std::string str1{"2020-02-02"};

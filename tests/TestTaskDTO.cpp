@@ -8,11 +8,11 @@
 #include "Memory_Model/Task/TaskIDGenerate.h"
 #include <iostream>
 
-class TestTaskDTOClass : public ::testing::Test {
+class TestTaskDTO : public ::testing::Test {
 
 };
 
-TEST_F(TestTaskDTOClass, shouldCreateTaskDTO){
+TEST_F(TestTaskDTO, shouldCreateTaskDTO){
   TaskIDGenerate taskIDGenerate;
   Date date = Date::GetCurrentTime();
   TaskID id = taskIDGenerate.Generate();
