@@ -8,16 +8,16 @@
 
 class TaskView : public TaskViewInterface{
  public:
-  void AddTask(const std::weak_ptr<TaskEntity>& task) override;
-  bool RemoveTask(const std::weak_ptr<TaskEntity>& task) override;
+  void                      AddTask(const std::weak_ptr<TaskEntity>& task) override;
+  bool                      RemoveTask(const std::weak_ptr<TaskEntity>& task) override;
 
  public:
-  std::vector<TaskEntity>  GetTasks() const override;
-  std::vector<TaskEntity>  GetTodayTasks() const override;
-  std::vector<TaskEntity>  GetWeekTasks() const override;
-  std::vector<TaskEntity>  GetTasksByLabel(const std::string& label) const override;
-  std::vector<TaskEntity>  GetTasksByName(const std::string& name) const override;
-  std::vector<TaskEntity>  GetTasksByPriority(Priority taskPriority) const override;
+  std::vector<TaskEntity>   GetTasks() const override;
+  std::vector<TaskEntity>   GetTodayTasks() const override;
+  std::vector<TaskEntity>   GetWeekTasks() const override;
+  std::vector<TaskEntity>   GetTasksByLabel(const std::string& label) const override;
+  std::vector<TaskEntity>   GetTasksByName(const std::string& name) const override;
+  std::vector<TaskEntity>   GetTasksByPriority(Priority taskPriority) const override;
 
  private:
   std::map<Priority, std::map<TaskID, std::weak_ptr<TaskEntity>>>                  byPriority_;
