@@ -17,7 +17,9 @@ class TaskID {
   TaskID();
 
  public:
-
+/*
+ * @return-type value of id_
+ */
   std::uint32_t Get() const;
 
  private:
