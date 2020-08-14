@@ -61,7 +61,7 @@ TEST_F(TestDateClass, shouldBeThisWeek){
 TEST_F(TestDateClass, shouldntBeThisWeek){
   Date date(Date::GetCurrentTime());
                                                 // calc day after end of week
-  Date dayAfterEndOfWeek(boost::gregorian::date(date.Get().day_number() + 7 - date.Get().day_of_week() + 1));
+  Date dayAfterEndOfWeek(boost::gregorian::date(Date::DayForEndOfWeek() + 1));
   ASSERT_FALSE(Date::IsThisWeek(dayAfterEndOfWeek.Get()));
 }
 
