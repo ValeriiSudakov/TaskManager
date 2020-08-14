@@ -9,14 +9,16 @@
 #include "TaskDTO.h"
 #include "Memory_Model/Storage/TaskRepository.h"
 
+
 class TaskService {
  public:
-
   AddTaskResult             AddTask(const TaskDTO& task);
   AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask);
   bool                      RemoveTask(const TaskID& ID);
+  bool                      PostponeTask(const TaskID& ID, const Date& date);
 
  public:
+
   std::optional<TaskDTO>    GetTask(const TaskID& id) const;
   std::vector<TaskDTO>      GetTasks(bool byPriority) const;
   std::vector<TaskDTO>      GetTodayTasks(bool byPriority) const;

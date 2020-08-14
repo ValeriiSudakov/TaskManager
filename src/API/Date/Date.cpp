@@ -15,11 +15,11 @@ boost::gregorian::date Date::Get() const{
   return date_;
 }
 
-std::string Date::ToString(){
+std::string Date::ToString() const {
   return boost::gregorian::to_iso_extended_string(date_);
 }
 
-bool Date::IsToday(const boost::gregorian::date& day){
+bool Date::IsToday(const boost::gregorian::date& day) {
   return Date::GetCurrentTime().day_number() == day.day_number();
 }
 

@@ -22,6 +22,15 @@ bool TaskService::RemoveTask(const TaskID& ID){
   return result;
 }
 
+
+bool TaskService::PostponeTask(const TaskID& ID, const Date& date){
+  auto task = tasksRepository_.GetTaskStorage().GetTask(ID);
+  if (!task.has_value()){
+    return false;
+  }
+  return task.value()->PostponeDate(date);
+}
+
 std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
   auto task = tasksRepository_.GetTaskStorage().GetTask(id.Get());
   return task.has_value() ? std::make_optional(TaskDTO::CreateFromTaskEntity(*task.value())) : std::nullopt;
