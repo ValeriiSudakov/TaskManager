@@ -6,6 +6,11 @@
 #define TASKMANAGER_SRC_MEMORY_MODEL_ADDTASKRESULT_H_
 #include <optional>
 
+/*
+ * Contains information about result of the add operation
+ *
+ * @author: Valerii Sudakov
+ */
 struct AddTaskResult {
   enum class ErrorType{
     NOT_ENOUGH_FREE_MEMORY,
