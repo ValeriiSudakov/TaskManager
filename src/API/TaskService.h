@@ -14,7 +14,7 @@
  *
  *  All requests to the system starts here.
  *
- *  @author Valerii Sudakov
+ *  @author: Valerii Sudakov
  */
 class TaskService {
  public:
