@@ -51,6 +51,17 @@ TEST_F(TestTaskServiceClass, shouldntCreateSubTaskWithIncorrectID) {
   ASSERT_FALSE(result.success_);
 }
 
+TEST_F(TestTaskServiceClass, shouldPostpone){
+  auto task = ts.PostponeTask(TaskID(), Date("2020-08-15"));
+  ASSERT_TRUE(task);
+  auto findTask = ts.GetTask(TaskID()).value();
+  ASSERT_EQ(findTask.GetDate().ToString(), "2020-08-15");
+}
+
+TEST_F(TestTaskServiceClass, shouldntPostpone){
+  auto task = ts.PostponeTask(TaskID(21321), Date("2020-08-15"));
+  ASSERT_FALSE(task);}
+
 TEST_F(TestTaskServiceClass, shouldGetByID) {
   auto result = ts.GetTask(TaskID());
   ASSERT_TRUE(result.has_value());

@@ -18,7 +18,7 @@ class Date{
  public:
   static boost::gregorian::date     GetCurrentTime();
   boost::gregorian::date            Get() const;
-  std::string                       ToString();
+  std::string                       ToString() const;
 
  public:
   static bool                       IsThisWeek(const boost::gregorian::date& day);
