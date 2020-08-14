@@ -4,6 +4,12 @@
 
 #ifndef TASKMANAGER_PRIORITY_H
 #define TASKMANAGER_PRIORITY_H
+
+/*
+ * Priorities of Task
+ *
+ * @author: Valerii Sudakov
+ */
 enum class Priority{
     FIRST = 1,
     SECOND,

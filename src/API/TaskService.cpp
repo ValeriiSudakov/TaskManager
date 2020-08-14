@@ -32,7 +32,7 @@ bool TaskService::PostponeTask(const TaskID& ID, const Date& date){
 }
 
 std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
-  auto task = tasksRepository_.GetTaskStorage().GetTask(id.Get());
+  auto task = tasksRepository_.GetTaskStorage().GetTask(id);
   return task.has_value() ? std::make_optional(TaskDTO::CreateFromTaskEntity(*task.value())) : std::nullopt;
 }
 
