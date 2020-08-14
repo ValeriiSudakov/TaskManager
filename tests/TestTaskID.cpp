@@ -17,8 +17,7 @@ TEST_F(TestTaskIDClass, shouldIncrement){
   TaskID id1(taskIDGenerate.Generate());
   TaskID id2(taskIDGenerate.Generate());
 
-  ASSERT_NE(id1.Get(),id2.Get());
-  ASSERT_EQ(id1.Get()+1,id2.Get());
+  ASSERT_NE(id1,id2);
 }
 
 TEST_F(TestTaskIDClass, shouldEqual){
