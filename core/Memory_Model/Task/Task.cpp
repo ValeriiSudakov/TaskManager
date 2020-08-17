@@ -22,15 +22,19 @@ std::optional<Task> Task::Create(const std::string &name, const std::string &lab
 
   return Task(name, label, priority, dueDate);
 }
+
 const std::string Task::GetName() const {
   return name_;
 }
+
 const std::string Task::GetLabel() const {
   return label_;
 }
+
 const Priority Task::GetPriority() const {
   return priority_;
 }
+
 const Date Task::GetDueDate() const {
   return dueDate_;
 }
