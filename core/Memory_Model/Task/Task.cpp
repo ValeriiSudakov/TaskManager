@@ -3,7 +3,7 @@
 //
 
 #include "Task.h"
-#include "API/Date/Date.h"
+#include "Date/Date.h"
 
 Task::Task(const std::string &name, const std::string &label, Priority priority, const Date& dueDate)
     : name_(name), label_(label), priority_(priority), dueDate_(dueDate) {}
@@ -22,15 +22,19 @@ std::optional<Task> Task::Create(const std::string &name, const std::string &lab
 
   return Task(name, label, priority, dueDate);
 }
-const std::string &Task::GetName() const {
+
+const std::string Task::GetName() const {
   return name_;
 }
-const std::string &Task::GetLabel() const {
+
+const std::string Task::GetLabel() const {
   return label_;
 }
-Priority Task::GetPriority() const {
+
+const Priority Task::GetPriority() const {
   return priority_;
 }
-const Date &Task::GetDueDate() const {
+
+const Date Task::GetDueDate() const {
   return dueDate_;
 }

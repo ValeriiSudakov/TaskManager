@@ -4,29 +4,32 @@ project(TaskManager)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include_directories(src)
+include_directories(core)
 
 add_executable(TaskManager main.cpp
-        src/Memory_Model/Task/Task.cpp
-        src/Memory_Model/Task/Task.h
-        src/Memory_Model/Task/TaskEntity.cpp
-        src/Memory_Model/Task/TaskEntity.h
-        src/API/TaskService.cpp
-        src/API/TaskService.h
-        src/API/TaskID.cpp
-        src/API/TaskID.h
-        src/API/Date/Date.cpp
-        src/API/Date/Date.h
-        src/Memory_Model/Storage/TaskView.cpp
-        src/Memory_Model/Storage/TaskView.h
-        src/API/TaskDTO.cpp src/API/TaskDTO.h
-        src/Memory_Model/Task/TaskIDGenerate.cpp
-        src/Memory_Model/Task/TaskIDGenerate.h
-        src/Memory_Model/Storage/TaskRepository.cpp
-        src/Memory_Model/Storage/TaskRepository.h
-        src/Memory_Model/Storage/TaskStorage.cpp
-        src/Memory_Model/Storage/TaskStorage.h
-        src/API/AddTaskResult.h src/API/Priority.h src/Memory_Model/Storage/TaskRepositoryInterface.h src/Memory_Model/Storage/TaskStorageInterface.h src/Memory_Model/Storage/TaskViewInterface.h)
+        core/Memory_Model/Task/Task.cpp
+        core/Memory_Model/Task/Task.h
+        core/Memory_Model/Task/TaskEntity.cpp
+        core/Memory_Model/Task/TaskEntity.h
+        core/API/TaskService.cpp
+        core/API/TaskService.h
+        core/API/TaskID.cpp
+        core/API/TaskID.h
+        core/Date/Date.cpp
+        core/Date/Date.h
+        core/Memory_Model/Storage/TaskView.cpp
+        core/Memory_Model/Storage/TaskView.h
+        core/API/TaskDTO.cpp core/API/TaskDTO.h
+        core/Memory_Model/Task/TaskIDGenerate.cpp
+        core/Memory_Model/Task/TaskIDGenerate.h
+        core/Memory_Model/Storage/TaskRepository.cpp
+        core/Memory_Model/Storage/TaskRepository.h
+        core/Memory_Model/Storage/TaskStorage.cpp
+        core/Memory_Model/Storage/TaskStorage.h
+        core/API/AddTaskResult.h core/API/Priority.h
+        core/Memory_Model/Storage/TaskRepositoryInterface.h
+        core/Memory_Model/Storage/TaskStorageInterface.h
+        core/Memory_Model/Storage/TaskViewInterface.h core/Convertor.h core/Convertor.cpp)
 
 
 
@@ -43,29 +46,29 @@ endif()
 
 include(GoogleTest)
 find_package(GTest REQUIRED)
-
+include_directories(${GMOCK_INCLUDE_DIR})
 enable_testing()
 
 include_directories(tests)
 add_executable(TestsExe tests/TestTask.cpp
-        src/Memory_Model/Task/Task.cpp
-        src/Memory_Model/Task/TaskEntity.cpp
-        src/API/TaskService.cpp
+        core/Memory_Model/Task/Task.cpp
+        core/Memory_Model/Task/TaskEntity.cpp
+        core/API/TaskService.cpp
         tests/TestTaskService.cpp
         tests/TestTaskID.cpp
-        src/API/TaskID.cpp
-        src/API/Date/Date.cpp
-        src/Memory_Model/Storage/TaskView.cpp
+        core/API/TaskID.cpp
+        core/Date/Date.cpp
+        core/Memory_Model/Storage/TaskView.cpp
         tests/TestDate.cpp
         tests/TestTaskView.cpp
-        src/API/TaskDTO.cpp
-        src/API/TaskDTO.h
+        core/API/TaskDTO.cpp
+        core/API/TaskDTO.h
         tests/TestTaskDTO.cpp
-        src/Memory_Model/Task/TaskIDGenerate.cpp
-        src/Memory_Model/Storage/TaskRepository.cpp
-        src/Memory_Model/Storage/TaskStorage.cpp
+        core/Memory_Model/Task/TaskIDGenerate.cpp
+        core/Memory_Model/Storage/TaskRepository.cpp
+        core/Memory_Model/Storage/TaskStorage.cpp
         tests/TestTaskStorage.cpp
-        tests/TestTaskRepository.cpp)
+        tests/TestTaskRepository.cpp core/Convertor.cpp tests/TestConvertor.cpp)
 
 target_link_libraries(TestsExe GTest::GTest GTest::Main)
 gtest_discover_tests(TestsExe)

@@ -5,9 +5,10 @@
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "TaskID.h"
-#include "API/Date/Date.h"
+#include "Date/Date.h"
 #include "TaskDTO.h"
 #include "Memory_Model/Storage/TaskRepository.h"
+#include "Convertor.h"
 
 /*
  *  Enter point to the program.
