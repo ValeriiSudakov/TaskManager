@@ -15,8 +15,8 @@ add_executable(TaskManager main.cpp
         src/API/TaskService.h
         src/API/TaskID.cpp
         src/API/TaskID.h
-        src/API/Date/Date.cpp
-        src/API/Date/Date.h
+        src/Date/Date.cpp
+        src/Date/Date.h
         src/Memory_Model/Storage/TaskView.cpp
         src/Memory_Model/Storage/TaskView.h
         src/API/TaskDTO.cpp src/API/TaskDTO.h
@@ -57,7 +57,7 @@ add_executable(TestsExe tests/TestTask.cpp
         tests/TestTaskService.cpp
         tests/TestTaskID.cpp
         src/API/TaskID.cpp
-        src/API/Date/Date.cpp
+        src/Date/Date.cpp
         src/Memory_Model/Storage/TaskView.cpp
         tests/TestDate.cpp
         tests/TestTaskView.cpp

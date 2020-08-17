@@ -3,7 +3,7 @@
 //
 
 #include "Task.h"
-#include "API/Date/Date.h"
+#include "Date/Date.h"
 
 Task::Task(const std::string &name, const std::string &label, Priority priority, const Date& dueDate)
     : name_(name), label_(label), priority_(priority), dueDate_(dueDate) {}
