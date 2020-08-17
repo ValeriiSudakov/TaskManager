@@ -8,18 +8,20 @@
 
  class TaskRepository
      : public TaskRepositoryInterface {
+ public:
+  TaskRepository(std::unique_ptr<TaskView> view, std::unique_ptr<TaskStorage> storage);
 
  public:
-  const TaskView&                 GetTaskView() const override;
-  const TaskStorage&              GetTaskStorage() const override;
+  const std::unique_ptr<TaskViewInterface>&                 GetTaskView() const override;
+  const std::unique_ptr<TaskStorageInterface>&              GetTaskStorage() const override;
 
-  AddTaskResult                   AddTask(const TaskDTO& task) override;
-  AddTaskResult                   AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;
-  bool                            RemoveTask(const TaskID& id) override;
+  AddTaskResult                                             AddTask(const TaskDTO& task) override;
+  AddTaskResult                                             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;
+  bool                                                      RemoveTask(const TaskID& id) override;
 
  private:
-  TaskView      taskView_;
-  TaskStorage   taskStorage_;
+  std::unique_ptr<TaskViewInterface>      taskView_;
+  std::unique_ptr<TaskStorageInterface>   taskStorage_;
 };
 
 #endif //TASKMANAGER_SRC_TASKREPOSITORY_H_
