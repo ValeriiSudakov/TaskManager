@@ -19,6 +19,9 @@
  */
 class TaskService {
  public:
+  TaskService(std::unique_ptr<TaskRepositoryInterface> taskRepository);
+
+ public:
 /*
  * Add task to the system.
  *
@@ -128,7 +131,7 @@ class TaskService {
   std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const;
 
  private:
-  TaskRepository            tasksRepository_;
+  std::unique_ptr<TaskRepositoryInterface>            tasksRepository_;
 
  private:
 
