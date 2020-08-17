@@ -68,7 +68,7 @@ add_executable(TestsExe tests/TestTask.cpp
         src/Memory_Model/Storage/TaskRepository.cpp
         src/Memory_Model/Storage/TaskStorage.cpp
         tests/TestTaskStorage.cpp
-        tests/TestTaskRepository.cpp src/Convertor.cpp)
+        tests/TestTaskRepository.cpp src/Convertor.cpp tests/TestConvertor.cpp)
 
 target_link_libraries(TestsExe GTest::GTest GTest::Main)
 gtest_discover_tests(TestsExe)
