@@ -29,7 +29,7 @@ bool TaskService::RemoveTask(const TaskID& ID){
 
 
 bool TaskService::PostponeTask(const TaskID& ID, const Date& date){
-  auto task = tasksRepository_->GetTaskStorage().GetTask(ID);
+  auto task = tasksRepository_->GetTaskStorage()->GetTask(ID);
   if (!task.has_value()){
     return false;
   }
@@ -37,39 +37,39 @@ bool TaskService::PostponeTask(const TaskID& ID, const Date& date){
 }
 
 std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
-  auto task = tasksRepository_->GetTaskStorage().GetTask(id);
+  auto task = tasksRepository_->GetTaskStorage()->GetTask(id);
   return task.has_value() ? std::make_optional(TaskDTO::Create(task.value()->GetName(), task.value()->GetLabel(),
                                                                              task.value()->GetPriority(), task.value()->GetDueDate(),
                                                                              task.value()->IsComplete(), task.value()->GetId())) : std::nullopt;
 }
 
 std::vector<TaskDTO> TaskService::GetTasks(bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView().GetTasks();
+  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasks();
   return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTodayTasks(bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView().GetTodayTasks();
+  auto sortedTasks = tasksRepository_->GetTaskView()->GetTodayTasks();
   return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetWeekTasks(bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView().GetWeekTasks();
+  auto sortedTasks = tasksRepository_->GetTaskView()->GetWeekTasks();
   return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByLabel(const std::string& label, bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView().GetTasksByLabel(label);
+  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasksByLabel(label);
   return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByName(const std::string& name, bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView().GetTasksByName(name);
+  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasksByName(name);
   return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
 }
 
 std::vector<TaskDTO> TaskService::GetTasksByPriority(const Priority& priority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView().GetTasksByPriority(priority);
+  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasksByPriority(priority);
   return convertor::toTaskDTO::notSortedVector(sortedTasks);
 }
 

@@ -15,12 +15,12 @@ class TaskRepositoryInterface{
   virtual ~TaskRepositoryInterface() = default;
 
  public:
-  virtual const TaskView&         GetTaskView() const = 0;
-  virtual const TaskStorage&      GetTaskStorage() const = 0;
+  virtual const std::unique_ptr<TaskViewInterface>&         GetTaskView() const = 0;
+  virtual const std::unique_ptr<TaskStorageInterface>&      GetTaskStorage() const = 0;
 
-  virtual AddTaskResult           AddTask(const TaskDTO& task) = 0;
-  virtual AddTaskResult           AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) = 0;
-  virtual bool                    RemoveTask(const TaskID& id) = 0;
+  virtual AddTaskResult                                     AddTask(const TaskDTO& task) = 0;
+  virtual AddTaskResult                                     AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) = 0;
+  virtual bool                                              RemoveTask(const TaskID& id) = 0;
 };
 
 #endif //TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKREPOSITORYINTERFACE_H_

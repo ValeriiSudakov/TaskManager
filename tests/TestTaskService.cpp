@@ -12,7 +12,7 @@ class TestTaskService : public ::testing::Test {
 };
 
 TEST_F(TestTaskService, shouldAddTask) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>( std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto dto = TaskDTO::Create(task.value().GetName(), task.value().GetLabel(),
@@ -22,7 +22,7 @@ TEST_F(TestTaskService, shouldAddTask) {
 }
 
 TEST_F(TestTaskService, shouldCreateTask) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -34,7 +34,7 @@ TEST_F(TestTaskService, shouldCreateTask) {
 
 
 TEST_F(TestTaskService, shouldCreateSubTask) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -49,7 +49,7 @@ TEST_F(TestTaskService, shouldCreateSubTask) {
 }
 
 TEST_F(TestTaskService, shouldntCreateSubTaskWithIncorrectID) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -65,7 +65,7 @@ TEST_F(TestTaskService, shouldntCreateSubTaskWithIncorrectID) {
 }
 
 TEST_F(TestTaskService, shouldPostpone){
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -79,14 +79,14 @@ TEST_F(TestTaskService, shouldPostpone){
 }
 
 TEST_F(TestTaskService, shouldntPostpone){
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
 
   auto task = ts.PostponeTask(TaskID(21321), Date("2019-08-15"));
   ASSERT_FALSE(task);}
 
 TEST_F(TestTaskService, shouldGetByID) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -97,7 +97,7 @@ TEST_F(TestTaskService, shouldGetByID) {
 }
 
 TEST_F(TestTaskService, shouldntGetByID) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
 
   auto result = ts.GetTask(TaskID(1245563));
@@ -105,7 +105,7 @@ TEST_F(TestTaskService, shouldntGetByID) {
 }
 
 TEST_F(TestTaskService, shouldFoundTaskByName) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -116,7 +116,7 @@ TEST_F(TestTaskService, shouldFoundTaskByName) {
 }
 
 TEST_F(TestTaskService, shouldFoundTaskByNameAndPriority) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -127,7 +127,7 @@ TEST_F(TestTaskService, shouldFoundTaskByNameAndPriority) {
 }
 
 TEST_F(TestTaskService, shouldNotFoundTaskByName) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
 
   auto resultSearch = ts.GetTasksByName("asf125safs", false);
@@ -135,7 +135,7 @@ TEST_F(TestTaskService, shouldNotFoundTaskByName) {
 }
 
 TEST_F(TestTaskService, shouldFoundTaskByLabel) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -146,7 +146,7 @@ TEST_F(TestTaskService, shouldFoundTaskByLabel) {
 }
 
 TEST_F(TestTaskService, shouldFoundTaskByLabelAndPriority) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -157,7 +157,7 @@ TEST_F(TestTaskService, shouldFoundTaskByLabelAndPriority) {
 }
 
 TEST_F(TestTaskService, shouldNotFoundTaskByLabel) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
 
   auto resultSearch = ts.GetTasksByLabel("124rwfsaa21", false);
@@ -165,7 +165,7 @@ TEST_F(TestTaskService, shouldNotFoundTaskByLabel) {
 }
 
 TEST_F(TestTaskService, shouldFoundTasks) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -176,7 +176,7 @@ TEST_F(TestTaskService, shouldFoundTasks) {
 }
 
 TEST_F(TestTaskService, shouldFoundTasksByPriority) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -187,7 +187,7 @@ TEST_F(TestTaskService, shouldFoundTasksByPriority) {
 }
 
 TEST_F(TestTaskService, shouldNotFoundTasks) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
 
   auto resultSearch = ts.GetTasks(false);
@@ -195,7 +195,7 @@ TEST_F(TestTaskService, shouldNotFoundTasks) {
 }
 
 TEST_F(TestTaskService, shouldFoundTodayTasks) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -206,7 +206,7 @@ TEST_F(TestTaskService, shouldFoundTodayTasks) {
 }
 
 TEST_F(TestTaskService, shouldFoundTodayTasksByPriority) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -217,14 +217,14 @@ TEST_F(TestTaskService, shouldFoundTodayTasksByPriority) {
 }
 
 TEST_F(TestTaskService, shouldNotFoundTodayTasks) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto resultSearch = ts.GetTodayTasks(false);
   ASSERT_TRUE(resultSearch.empty());
 }
 
 TEST_F(TestTaskService, shouldFoundWeekTasks) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -235,7 +235,7 @@ TEST_F(TestTaskService, shouldFoundWeekTasks) {
 }
 
 TEST_F(TestTaskService, shouldFoundWeekTasksByPriority) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -246,14 +246,14 @@ TEST_F(TestTaskService, shouldFoundWeekTasksByPriority) {
 }
 
 TEST_F(TestTaskService, shouldNotFoundWeekTasks) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto resultSearch = ts.GetWeekTasks(false);
   ASSERT_TRUE(resultSearch.empty());
 }
 
 TEST_F(TestTaskService, shouldFoundTasksPriority) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -264,7 +264,7 @@ TEST_F(TestTaskService, shouldFoundTasksPriority) {
 }
 
 TEST_F(TestTaskService, shouldNotFoundTasksPriority) {
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
 
   auto resultSearch = ts.GetTasksByPriority(Priority::FIRST);
@@ -272,7 +272,7 @@ TEST_F(TestTaskService, shouldNotFoundTasksPriority) {
 }
 
 TEST_F(TestTaskService, shouldRemoveTask){
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
@@ -283,7 +283,7 @@ TEST_F(TestTaskService, shouldRemoveTask){
 }
 
 TEST_F(TestTaskService, shouldntRemoveTask){
-  auto repo = std::make_unique<TaskRepository>();
+  auto repo = std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
   TaskService ts(std::move(repo));
 
   auto result = ts.RemoveTask(TaskID(421));
