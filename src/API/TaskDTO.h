@@ -32,12 +32,12 @@ class TaskDTO {
                                              bool taskComplete, const TaskID &taskId);
 
 public:
-  const std::string&    GetName() const;
-  const std::string&    GetLabel() const;
-  const Priority&       GetPriority() const;
-  const Date&           GetDate() const;
-  bool                  IsTaskComplete() const;
-  const TaskID&         GetTaskId() const;
+  const std::string    GetName() const;
+  const std::string    GetLabel() const;
+  const Priority       GetPriority() const;
+  const Date           GetDate() const;
+  bool                 IsTaskComplete() const;
+  const TaskID         GetTaskId() const;
 
  private:
   std::string   name_;

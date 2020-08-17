@@ -22,6 +22,6 @@ std::vector<TaskDTO>  convertor::toTaskDTO::sortedVectorByPriority(const std::ve
                                task.GetDueDate(), task.IsComplete(), task.GetId());
     tasksDTO.push_back(dto);
   }
-  std::sort(tasksDTO.begin(), tasksDTO.end(), [](TaskDTO a, TaskDTO b) { return a.GetPriority() < b.GetPriority(); });
+  std::sort(tasksDTO.begin(), tasksDTO.end(), [](const TaskDTO& a, const TaskDTO& b) { return a.GetPriority() < b.GetPriority(); });
   return tasksDTO;
 }

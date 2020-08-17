@@ -22,22 +22,22 @@ TaskDTO TaskDTO::Create(const std::string &name, const std::string &label, const
   return TaskDTO(name, label, priority, date);
 }
 
-const std::string &TaskDTO::GetName() const {
+const std::string TaskDTO::GetName() const {
   return name_;
 }
-const std::string &TaskDTO::GetLabel() const {
+const std::string TaskDTO::GetLabel() const {
   return label_;
 }
-const Priority& TaskDTO::GetPriority() const{
+const Priority TaskDTO::GetPriority() const{
   return Priority_;
 }
-const Date &TaskDTO::GetDate() const {
+const Date TaskDTO::GetDate() const {
   return date_;
 }
 bool TaskDTO::IsTaskComplete() const {
   return taskComplete_;
 }
-const TaskID &TaskDTO::GetTaskId() const {
+const TaskID TaskDTO::GetTaskId() const {
   return taskID_;
 }
 
