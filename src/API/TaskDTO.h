@@ -21,14 +21,14 @@ class TaskDTO {
  *
  * @return-type: TaskDTO
  */
-  static TaskDTO        CreateFromTask(const std::string &name, const std::string &label, const Priority &priority, const Date &date);
+  static TaskDTO        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date);
 
 /*
  * Create DTO based on the TaskEntity.
  *
  * @return-type: TaskDTO
  */
-  static TaskDTO        CreateFromTaskEntity(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+  static TaskDTO        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
                                              bool taskComplete, const TaskID &taskId);
 
 public:

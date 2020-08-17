@@ -8,6 +8,7 @@
 #include "API/Date/Date.h"
 #include "TaskDTO.h"
 #include "Memory_Model/Storage/TaskRepository.h"
+#include "Convertor.h"
 
 /*
  *  Enter point to the program.

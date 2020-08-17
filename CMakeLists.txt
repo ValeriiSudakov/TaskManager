@@ -29,7 +29,7 @@ add_executable(TaskManager main.cpp
         src/API/AddTaskResult.h src/API/Priority.h
         src/Memory_Model/Storage/TaskRepositoryInterface.h
         src/Memory_Model/Storage/TaskStorageInterface.h
-        src/Memory_Model/Storage/TaskViewInterface.h)
+        src/Memory_Model/Storage/TaskViewInterface.h src/Convertor.h src/Convertor.cpp)
 
 
 
@@ -68,7 +68,7 @@ add_executable(TestsExe tests/TestTask.cpp
         src/Memory_Model/Storage/TaskRepository.cpp
         src/Memory_Model/Storage/TaskStorage.cpp
         tests/TestTaskStorage.cpp
-        tests/TestTaskRepository.cpp)
+        tests/TestTaskRepository.cpp src/Convertor.cpp)
 
 target_link_libraries(TestsExe GTest::GTest GTest::Main)
 gtest_discover_tests(TestsExe)

@@ -15,7 +15,8 @@ class TestTaskService : public ::testing::Test {
   }
   virtual void SetUp() {
     std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-    auto dto = TaskDTO::CreateFromTask(task.value());
+    auto dto = TaskDTO::Create(task.value().GetName(), task.value().GetLabel(),
+                                       task.value().GetPriority(), task.value().GetDueDate());
     ts.AddTask(dto);
   }
   TaskService ts;
@@ -23,7 +24,8 @@ class TestTaskService : public ::testing::Test {
 
 TEST_F(TestTaskService, shouldAddTask) {
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::CreateFromTask(task.value());
+  auto dto = TaskDTO::Create(task.value().GetName(), task.value().GetLabel(),
+                                     task.value().GetPriority(), task.value().GetDueDate());
   auto result = ts.AddTask(dto);
   ASSERT_TRUE(result.success_);
 }
@@ -36,7 +38,8 @@ TEST_F(TestTaskService, shouldCreateTask) {
 
 TEST_F(TestTaskService, shouldCreateSubTask) {
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::CreateFromTask(subTask.value());
+  auto dto = TaskDTO::Create(subTask.value().GetName(), subTask.value().GetLabel(),
+                                     subTask.value().GetPriority(), subTask.value().GetDueDate());
   auto taskTest = ts.GetTasksByName("task", false);
   auto result = ts.AddSubtask(taskTest[0].GetTaskId(), dto);
   ASSERT_TRUE(result.success_);
@@ -45,21 +48,23 @@ TEST_F(TestTaskService, shouldCreateSubTask) {
 TEST_F(TestTaskService, shouldntCreateSubTaskWithIncorrectID) {
   TaskIDGenerate idGenerate;
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::CreateFromTask(subTask.value());
+  auto dto = TaskDTO::Create(subTask.value().GetName(), subTask.value().GetLabel(),
+                                     subTask.value().GetPriority(), subTask.value().GetDueDate());
   TaskID incorrectID(987);
   auto result = ts.AddSubtask(incorrectID, dto);
   ASSERT_FALSE(result.success_);
 }
 
 TEST_F(TestTaskService, shouldPostpone){
-  auto task = ts.PostponeTask(TaskID(), Date("2020-08-15"));
+  auto now = Date(Date::GetCurrentTime());
+  auto task = ts.PostponeTask(TaskID(), now);
   ASSERT_TRUE(task);
   auto findTask = ts.GetTask(TaskID()).value();
-  ASSERT_EQ(findTask.GetDate().ToString(), "2020-08-15");
+  ASSERT_EQ(findTask.GetDate().ToString(), now.ToString());
 }
 
 TEST_F(TestTaskService, shouldntPostpone){
-  auto task = ts.PostponeTask(TaskID(21321), Date("2020-08-15"));
+  auto task = ts.PostponeTask(TaskID(21321), Date("2019-08-15"));
   ASSERT_FALSE(task);}
 
 TEST_F(TestTaskService, shouldGetByID) {

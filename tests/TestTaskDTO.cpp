@@ -18,7 +18,7 @@ TEST_F(TestTaskDTO, shouldCreateTaskDTO){
   TaskID id = taskIDGenerate.Generate();
   std::optional<Task> task = Task::Create("task name", "label", Priority::NONE, date);
 
-  TaskDTO taskDTO(task.value().GetName(), task.value().GetLabel(), task.value().GetPriority(),
+  auto taskDTO = TaskDTO::Create(task.value().GetName(), task.value().GetLabel(), task.value().GetPriority(),
                   task.value().GetDueDate(), false,  id);
 
   ASSERT_EQ(taskDTO.GetName(), "task name");

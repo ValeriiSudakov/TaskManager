@@ -10,15 +10,15 @@ TaskDTO::TaskDTO(const std::string &name, const std::string &label, const Priori
 
 
 TaskDTO::TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date)
-  : name_(name), label_(label), Priority_(priority), date_(date){}
+  : name_(name), label_(label), Priority_(priority), date_(date), taskComplete_(false), taskID_(TaskID()){}
 
 
-TaskDTO TaskDTO::CreateFromTaskEntity(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+TaskDTO TaskDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
                                       bool taskComplete, const TaskID &taskId){
   return TaskDTO(name, label, priority, date, taskComplete, taskId);
 }
 
-TaskDTO TaskDTO::CreateFromTask(const std::string &name, const std::string &label, const Priority &priority, const Date &date){
+TaskDTO TaskDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date){
   return TaskDTO(name, label, priority, date);
 }
 
