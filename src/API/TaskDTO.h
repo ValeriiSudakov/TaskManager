@@ -13,9 +13,7 @@
  * @author: Valerii Sudakov
  */
 class TaskDTO {
- public:
-    TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
-            bool taskComplete, const TaskID &taskId);
+
  public:
 
 /*
@@ -23,14 +21,15 @@ class TaskDTO {
  *
  * @return-type: TaskDTO
  */
-  static TaskDTO        CreateFromTask(const Task& task);
+  static TaskDTO        CreateFromTask(const std::string &name, const std::string &label, const Priority &priority, const Date &date);
 
 /*
  * Create DTO based on the TaskEntity.
  *
  * @return-type: TaskDTO
  */
-  static TaskDTO        CreateFromTaskEntity(const TaskEntity& taskEntity);
+  static TaskDTO        CreateFromTaskEntity(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+                                             bool taskComplete, const TaskID &taskId);
 
 public:
   const std::string&    GetName() const;
@@ -47,6 +46,12 @@ public:
   Date          date_;
   bool          taskComplete_;
   TaskID        taskID_;
+
+ private:
+  TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date);
+
+  TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+          bool taskComplete, const TaskID &taskId);
 };
 
 #endif //TASKMANAGER_SRC_TASKDTO_H_

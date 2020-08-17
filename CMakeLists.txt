@@ -26,7 +26,10 @@ add_executable(TaskManager main.cpp
         src/Memory_Model/Storage/TaskRepository.h
         src/Memory_Model/Storage/TaskStorage.cpp
         src/Memory_Model/Storage/TaskStorage.h
-        src/API/AddTaskResult.h src/API/Priority.h src/Memory_Model/Storage/TaskRepositoryInterface.h src/Memory_Model/Storage/TaskStorageInterface.h src/Memory_Model/Storage/TaskViewInterface.h)
+        src/API/AddTaskResult.h src/API/Priority.h
+        src/Memory_Model/Storage/TaskRepositoryInterface.h
+        src/Memory_Model/Storage/TaskStorageInterface.h
+        src/Memory_Model/Storage/TaskViewInterface.h)
 
 
 
@@ -43,7 +46,7 @@ endif()
 
 include(GoogleTest)
 find_package(GTest REQUIRED)
-
+include_directories(${GMOCK_INCLUDE_DIR})
 enable_testing()
 
 include_directories(tests)

@@ -5,16 +5,21 @@
 #include "TaskDTO.h"
 
 TaskDTO::TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
-                 bool taskComplete, const TaskID &taskId) : name_(name), label_(label), Priority_(priority),
-                                                            date_(date), taskComplete_(taskComplete), taskID_(taskId) {}
+                 bool taskComplete, const TaskID &taskId)
+                 : name_(name), label_(label), Priority_(priority), date_(date), taskComplete_(taskComplete), taskID_(taskId) {}
 
-TaskDTO TaskDTO::CreateFromTask(const Task& task){
-  return TaskDTO(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDueDate(), false, TaskID());
+
+TaskDTO::TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date)
+  : name_(name), label_(label), Priority_(priority), date_(date){}
+
+
+TaskDTO TaskDTO::CreateFromTaskEntity(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+                                      bool taskComplete, const TaskID &taskId){
+  return TaskDTO(name, label, priority, date, taskComplete, taskId);
 }
 
-TaskDTO TaskDTO::CreateFromTaskEntity(const TaskEntity& taskEntity){
-  return TaskDTO(taskEntity.GetName(), taskEntity.GetLabel(), taskEntity.GetPriority(),
-          taskEntity.GetDueDate(), taskEntity.IsComplete(), taskEntity.GetId());
+TaskDTO TaskDTO::CreateFromTask(const std::string &name, const std::string &label, const Priority &priority, const Date &date){
+  return TaskDTO(name, label, priority, date);
 }
 
 const std::string &TaskDTO::GetName() const {
