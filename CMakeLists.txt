@@ -5,34 +5,29 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(core)
+include_directories(cli)
 
-add_executable(TaskManager main.cpp
-        core/Memory_Model/Task/Task.cpp
-        core/Memory_Model/Task/Task.h
-        core/Memory_Model/Task/TaskEntity.cpp
-        core/Memory_Model/Task/TaskEntity.h
-        core/API/TaskService.cpp
-        core/API/TaskService.h
-        core/API/TaskID.cpp
-        core/API/TaskID.h
-        core/Date/Date.cpp
-        core/Date/Date.h
-        core/Memory_Model/Storage/TaskView.cpp
-        core/Memory_Model/Storage/TaskView.h
-        core/API/TaskDTO.cpp core/API/TaskDTO.h
-        core/Memory_Model/Task/TaskIDGenerate.cpp
-        core/Memory_Model/Task/TaskIDGenerate.h
-        core/Memory_Model/Storage/TaskRepository.cpp
-        core/Memory_Model/Storage/TaskRepository.h
-        core/Memory_Model/Storage/TaskStorage.cpp
-        core/Memory_Model/Storage/TaskStorage.h
-        core/API/AddTaskResult.h core/API/Priority.h
-        core/Memory_Model/Storage/TaskRepositoryInterface.h
-        core/Memory_Model/Storage/TaskStorageInterface.h
-        core/Memory_Model/Storage/TaskViewInterface.h core/Convertor.h core/Convertor.cpp)
+############## core ########################################################
+file(GLOB core_CPP_SOURCES "core/API/*.cpp" "core/Date/*.cpp" "core/Memory_Model/*.cpp"
+        "core/Memory_Model/Storage/*.cpp" "core/Memory_Model/Task/*.cpp")
+
+file(GLOB core_HEADERS "core/API/*.h" "core/Date/*.h" "core/Memory_Model/*.h"
+        "core/Memory_Model/Storage/*.h" "core/Memory_Model/Task/*.h")
+
+############## cli ########################################################
+file(GLOB cli_CPP_SOURCES "cli/*.cpp")
+
+file(GLOB "cli/*.h")
+
+############## tests ########################################################
+file(GLOB core_TEST_SOURCES "tests/*.cpp")
 
 
+add_executable(TaskManager ${core_HEADERS} ${core_CPP_SOURCES}
+                           ${cli_HEADERS} ${cli_CPP_SOURCES}
+                            main.cpp)
 
+############## boost ########################################################
 set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
 set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
 set(Boost_USE_RELEASE_LIBS       ON)  # only find release libs
@@ -44,31 +39,15 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
+############## googletest ########################################################
 include(GoogleTest)
 find_package(GTest REQUIRED)
 include_directories(${GMOCK_INCLUDE_DIR})
 enable_testing()
 
 include_directories(tests)
-add_executable(TestsExe tests/TestTask.cpp
-        core/Memory_Model/Task/Task.cpp
-        core/Memory_Model/Task/TaskEntity.cpp
-        core/API/TaskService.cpp
-        tests/TestTaskService.cpp
-        tests/TestTaskID.cpp
-        core/API/TaskID.cpp
-        core/Date/Date.cpp
-        core/Memory_Model/Storage/TaskView.cpp
-        tests/TestDate.cpp
-        tests/TestTaskView.cpp
-        core/API/TaskDTO.cpp
-        core/API/TaskDTO.h
-        tests/TestTaskDTO.cpp
-        core/Memory_Model/Task/TaskIDGenerate.cpp
-        core/Memory_Model/Storage/TaskRepository.cpp
-        core/Memory_Model/Storage/TaskStorage.cpp
-        tests/TestTaskStorage.cpp
-        tests/TestTaskRepository.cpp core/Convertor.cpp tests/TestConvertor.cpp)
+add_executable(coreTests ${core_TEST_SOURCES} ${core_CPP_SOURCES})
 
-target_link_libraries(TestsExe GTest::GTest GTest::Main)
-gtest_discover_tests(TestsExe)
+target_link_libraries(coreTests GTest::GTest GTest::Main)
+gtest_discover_tests(coreTests)
+

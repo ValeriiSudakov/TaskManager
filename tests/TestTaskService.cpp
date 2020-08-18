@@ -4,11 +4,17 @@
 
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include "API/TaskService.h"
 #include <iostream>
 
 class TestTaskService : public ::testing::Test {
 
+};
+
+class FakeRepository : public TaskRepositoryInterface{
+  public:
+   // MOCK_METHOD(std::unique_ptr<TaskViewInterface> , GetTaskView, (), (override));
 };
 
 TEST_F(TestTaskService, shouldAddTask) {
