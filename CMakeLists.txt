@@ -15,9 +15,9 @@ file(GLOB core_HEADERS "core/API/*.h" "core/Date/*.h" "core/Memory_Model/*.h"
         "core/Memory_Model/Storage/*.h" "core/Memory_Model/Task/*.h")
 
 ############## cli ########################################################
-file(GLOB cli_CPP_SOURCES "cli/*.cpp")
+file(GLOB cli_CPP_SOURCES "cli/*.cpp" "cli/States/*.cpp")
 
-file(GLOB "cli/*.h")
+file(GLOB cli_HEADERS "cli/*.h" "cli/States/*.h")
 
 ############## tests ########################################################
 file(GLOB core_TEST_SOURCES "tests/*.cpp")
