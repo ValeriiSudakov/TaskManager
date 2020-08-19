@@ -8,6 +8,8 @@
 
 class TaskView : public TaskViewInterface{
  public:
+  TaskView();
+ public:
   void                      AddTask(const std::weak_ptr<TaskEntity>& task) override;
   bool                      RemoveTask(const std::weak_ptr<TaskEntity>& task) override;
 

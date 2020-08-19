@@ -1,9 +1,11 @@
 //
-// Created by valerii.sudakov on 8/4/2020.
 //
+// Created by valerii.sudakov on 8/4/2020.
+
 
 #include "TaskStorage.h"
 
+TaskStorage::TaskStorage() = default;
 
 std::optional<std::shared_ptr<TaskEntity>> TaskStorage::AddTask(const Task& task){
   TaskID newTaskID = taskIDGenerate_.Generate();
@@ -32,7 +34,6 @@ std::optional<std::shared_ptr<TaskEntity>> TaskStorage::GetTask(const TaskID& ta
   auto task = tasks_.find(taskID);
   return (task == tasks_.end()) ? std::nullopt : std::make_optional(task->second);
 }
-
 bool TaskStorage::RemoveTask(const TaskID &id) {
   auto task = tasks_.find(id);
   if (task != tasks_.end()){

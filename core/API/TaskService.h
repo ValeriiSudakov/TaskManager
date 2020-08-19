@@ -19,9 +19,9 @@
  */
 class TaskService {
  public:
-  TaskService(std::unique_ptr<TaskRepositoryInterface> taskRepository);
-
+  static TaskService Create();
  public:
+
 /*
  * Add task to the system.
  *
@@ -31,7 +31,6 @@ class TaskService {
  * @return-type: AddTaskResult that contains info about result of operation.
  */
   AddTaskResult             AddTask(const TaskDTO& task);
-
 /*
  * Add subtask to the system.
  *
@@ -64,6 +63,7 @@ class TaskService {
   bool                      PostponeTask(const TaskID& ID, const Date& date);
 
  public:
+
 /*
  *  Returns task as TaskDTO from the system by ID.
  *
@@ -72,7 +72,6 @@ class TaskService {
  *  @return-type: if task exist - return value of TaskDTO, std::nullopt if not.
  */
   std::optional<TaskDTO>    GetTask(const TaskID& id) const;
-
 /*
  * Returns all tasks from the systems
  *
@@ -131,7 +130,10 @@ class TaskService {
   std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const;
 
  private:
+
   std::unique_ptr<TaskRepositoryInterface>            tasksRepository_;
+
+  TaskService(std::unique_ptr<TaskRepositoryInterface> taskRepository);
 
  private:
 

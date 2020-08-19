@@ -5,6 +5,8 @@
 #include "TaskView.h"
 #include "Date/Date.h"
 
+TaskView::TaskView() = default;
+
 void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
   TaskID id = task.lock()->GetId();
   byPriority_[task.lock()->GetPriority()].insert(std::make_pair(id, task));

@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 
+TaskService TaskService::Create(){
+  return TaskService(std::move(std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()),
+                                                                    std::move(std::make_unique<TaskStorage>()))));
+}
 
 TaskService::TaskService(std::unique_ptr<TaskRepositoryInterface> taskRepository)
   : tasksRepository_(std::move(taskRepository)) {
