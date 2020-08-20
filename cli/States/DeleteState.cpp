@@ -12,7 +12,7 @@ DeleteState::DeleteState() {
 
 DeleteState::~DeleteState() = default;
 
-void DeleteState::Do(Context &context) {
+void DeleteState::Do(Context& context) {
   std::cout<<stateName_<<" is doing smth\n";
 }
 

@@ -14,8 +14,8 @@ class BaseState : public State {
   ~BaseState();
 
  public:
-  void Do(Context& context) override;
-  void PrintActions() override;
+  void      Do(Context& context) override;
+  void      PrintActions() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_BASESTATE_H_

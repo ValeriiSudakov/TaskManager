@@ -12,8 +12,8 @@ class ShowByNameState : public State {
   ~ShowByNameState();
 
  public:
-  virtual void Do(Context &context) override;
-  virtual void PrintActions() override;
+  void      Do(Context& context) override;
+  void      PrintActions() override;
 
 };
 

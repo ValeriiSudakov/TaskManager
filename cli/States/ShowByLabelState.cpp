@@ -15,7 +15,7 @@ ShowByLabelState::ShowByLabelState(){
 
 ShowByLabelState::~ShowByLabelState() = default;
 
-void ShowByLabelState::Do(Context &context) {
+void ShowByLabelState::Do(Context& context) {
   std::cout<<stateName_<<" is doing \n";
 }
 

@@ -15,7 +15,7 @@ ShowTodayState::ShowTodayState(){
 
 ShowTodayState::~ShowTodayState() = default;
 
-void ShowTodayState::Do(Context &context) {
+void ShowTodayState::Do(Context& context) {
   std::cout<<stateName_<<" is doing smth\n";
 }
 

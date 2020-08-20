@@ -15,7 +15,7 @@ ShowAllState::ShowAllState(){
 
 ShowAllState::~ShowAllState() = default;
 
-void ShowAllState::Do(Context &context) {
+void ShowAllState::Do(Context& context) {
   std::cout<<stateName_<<" is doing smth\n";
 }
 

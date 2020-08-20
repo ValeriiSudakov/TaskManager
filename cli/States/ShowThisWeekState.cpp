@@ -15,7 +15,7 @@ ShowThisWeekState::ShowThisWeekState(){
 
 ShowThisWeekState::~ShowThisWeekState() = default;
 
-void ShowThisWeekState::Do(Context &context) {
+void ShowThisWeekState::Do(Context& context) {
   std::cout<<stateName_<<" is doing \n";
 }
 

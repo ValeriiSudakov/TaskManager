@@ -12,7 +12,7 @@ CompleteState::CompleteState() {
 
 CompleteState::~CompleteState() = default;
 
-void CompleteState::Do(Context &context) {
+void CompleteState::Do(Context& context) {
   std::cout<<stateName_<<" is doing \n";
 }
 

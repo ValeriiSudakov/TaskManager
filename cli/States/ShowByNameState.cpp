@@ -15,7 +15,7 @@ ShowByNameState::ShowByNameState(){
 
 ShowByNameState::~ShowByNameState() = default;
 
-void ShowByNameState::Do(Context &context) {
+void ShowByNameState::Do(Context& context) {
   std::cout<<stateName_<<" is doing smth\n";
 }
 

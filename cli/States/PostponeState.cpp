@@ -12,7 +12,7 @@ PostponeState::PostponeState() {
 
 PostponeState::~PostponeState() = default;
 
-void PostponeState::Do(Context &context) {
+void PostponeState::Do(Context& context) {
   std::cout<<stateName_<<" is doing \n";
 }
 
