@@ -23,9 +23,14 @@ void ShowByLabelState::Do(Context& context) {
   std::cout<<"Sort it by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
+
+  std::vector<TaskDTO> result;
   if (inputSort == "y") {
-    context.taskService_->GetTasksByLabel(inputLabel, true);
+    result = context.taskService_->GetTasksByLabel(inputLabel, true);
   } else if (inputSort == "n") {
-    context.taskService_->GetTasksByLabel(inputLabel, false);
+    result = context.taskService_->GetTasksByLabel(inputLabel, false);
+  }
+  for (const auto& task : result){
+    std::cout<<std::endl<<task.ToString()<<std::endl;
   }
 }

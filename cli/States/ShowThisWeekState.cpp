@@ -19,9 +19,13 @@ void ShowThisWeekState::Do(Context& context) {
   std::cout<<"Sort it by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
+  std::vector<TaskDTO> result;
   if (inputSort == "y") {
-    context.taskService_->GetWeekTasks(true);
+    result = context.taskService_->GetWeekTasks(true);
   } else if (inputSort == "n") {
-    context.taskService_->GetWeekTasks(false);
+    result = context.taskService_->GetWeekTasks(false);
+  }
+  for (const auto& task : result){
+    std::cout<<std::endl<<task.ToString()<<std::endl;
   }
 }

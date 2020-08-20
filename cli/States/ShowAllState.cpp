@@ -19,9 +19,14 @@ void ShowAllState::Do(Context& context) {
   std::cout<<"Sort it by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
+
+  std::vector<TaskDTO> result;
   if (inputSort == "y") {
-    context.taskService_->GetTasks(true);
+    result = context.taskService_->GetTasks(true);
   } else if (inputSort == "n") {
-    context.taskService_->GetTasks(false);
+    result = context.taskService_->GetTasks(false);
+  }
+  for (const auto& task : result){
+    std::cout<<std::endl<<task.ToString()<<std::endl;
   }
 }

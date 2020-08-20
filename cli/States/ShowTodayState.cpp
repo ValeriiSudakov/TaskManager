@@ -19,9 +19,13 @@ void ShowTodayState::Do(Context& context) {
   std::cout<<"Sort it by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
+  std::vector<TaskDTO> result;
   if (inputSort == "y") {
-    context.taskService_->GetTodayTasks(true);
+    result = context.taskService_->GetTodayTasks(true);
   } else if (inputSort == "n") {
-    context.taskService_->GetTodayTasks(false);
+    result = context.taskService_->GetTodayTasks(false);
+  }
+  for (const auto& task : result){
+    std::cout<<std::endl<<task.ToString()<<std::endl;
   }
 }
