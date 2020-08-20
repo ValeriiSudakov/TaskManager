@@ -19,7 +19,7 @@
 #include "ShowTodayState.h"
 
 namespace StatesFactory{
-  std::unique_ptr<State> Create(std::string input){
+  static std::unique_ptr<State> Create(std::string input){
     if (input == "base state"){
       return std::make_unique<BaseState>();
     }

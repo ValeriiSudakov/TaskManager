@@ -3,6 +3,7 @@
 //
 
 #include "AddSubtaskState.h"
+#include "CorrectInput.h"
 
 AddSubtaskState::AddSubtaskState() {
   stateName_ = "add subtask";
