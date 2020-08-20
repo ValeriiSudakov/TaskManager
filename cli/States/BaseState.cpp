@@ -3,36 +3,25 @@
 //
 
 #include "BaseState.h"
-#include "AddTaskState.h"
-BaseState::BaseState(std::string name, std::shared_ptr<Context> context){
-  stateName_ = name;
-  context_ = context;
+BaseState::BaseState() {
+  stateName_ = "base";
+  nextStates_.insert("add task");
+  nextStates_.insert("add subtask");
+  nextStates_.insert("show all");
+  nextStates_.insert("show today");
+  nextStates_.insert("show this week");
+  nextStates_.insert("show by name");
+  nextStates_.insert("show by label");
+  nextStates_.insert("postpone");
+  nextStates_.insert("delete");
+  nextStates_.insert("complete");
+  nextStates_.insert("exit");
 }
+
 BaseState::~BaseState() = default;
 
-void BaseState::Do(){ }
-
-void BaseState::PrintActions(){
-  std::cout<<"Add task"<<std::endl;
-  std::cout<<"Add subtask"<<std::endl;
-  std::cout<<"Show all"<<std::endl;
-  std::cout<<"Show today"<<std::endl;
-  std::cout<<"Show this week"<<std::endl;
-  std::cout<<"Show by name"<<std::endl;
-  std::cout<<"Show by label"<<std::endl;
-  std::cout<<"Postpone"<<std::endl;
-  std::cout<<"Delete"<<std::endl;
-  std::cout<<"Complete"<<std::endl;
+void BaseState::Do(Context& context){
+  std::cout<<stateName_<<" is doing smth\n";
 }
 
-void BaseState::ReadAction() {
-  std::string input;
-  std::cout<<"Input action: ";
-  std::getline(std::cin, input);
-
-  if (input == "Add task"){
-    auto newState = AddTaskState("Add task", context_);
-    newState.Do();
-    context_->TransitionTo(std::make_shared<AddTaskState>("add task", context_));
-  }
-}
+void BaseState::PrintActions() {}

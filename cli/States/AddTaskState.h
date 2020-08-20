@@ -8,13 +8,12 @@
 
 class AddTaskState : public State {
  public:
-  AddTaskState(std::string name, std::shared_ptr<Context> context);
+  AddTaskState();
   ~AddTaskState();
 
  public:
-  void PrintActions() override;
-  void ReadAction() override;
-  void Do() override;
+  virtual void      Do(Context& context) override;
+  virtual void      PrintActions() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_ADDTASKSTATE_H_

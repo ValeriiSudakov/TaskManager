@@ -1,19 +1,8 @@
 //
-// Created by valeriisudakov on 18.08.20.
+// Created by valeriisudakov on 20.08.20.
 //
-
 #include "Context.h"
 
-Context::Context(std::shared_ptr<State> state) {
-  this->TransitionTo(state);
-}
-
-Context::~Context() = default;
-
-void Context::TransitionTo(std::shared_ptr<State> state){
-  state_ = state;
-}
-
-void Context::Request() {
-  state_->ReadAction();
+Context::Context() {
+  taskService_ = std::make_unique<TaskService>(TaskService::Create());
 }

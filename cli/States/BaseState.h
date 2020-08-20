@@ -6,15 +6,16 @@
 #define TASKMANAGER_CLI_STATES_BASESTATE_H_
 #include "State.h"
 
+class State;
+
 class BaseState : public State {
  public:
-  BaseState(std::string name, std::shared_ptr<Context> context);
+  BaseState();
   ~BaseState();
 
  public:
-  void Do() override;
+  void Do(Context& context) override;
   void PrintActions() override;
-  void ReadAction() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_BASESTATE_H_

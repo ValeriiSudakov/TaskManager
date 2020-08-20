@@ -4,26 +4,21 @@
 
 #include "AddTaskState.h"
 
-AddTaskState::AddTaskState(std::string name, std::shared_ptr<Context> context) {
-  stateName_ = name;
-  context_ = context;
+AddTaskState::AddTaskState() {
+  stateName_ = "add task";
+  nextStates_.insert("base");
+  nextStates_.insert("exit");
 }
 
 AddTaskState::~AddTaskState() = default;
 
-void AddTaskState::PrintActions() {
-  std::cout<<"Input:\nTask name;\nTask label;\nTask priority: First; Second; Third; None\nDate: year-mon-date\n";
-}
+//void AddTaskState::PrintActions() {
+//  std::cout<<"Input:\nTask name;\nTask label;\nTask priority: First; Second; Third; None\nDate: year-mon-date\n";
+//}
 
-void AddTaskState::ReadAction() {
-
-}
-
-void AddTaskState::Do(){
+void AddTaskState::Do(Context& context){
   std::cout<<stateName_<<" is doing smth\n";
-  //std::string name;
-  //std::getline(std::cin, name);
-  //if (name == ""){
-  //  std::cout<<"Name must be not empty";
-  //}
+  //context_.lock()->SetState(std::make_shared<BaseState>(context_));
 }
+
+void AddTaskState::PrintActions() {}

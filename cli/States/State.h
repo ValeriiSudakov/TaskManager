@@ -4,23 +4,26 @@
 
 #ifndef TASKMANAGER_CLI_STATE_H_
 #define TASKMANAGER_CLI_STATE_H_
-#include "Context.h"
+#include <set>
 #include <iostream>
+#include <memory>
+
+class Context;
 
 class State {
  public:
   virtual ~State();
 
  public:
-  virtual void      Do() = 0;
-  virtual void      PrintActions() = 0;
-  virtual void      ReadAction() = 0;
+  virtual void                Do(Context& context) = 0;
+  virtual void                PrintActions() = 0;
+          void                PrintNextStates_();
+          void                PrintState();
+  std::unique_ptr<State>      ReadAction();
 
-          void      SetContext(std::shared_ptr<Context> context);
-          void      PrintState();
  protected:
-  std::string stateName_;
-  std::shared_ptr<Context> context_;
+  std::string                 stateName_;
+  std::set<std::string>       nextStates_;
 };
 
 #endif //TASKMANAGER_CLI_STATE_H_
