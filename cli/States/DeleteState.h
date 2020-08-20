@@ -12,8 +12,6 @@ class DeleteState : public State {
   ~DeleteState();
 
  public:
-  void      Do(Context& context) override;
-  void      PrintActions() override;
+  void Do(Context &context) override;
 };
-
 #endif //TASKMANAGER_CLI_STATES_DELETESTATE_H_

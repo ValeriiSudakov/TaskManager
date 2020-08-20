@@ -13,6 +13,5 @@ class ShowAllState : public State {
 
  public:
   void      Do(Context& context) override;
-  void      PrintActions() override;
 };
 #endif //TASKMANAGER_CLI_STATES_SHOWALL_H_

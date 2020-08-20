@@ -13,7 +13,6 @@ class AddTaskState : public State {
 
  public:
   void      Do(Context& context) override;
-  void      PrintActions() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_ADDTASKSTATE_H_

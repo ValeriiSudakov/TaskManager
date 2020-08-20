@@ -15,5 +15,3 @@ AddSubtaskState::~AddSubtaskState() = default;
 void AddSubtaskState::Do(Context& context) {
   std::cout<<stateName_<<" is doing \n";
 }
-
-void AddSubtaskState::PrintActions() {}

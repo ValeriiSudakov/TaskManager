@@ -16,7 +16,12 @@ ShowTodayState::ShowTodayState(){
 ShowTodayState::~ShowTodayState() = default;
 
 void ShowTodayState::Do(Context& context) {
-  std::cout<<stateName_<<" is doing smth\n";
+  std::cout<<"Sort it by priority? [y/n]: ";
+  std::string inputSort;
+  std::getline(std::cin, inputSort);
+  if (inputSort == "y") {
+    context.taskService_->GetTodayTasks(true);
+  } else if (inputSort == "n") {
+    context.taskService_->GetTodayTasks(false);
+  }
 }
-
-void ShowTodayState::PrintActions() {}

@@ -13,7 +13,6 @@ class CompleteState : public State {
 
  public:
   void      Do(Context& context) override;
-  void      PrintActions() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_COMPLETESTATE_H_

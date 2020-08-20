@@ -15,5 +15,3 @@ PostponeState::~PostponeState() = default;
 void PostponeState::Do(Context& context) {
   std::cout<<stateName_<<" is doing \n";
 }
-
-void PostponeState::PrintActions() {}

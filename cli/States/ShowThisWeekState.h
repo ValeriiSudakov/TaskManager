@@ -13,7 +13,6 @@ class ShowThisWeekState : public State {
 
  public:
   void      Do(Context& context) override;
-  void      PrintActions() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_SHOWTHISWEEKSTATE_H_

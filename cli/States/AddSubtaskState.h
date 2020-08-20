@@ -12,7 +12,6 @@ class AddSubtaskState : public State {
 
  public:
   void      Do(Context& context) override;
-  void      PrintActions() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_ADDSUBTASK_H_

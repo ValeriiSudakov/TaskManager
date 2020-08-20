@@ -13,7 +13,6 @@ class ShowByLabelState : public State {
 
  public:
   void     Do(Context& context) override;
-  void     PrintActions() override;
 
 };
 #endif //TASKMANAGER_CLI_STATES_SHOWBYLABELSTATE_H_

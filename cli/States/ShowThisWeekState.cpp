@@ -16,7 +16,12 @@ ShowThisWeekState::ShowThisWeekState(){
 ShowThisWeekState::~ShowThisWeekState() = default;
 
 void ShowThisWeekState::Do(Context& context) {
-  std::cout<<stateName_<<" is doing \n";
+  std::cout<<"Sort it by priority? [y/n]: ";
+  std::string inputSort;
+  std::getline(std::cin, inputSort);
+  if (inputSort == "y") {
+    context.taskService_->GetWeekTasks(true);
+  } else if (inputSort == "n") {
+    context.taskService_->GetWeekTasks(false);
+  }
 }
-
-void ShowThisWeekState::PrintActions() {}

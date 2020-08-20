@@ -7,8 +7,7 @@
 #include <set>
 #include <iostream>
 #include <memory>
-
-class Context;
+#include "Context.h"
 
 class State {
  public:
@@ -16,7 +15,6 @@ class State {
 
  public:
   virtual void                Do(Context& context) = 0;
-  virtual void                PrintActions() = 0;
           void                PrintNextStates_();
           void                PrintState();
   std::unique_ptr<State>      ReadAction();

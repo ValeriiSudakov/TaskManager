@@ -13,7 +13,6 @@ class ShowByNameState : public State {
 
  public:
   void      Do(Context& context) override;
-  void      PrintActions() override;
 
 };
 

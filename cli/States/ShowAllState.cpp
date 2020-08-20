@@ -16,7 +16,12 @@ ShowAllState::ShowAllState(){
 ShowAllState::~ShowAllState() = default;
 
 void ShowAllState::Do(Context& context) {
-  std::cout<<stateName_<<" is doing smth\n";
+  std::cout<<"Sort it by priority? [y/n]: ";
+  std::string inputSort;
+  std::getline(std::cin, inputSort);
+  if (inputSort == "y") {
+    context.taskService_->GetTasks(true);
+  } else if (inputSort == "n") {
+    context.taskService_->GetTasks(false);
+  }
 }
-
-void ShowAllState::PrintActions() {}

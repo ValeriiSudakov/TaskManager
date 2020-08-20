@@ -16,7 +16,16 @@ ShowByLabelState::ShowByLabelState(){
 ShowByLabelState::~ShowByLabelState() = default;
 
 void ShowByLabelState::Do(Context& context) {
-  std::cout<<stateName_<<" is doing \n";
-}
+  std::cout<<"Input label: ";
+  std::string inputLabel;
+  std::getline(std::cin, inputLabel);
 
-void ShowByLabelState::PrintActions() {}
+  std::cout<<"Sort it by priority? [y/n]: ";
+  std::string inputSort;
+  std::getline(std::cin, inputSort);
+  if (inputSort == "y") {
+    context.taskService_->GetTasksByLabel(inputLabel, true);
+  } else if (inputSort == "n") {
+    context.taskService_->GetTasksByLabel(inputLabel, false);
+  }
+}

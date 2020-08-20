@@ -16,7 +16,16 @@ ShowByNameState::ShowByNameState(){
 ShowByNameState::~ShowByNameState() = default;
 
 void ShowByNameState::Do(Context& context) {
-  std::cout<<stateName_<<" is doing smth\n";
-}
+  std::cout<<"Input name: ";
+  std::string inputName;
+  std::getline(std::cin, inputName);
 
-void ShowByNameState::PrintActions() {}
+  std::cout<<"Sort it by priority? [y/n]: ";
+  std::string inputSort;
+  std::getline(std::cin, inputSort);
+  if (inputSort == "y") {
+    context.taskService_->GetTasksByName(inputName, true);
+  } else if (inputSort == "n") {
+    context.taskService_->GetTasksByName(inputName, false);
+  }
+}

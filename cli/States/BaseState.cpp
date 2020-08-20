@@ -23,5 +23,3 @@ BaseState::~BaseState() = default;
 void BaseState::Do(Context& context){
   std::cout<<stateName_<<" is doing smth\n";
 }
-
-void BaseState::PrintActions() {}

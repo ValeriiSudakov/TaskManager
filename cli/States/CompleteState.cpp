@@ -15,5 +15,3 @@ CompleteState::~CompleteState() = default;
 void CompleteState::Do(Context& context) {
   std::cout<<stateName_<<" is doing \n";
 }
-
-void CompleteState::PrintActions() {}

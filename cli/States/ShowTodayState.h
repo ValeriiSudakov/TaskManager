@@ -13,7 +13,6 @@ class ShowTodayState :  public State {
 
  public:
   void      Do(Context& context) override;
-  void      PrintActions() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_SHOWTODAYSTATE_H_
