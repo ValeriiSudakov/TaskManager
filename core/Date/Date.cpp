@@ -6,6 +6,7 @@
 
 Date::Date(std::string date) : date_(boost::gregorian::from_string(date)){}
 Date::Date(boost::gregorian::date date) : date_(date) { }
+Date::Date() : date_(boost::gregorian::date() ) { }
 
 boost::gregorian::date Date::GetCurrentTime(){
   return boost::gregorian::day_clock::local_day();
