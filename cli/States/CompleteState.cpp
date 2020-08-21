@@ -3,6 +3,7 @@
 //
 
 #include "CompleteState.h"
+#include "CorrectInput.h"
 
 CompleteState::CompleteState() {
   stateName_ = "complete";
@@ -13,5 +14,10 @@ CompleteState::CompleteState() {
 CompleteState::~CompleteState() = default;
 
 void CompleteState::Do(Context& context) {
-  std::cout<<stateName_<<" is doing \n";
+  std::cout<<"Input number of task to complete: ";
+  auto number = CorrectInput::Number();
+  if (!number.has_value()){
+    std::cout<<"Incorrect input of number.\n";
+    return;
+  }
 }

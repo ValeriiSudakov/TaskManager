@@ -3,6 +3,7 @@
 //
 
 #include "DeleteState.h"
+#include "CorrectInput.h"
 
 DeleteState::DeleteState(){
   stateName_ = "delete";
@@ -13,5 +14,10 @@ DeleteState::DeleteState(){
 DeleteState::~DeleteState() = default;
 
 void DeleteState::Do(Context& context) {
-  std::cout<<stateName_<<" is doing smth\n";
+  std::cout<<"Input number of task to delete: ";
+  auto number = CorrectInput::Number();
+  if (!number.has_value()){
+    std::cout<<"Incorrect input of number.\n";
+    return;
+  }
 }

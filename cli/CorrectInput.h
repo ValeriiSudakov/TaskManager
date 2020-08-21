@@ -56,5 +56,15 @@ static std::optional<Priority> Priority() {
       }
     }
   }
+
+  static std::optional<unsigned int> Number(){
+    std::string number;
+    std::getline(std::cin, number);
+    if (number.find_first_not_of("0123456789") != std::string::npos || number.empty()){
+      return std::nullopt;
+    }
+    return std::atoi(number.c_str());
+  }
+
 }
 #endif //TASKMANAGER_CLI_CORRECTINPUT_H_
