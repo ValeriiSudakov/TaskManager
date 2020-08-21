@@ -21,5 +21,5 @@ BaseState::BaseState() {
 BaseState::~BaseState() = default;
 
 void BaseState::Do(Context& context){
-  std::cout<<stateName_<<" is doing smth\n";
+  //is waiting
 }

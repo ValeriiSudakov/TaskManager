@@ -20,4 +20,10 @@ void PostponeState::Do(Context& context) {
     std::cout<<"Incorrect input of number.\n";
     return;
   }
+
+  std::cout<<"Input new date: ";
+  auto newDate = CorrectInput::Date();
+  if (!newDate.has_value()){
+    std::cout<<"Incorrect date input.\n";
+  }
 }
