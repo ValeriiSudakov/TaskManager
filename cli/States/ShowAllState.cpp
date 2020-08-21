@@ -26,6 +26,7 @@ void ShowAllState::Do(Context& context) {
   } else if (inputSort == "n") {
     result = context.taskService_->GetTasks(false);
   }
+
   for (const auto& task : result){
     std::cout<<std::endl<<task.ToString()<<std::endl;
   }
