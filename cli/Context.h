@@ -11,6 +11,12 @@ struct Context {
 
   std::unique_ptr<TaskService> taskService_;
 
+  struct Buffer{
+    std::string name;
+    std::string label;
+    Priority priority;
+    Date date;
+  };
 };
 
 #endif //TASKMANAGER_CLI_CONTEXT_H_
