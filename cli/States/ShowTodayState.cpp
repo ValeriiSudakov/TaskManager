@@ -8,6 +8,7 @@ ShowTodayState::ShowTodayState(){
   stateName_ = "show today";
   nextStates_.insert("base");
   nextStates_.insert("add subtask");
+  nextStates_.insert("complete");
   nextStates_.insert("postpone");
   nextStates_.insert("delete");
   nextStates_.insert("exit");

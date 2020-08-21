@@ -8,6 +8,7 @@ ShowThisWeekState::ShowThisWeekState(){
   stateName_ = "show this week";
   nextStates_.insert("base");
   nextStates_.insert("add subtask");
+  nextStates_.insert("complete");
   nextStates_.insert("postpone");
   nextStates_.insert("delete");
   nextStates_.insert("exit");
