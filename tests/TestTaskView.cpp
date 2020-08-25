@@ -52,6 +52,22 @@ TEST_F(TestTaskView, shouldntGetData){
   ASSERT_TRUE(resultByPriority.empty());
 }
 
+TEST_F(TestTaskView, shouldGetWeekTasks){
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+  auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
+  tv.AddTask(newTask);
+  auto resultThisWeek = tv.GetWeekTasks();
+  ASSERT_FALSE(resultThisWeek.empty());
+  ASSERT_EQ(resultThisWeek.size(), 1);
+
+  std::optional<Task> task1 = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+  auto newTask1 = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
+  tv.AddTask(newTask1);
+  auto resultThisWeek1 = tv.GetWeekTasks();
+  ASSERT_NE(resultThisWeek1.size(), resultThisWeek.size());
+  ASSERT_EQ(resultThisWeek1.size(), 2);
+}
+
 TEST_F(TestTaskView, shouldGetCorrectTaskData){
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
