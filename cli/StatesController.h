@@ -17,8 +17,8 @@ class StatesController {
   void ExecuteProgram();
 
  private:
-  Context context_;
-  std::unique_ptr<State> state_;
+  std::unique_ptr<Context> context_;
+  std::shared_ptr<State> state_;
 };
 
 #endif //TASKMANAGER_CLI_STATESCONTROLLER_H_

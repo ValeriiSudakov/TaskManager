@@ -7,7 +7,8 @@
 
 
 StatesController::StatesController(){
-  state_ = std::make_unique<BaseState>();
+  state_ = std::move(std::make_shared<BaseState>());
+  context_ = std::make_unique<Context>();
 }
 
 StatesController::~StatesController() = default;
@@ -15,7 +16,7 @@ StatesController::~StatesController() = default;
 void StatesController::ExecuteProgram(){
   while (state_){
     std::cout<<"____________________________\n";
-    state_->Do(context_);
+    state_->Do(*context_);
     state_ = std::move(state_->ReadAction());
 
   }

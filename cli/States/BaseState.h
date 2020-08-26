@@ -14,7 +14,9 @@ class BaseState : public State {
   ~BaseState();
 
  public:
-  void      Do(Context& context) override;
+  void                        PrintNextStates() override;
+  void                        Do(Context& context) override;
+  std::shared_ptr<State>      ReadAction() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_BASESTATE_H_

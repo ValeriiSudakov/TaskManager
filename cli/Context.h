@@ -10,13 +10,14 @@ struct Context {
   Context();
 
   std::unique_ptr<TaskService> taskService_;
-
-  struct Buffer{
+  struct Buffer { ;
     std::string name;
     std::string label;
     Priority priority;
     Date date;
-  };
+    TaskID id;
+  } buffer_;
+  std::vector<TaskDTO> tasks_;
 };
 
 #endif //TASKMANAGER_CLI_CONTEXT_H_

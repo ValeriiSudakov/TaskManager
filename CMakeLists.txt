@@ -15,9 +15,11 @@ file(GLOB core_HEADERS "core/API/*.h" "core/Date/*.h" "core/Memory_Model/*.h"
         "core/Memory_Model/Storage/*.h" "core/Memory_Model/Task/*.h")
 
 ############## cli ########################################################
-file(GLOB cli_CPP_SOURCES "cli/*.cpp" "cli/States/*.cpp")
+file(GLOB cli_CPP_SOURCES "cli/*.cpp" "cli/States/*.cpp" "cli/States/EditSystemStates/*.cpp"
+        "cli/States/ShowStates/*.cpp" "cli/States/InputStates/*.cpp")
 
-file(GLOB cli_HEADERS "cli/*.h" "cli/States/*.h")
+file(GLOB cli_HEADERS "cli/*.h" "cli/States/*.h" "cli/States/EditSystemStates/*.h"
+        "cli/States/ShowStates/*.h" "cli/States/InputStates/*.h")
 
 ############## tests ########################################################
 file(GLOB core_TEST_SOURCES "tests/*.cpp")

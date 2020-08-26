@@ -14,14 +14,13 @@ class State {
   virtual ~State();
 
  public:
-  virtual void                Do(Context& context) = 0;
-          void                PrintNextStates_();
-          void                PrintState();
-  std::unique_ptr<State>      ReadAction();
+  virtual void                        Do(Context& context) = 0;
+  virtual void                        PrintNextStates();
+  virtual std::shared_ptr<State>      ReadAction();
+  void                                PrintState();
 
  protected:
   std::string                 stateName_;
-  std::set<std::string>       nextStates_;
 };
 
 #endif //TASKMANAGER_CLI_STATE_H_
