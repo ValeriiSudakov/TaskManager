@@ -27,12 +27,12 @@ void InputIDState::Do(Context& context){
     return;
   }
   auto id = std::atoi(input.c_str());
-  if (id > context.tasks.size()){
+  if (id > context.tasks_.size()-1){
     std::cout<<"ID out of tasks range.\n";
     fail = true;
     return;
   }
-  context.buffer_.id = id;
+  context.buffer_.id = context.tasks_[id].GetTaskId().Get();
 }
 
 std::shared_ptr<State> InputIDState::ReadAction() {
