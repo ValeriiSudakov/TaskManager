@@ -55,12 +55,17 @@ bool TaskRepository::RemoveTask(const TaskID& id){
   // remove subtasks
   for (const auto& id : idTaskToDelete){
     taskStorage_->RemoveTask(id);
+    auto task = taskStorage_->GetTask(id);
+    if (task.has_value()){
+      taskView_->RemoveTask(task.value());
+    }
   }
   // remove task
   taskStorage_->RemoveTask(task.value()->GetId());
+  taskView_->RemoveTask(task.value());
   auto taskParentID = task.value()->GetParentId();
   if (taskParentID != task.value()->GetId()){
-      taskStorage_->GetTask(taskParentID).value()->RemoveTaskFromSubtasks(id);
+    taskStorage_->GetTask(taskParentID).value()->RemoveTaskFromSubtasks(id);
   }
   return true;
 }
