@@ -4,18 +4,18 @@
 
 #include "CompleteState.h"
 #include "States/BaseState.h"
-
+#include "Factory.h"
 CompleteState::CompleteState() {
   stateName_ = "complete";
 }
 
 CompleteState::~CompleteState() = default;
 
-void CompleteState::Do(Context& context) {
+void CompleteState::Do(const std::shared_ptr<Context>& context) {
   //doing smth
 }
 
 std::shared_ptr<State> CompleteState::ReadAction() {
   //do smth
-  return std::make_shared<BaseState>();
+  return Factory::CreateState(StatesList::Base);
 }

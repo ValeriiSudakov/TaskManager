@@ -12,7 +12,7 @@ class CompleteState : public State {
   ~CompleteState();
 
  public:
-  void                        Do(Context& context) override;
+  void                        Do(const std::shared_ptr<Context>& context) override;
   std::shared_ptr<State>      ReadAction() override;
 };
 

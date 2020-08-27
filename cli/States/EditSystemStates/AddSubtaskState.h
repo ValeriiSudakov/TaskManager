@@ -5,13 +5,14 @@
 #ifndef TASKMANAGER_CLI_STATES_ADDSUBTASK_H_
 #define TASKMANAGER_CLI_STATES_ADDSUBTASK_H_
 #include "States/State.h"
+
 class AddSubtaskState : public State {
  public:
   AddSubtaskState();
   ~AddSubtaskState();
 
  public:
-  void                        Do(Context& context) override;
+  void                        Do(const std::shared_ptr<Context>& context) override;
   std::shared_ptr<State>      ReadAction() override;
 };
 

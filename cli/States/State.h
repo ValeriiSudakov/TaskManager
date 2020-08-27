@@ -14,7 +14,7 @@ class State {
   virtual ~State();
 
  public:
-  virtual void                        Do(Context& context) = 0;
+  virtual void                        Do(const std::shared_ptr<Context>& context) = 0;
   virtual void                        PrintNextStates();
   virtual std::shared_ptr<State>      ReadAction();
   void                                PrintState();

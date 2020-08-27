@@ -4,14 +4,15 @@
 
 #include "ShowByIDState.h"
 #include "States/BaseState.h"
+#include "Factory.h"
 ShowByIDState::ShowByIDState(){
   stateName_ = "show by id";
 }
 
 ShowByIDState::~ShowByIDState() = default;
 
-void ShowByIDState::Do(Context& context) {
-  auto task = context.taskService_->GetTask(context.buffer_.id);
+void ShowByIDState::Do(const std::shared_ptr<Context>& context) {
+  auto task = context->taskService_->GetTask(context->buffer_.id);
   if (task.has_value()){
     std::cout<<task.value().ToString()<<std::endl;
     return;
@@ -20,5 +21,5 @@ void ShowByIDState::Do(Context& context) {
 }
 
 std::shared_ptr<State> ShowByIDState::ReadAction() {
-  return std::make_shared<BaseState>();
+  return Factory::CreateState(StatesList::Base);
 }

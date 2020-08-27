@@ -4,19 +4,15 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTPRIORITYSTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTPRIORITYSTATE_H_
-#include "States/State.h"
+#include "States/InputStates/InputState.h"
 
-class InputPriorityState : public State{
+class InputPriorityState : public InputState{
  public:
-  InputPriorityState(std::shared_ptr<State> nextState);
+  InputPriorityState();
   ~InputPriorityState();
 
  public:
-  void                      Do(Context& context) override;
-  std::shared_ptr<State>    ReadAction() override;
- private:
-  std::shared_ptr<State>    nextState_;
-  bool                      fail;
+  bool  Do(const std::shared_ptr<Context>& context) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTPRIORITYSTATE_H_

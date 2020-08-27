@@ -4,20 +4,15 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTDATESTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTDATESTATE_H_
-#include "States/State.h"
+#include "States/InputStates/InputState.h"
 
-class InputDateState : public State{
+class InputDateState : public InputState{
  public:
-  InputDateState(std::shared_ptr<State> nextState);
+  InputDateState();
   ~InputDateState();
 
  public:
-  void                        Do(Context& context) override;
-  std::shared_ptr<State>      ReadAction() override;
-
- private:
-  std::shared_ptr<State>      nextState_;
-  bool                        fail;
+  bool  Do(const std::shared_ptr<Context>& context) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTDATESTATE_H_

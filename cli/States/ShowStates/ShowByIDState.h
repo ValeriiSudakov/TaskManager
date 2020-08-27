@@ -11,7 +11,7 @@ class ShowByIDState : public State {
   ~ShowByIDState();
 
  public:
-  void                      Do(Context& context) override;
+  void                      Do(const std::shared_ptr<Context>& context) override;
   std::shared_ptr<State>    ReadAction() override;
 };
 

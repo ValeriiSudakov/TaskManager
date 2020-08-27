@@ -4,27 +4,28 @@
 
 #include "ShowByNameState.h"
 #include "States/BaseState.h"
+#include "Factory.h"
 ShowByNameState::ShowByNameState(){
   stateName_ = "show all by name";
 }
 
 ShowByNameState::~ShowByNameState() = default;
 
-void ShowByNameState::Do(Context& context) {
+void ShowByNameState::Do(const std::shared_ptr<Context>& context) {
   std::cout<<"Sort tasks by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
   if (inputSort == "y") {
-    context.tasks_ = context.taskService_->GetTasksByName(context.buffer_.name, true);
+    context->tasks_ = context->taskService_->GetTasksByName(context->buffer_.name, true);
   } else if (inputSort == "n") {
-    context.tasks_ = context.taskService_->GetTasksByName(context.buffer_.name, false);
+    context->tasks_ = context->taskService_->GetTasksByName(context->buffer_.name, false);
   }
   int taskNumber = 0;
-  for (const auto& task : context.tasks_){
+  for (const auto& task : context->tasks_){
     std::cout<<taskNumber++<<": "<<task.GetName()<<std::endl;
   }
 }
 
 std::shared_ptr<State> ShowByNameState::ReadAction() {
-  return std::make_shared<BaseState>();
+  return Factory::CreateState(StatesList::Base);
 }

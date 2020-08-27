@@ -4,11 +4,12 @@
 
 #include "StatesController.h"
 #include "States/BaseState.h"
-
+#include "Factory.h"
+#include "States/StatesList.h"
 
 StatesController::StatesController(){
-  state_ = std::move(std::make_shared<BaseState>());
-  context_ = std::make_unique<Context>();
+  state_ = std::move(Factory::CreateState(StatesList::Base));
+  context_ = std::make_shared<Context>();
 }
 
 StatesController::~StatesController() = default;
@@ -16,8 +17,7 @@ StatesController::~StatesController() = default;
 void StatesController::ExecuteProgram(){
   while (state_){
     std::cout<<"____________________________\n";
-    state_->Do(*context_);
+    state_->Do(context_);
     state_ = std::move(state_->ReadAction());
-
   }
 }

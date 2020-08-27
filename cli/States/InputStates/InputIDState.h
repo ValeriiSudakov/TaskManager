@@ -4,20 +4,15 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTIDSTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTIDSTATE_H_
-#include "States/State.h"
+#include "States/InputStates/InputState.h"
 
-class InputIDState : public State {
+class InputIDState : public InputState{
  public:
-  InputIDState(std::shared_ptr<State> nextState);
+  InputIDState();
   ~InputIDState();
 
  public:
-  void                        Do(Context& context) override;
-  std::shared_ptr<State>      ReadAction() override;
-
- private:
-  std::shared_ptr<State>      nextState_;
-  bool                        fail;
+  bool  Do(const std::shared_ptr<Context>& context) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTIDSTATE_H_

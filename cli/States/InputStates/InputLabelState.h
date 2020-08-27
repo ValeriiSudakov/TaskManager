@@ -4,21 +4,16 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTLABELSTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTLABELSTATE_H_
-#include "States/State.h"
+#include "States/InputStates/InputState.h"
 
 
-class InputLabelState :  public State{
+class InputLabelState :  public InputState{
  public:
-  InputLabelState(std::shared_ptr<State> nextState);
+  InputLabelState();
   ~InputLabelState();
 
  public:
-  void                      Do(Context& context) override;
-  std::shared_ptr<State>    ReadAction() override;
-
- private:
-  std::shared_ptr<State>    nextState_;
-  bool                      fail;
+  bool  Do(const std::shared_ptr<Context>& context) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTLABELSTATE_H_

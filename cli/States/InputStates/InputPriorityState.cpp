@@ -4,14 +4,11 @@
 
 #include "InputPriorityState.h"
 
-InputPriorityState::InputPriorityState(std::shared_ptr<State> nextState) : nextState_(std::move(nextState)) {
-  stateName_ = "input priority";
-  fail = false;
-}
+InputPriorityState::InputPriorityState() = default;
 
 InputPriorityState::~InputPriorityState() = default;
 
-void InputPriorityState::Do(Context& context){
+bool InputPriorityState::Do(const std::shared_ptr<Context>& context){
   std::cout<<"Input task priority [first/1, second/2, third/3, none/0/" ": ";
   std::string priorityStr;
   std::getline(std::cin, priorityStr);
@@ -26,11 +23,8 @@ void InputPriorityState::Do(Context& context){
     priority = Priority::NONE;
   } else {
     std::cout<<"Incorrect input priority.\n";
-    fail = true;
+    return false;
   }
-  context.buffer_.priority = priority;
-}
-
-std::shared_ptr<State> InputPriorityState::ReadAction() {
-  return fail ? std::make_shared<InputPriorityState>(std::move(nextState_)) : std::move(nextState_);
+  context->buffer_.priority = priority;
+  return true;
 }

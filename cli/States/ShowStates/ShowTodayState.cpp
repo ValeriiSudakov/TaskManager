@@ -4,6 +4,7 @@
 
 #include "ShowTodayState.h"
 #include "States/BaseState.h"
+#include "Factory.h"
 
 ShowTodayState::ShowTodayState(){
   stateName_ = "show today";
@@ -11,21 +12,21 @@ ShowTodayState::ShowTodayState(){
 
 ShowTodayState::~ShowTodayState() = default;
 
-void ShowTodayState::Do(Context& context) {
+void ShowTodayState::Do(const std::shared_ptr<Context>& context) {
   std::cout<<"Sort tasks by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
   if (inputSort == "y") {
-    context.tasks_ = context.taskService_->GetTodayTasks(true);
+    context->tasks_ = context->taskService_->GetTodayTasks(true);
   } else if (inputSort == "n") {
-    context.tasks_ = context.taskService_->GetTodayTasks(false);
+    context->tasks_ = context->taskService_->GetTodayTasks(false);
   }
   int taskNumber = 0;
-  for (const auto& task : context.tasks_){
+  for (const auto& task : context->tasks_){
     std::cout<<taskNumber++<<": "<<task.GetName()<<std::endl;
   }
 }
 
 std::shared_ptr<State> ShowTodayState::ReadAction() {
-  return std::make_shared<BaseState>();
+  return Factory::CreateState(StatesList::Base);
 }
