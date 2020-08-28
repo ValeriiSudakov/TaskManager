@@ -12,7 +12,7 @@ class PostponeState : public State {
   ~PostponeState();
 
  public:
-  void                        Do(const std::shared_ptr<Context>& context) override;
+  StateOperationResult        Do(const std::shared_ptr<Context>& context) override;
   std::shared_ptr<State>      ReadAction() override;
 };
 

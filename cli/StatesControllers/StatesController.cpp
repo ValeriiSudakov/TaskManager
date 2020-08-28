@@ -5,10 +5,10 @@
 #include "StatesController.h"
 #include "States/BaseState.h"
 #include "Factory.h"
-#include "States/StatesList.h"
+#include "States/StatesID.h"
 
 StatesController::StatesController(){
-  state_ = std::move(Factory::CreateState(StatesList::Base));
+  state_ = std::move(Factory::CreateState(StatesID::Base));
   context_ = std::make_shared<Context>();
 }
 

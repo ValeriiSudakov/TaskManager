@@ -12,7 +12,7 @@ class ShowAllState : public State {
   ~ShowAllState();
 
  public:
-  void                      Do(const std::shared_ptr<Context>& context) override;
+  StateOperationResult      Do(const std::shared_ptr<Context>& context) override;
   std::shared_ptr<State>    ReadAction() override;
 };
 #endif //TASKMANAGER_CLI_STATES_SHOWALL_H_

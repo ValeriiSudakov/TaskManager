@@ -6,16 +6,25 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 DeleteState::DeleteState(){
-  stateName_ = "delete";
+  stateID_ = StatesID::Delete;
 }
 
 DeleteState::~DeleteState() = default;
 
-void DeleteState::Do(const std::shared_ptr<Context>& context) {
+StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context) {
+  auto inputIDMachine = Factory::CreateStateMachine(FiniteStateMachinesList::InputID, context);
+  inputIDMachine.Execute();
+
   auto result = context->taskService_->RemoveTask(context->buffer_.id);
-  std::cout<< (result ? "Task was removed.\n" : "task was not found.\n");
+  if (result){
+    std::cout<<"Task was removed.\n";
+    return StateOperationResult::SUCCESS;
+  } else {
+    std::cout<<"Task was not found.\n";
+    return StateOperationResult::FAIL;
+  }
 }
 
 std::shared_ptr<State> DeleteState::ReadAction() {
-  return Factory::CreateState(StatesList::Base);
+  return Factory::CreateState(StatesID::Base);
 }

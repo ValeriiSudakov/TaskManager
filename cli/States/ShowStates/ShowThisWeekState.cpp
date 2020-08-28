@@ -7,26 +7,30 @@
 #include "Factory.h"
 
 ShowThisWeekState::ShowThisWeekState(){
-  stateName_ = "show this week";
+  stateID_ = StatesID::ShowThisWeek;
 }
 
 ShowThisWeekState::~ShowThisWeekState() = default;
 
-void ShowThisWeekState::Do(const std::shared_ptr<Context>& context) {
-  std::cout<<"Sort tasks by priority? [y/n]: ";
+StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& context) {
+  std::cout<<"Tasks list will be updated. Sort tasks by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
   if (inputSort == "y") {
     context->tasks_ = context->taskService_->GetWeekTasks(true);
   } else if (inputSort == "n") {
     context->tasks_ = context->taskService_->GetWeekTasks(false);
+  } else {
+    std::cout<<"Incorrect input.\n";
+    return StateOperationResult::INCORRECT_INPUT;
   }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::cout<<taskNumber++<<": "<<task.GetName()<<std::endl;
   }
+  return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowThisWeekState::ReadAction() {
-  return Factory::CreateState(StatesList::Base);
+  return Factory::CreateState(StatesID::Base);
 }

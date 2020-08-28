@@ -4,11 +4,13 @@
 
 #include "InputDateState.h"
 
-InputDateState::InputDateState() = default;
+InputDateState::InputDateState() {
+  stateID_ = StatesID::InputDate;
+}
 
 InputDateState::~InputDateState() = default;
 
-bool InputDateState::Do(const std::shared_ptr<Context>& context){
+StateOperationResult InputDateState::Do(const std::shared_ptr<Context>& context){
   std::cout<<"Input date.\nUse current date - input 'now'.\nInput date format YYYY-MM-DD.\nInput: ";
   std::string dateStr;
   std::getline(std::cin, dateStr);
@@ -20,9 +22,9 @@ bool InputDateState::Do(const std::shared_ptr<Context>& context){
       date = Date(dateStr);
     } catch (const std::exception &ex) {
       std::cout<<"Incorrect input date.\n";
-      return false;
+      return  StateOperationResult::INCORRECT_INPUT;
     }
   }
   context->buffer_.date = date;
-  return true;
+  return  StateOperationResult::SUCCESS;
 }

@@ -6,26 +6,33 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 ShowByNameState::ShowByNameState(){
-  stateName_ = "show all by name";
+  stateID_ = StatesID::ShowByName;
 }
 
 ShowByNameState::~ShowByNameState() = default;
 
-void ShowByNameState::Do(const std::shared_ptr<Context>& context) {
-  std::cout<<"Sort tasks by priority? [y/n]: ";
+StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context) {
+  auto showByNameMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ShowByName, context);
+  showByNameMachine.Execute();
+
+  std::cout<<"Tasks list will be updated. Sort tasks by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
   if (inputSort == "y") {
     context->tasks_ = context->taskService_->GetTasksByName(context->buffer_.name, true);
   } else if (inputSort == "n") {
     context->tasks_ = context->taskService_->GetTasksByName(context->buffer_.name, false);
+  } else {
+    std::cout<<"Incorrect input.\n";
+    return StateOperationResult::INCORRECT_INPUT;
   }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::cout<<taskNumber++<<": "<<task.GetName()<<std::endl;
   }
+  return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowByNameState::ReadAction() {
-  return Factory::CreateState(StatesList::Base);
+  return Factory::CreateState(StatesID::Base);
 }

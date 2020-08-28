@@ -4,16 +4,16 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTLABELSTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTLABELSTATE_H_
-#include "States/InputStates/InputState.h"
+#include "States/State.h"
 
 
-class InputLabelState :  public InputState{
+class InputLabelState :  public State{
  public:
   InputLabelState();
   ~InputLabelState();
 
  public:
-  bool  Do(const std::shared_ptr<Context>& context) override;
+  StateOperationResult  Do(const std::shared_ptr<Context>& context) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTLABELSTATE_H_

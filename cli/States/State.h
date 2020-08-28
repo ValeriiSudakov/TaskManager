@@ -8,19 +8,22 @@
 #include <iostream>
 #include <memory>
 #include "Context.h"
+#include "StateOperationResult.h"
+#include "StatesID.h"
 
 class State {
  public:
+
   virtual ~State();
 
  public:
-  virtual void                        Do(const std::shared_ptr<Context>& context) = 0;
   virtual void                        PrintNextStates();
   virtual std::shared_ptr<State>      ReadAction();
-  void                                PrintState();
+  virtual StateOperationResult        Do(const std::shared_ptr<Context>& context) = 0;
+  StatesID                            GetStateID() const { return stateID_; }
 
  protected:
-  std::string                 stateName_;
+  StatesID stateID_;
 };
 
 #endif //TASKMANAGER_CLI_STATE_H_

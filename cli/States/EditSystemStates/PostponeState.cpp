@@ -6,16 +6,25 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 PostponeState::PostponeState() {
-  stateName_ = "postpone";
+  stateID_ = StatesID::Postpone;
 }
 
 PostponeState::~PostponeState() = default;
 
-void PostponeState::Do(const std::shared_ptr<Context>& context) {
+StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context) {
+  auto postponeMachine = Factory::CreateStateMachine(FiniteStateMachinesList::Postpone, context);
+  postponeMachine.Execute();
+
   auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
-  std::cout<<(result ? "Task postponed successfully.\n" : "Postpone failed.\n");
+  if (result){
+    std::cout<<"Task postponed successfully.\n";
+    return StateOperationResult::SUCCESS;
+  } else {
+    std::cout<<"Postpone failed.\n";
+    return StateOperationResult::FAIL;
+  }
 }
 
 std::shared_ptr<State> PostponeState::ReadAction() {
-  return Factory::CreateState(StatesList::Base);
+  return Factory::CreateState(StatesID::Base);
 }

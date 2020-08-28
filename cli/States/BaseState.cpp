@@ -7,13 +7,14 @@
 
 
 BaseState::BaseState() {
-  stateName_ = "base";
+  stateID_ = StatesID::Base;
 }
 
 BaseState::~BaseState() = default;
 
-void BaseState::Do(const std::shared_ptr<Context>& context){
-  //is waiting
+
+StateOperationResult BaseState::Do(const std::shared_ptr<Context>& context){
+  return StateOperationResult::SUCCESS;
 }
 
 void BaseState::PrintNextStates() {
@@ -33,42 +34,42 @@ void BaseState::PrintNextStates() {
 
 std::shared_ptr<State> BaseState::ReadAction() {
   PrintNextStates();
-  std::cout<<"input next state: ";
+  std::cout<<"input command: ";
   std::string input;
 
   std::getline(std::cin, input);
   if (input == "add task"){
-    return std::move(Factory::CreateState(StatesList::AddTask));
+    return std::move(Factory::CreateState(StatesID::AddTask));
 
   } else if (input == "add subtask") {
-    return std::move(Factory::CreateState(StatesList::AddSubtask));
+    return std::move(Factory::CreateState(StatesID::AddSubtask));
 
   } else if (input == "show all"){
-    return std::move(Factory::CreateState(StatesList::ShowAll));
+    return std::move(Factory::CreateState(StatesID::ShowAll));
 
   } else if (input == "show this week"){
-    return std::move(Factory::CreateState(StatesList::ShowThisWeek));
+    return std::move(Factory::CreateState(StatesID::ShowThisWeek));
 
   } else if (input == "show by ID"){
-    return std::move(Factory::CreateState(StatesList::ShowByID));
+    return std::move(Factory::CreateState(StatesID::ShowByID));
 
   } else if (input == "show by name"){
-    return std::move(Factory::CreateState(StatesList::ShowByName));
+    return std::move(Factory::CreateState(StatesID::ShowByName));
 
   } else if (input == "show today"){
-    return std::move(Factory::CreateState(StatesList::ShowToday));
+    return std::move(Factory::CreateState(StatesID::ShowToday));
 
   } else if (input == "show by label"){
-    return std::move(Factory::CreateState(StatesList::ShowByLabel));
+    return std::move(Factory::CreateState(StatesID::ShowByLabel));
 
   } else if (input == "postpone"){
-    return std::move(Factory::CreateState(StatesList::Postpone));
+    return std::move(Factory::CreateState(StatesID::Postpone));
 
   } else if (input == "remove"){
-    return std::move(Factory::CreateState(StatesList::Delete));
+    return std::move(Factory::CreateState(StatesID::Delete));
 
   } else if (input == "complete") {
-    return std::move(Factory::CreateState(StatesList::Complete));
+    return std::move(Factory::CreateState(StatesID::Complete));
 
   } else if (input == "exit"){
     return nullptr;

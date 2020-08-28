@@ -7,26 +7,31 @@
 #include "Factory.h"
 
 ShowTodayState::ShowTodayState(){
-  stateName_ = "show today";
+  stateID_ = StatesID::ShowToday;
 }
 
 ShowTodayState::~ShowTodayState() = default;
 
-void ShowTodayState::Do(const std::shared_ptr<Context>& context) {
-  std::cout<<"Sort tasks by priority? [y/n]: ";
+
+StateOperationResult ShowTodayState::Do(const std::shared_ptr<Context>& context) {
+  std::cout<<"Tasks list will be updated. Sort tasks by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
   if (inputSort == "y") {
     context->tasks_ = context->taskService_->GetTodayTasks(true);
   } else if (inputSort == "n") {
     context->tasks_ = context->taskService_->GetTodayTasks(false);
+  } else {
+    std::cout<<"Incorrect input.\n";
+    return StateOperationResult::INCORRECT_INPUT;
   }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::cout<<taskNumber++<<": "<<task.GetName()<<std::endl;
   }
+  return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowTodayState::ReadAction() {
-  return Factory::CreateState(StatesList::Base);
+  return Factory::CreateState(StatesID::Base);
 }

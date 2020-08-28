@@ -7,19 +7,28 @@
 #include "Factory.h"
 
 AddSubtaskState::AddSubtaskState() {
-  stateName_ = "add subtask";
+  stateID_ = StatesID::AddSubtask;
 }
 
 AddSubtaskState::~AddSubtaskState() = default;
 
-void AddSubtaskState::Do(const std::shared_ptr<Context>& context) {
+StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context) {
+  auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::AddSubtask, context);
+  addTaskMachine.Execute();
+
   auto result = context->taskService_->AddSubtask(context->buffer_.id,
                                                  TaskDTO::Create(context->buffer_.name, context->buffer_.label,
                                                                  context->buffer_.priority, context->buffer_.date));
 
-  std::cout<<(result.success_ ? "Subtask was added.\n" : "Error.\n");
+  if (result.success_){
+    std::cout<<"Subtask was added.\n";
+    return StateOperationResult::SUCCESS;
+  } else {
+    std::cout<<"Failed.\n";
+    return StateOperationResult::FAIL;
+  }
 }
 
 std::shared_ptr<State> AddSubtaskState::ReadAction() {
-  return Factory::CreateState(StatesList::Base);
+  return Factory::CreateState(StatesID::Base);
 }

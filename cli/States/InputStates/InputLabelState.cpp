@@ -4,18 +4,20 @@
 
 #include "InputLabelState.h"
 
-InputLabelState::InputLabelState() = default;
+InputLabelState::InputLabelState() {
+  stateID_ = StatesID::InputLabel;
+}
 
 InputLabelState::~InputLabelState() = default;
 
-bool InputLabelState::Do(const std::shared_ptr<Context>& context){
+StateOperationResult InputLabelState::Do(const std::shared_ptr<Context>& context){
   std::cout<<"Input label: ";
   std::string label;
   std::getline(std::cin, label);
   if (label.empty()){
     std::cout<<"label must be non-empty.\n";
-    return false;
+    return StateOperationResult::INCORRECT_INPUT;
   }
   context->buffer_.label = label;
-  return true;
+  return StateOperationResult::SUCCESS;
 }

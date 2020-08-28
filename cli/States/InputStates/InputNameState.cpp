@@ -4,18 +4,20 @@
 
 #include "InputNameState.h"
 
-InputNameState::InputNameState() = default;
+InputNameState::InputNameState() {
+  stateID_ = StatesID::InputName;
+}
 
 InputNameState::~InputNameState() = default;
 
-bool InputNameState::Do(const std::shared_ptr<Context>& context){
+StateOperationResult InputNameState::Do(const std::shared_ptr<Context>& context){
   std::cout<<"Input name: ";
   std::string name;
   std::getline(std::cin, name);
   if (name.empty()){
     std::cout<<"name must be non-empty.\n";
-    return false;
+    return StateOperationResult::INCORRECT_INPUT;
   }
   context->buffer_.name = name;
-  return true;
+  return StateOperationResult::SUCCESS;
 }

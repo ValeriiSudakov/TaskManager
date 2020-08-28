@@ -7,13 +7,13 @@
 #include "Factory.h"
 
 ShowAllState::ShowAllState(){
-  stateName_ = "show all";
+  stateID_ = StatesID::ShowAll;
 }
 
 ShowAllState::~ShowAllState() = default;
 
-void ShowAllState::Do(const std::shared_ptr<Context>& context) {
-  std::cout<<"Sort tasks by priority? [y/n]: ";
+StateOperationResult ShowAllState::Do(const std::shared_ptr<Context>& context) {
+  std::cout<<"Tasks list will be updated. Sort tasks by priority? [y/n]: ";
   std::string inputSort;
   std::getline(std::cin, inputSort);
   context->tasks_.clear();
@@ -21,13 +21,17 @@ void ShowAllState::Do(const std::shared_ptr<Context>& context) {
     context->tasks_ = context->taskService_->GetTasks(true);
   } else if (inputSort == "n") {
     context->tasks_ = context->taskService_->GetTasks(false);
+  } else {
+    std::cout<<"Incorrect input.\n";
+    return StateOperationResult::INCORRECT_INPUT;
   }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::cout<<taskNumber++<<": "<<task.GetName()<<std::endl;
   }
+  return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowAllState::ReadAction() {
-  return Factory::CreateState(StatesList::Base);
+  return Factory::CreateState(StatesID::Base);
 }

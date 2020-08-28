@@ -6,9 +6,6 @@
 
 State::~State() = default;
 
-void State::PrintState(){
-  std::cout<<stateName_<<std::endl;
-}
 
 void State::PrintNextStates(){}
 

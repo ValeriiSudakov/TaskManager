@@ -5,13 +5,17 @@
 #ifndef TASKMANAGER_CLI_FINITESTATEMACHINE_H_
 #define TASKMANAGER_CLI_FINITESTATEMACHINE_H_
 #include "States/State.h"
-#include "States/StatesList.h"
+#include "States/StatesID.h"
 #include <vector>
+#include <map>
 
 
 class FiniteStateMachine {
  public:
-  FiniteStateMachine(const std::vector<InputStatesList>& nextStates, const std::shared_ptr<Context>& context);
+  FiniteStateMachine(const std::map<StatesID, std::map<StateOperationResult,
+                                                            StatesID>>& stateTransitionTable,
+                     StatesID firstState,
+                     const std::shared_ptr<Context>& context);
   ~FiniteStateMachine();
 
  public:
@@ -19,7 +23,8 @@ class FiniteStateMachine {
 
  private:
   std::shared_ptr<Context> context_;
-  std::vector<InputStatesList> nextStates_;
+  StatesID firstState_;
+  std::map<StatesID, std::map<StateOperationResult, StatesID>> stateTransitionTable_;
 };
 
 #endif //TASKMANAGER_CLI_FINITESTATEMACHINE_H_

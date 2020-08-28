@@ -9,7 +9,10 @@ enum class FiniteStateMachinesList{
   AddTask,
   AddSubtask,
   EditTask,
-  Postpone
+  Postpone,
+  InputID,
+  ShowByName,
+  ShowByLabel
 };
 
 #endif //TASKMANAGER_CLI_FINITESTATEMACHINELISTS_H_
