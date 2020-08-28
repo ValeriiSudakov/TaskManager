@@ -62,6 +62,14 @@ class TaskService {
  */
   bool                      PostponeTask(const TaskID& ID, const Date& date);
 
+/*
+ * Complete task;
+ *
+ * @param: TaskID that contains ID of task to complete.
+ *
+ * @return-type: true if task was found and completed, false if not
+ */
+  bool                      SetTaskComplete(const TaskID& ID);
  public:
 
 /*

@@ -40,6 +40,15 @@ bool TaskService::PostponeTask(const TaskID& ID, const Date& date){
   return task.value()->PostponeDate(date);
 }
 
+bool TaskService::SetTaskComplete(const TaskID &ID) {
+  auto task = tasksRepository_->GetTaskStorage()->GetTask(ID);
+  if (!task.has_value()){
+    return false;
+  }
+  task.value()->SetComplete();
+  return true;
+}
+
 std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
   auto task = tasksRepository_->GetTaskStorage()->GetTask(id);
   return task.has_value() ? std::make_optional(TaskDTO::Create(task.value()->GetName(), task.value()->GetLabel(),
