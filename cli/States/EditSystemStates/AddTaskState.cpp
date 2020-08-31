@@ -7,9 +7,7 @@
 #include "Factory.h"
 #include "StatesControllers/FiniteStateMachinesList.h"
 
-AddTaskState::AddTaskState() {
-  stateID_ = StatesID::AddTask;
-}
+AddTaskState::AddTaskState() : State(StatesID::AddTask){}
 
 AddTaskState::~AddTaskState() = default;
 

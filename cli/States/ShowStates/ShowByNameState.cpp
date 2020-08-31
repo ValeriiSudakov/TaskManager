@@ -5,19 +5,17 @@
 #include "ShowByNameState.h"
 #include "States/BaseState.h"
 #include "Factory.h"
-ShowByNameState::ShowByNameState(){
-  stateID_ = StatesID::ShowByName;
-}
+ShowByNameState::ShowByNameState() : State(StatesID::ShowByName){}
 
 ShowByNameState::~ShowByNameState() = default;
+
+
 
 StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context) {
   auto showByNameMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ShowByName, context);
   showByNameMachine.Execute();
 
-  std::cout<<"Tasks list will be updated. Sort tasks by priority? [y/n]: ";
   std::string inputSort;
-  std::getline(std::cin, inputSort);
   if (inputSort == "y") {
     context->tasks_ = context->taskService_->GetTasksByName(context->buffer_.name, true);
   } else if (inputSort == "n") {

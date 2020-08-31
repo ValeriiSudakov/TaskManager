@@ -5,9 +5,7 @@
 #include "ShowByIDState.h"
 #include "States/BaseState.h"
 #include "Factory.h"
-ShowByIDState::ShowByIDState(){
-  stateID_ = StatesID::ShowByID;
-}
+ShowByIDState::ShowByIDState():State(StatesID::ShowByID){}
 
 ShowByIDState::~ShowByIDState() = default;
 

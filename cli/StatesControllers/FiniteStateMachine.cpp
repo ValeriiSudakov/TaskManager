@@ -23,7 +23,7 @@ void FiniteStateMachine::Execute(){
     auto nextStateID = nextState.find(result);
     if (nextStateID != nextState.end()){
       state = Factory::CreateState(nextStateID->second);
-    }else {
+    } else {
       std::cout<<"Unexpected behavior.\n";
       return;
     }

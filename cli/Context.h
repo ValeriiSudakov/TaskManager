@@ -10,7 +10,7 @@ struct Context {
   Context();
 
   std::unique_ptr<TaskService> taskService_;
-  struct Buffer { ;
+  struct Buffer {
     std::string name;
     std::string label;
     Priority priority;

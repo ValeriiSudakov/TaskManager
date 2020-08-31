@@ -4,9 +4,7 @@
 
 #include "InputLabelState.h"
 
-InputLabelState::InputLabelState() {
-  stateID_ = StatesID::InputLabel;
-}
+InputLabelState::InputLabelState() : State(StatesID::InputLabel){}
 
 InputLabelState::~InputLabelState() = default;
 

@@ -6,9 +6,7 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 
-AddSubtaskState::AddSubtaskState() {
-  stateID_ = StatesID::AddSubtask;
-}
+AddSubtaskState::AddSubtaskState() : State(StatesID::AddSubtask){ }
 
 AddSubtaskState::~AddSubtaskState() = default;
 

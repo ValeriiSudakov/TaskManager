@@ -4,9 +4,7 @@
 
 #include "InputNameState.h"
 
-InputNameState::InputNameState() {
-  stateID_ = StatesID::InputName;
-}
+InputNameState::InputNameState(): State(StatesID::InputName){}
 
 InputNameState::~InputNameState() = default;
 

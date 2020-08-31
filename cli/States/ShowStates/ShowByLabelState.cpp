@@ -6,9 +6,7 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 
-ShowByLabelState::ShowByLabelState(){
-  stateID_ = StatesID::ShowByLabel;
-}
+ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
 
 ShowByLabelState::~ShowByLabelState() = default;
 

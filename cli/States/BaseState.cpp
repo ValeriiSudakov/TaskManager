@@ -6,9 +6,7 @@
 #include "Factory.h"
 
 
-BaseState::BaseState() {
-  stateID_ = StatesID::Base;
-}
+BaseState::BaseState() : State(StatesID::Base){ }
 
 BaseState::~BaseState() = default;
 
@@ -17,7 +15,7 @@ StateOperationResult BaseState::Do(const std::shared_ptr<Context>& context){
   return StateOperationResult::SUCCESS;
 }
 
-void BaseState::PrintNextStates() {
+void PrintNextStates() {
   std::cout<<"add task"<<std::endl;
   std::cout<<"add subtask"<<std::endl;
   std::cout<<"show by ID"<<std::endl;

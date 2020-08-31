@@ -4,9 +4,7 @@
 
 #include "InputPriorityState.h"
 
-InputPriorityState::InputPriorityState() {
-  stateID_ = StatesID::InputPriority;
-}
+InputPriorityState::InputPriorityState() : State(StatesID::InputPriority){}
 
 InputPriorityState::~InputPriorityState() = default;
 

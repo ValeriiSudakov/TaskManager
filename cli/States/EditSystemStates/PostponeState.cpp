@@ -5,9 +5,7 @@
 #include "PostponeState.h"
 #include "States/BaseState.h"
 #include "Factory.h"
-PostponeState::PostponeState() {
-  stateID_ = StatesID::Postpone;
-}
+PostponeState::PostponeState() : State(StatesID::Postpone){}
 
 PostponeState::~PostponeState() = default;
 

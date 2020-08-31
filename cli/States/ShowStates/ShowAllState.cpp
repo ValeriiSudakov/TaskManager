@@ -6,9 +6,7 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 
-ShowAllState::ShowAllState(){
-  stateID_ = StatesID::ShowAll;
-}
+ShowAllState::ShowAllState() : State( StatesID::ShowAll){}
 
 ShowAllState::~ShowAllState() = default;
 

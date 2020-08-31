@@ -5,9 +5,7 @@
 #include "CompleteState.h"
 #include "States/BaseState.h"
 #include "Factory.h"
-CompleteState::CompleteState() {
-  stateID_ = StatesID::Complete;
-}
+CompleteState::CompleteState() : State(StatesID::Complete) {}
 
 CompleteState::~CompleteState() = default;
 

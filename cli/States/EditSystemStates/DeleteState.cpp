@@ -5,9 +5,7 @@
 #include "DeleteState.h"
 #include "States/BaseState.h"
 #include "Factory.h"
-DeleteState::DeleteState(){
-  stateID_ = StatesID::Delete;
-}
+DeleteState::DeleteState() : State(StatesID::Delete){}
 
 DeleteState::~DeleteState() = default;
 

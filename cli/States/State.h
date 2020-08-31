@@ -13,16 +13,15 @@
 
 class State {
  public:
-
-  virtual ~State();
+  State(StatesID stateID) : stateID_(stateID){ }
+  virtual ~State() = default;
 
  public:
-  virtual void                        PrintNextStates();
-  virtual std::shared_ptr<State>      ReadAction();
+  virtual std::shared_ptr<State>      ReadAction() { }
   virtual StateOperationResult        Do(const std::shared_ptr<Context>& context) = 0;
   StatesID                            GetStateID() const { return stateID_; }
 
- protected:
+ private:
   StatesID stateID_;
 };
 

@@ -6,16 +6,12 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 
-ShowThisWeekState::ShowThisWeekState(){
-  stateID_ = StatesID::ShowThisWeek;
-}
+ShowThisWeekState::ShowThisWeekState() : State(StatesID::ShowThisWeek){}
 
 ShowThisWeekState::~ShowThisWeekState() = default;
 
 StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& context) {
-  std::cout<<"Tasks list will be updated. Sort tasks by priority? [y/n]: ";
   std::string inputSort;
-  std::getline(std::cin, inputSort);
   if (inputSort == "y") {
     context->tasks_ = context->taskService_->GetWeekTasks(true);
   } else if (inputSort == "n") {
