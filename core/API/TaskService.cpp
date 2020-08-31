@@ -51,6 +51,15 @@ std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
                                                                              task.value()->IsComplete(), task.value()->GetId())) : std::nullopt;
 }
 
+std::vector<TaskDTO> TaskService::GetSubtask(const TaskID& id) const{
+  auto subtasks = tasksRepository_->GetTaskStorage()->GetTask(id).value()->GetSubtasks();
+  std::vector<TaskEntity> temp;
+  for (auto const& task : subtasks){
+    temp.push_back(*task.second.lock());
+  }
+  return convertor::toTaskDTO::notSortedVector(temp);
+}
+
 std::vector<TaskDTO> TaskService::GetTasks(bool byPriority) const{
   auto sortedTasks = tasksRepository_->GetTaskView()->GetTasks();
   return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);

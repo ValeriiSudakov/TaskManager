@@ -80,6 +80,15 @@ class TaskService {
  *  @return-type: if task exist - return value of TaskDTO, std::nullopt if not.
  */
   std::optional<TaskDTO>    GetTask(const TaskID& id) const;
+
+/*
+ *  Returns subtasks of task as a vector of TaskDTO from the system by ID.
+ *
+ *  @param: TaskID that contains ID of task to return.
+ *
+ *  @return-type: vector of TaskDTO.
+ */
+  std::vector<TaskDTO>    GetSubtask(const TaskID& id) const;
 /*
  * Returns all tasks from the systems
  *
