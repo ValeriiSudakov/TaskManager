@@ -6,13 +6,15 @@
 #include "States/BaseState.h"
 #include "Factory.h"
 
-ShowTodayState::ShowTodayState() : State(StatesID::ShowToday){ }
+ShowTodayState::ShowTodayState() : State(StatesID::ShowToday) {}
 
 ShowTodayState::~ShowTodayState() = default;
 
 
 StateOperationResult ShowTodayState::Do(const std::shared_ptr<Context>& context) {
+  std::cout<<"Tasks list will be updated. Sort tasks by priority? [y/n]: ";
   std::string inputSort;
+  std::getline(std::cin, inputSort);
   if (inputSort == "y") {
     context->tasks_ = context->taskService_->GetTodayTasks(true);
   } else if (inputSort == "n") {
@@ -20,6 +22,10 @@ StateOperationResult ShowTodayState::Do(const std::shared_ptr<Context>& context)
   } else {
     std::cout<<"Incorrect input.\n";
     return StateOperationResult::INCORRECT_INPUT;
+  }
+  if (context->tasks_.empty()){
+    std::cout<<"Tasks were not found.\n";
+    return StateOperationResult::TASKS_LIST_EMPTY;
   }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){

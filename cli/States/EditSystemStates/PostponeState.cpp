@@ -12,7 +12,6 @@ PostponeState::~PostponeState() = default;
 StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context) {
   auto postponeMachine = Factory::CreateStateMachine(FiniteStateMachinesList::Postpone, context);
   postponeMachine.Execute();
-
   auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
   if (result){
     std::cout<<"Task postponed successfully.\n";

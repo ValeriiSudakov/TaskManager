@@ -1,11 +1,10 @@
-#include "StatesControllers/StatesController.h"
-#include "States/EditSystemStates/AddTaskState.h"
-
+#include "StatesControllers/FiniteStateMachine.h"
 
 int main(){
 
-  StatesController states_controller;
-  states_controller.ExecuteProgram();
-  std::cout<<"end.\n";
+  FiniteStateMachine FSM(std::map<StatesID, std::map<StateOperationResult, StatesID>>{},
+                         StatesID::Base,
+                         std::make_shared<Context>());
+  FSM.Execute();
   return 0;
 }

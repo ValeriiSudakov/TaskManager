@@ -12,20 +12,22 @@ FiniteStateMachine::FiniteStateMachine(const std::map<StatesID, std::map<StateOp
 
 FiniteStateMachine::~FiniteStateMachine() = default;
 
+
 void FiniteStateMachine::Execute(){
-  if (stateTransitionTable_.empty()){
-    return;
-  }
   auto state = Factory::CreateState(firstState_);
   while (state){
-    auto result = state->Do(context_);
-    auto nextState = stateTransitionTable_[state->GetStateID()];
-    auto nextStateID = nextState.find(result);
-    if (nextStateID != nextState.end()){
-      state = Factory::CreateState(nextStateID->second);
+    if (state->GetStateID() == StatesID::Base){
+      state = state->ReadAction();
     } else {
-      std::cout<<"Unexpected behavior.\n";
-      return;
+      auto result = state->Do(context_);
+      auto nextState = stateTransitionTable_[state->GetStateID()];
+      auto nextStateID = nextState.find(result);
+      if (nextStateID != nextState.end()){
+        state = Factory::CreateState(nextStateID->second);
+      } else {
+        state = Factory::CreateState(StatesID::Base);
+      }
     }
+    std::cout<<"______________________________________________________\n";
   }
 }

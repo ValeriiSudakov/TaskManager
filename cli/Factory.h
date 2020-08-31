@@ -31,6 +31,8 @@
 namespace Factory {
   static FiniteStateMachine CreateStateMachine(const FiniteStateMachinesList &stateMachine,
                                                const std::shared_ptr<Context>& context) {
+
+
     if (stateMachine == FiniteStateMachinesList::AddTask) {
       std::map<StatesID, std::map<StateOperationResult, StatesID>> stateTransitionTable;
 
@@ -52,8 +54,9 @@ namespace Factory {
     if (stateMachine == FiniteStateMachinesList::AddSubtask) {
       std::map<StatesID, std::map<StateOperationResult, StatesID>> stateTransitionTable;
 
-      stateTransitionTable[StatesID::ShowAll][StateOperationResult::SUCCESS]         = StatesID::InputID;
-      stateTransitionTable[StatesID::ShowAll][StateOperationResult::INCORRECT_INPUT] = StatesID::ShowAll;
+      stateTransitionTable[StatesID::ShowAll][StateOperationResult::SUCCESS]          = StatesID::InputID;
+      stateTransitionTable[StatesID::ShowAll][StateOperationResult::INCORRECT_INPUT]  = StatesID::ShowAll;
+      stateTransitionTable[StatesID::ShowAll][StateOperationResult::TASKS_LIST_EMPTY] = StatesID::Exit;
 
       stateTransitionTable[StatesID::InputID][StateOperationResult::SUCCESS]         = StatesID::InputName;
       stateTransitionTable[StatesID::InputID][StateOperationResult::INCORRECT_INPUT] = StatesID::InputID;
@@ -77,6 +80,7 @@ namespace Factory {
 
       stateTransitionTable[StatesID::ShowAll][StateOperationResult::SUCCESS]         = StatesID::InputID;
       stateTransitionTable[StatesID::ShowAll][StateOperationResult::INCORRECT_INPUT] = StatesID::ShowAll;
+      stateTransitionTable[StatesID::ShowAll][StateOperationResult::TASKS_LIST_EMPTY] = StatesID::Exit;
 
       stateTransitionTable[StatesID::InputID][StateOperationResult::SUCCESS]         = StatesID::InputDate;
       stateTransitionTable[StatesID::InputID][StateOperationResult::INCORRECT_INPUT] = StatesID::InputID;
@@ -93,6 +97,7 @@ namespace Factory {
 
       stateTransitionTable[StatesID::ShowAll][StateOperationResult::SUCCESS]         = StatesID::InputID;
       stateTransitionTable[StatesID::ShowAll][StateOperationResult::INCORRECT_INPUT] = StatesID::ShowAll;
+      stateTransitionTable[StatesID::ShowAll][StateOperationResult::TASKS_LIST_EMPTY] = StatesID::Exit;
 
       stateTransitionTable[StatesID::InputID][StateOperationResult::SUCCESS]         = StatesID::Exit;
       stateTransitionTable[StatesID::InputID][StateOperationResult::INCORRECT_INPUT] = StatesID::InputID;
@@ -117,7 +122,7 @@ namespace Factory {
     }
   }
 
-static std::shared_ptr<State> CreateState(const StatesID &state) {
+  static std::shared_ptr<State> CreateState(const StatesID &state) {
     if (state == StatesID::AddTask) {
       return std::make_shared<AddTaskState>();
     }

@@ -27,6 +27,7 @@ StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context) 
     return StateOperationResult::SUCCESS;
   }
   std::cout<<"Task was not found.\n";
+  return StateOperationResult::TASKS_LIST_EMPTY;
 }
 
 std::shared_ptr<State> ShowByIDState::ReadAction() {

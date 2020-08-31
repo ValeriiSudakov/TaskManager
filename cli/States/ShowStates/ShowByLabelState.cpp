@@ -25,6 +25,10 @@ StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& contex
     std::cout<<"Incorrect input.\n";
     return StateOperationResult::INCORRECT_INPUT;
   }
+  if (context->tasks_.empty()){
+    std::cout<<"Tasks were not found.\n";
+    return StateOperationResult::TASKS_LIST_EMPTY;
+  }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::cout<<taskNumber++<<": "<<task.GetName()<<std::endl;

@@ -36,6 +36,7 @@ std::shared_ptr<State> BaseState::ReadAction() {
   std::string input;
 
   std::getline(std::cin, input);
+
   if (input == "add task"){
     return std::move(Factory::CreateState(StatesID::AddTask));
 
