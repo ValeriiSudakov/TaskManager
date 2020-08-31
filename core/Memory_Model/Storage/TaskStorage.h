@@ -16,6 +16,7 @@ class TaskStorage : public TaskStorageInterface{
   std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task) override;
   std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) override;
   bool                                             RemoveTask(const TaskID& id) override;
+  bool                                             PostponeTask(const TaskID& id, const Date& date) override;
  private:
   TaskIDGenerate                                   taskIDGenerate_;
   std::map<TaskID, std::shared_ptr<TaskEntity>>    tasks_;

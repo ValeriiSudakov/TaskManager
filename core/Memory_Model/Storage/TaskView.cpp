@@ -32,10 +32,10 @@ bool TaskView::RemoveFromMap(CollectionType& collection,const TaskID& id, const 
 }
 
 bool TaskView::RemoveTask(const std::weak_ptr<TaskEntity>& task){
-  TaskID id = task.lock()->GetId();
   if (task.lock() == nullptr){
     return false;
   }
+  TaskID id = task.lock()->GetId();
   RemoveFromMap(byName_, id, task.lock()->GetName());
   RemoveFromMap(byLabel_, id, task.lock()->GetLabel());
   RemoveFromMap(byDate_, id, task.lock()->GetDueDate().Get());

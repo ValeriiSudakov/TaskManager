@@ -21,6 +21,7 @@ class TaskRepositoryInterface{
   virtual AddTaskResult                                     AddTask(const TaskDTO& task) = 0;
   virtual AddTaskResult                                     AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) = 0;
   virtual bool                                              RemoveTask(const TaskID& id) = 0;
+  virtual bool                                              PostponeTask(const TaskID& id, const Date& date) = 0;
 };
 
 #endif //TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKREPOSITORYINTERFACE_H_

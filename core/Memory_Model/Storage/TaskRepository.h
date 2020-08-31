@@ -18,6 +18,7 @@
   AddTaskResult                                             AddTask(const TaskDTO& task) override;
   AddTaskResult                                             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;
   bool                                                      RemoveTask(const TaskID& id) override;
+  bool                                                      PostponeTask(const TaskID& id, const Date& date) override;
 
  private:
   std::unique_ptr<TaskViewInterface>      taskView_;

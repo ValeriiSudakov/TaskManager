@@ -43,3 +43,13 @@ bool TaskStorage::RemoveTask(const TaskID &id) {
   }
   return false;
 }
+
+
+bool TaskStorage::PostponeTask(const TaskID& id, const Date& date){
+  auto task = tasks_.find(id);
+  if (task != tasks_.end()){
+    auto result = task->second->PostponeDate(date);
+    return result;
+  }
+  return false;
+}

@@ -56,7 +56,8 @@ const std::string TaskDTO::PriorityToString() const {
 const std::string TaskDTO::ToString() const {
   std::string result;
   std::string priority = PriorityToString();
-  result += "Task name: " + name_ + "\nTask label: " + label_ + "\nTask priority: " + priority + "\nDate: " + date_.ToString();
+  result += "Task name: " + name_ + "\nTask label: " + label_ + "\nTask priority: " + priority
+          + (taskComplete_ ? "\nCompleted" : "\nNot completed") + "\nDate: " + date_.ToString();
   return result;
 }
 
