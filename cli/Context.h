@@ -7,7 +7,9 @@
 #include "API/TaskService.h"
 
 struct Context {
-  Context();
+
+  Context(std::unique_ptr<TaskService> taskService) : taskService_(std::move(taskService)){}
+  ~Context() = default;
 
   std::unique_ptr<TaskService> taskService_;
   struct Buffer {
