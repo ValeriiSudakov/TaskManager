@@ -8,24 +8,29 @@ InputIDState::InputIDState() : State(StatesID::InputID){}
 
 InputIDState::~InputIDState() = default;
 
-StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context){
-  std::cout<<"Input ID: ";
-  std::string input;
-  std::cin.clear();
-  std::getline(std::cin, input);
-  if (input.empty()){
-    std::cout<<"ID must be non-empty.\n";
+StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO){
+  std::string output {"Input ID: " };
+  IO.Output(output);
+
+  std::string idStr { IO.Input() };
+
+  if (idStr.empty()){
+    std::string emptyStrError { "ID must be non-empty.\n" };
+    IO.Output(emptyStrError);
     return StateOperationResult::INCORRECT_INPUT;
   }
-  if (input.find_first_not_of("0123456789") != std::string::npos){
-    std::cout<<"ID must contains only numbers!\n";
+  if (idStr.find_first_not_of("0123456789") != std::string::npos){
+    std::string strContainNumberError { "ID must contains only numbers!\n" };
+    IO.Output(strContainNumberError);
     return StateOperationResult::INCORRECT_INPUT;
   }
-  auto id = std::atoi(input.c_str());
+  auto id = std::atoi(idStr.c_str());
   if (id > context->tasks_.size()-1){
-    std::cout<<"ID out of tasks range.\n";
+    std::string idOutOfRangeError{ "ID out of tasks range.\n" };
+    IO.Output(idOutOfRangeError);
     return StateOperationResult::INCORRECT_INPUT;
   }
+
   context->buffer_.id = context->tasks_[id].GetTaskId().Get();
   return StateOperationResult::SUCCESS;
 }

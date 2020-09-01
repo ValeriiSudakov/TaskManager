@@ -9,7 +9,7 @@
  class TaskRepository
      : public TaskRepositoryInterface {
  public:
-  TaskRepository(std::unique_ptr<TaskView> view, std::unique_ptr<TaskStorage> storage);
+  TaskRepository(std::unique_ptr<TaskViewInterface> view, std::unique_ptr<TaskStorageInterface> storage);
 
  public:
   const std::unique_ptr<TaskViewInterface>&                 GetTaskView() const override;

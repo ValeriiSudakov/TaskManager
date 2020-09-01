@@ -9,15 +9,17 @@ PostponeState::PostponeState() : State(StatesID::Postpone){}
 
 PostponeState::~PostponeState() = default;
 
-StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context) {
+StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   auto postponeMachine = Factory::CreateStateMachine(FiniteStateMachinesList::Postpone, context);
   postponeMachine.Execute();
   auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
   if (result){
-    std::cout<<"Task postponed successfully.\n";
+    std::string success { "Task postponed successfully.\n" };
+    IO.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
-    std::cout<<"Postpone failed.\n";
+    std::string fail { "Postpone failed.\n" };
+    IO.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

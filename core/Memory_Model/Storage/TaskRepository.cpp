@@ -4,7 +4,7 @@
 
 #include "TaskRepository.h"
 
-TaskRepository::TaskRepository(std::unique_ptr<TaskView> view, std::unique_ptr<TaskStorage> storage)
+TaskRepository::TaskRepository(std::unique_ptr<TaskViewInterface> view, std::unique_ptr<TaskStorageInterface> storage)
  : taskView_(std::move(view)), taskStorage_(std::move(storage)){}
 
 const std::unique_ptr<TaskViewInterface>& TaskRepository::GetTaskView() const{

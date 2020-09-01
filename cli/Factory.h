@@ -26,6 +26,8 @@
 #include "States/ShowStates/ShowByLabelState.h"
 #include "States/ShowStates/ShowByIDState.h"
 #include "States/BaseState.h"
+
+#include "IO_Layer.h"
 #include <vector>
 
 namespace Factory {
@@ -48,7 +50,7 @@ namespace Factory {
       stateTransitionTable[StatesID::InputDate][StateOperationResult::SUCCESS]         = StatesID::Exit;
       stateTransitionTable[StatesID::InputDate][StateOperationResult::INCORRECT_INPUT] = StatesID::InputDate;
 
-        return FiniteStateMachine(stateTransitionTable, StatesID::InputName, context);
+        return FiniteStateMachine(stateTransitionTable, StatesID::InputName, context, std::move(std::make_unique<IO_Layer>()));
       }
 
     if (stateMachine == FiniteStateMachinesList::AddSubtask) {
@@ -73,7 +75,7 @@ namespace Factory {
       stateTransitionTable[StatesID::InputDate][StateOperationResult::SUCCESS]         = StatesID::Exit;
       stateTransitionTable[StatesID::InputDate][StateOperationResult::INCORRECT_INPUT] = StatesID::InputDate;
 
-      return FiniteStateMachine(stateTransitionTable, StatesID::ShowAll, context);
+      return FiniteStateMachine(stateTransitionTable, StatesID::ShowAll, context, std::move(std::make_unique<IO_Layer>()));
     }
     if (stateMachine == FiniteStateMachinesList::Postpone) {
       std::map<StatesID, std::map<StateOperationResult, StatesID>> stateTransitionTable;
@@ -88,7 +90,7 @@ namespace Factory {
       stateTransitionTable[StatesID::InputDate][StateOperationResult::SUCCESS]         = StatesID::Exit;
       stateTransitionTable[StatesID::InputDate][StateOperationResult::INCORRECT_INPUT] = StatesID::InputDate;
 
-      return FiniteStateMachine(stateTransitionTable, StatesID::ShowAll, context);
+      return FiniteStateMachine(stateTransitionTable, StatesID::ShowAll, context, std::move(std::make_unique<IO_Layer>()));
     }
 
 
@@ -102,7 +104,7 @@ namespace Factory {
       stateTransitionTable[StatesID::InputID][StateOperationResult::SUCCESS]         = StatesID::Exit;
       stateTransitionTable[StatesID::InputID][StateOperationResult::INCORRECT_INPUT] = StatesID::InputID;
 
-      return FiniteStateMachine(stateTransitionTable, StatesID::ShowAll, context);
+      return FiniteStateMachine(stateTransitionTable, StatesID::ShowAll, context, std::move(std::make_unique<IO_Layer>()));
     }
     if (stateMachine == FiniteStateMachinesList::ShowByName) {
       std::map<StatesID, std::map<StateOperationResult, StatesID>> stateTransitionTable;
@@ -110,7 +112,7 @@ namespace Factory {
       stateTransitionTable[StatesID::InputName][StateOperationResult::SUCCESS]         = StatesID::Exit;
       stateTransitionTable[StatesID::InputName][StateOperationResult::INCORRECT_INPUT] = StatesID::InputName;
 
-      return FiniteStateMachine(stateTransitionTable, StatesID::InputName, context);
+      return FiniteStateMachine(stateTransitionTable, StatesID::InputName, context, std::move(std::make_unique<IO_Layer>()));
     }
     if (stateMachine == FiniteStateMachinesList::ShowByLabel) {
       std::map<StatesID, std::map<StateOperationResult, StatesID>> stateTransitionTable;
@@ -118,7 +120,7 @@ namespace Factory {
       stateTransitionTable[StatesID::InputLabel][StateOperationResult::SUCCESS]         = StatesID::Exit;
       stateTransitionTable[StatesID::InputLabel][StateOperationResult::INCORRECT_INPUT] = StatesID::InputLabel;
 
-      return FiniteStateMachine(stateTransitionTable, StatesID::InputLabel, context);
+      return FiniteStateMachine(stateTransitionTable, StatesID::InputLabel, context, std::move(std::make_unique<IO_Layer>()));
     }
   }
 

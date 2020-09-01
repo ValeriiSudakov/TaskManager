@@ -6,9 +6,10 @@
 #include "Factory.h"
 
 FiniteStateMachine::FiniteStateMachine(const std::map<StatesID, std::map<StateOperationResult, StatesID>>& stateTransitionTable,
-                                       StatesID firstState,
-                                       const std::shared_ptr<Context>& context) :
-    stateTransitionTable_(stateTransitionTable), firstState_(firstState), context_(context){}
+                                       const StatesID& firstState,
+                                       const std::shared_ptr<Context>& context,
+                                       std::unique_ptr<IO_LayerInterface> io) :
+    stateTransitionTable_(stateTransitionTable), firstState_(firstState), context_(context), io_(std::move(io)){}
 
 FiniteStateMachine::~FiniteStateMachine() = default;
 
@@ -19,7 +20,7 @@ void FiniteStateMachine::Execute(){
     if (state->GetStateID() == StatesID::Base){
       state = state->ReadAction();
     } else {
-      auto result = state->Do(context_);
+      auto result = state->Do(context_, *io_);
       auto nextState = stateTransitionTable_[state->GetStateID()];
       auto nextStateID = nextState.find(result);
       if (nextStateID != nextState.end()){

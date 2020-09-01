@@ -10,7 +10,7 @@ AddSubtaskState::AddSubtaskState() : State(StatesID::AddSubtask){ }
 
 AddSubtaskState::~AddSubtaskState() = default;
 
-StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context) {
+StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::AddSubtask, context);
   addTaskMachine.Execute();
 
@@ -19,10 +19,12 @@ StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context
                                                                  context->buffer_.priority, context->buffer_.date));
 
   if (result.success_){
-    std::cout<<"Subtask was added.\n";
+    std::string success {"Subtask was added.\n"} ;
+    IO.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
-    std::cout<<"Failed.\n";
+    std::string fail { "Failed.\n" };
+    IO.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

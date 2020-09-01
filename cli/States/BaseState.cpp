@@ -11,31 +11,45 @@ BaseState::BaseState() : State(StatesID::Base){ }
 BaseState::~BaseState() = default;
 
 
-StateOperationResult BaseState::Do(const std::shared_ptr<Context>& context){
+StateOperationResult BaseState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO){
   return StateOperationResult::SUCCESS;
 }
 
-void PrintNextStates() {
-  std::cout<<"add task"<<std::endl;
-  std::cout<<"add subtask"<<std::endl;
-  std::cout<<"show by ID"<<std::endl;
-  std::cout<<"show all"<<std::endl;
-  std::cout<<"show today"<<std::endl;
-  std::cout<<"show this week"<<std::endl;
-  std::cout<<"show by name"<<std::endl;
-  std::cout<<"show by label"<<std::endl;
-  std::cout<<"postpone"<<std::endl;
-  std::cout<<"remove"<<std::endl;
-  std::cout<<"complete"<<std::endl;
-  std::cout<<"exit"<<std::endl;
+void PrintNextStates(const IO_LayerInterface& io) {
+  std::string addTask{"add task\n"};
+  io.Output(addTask);
+  std::string addSubtask{"add subtask\n"};
+  io.Output(addSubtask);
+  std::string showByID{"show by ID\n"};
+  io.Output(showByID);
+  std::string showAll{"show all\n"};
+  io.Output(showAll);
+  std::string showToday{"show today\n"};
+  io.Output(showToday);
+  std::string showWeek{"show this week\n"};
+  io.Output(showWeek);
+  std::string showByName{"show by name\n"};
+  io.Output(showByName);
+  std::string showByLabel{"show by label\n"};
+  io.Output(showByLabel);
+  std::string postpone{"postpone\n"};
+  io.Output(postpone);
+  std::string remove{"remove\n"};
+  io.Output(remove);
+  std::string complete{"complete\n"};
+  io.Output(complete);
+  std::string exit{"exit\n"};
+  io.Output(exit);
 }
 
 std::shared_ptr<State> BaseState::ReadAction() {
-  PrintNextStates();
-  std::cout<<"input command: ";
-  std::string input;
+  IO_Layer io;
+  PrintNextStates(io);
 
-  std::getline(std::cin, input);
+  std::string output {"input command: "};
+  io.Output(output);
+
+  std::string input { io.Input() };
 
   if (input == "add task"){
     return std::move(Factory::CreateState(StatesID::AddTask));

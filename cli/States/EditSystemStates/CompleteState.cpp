@@ -9,16 +9,18 @@ CompleteState::CompleteState() : State(StatesID::Complete) {}
 
 CompleteState::~CompleteState() = default;
 
-StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context) {
+StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   auto completeStateMachine = Factory::CreateStateMachine(FiniteStateMachinesList::InputID, context);
   completeStateMachine.Execute();
 
   auto result = context->taskService_->SetTaskComplete(context->buffer_.id);
   if (result){
-    std::cout<<"Task was completed.\n";
+    std::string success { "Task was completed.\n" };
+    IO.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
-    std::cout<<"Error.\n";
+    std::string fail { "Error.\n" };
+    IO.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

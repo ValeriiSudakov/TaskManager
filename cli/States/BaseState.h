@@ -14,10 +14,10 @@ class BaseState : public State {
   ~BaseState();
 
  public:
-  StateOperationResult        Do(const std::shared_ptr<Context>& context) override;
+  StateOperationResult        Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) override;
   std::shared_ptr<State>      ReadAction() override;
 };
 
-void                          PrintNextStates();
+void                          PrintNextStates(const IO_LayerInterface& io);
 
 #endif //TASKMANAGER_CLI_STATES_BASESTATE_H_

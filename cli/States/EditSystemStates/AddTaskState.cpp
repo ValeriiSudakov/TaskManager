@@ -11,7 +11,7 @@ AddTaskState::AddTaskState() : State(StatesID::AddTask){}
 
 AddTaskState::~AddTaskState() = default;
 
-StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context) {
+StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::AddTask, context);
   addTaskMachine.Execute();
 
@@ -19,10 +19,11 @@ StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context) {
                                                 context->buffer_.priority, context->buffer_.date));
 
   if (result.success_){
-    std::cout<<"Task was added.\n";
+    std::string success {"Task was added.\n"};
+    IO.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
-    std::cout<<"Failed.\n";
+    std::string fail { "Failed.\n" };
     return StateOperationResult::FAIL;
   }
 }

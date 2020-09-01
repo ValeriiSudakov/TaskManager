@@ -12,7 +12,7 @@ class InputNameState : public State{
   ~InputNameState();
 
  public:
-  StateOperationResult          Do(const std::shared_ptr<Context>& context) override;
+  StateOperationResult          Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTNAMESTATE_H_

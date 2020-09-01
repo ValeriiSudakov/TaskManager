@@ -8,10 +8,12 @@ InputDateState::InputDateState() : State(StatesID::InputDate){}
 
 InputDateState::~InputDateState() = default;
 
-StateOperationResult InputDateState::Do(const std::shared_ptr<Context>& context){
-  std::cout<<"Input date.\nUse current date - input 'now'.\nInput date format YYYY-MM-DD.\nInput: ";
-  std::string dateStr;
-  std::getline(std::cin, dateStr);
+StateOperationResult InputDateState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO){
+  std::string output {"Input date.\nUse current date - input 'now'.\nInput date format YYYY-MM-DD.\nInput: " };
+  IO.Output(output);
+
+  std::string dateStr { IO.Input() };
+
   Date date;
   if (dateStr == "now") {
     date = Date::GetCurrentTime();
@@ -19,10 +21,12 @@ StateOperationResult InputDateState::Do(const std::shared_ptr<Context>& context)
     try {
       date = Date(dateStr);
     } catch (const std::exception &ex) {
-      std::cout<<"Incorrect input date.\n";
+      std::string error { "Incorrect input date.\n" };
+      IO.Output(error);
       return  StateOperationResult::INCORRECT_INPUT;
     }
   }
+
   context->buffer_.date = date;
   return  StateOperationResult::SUCCESS;
 }
