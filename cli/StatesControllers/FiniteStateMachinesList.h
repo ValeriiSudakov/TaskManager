@@ -6,13 +6,16 @@
 #define TASKMANAGER_CLI_FINITESTATEMACHINELISTS_H_
 
 enum class FiniteStateMachinesList{
-  AddTask,
+  InputTask,
   AddSubtask,
   EditTask,
   Postpone,
+  InputPostpone,
   InputID,
   ShowByName,
-  ShowByLabel
+  InputName,
+  ShowByLabel,
+  InputLabel
 };
 
 #endif //TASKMANAGER_CLI_FINITESTATEMACHINELISTS_H_

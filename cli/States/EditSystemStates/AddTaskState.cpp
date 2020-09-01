@@ -12,7 +12,7 @@ AddTaskState::AddTaskState() : State(StatesID::AddTask){}
 AddTaskState::~AddTaskState() = default;
 
 StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::AddTask, context);
+  auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::InputTask, context);
   addTaskMachine.Execute();
 
   auto result = context->taskService_->AddTask(TaskDTO::Create(context->buffer_.name, context->buffer_.label,

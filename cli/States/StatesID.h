@@ -19,12 +19,12 @@ enum class StatesID{
   Delete,
   Postpone,
 
+  InputTask,
   InputID,
   InputDate,
   InputPriority,
   InputLabel,
   InputName,
-  EditInput,
 
   Exit,
   Base
