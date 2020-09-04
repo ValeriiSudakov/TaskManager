@@ -4,7 +4,7 @@
 
 #include "ShowTodayState.h"
 #include "States/BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 
 ShowTodayState::ShowTodayState() : State(StatesID::ShowToday) {}
 

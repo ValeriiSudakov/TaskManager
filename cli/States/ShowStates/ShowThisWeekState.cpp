@@ -4,7 +4,7 @@
 
 #include "ShowThisWeekState.h"
 #include "States/BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 
 ShowThisWeekState::ShowThisWeekState() : State(StatesID::ShowThisWeek) {}
 

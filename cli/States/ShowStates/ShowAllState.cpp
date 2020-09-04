@@ -4,7 +4,7 @@
 
 #include "ShowAllState.h"
 #include "States/BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 
 ShowAllState::ShowAllState() : State( StatesID::ShowAll){}
 

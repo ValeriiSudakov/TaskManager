@@ -46,7 +46,8 @@ bool TaskService::SetTaskComplete(const TaskID &ID) {
 }
 
 std::optional<TaskDTO> TaskService::GetTask(const TaskID& id) const{
-  auto task = tasksRepository_->GetTaskStorage()->GetTask(id);return task.has_value() ? std::make_optional(TaskDTO::Create(task.value()->GetName(), task.value()->GetLabel(),
+  auto task = tasksRepository_->GetTaskStorage()->GetTask(id);
+  return task.has_value() ? std::make_optional(TaskDTO::Create(task.value()->GetName(), task.value()->GetLabel(),
                                                                              task.value()->GetPriority(), task.value()->GetDueDate(),
                                                                              task.value()->IsComplete(), task.value()->GetId())) : std::nullopt;
 }

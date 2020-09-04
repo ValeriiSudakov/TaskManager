@@ -3,13 +3,15 @@
 //
 
 #include "FiniteStateMachine.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 
 FiniteStateMachine::FiniteStateMachine(const std::map<StatesID, std::map<StateOperationResult, StatesID>>& stateTransitionTable,
                                        const StatesID& firstState,
                                        const std::shared_ptr<Context>& context,
-                                       std::unique_ptr<IO_LayerInterface> io) :
-    stateTransitionTable_(stateTransitionTable), firstState_(firstState), context_(context), io_(std::move(io)){}
+                                       std::unique_ptr<IO_LayerInterface> io)
+                                       :
+                                       StateMachine(firstState, context, std::move(io)) ,
+                                       stateTransitionTable_(stateTransitionTable) {}
 
 FiniteStateMachine::~FiniteStateMachine() = default;
 
@@ -17,18 +19,17 @@ FiniteStateMachine::~FiniteStateMachine() = default;
 void FiniteStateMachine::Execute(){
   auto state = Factory::CreateState(firstState_);
   while (state){
-    if (state->GetStateID() == StatesID::Base){
-      state = state->ReadAction();
+    auto result = state->Do(context_, *io_);
+    auto nextState = stateTransitionTable_[state->GetStateID()];
+    auto nextStateID = nextState.find(result);
+
+    if (nextStateID != nextState.end()){
+      state = Factory::CreateState(nextStateID->second);
     } else {
-      auto result = state->Do(context_, *io_);
-      auto nextState = stateTransitionTable_[state->GetStateID()];
-      auto nextStateID = nextState.find(result);
-      if (nextStateID != nextState.end()){
-        state = Factory::CreateState(nextStateID->second);
-      } else {
-        state = Factory::CreateState(StatesID::Base);
-      }
+      std::string error {"Unexpected behavior.\n" };
+      io_->Output(error);
+      break;
     }
-    std::cout<<"______________________________________________________\n";
   }
+  std::cout<<"______________________________________________________\n";
 }

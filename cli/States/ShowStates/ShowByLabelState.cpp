@@ -4,7 +4,7 @@
 
 #include "ShowByLabelState.h"
 #include "States/BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 
 ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
 
@@ -12,7 +12,7 @@ ShowByLabelState::~ShowByLabelState() = default;
 
 StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   auto showByLabelMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ShowByLabel, context);
-  showByLabelMachine.Execute();
+  showByLabelMachine->Execute();
 
   std::string output { "Tasks list will be updated. Sort tasks by priority? [y/n]: " };
   IO.Output(output);
@@ -32,6 +32,7 @@ StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& contex
     IO.Output(notFound);
     return StateOperationResult::TASKS_LIST_EMPTY;
   }
+
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };

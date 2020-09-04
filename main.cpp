@@ -1,12 +1,14 @@
-#include "StatesControllers/FiniteStateMachine.h"
+#include "StatesControllers/StateMachineMenu.h"
 #include "IO_Layer.h"
 
 int main(){
 
-  FiniteStateMachine FSM(std::map<StatesID, std::map<StateOperationResult, StatesID>>{},
-                         StatesID::Base,
-                         std::make_shared<Context>(std::move(std::make_unique<TaskService>(TaskService::Create()))),
-                         std::move(std::make_unique<IO_Layer>()));
-  FSM.Execute();
+  std::unique_ptr<StateMachine> menu = std::make_unique<StateMachineMenu>(
+                                      StatesID::Base,
+                                      std::make_shared<Context>(std::move(std::make_unique<TaskService>(TaskService::Create()))),
+                                      std::move(std::make_unique<IO_Layer>())
+                                      );
+
+  menu->Execute();
   return 0;
 }
