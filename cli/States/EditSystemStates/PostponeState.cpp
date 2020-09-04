@@ -4,14 +4,14 @@
 
 #include "PostponeState.h"
 #include "States/BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 PostponeState::PostponeState() : State(StatesID::Postpone){}
 
 PostponeState::~PostponeState() = default;
 
 StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   auto postponeMachine = Factory::CreateStateMachine(FiniteStateMachinesList::Postpone, context);
-  postponeMachine.Execute();
+  postponeMachine->Execute();
   auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
   if (result){
     std::string success { "Task postponed successfully.\n" };

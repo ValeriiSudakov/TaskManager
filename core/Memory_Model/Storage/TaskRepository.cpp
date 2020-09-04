@@ -77,7 +77,7 @@ bool TaskRepository::PostponeTask(const TaskID& id, const Date& date){
     return false;
   }
   taskView_->RemoveTask(oldTask.value());
-  taskView_->AddTask(taskStorage_->GetTask(id).value());
   auto result = taskStorage_->PostponeTask(id, date);
+  taskView_->AddTask(taskStorage_->GetTask(id).value());
   return result;
 }

@@ -3,7 +3,7 @@
 //
 
 #include "BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 
 
 BaseState::BaseState() : State(StatesID::Base){ }

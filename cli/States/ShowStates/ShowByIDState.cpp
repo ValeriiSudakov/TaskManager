@@ -4,14 +4,14 @@
 
 #include "ShowByIDState.h"
 #include "States/BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 ShowByIDState::ShowByIDState():State(StatesID::ShowByID){}
 
 ShowByIDState::~ShowByIDState() = default;
 
 StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto inputIDMachine = Factory::CreateStateMachine(FiniteStateMachinesList::InputID, context);
-  inputIDMachine.Execute();
+  auto chooseIDMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ChooseID, context);
+  chooseIDMachine->Execute();
   auto task = context->taskService_->GetTask(context->buffer_.id);
   if (task.has_value()){
     std::cout<<task.value().ToString()<<std::endl;

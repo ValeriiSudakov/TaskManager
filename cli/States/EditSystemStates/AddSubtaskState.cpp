@@ -4,7 +4,7 @@
 
 #include "AddSubtaskState.h"
 #include "States/BaseState.h"
-#include "Factory.h"
+#include "Factory/Factory.h"
 
 AddSubtaskState::AddSubtaskState() : State(StatesID::AddSubtask){ }
 
@@ -12,7 +12,7 @@ AddSubtaskState::~AddSubtaskState() = default;
 
 StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::AddSubtask, context);
-  addTaskMachine.Execute();
+  addTaskMachine->Execute();
 
   auto result = context->taskService_->AddSubtask(context->buffer_.id,
                                                  TaskDTO::Create(context->buffer_.name, context->buffer_.label,
