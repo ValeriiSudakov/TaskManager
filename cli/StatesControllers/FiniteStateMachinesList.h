@@ -11,6 +11,7 @@ enum class FiniteStateMachinesList{
   EditTask,
   Postpone,
   InputPostpone,
+  ChooseID,
   InputID,
   ShowByName,
   InputName,

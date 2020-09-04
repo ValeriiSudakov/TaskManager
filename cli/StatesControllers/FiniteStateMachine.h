@@ -4,14 +4,10 @@
 
 #ifndef TASKMANAGER_CLI_FINITESTATEMACHINE_H_
 #define TASKMANAGER_CLI_FINITESTATEMACHINE_H_
-#include "States/State.h"
-#include "States/StatesID.h"
-#include "IO_LayerInterface.h"
-#include <vector>
+#include "StateMachine.h"
 #include <map>
 
-
-class FiniteStateMachine {
+class FiniteStateMachine : public StateMachine {
  public:
   FiniteStateMachine(const std::map<StatesID, std::map<StateOperationResult,
                                                             StatesID>>& stateTransitionTable,
@@ -21,13 +17,10 @@ class FiniteStateMachine {
   ~FiniteStateMachine();
 
  public:
-  void Execute();
+  void Execute() override;
 
  private:
-  std::shared_ptr<Context> context_;
-  StatesID firstState_;
   std::map<StatesID, std::map<StateOperationResult, StatesID>> stateTransitionTable_;
-  std::unique_ptr<IO_LayerInterface> io_;
 };
 
 #endif //TASKMANAGER_CLI_FINITESTATEMACHINE_H_
