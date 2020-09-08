@@ -3,7 +3,7 @@
 //
 
 #include "ShowThisWeekState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 
 ShowThisWeekState::ShowThisWeekState() : State(StatesID::ShowThisWeek) {}
@@ -39,5 +39,5 @@ StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& conte
 }
 
 std::shared_ptr<State> ShowThisWeekState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

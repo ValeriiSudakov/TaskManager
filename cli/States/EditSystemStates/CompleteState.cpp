@@ -3,7 +3,7 @@
 //
 
 #include "CompleteState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 CompleteState::CompleteState() : State(StatesID::Complete) {}
 
@@ -26,5 +26,5 @@ StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, 
 }
 
 std::shared_ptr<State> CompleteState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

@@ -30,7 +30,7 @@
 #include "States/ShowStates/ShowByNameState.h"
 #include "States/ShowStates/ShowByLabelState.h"
 #include "States/ShowStates/ShowByIDState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 
 
 namespace Factory {
@@ -171,8 +171,8 @@ namespace Factory {
     if (state == StatesID::ShowAll) {
       return std::make_shared<ShowAllState>();
     }
-    if (state == StatesID::Base) {
-      return std::make_shared<BaseState>();
+    if (state == StatesID::Menu) {
+      return std::make_shared<Menu>();
     }
     if (state == StatesID::InputName) {
       return std::make_shared<InputNameState>();

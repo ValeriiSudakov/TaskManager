@@ -3,7 +3,7 @@
 //
 
 #include "ShowByIDState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 ShowByIDState::ShowByIDState():State(StatesID::ShowByID){}
 
@@ -33,5 +33,5 @@ StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, 
 }
 
 std::shared_ptr<State> ShowByIDState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

@@ -3,7 +3,7 @@
 //
 
 #include "AddTaskState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 #include "StatesControllers/FiniteStateMachinesList.h"
 
@@ -29,5 +29,5 @@ StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, c
 }
 
 std::shared_ptr<State> AddTaskState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

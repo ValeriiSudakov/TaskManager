@@ -26,8 +26,8 @@ enum class StatesID{
   InputLabel,
   InputName,
 
-  Exit,
-  Base
+  Menu,
+  Exit
 };
 
 

@@ -3,7 +3,7 @@
 //
 
 #include "DeleteState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 DeleteState::DeleteState() : State(StatesID::Delete){}
 
@@ -26,5 +26,5 @@ StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, co
 }
 
 std::shared_ptr<State> DeleteState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

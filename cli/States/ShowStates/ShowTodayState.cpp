@@ -3,7 +3,7 @@
 //
 
 #include "ShowTodayState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 
 ShowTodayState::ShowTodayState() : State(StatesID::ShowToday) {}
@@ -40,5 +40,5 @@ StateOperationResult ShowTodayState::Do(const std::shared_ptr<Context>& context,
 }
 
 std::shared_ptr<State> ShowTodayState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

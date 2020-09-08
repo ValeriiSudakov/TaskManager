@@ -3,7 +3,7 @@
 //
 
 #include "ShowByLabelState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 
 ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
@@ -42,5 +42,5 @@ StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& contex
 }
 
 std::shared_ptr<State> ShowByLabelState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

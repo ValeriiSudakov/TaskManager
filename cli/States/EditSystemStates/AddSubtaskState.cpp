@@ -3,7 +3,7 @@
 //
 
 #include "AddSubtaskState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 
 AddSubtaskState::AddSubtaskState() : State(StatesID::AddSubtask){ }
@@ -30,5 +30,5 @@ StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context
 }
 
 std::shared_ptr<State> AddSubtaskState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }

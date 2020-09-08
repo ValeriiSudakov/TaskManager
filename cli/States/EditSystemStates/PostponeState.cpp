@@ -3,7 +3,7 @@
 //
 
 #include "PostponeState.h"
-#include "States/BaseState.h"
+#include "States/Menu.h"
 #include "Factory/Factory.h"
 PostponeState::PostponeState() : State(StatesID::Postpone){}
 
@@ -25,5 +25,5 @@ StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, 
 }
 
 std::shared_ptr<State> PostponeState::ReadAction() {
-  return Factory::CreateState(StatesID::Base);
+  return Factory::CreateState(StatesID::Menu);
 }
