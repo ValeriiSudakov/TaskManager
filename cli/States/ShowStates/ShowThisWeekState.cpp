@@ -2,8 +2,9 @@
 // Created by valeriisudakov on 20.08.20.
 //
 
+#include "StatesControllers/StateMachineMenu.h"
 #include "ShowThisWeekState.h"
-#include "States/Menu.h"
+#include "States/Menus/BaseMenu.h"
 #include "Factory/Factory.h"
 
 ShowThisWeekState::ShowThisWeekState() : State(StatesID::ShowThisWeek) {}
@@ -35,9 +36,11 @@ StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& conte
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };
     IO.Output(taskStr);
   }
+
+
   return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowThisWeekState::ReadAction() {
-  return Factory::CreateState(StatesID::Menu);
+  return Factory::CreateState(StatesID::BaseMenu);
 }

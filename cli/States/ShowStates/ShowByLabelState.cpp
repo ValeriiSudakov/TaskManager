@@ -2,8 +2,9 @@
 // Created by valeriisudakov on 20.08.20.
 //
 
+#include "StatesControllers/StateMachineMenu.h"
 #include "ShowByLabelState.h"
-#include "States/Menu.h"
+#include "States/Menus/BaseMenu.h"
 #include "Factory/Factory.h"
 
 ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
@@ -47,9 +48,11 @@ StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& contex
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };
     IO.Output(taskStr);
   }
+
+
   return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowByLabelState::ReadAction() {
-  return Factory::CreateState(StatesID::Menu);
+  return Factory::CreateState(StatesID::BaseMenu);
 }

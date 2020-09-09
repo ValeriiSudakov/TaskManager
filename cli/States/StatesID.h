@@ -6,6 +6,7 @@
 #define TASKMANAGER_CLI_STATESLIST_H_
 
 enum class StatesID{
+  Show,
   ShowAll,
   ShowByID,
   ShowByLabel,
@@ -26,7 +27,8 @@ enum class StatesID{
   InputLabel,
   InputName,
 
-  Menu,
+  BaseMenu,
+  ContinueMenu,
   Exit
 };
 

@@ -3,7 +3,9 @@
 //
 
 #include "ShowAllState.h"
-#include "States/Menu.h"
+#include "States/Menus/BaseMenu.h"
+#include "StatesControllers/StateMachineMenu.h"
+
 #include "Factory/Factory.h"
 
 ShowAllState::ShowAllState() : State( StatesID::ShowAll){}
@@ -34,9 +36,12 @@ StateOperationResult ShowAllState::Do(const std::shared_ptr<Context>& context, c
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };
     IO.Output(taskStr);
   }
+
+
+
   return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowAllState::ReadAction() {
-  return Factory::CreateState(StatesID::Menu);
+  return Factory::CreateState(StatesID::BaseMenu);
 }

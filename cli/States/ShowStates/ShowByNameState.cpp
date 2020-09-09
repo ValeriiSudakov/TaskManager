@@ -2,8 +2,9 @@
 // Created by valeriisudakov on 20.08.20.
 //
 
+#include "StatesControllers/StateMachineMenu.h"
 #include "ShowByNameState.h"
-#include "States/Menu.h"
+#include "States/Menus/BaseMenu.h"
 #include "Factory/Factory.h"
 ShowByNameState::ShowByNameState() : State (StatesID::ShowByName) {}
 
@@ -43,9 +44,11 @@ StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };
     IO.Output(taskStr);
   }
+
+
   return StateOperationResult::SUCCESS;
 }
 
 std::shared_ptr<State> ShowByNameState::ReadAction() {
-  return Factory::CreateState(StatesID::Menu);
+  return Factory::CreateState(StatesID::BaseMenu);
 }

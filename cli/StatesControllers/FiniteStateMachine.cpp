@@ -6,14 +6,17 @@
 #include "Factory/Factory.h"
 
 void FiniteStateMachine::Execute(){
-  auto nextState = states_.begin();
-  auto state = Factory::CreateState(*nextState);
+  auto statesIterator = states_.begin();
+  StatesID nextState = *statesIterator;
+  auto state = Factory::CreateState(*statesIterator);
   while (state){
     auto result = state->Do(context_, *io_);
     if (result == StateOperationResult::SUCCESS){
-      nextState++;
+      nextState = *(++statesIterator);
+    } else if (result == StateOperationResult::TASKS_LIST_EMPTY){
+      nextState = StatesID::Exit;
     }
-    state = Factory::CreateState(*nextState);
+    state = Factory::CreateState(nextState);
   }
   io_->Output("\n");
 }
