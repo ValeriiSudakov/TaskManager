@@ -10,7 +10,16 @@ PostponeState::PostponeState() : State(StatesID::Postpone){}
 PostponeState::~PostponeState() = default;
 
 StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto postponeMachine = Factory::CreateStateMachine(FiniteStateMachinesList::Postpone, context);
+  std::unique_ptr<StateMachine> postponeMachine = std::make_unique<FiniteStateMachine>(
+      std::list<StatesID>{
+          StatesID::ShowAll,
+          StatesID::InputID,
+          StatesID::InputDate,
+          StatesID::Exit
+      },
+      context,
+      std::move(std::make_unique<IO_Layer>())
+  );
   postponeMachine->Execute();
   auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
   if (result){

@@ -8,10 +8,15 @@
 
 class StateMachineMenu : public StateMachine {
  public:
-  StateMachineMenu(const StatesID& firstState, const std::shared_ptr<Context>& context, std::unique_ptr<IO_LayerInterface> io);
-  ~StateMachineMenu();
+  ~StateMachineMenu() = default;
+
+  StateMachineMenu(const StatesID& menuID, const std::shared_ptr<Context>& context, std::unique_ptr<IO_LayerInterface> io) :
+                  menuID_(menuID), StateMachine(std::move(context), std::move(io)) {}
  public:
   void Execute() override;
+
+ private:
+  StatesID menuID_;
 };
 
 #endif //TASKMANAGER_CLI_STATESCONTROLLERS_STATEMACHINEBASEMENU_H_

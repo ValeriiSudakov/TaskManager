@@ -10,9 +10,16 @@ DeleteState::DeleteState() : State(StatesID::Delete){}
 DeleteState::~DeleteState() = default;
 
 StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto inputIDMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ChooseID, context);
-  inputIDMachine->Execute();
-
+  std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
+                                                    std::list<StatesID>{
+                                                        StatesID::ShowAll,
+                                                        StatesID::InputID,
+                                                        StatesID::Exit
+                                                    },
+                                                    context,
+                                                    std::move(std::make_unique<IO_Layer>())
+                                                );
+  inputIDStateMachine->Execute();
   auto result = context->taskService_->RemoveTask(context->buffer_.id);
   if (result){
     std::string success { "Task was removed.\n" };

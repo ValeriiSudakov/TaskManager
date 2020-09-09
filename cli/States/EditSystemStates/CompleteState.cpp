@@ -10,9 +10,16 @@ CompleteState::CompleteState() : State(StatesID::Complete) {}
 CompleteState::~CompleteState() = default;
 
 StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto completeStateMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ChooseID, context);
-  completeStateMachine->Execute();
-
+  std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
+                                                  std::list<StatesID>{
+                                                          StatesID::ShowAll,
+                                                          StatesID::InputID,
+                                                          StatesID::Exit
+                                                  },
+                                                  context,
+                                                  std::move(std::make_unique<IO_Layer>())
+                                              );
+  inputIDStateMachine->Execute();
   auto result = context->taskService_->SetTaskComplete(context->buffer_.id);
   if (result){
     std::string success { "Task was completed.\n" };

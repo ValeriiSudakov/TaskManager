@@ -10,8 +10,8 @@
 
 class StateMachine {
  public:
-  StateMachine(const StatesID& firstState, const std::shared_ptr<Context>& context, std::unique_ptr<IO_LayerInterface> io) :
-              firstState_(firstState), context_(std::move(context)), io_(std::move(io)){}
+  StateMachine(const std::shared_ptr<Context>& context, std::unique_ptr<IO_LayerInterface> io) :
+                context_(std::move(context)), io_(std::move(io)){}
 
               virtual ~StateMachine() = default;
 
@@ -20,7 +20,6 @@ class StateMachine {
 
  protected:
   std::shared_ptr<Context> context_;
-  StatesID firstState_;
   std::unique_ptr<IO_LayerInterface> io_;
 };
 

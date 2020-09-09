@@ -5,16 +5,22 @@
 #include "AddTaskState.h"
 #include "States/Menu.h"
 #include "Factory/Factory.h"
-#include "StatesControllers/FiniteStateMachinesList.h"
 
 AddTaskState::AddTaskState() : State(StatesID::AddTask){}
 
 AddTaskState::~AddTaskState() = default;
 
 StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::InputTask, context);
-  addTaskMachine->Execute();
+  std::unique_ptr<StateMachine> addTaskMachine = std::make_unique<FiniteStateMachine>(
+                                          std::list<StatesID>{
+                                                    StatesID::InputTask,
+                                                    StatesID::Exit
+                                                },
+                                                context,
+                                                std::move(std::make_unique<IO_Layer>())
+                                          );
 
+  addTaskMachine->Execute();
   auto result = context->taskService_->AddTask(TaskDTO::Create(context->buffer_.name, context->buffer_.label,
                                                 context->buffer_.priority, context->buffer_.date));
 

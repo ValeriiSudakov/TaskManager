@@ -11,7 +11,16 @@ AddSubtaskState::AddSubtaskState() : State(StatesID::AddSubtask){ }
 AddSubtaskState::~AddSubtaskState() = default;
 
 StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto addTaskMachine = Factory::CreateStateMachine(FiniteStateMachinesList::AddSubtask, context);
+  std::unique_ptr<StateMachine> addTaskMachine = std::make_unique<FiniteStateMachine>(
+                                                std::list<StatesID>{
+                                                  StatesID::ShowAll,
+                                                  StatesID::InputID,
+                                                  StatesID::InputTask,
+                                                  StatesID::Exit
+                                                },
+                                                context,
+                                                std::move(std::make_unique<IO_Layer>())
+                                            );
   addTaskMachine->Execute();
 
   auto result = context->taskService_->AddSubtask(context->buffer_.id,

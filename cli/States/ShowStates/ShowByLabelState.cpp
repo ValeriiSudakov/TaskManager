@@ -11,8 +11,17 @@ ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
 ShowByLabelState::~ShowByLabelState() = default;
 
 StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto showByLabelMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ShowByLabel, context);
-  showByLabelMachine->Execute();
+  std::unique_ptr<StateMachine> inputLabelDStateMachine = std::make_unique<FiniteStateMachine>(
+      std::list<StatesID>{
+          StatesID::InputLabel,
+          StatesID::Exit
+      },
+      context,
+      std::move(std::make_unique<IO_Layer>())
+  );
+  inputLabelDStateMachine->Execute();
+
+  auto task = context->taskService_->GetTask(context->buffer_.id);
 
   std::string output { "Tasks list will be updated. Sort tasks by priority? [y/n]: " };
   IO.Output(output);

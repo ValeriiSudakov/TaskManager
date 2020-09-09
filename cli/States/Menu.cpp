@@ -7,18 +7,18 @@
 
 
 Menu::Menu() : State(StatesID::Menu){
-    actions_.insert(std::make_pair("add task", StatesID::AddTask));
-    actions_.insert(std::make_pair("add subtask", StatesID::AddSubtask));
-    actions_.insert(std::make_pair("remove", StatesID::Delete));
-    actions_.insert(std::make_pair("complete", StatesID::Complete));
-    actions_.insert(std::make_pair("postpone", StatesID::Postpone));
-    actions_.insert(std::make_pair("show by id", StatesID::ShowByID));
-    actions_.insert(std::make_pair("show all", StatesID::ShowAll));
-    actions_.insert(std::make_pair("show today", StatesID::ShowToday));
+    actions_.insert(std::make_pair("add task",      StatesID::AddTask));
+    actions_.insert(std::make_pair("add subtask",   StatesID::AddSubtask));
+    actions_.insert(std::make_pair("remove",        StatesID::Delete));
+    actions_.insert(std::make_pair("complete",      StatesID::Complete));
+    actions_.insert(std::make_pair("postpone",      StatesID::Postpone));
+    actions_.insert(std::make_pair("show by id",    StatesID::ShowByID));
+    actions_.insert(std::make_pair("show all",      StatesID::ShowAll));
+    actions_.insert(std::make_pair("show today",    StatesID::ShowToday));
     actions_.insert(std::make_pair("show this week", StatesID::ShowThisWeek));
-    actions_.insert(std::make_pair("show by name", StatesID::ShowByName));
+    actions_.insert(std::make_pair("show by name",  StatesID::ShowByName));
     actions_.insert(std::make_pair("show by label", StatesID::ShowByLabel));
-    actions_.insert(std::make_pair("exit", StatesID::Exit));
+    actions_.insert(std::make_pair("exit",          StatesID::Exit));
 }
 
 Menu::~Menu() = default;

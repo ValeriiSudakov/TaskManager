@@ -10,8 +10,15 @@ ShowByNameState::ShowByNameState() : State (StatesID::ShowByName) {}
 ShowByNameState::~ShowByNameState() = default;
 
 StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
-  auto showByNameMachine = Factory::CreateStateMachine(FiniteStateMachinesList::ShowByName, context);
-  showByNameMachine->Execute();
+  std::unique_ptr<StateMachine> inputNameDStateMachine = std::make_unique<FiniteStateMachine>(
+                                                    std::list<StatesID>{
+                                                        StatesID::InputName,
+                                                        StatesID::Exit
+                                                    },
+                                                    context,
+                                                    std::move(std::make_unique<IO_Layer>())
+                                                );
+  inputNameDStateMachine->Execute();
 
   std::string output { "Tasks list will be updated. Sort tasks by priority? [y/n]: " };
   IO.Output(output);
