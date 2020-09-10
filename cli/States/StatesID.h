@@ -7,6 +7,7 @@
 
 enum class StatesID{
   Show,
+  Edit,
   ShowAll,
   ShowByID,
   ShowByLabel,

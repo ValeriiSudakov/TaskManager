@@ -29,8 +29,7 @@
 #include "States/ShowStates/ShowByNameState.h"
 #include "States/ShowStates/ShowByLabelState.h"
 #include "States/ShowStates/ShowByIDState.h"
-#include "States/Menus/BaseMenu.h"
-#include "States/Menus/ContinueMenu.h"
+#include "States/Menus/Menu.h"
 
 
 namespace Factory {
@@ -74,12 +73,31 @@ namespace Factory {
       return std::make_shared<ShowAllState>();
     }
     if (state == StatesID::BaseMenu) {
-      return std::make_shared<BaseMenu>();
+      std::unique_ptr<Actions> actions = std::make_unique<Actions>();
+      actions->edit_.insert(std::make_pair("add task",      StatesID::AddTask));
+      actions->show_.insert(std::make_pair("show all",      StatesID::ShowAll));
+      actions->show_.insert(std::make_pair("show this week",StatesID::ShowThisWeek));
+      actions->show_.insert(std::make_pair("show today",    StatesID::ShowToday));
+      actions->show_.insert(std::make_pair("show by name",  StatesID::ShowByName));
+      actions->show_.insert(std::make_pair("show by label", StatesID::ShowByLabel));
+      actions->exit_.first = "exit";
+      actions->exit_.second = StatesID::Exit;
+
+      return std::make_shared<Menu>(StatesID::BaseMenu, std::move(actions));
     }
     if (state == StatesID::ContinueMenu) {
-     return std::make_shared<ContinueMenu>();
+      std::unique_ptr<Actions> actions = std::make_unique<Actions>();
+      actions->edit_.insert(std::make_pair("add subtask", StatesID::AddSubtask));
+      actions->edit_.insert(std::make_pair("remove", StatesID::Delete));
+      actions->edit_.insert(std::make_pair("complete", StatesID::Complete));
+      actions->edit_.insert(std::make_pair("postpone", StatesID::Postpone));
+      actions->show_.insert(std::make_pair("show by id", StatesID::ShowByID));
+      actions->exit_.first = "back to menu";
+      actions->exit_.second = StatesID::BaseMenu;
+
+      return std::make_shared<Menu>(StatesID::ContinueMenu, std::move(actions));
     }
-    if (state == StatesID::InputName) {
+     if (state == StatesID::InputName) {
       return std::make_shared<InputNameState>();
     }
     if (state == StatesID::InputLabel) {
