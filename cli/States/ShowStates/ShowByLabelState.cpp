@@ -4,7 +4,7 @@
 
 #include "StatesControllers/StateMachineMenu.h"
 #include "ShowByLabelState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
 ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
@@ -53,6 +53,3 @@ StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& contex
   return StateOperationResult::SUCCESS;
 }
 
-std::shared_ptr<State> ShowByLabelState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
-}

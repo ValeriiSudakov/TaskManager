@@ -4,7 +4,7 @@
 
 #include "StatesControllers/StateMachineMenu.h"
 #include "ShowByNameState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 ShowByNameState::ShowByNameState() : State (StatesID::ShowByName) {}
 
@@ -47,8 +47,4 @@ StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context
 
 
   return StateOperationResult::SUCCESS;
-}
-
-std::shared_ptr<State> ShowByNameState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
 }

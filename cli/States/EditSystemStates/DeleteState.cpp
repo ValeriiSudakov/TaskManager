@@ -3,7 +3,7 @@
 //
 
 #include "DeleteState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 DeleteState::DeleteState() : State(StatesID::Delete){}
 
@@ -12,7 +12,6 @@ DeleteState::~DeleteState() = default;
 StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
                                                     std::list<StatesID>{
-                                                    //    StatesID::ShowAll,
                                                         StatesID::InputID,
                                                         StatesID::Exit
                                                     },
@@ -32,6 +31,3 @@ StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, co
   }
 }
 
-std::shared_ptr<State> DeleteState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
-}

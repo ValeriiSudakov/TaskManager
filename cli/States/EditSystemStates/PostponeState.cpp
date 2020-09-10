@@ -3,7 +3,7 @@
 //
 
 #include "PostponeState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 PostponeState::PostponeState() : State(StatesID::Postpone){}
 
@@ -12,8 +12,7 @@ PostponeState::~PostponeState() = default;
 StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   std::unique_ptr<StateMachine> postponeMachine = std::make_unique<FiniteStateMachine>(
                                               std::list<StatesID>{
-                                                  //StatesID::ShowAll,
-                                                  StatesID::InputID,
+                                                   StatesID::InputID,
                                                   StatesID::InputDate,
                                                   StatesID::Exit
                                               },
@@ -31,8 +30,4 @@ StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, 
     IO.Output(fail);
     return StateOperationResult::FAIL;
   }
-}
-
-std::shared_ptr<State> PostponeState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
 }

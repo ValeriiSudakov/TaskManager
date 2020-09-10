@@ -3,7 +3,7 @@
 //
 
 #include "ShowByIDState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 #include "StatesControllers/StateMachineMenu.h"
 ShowByIDState::ShowByIDState():State(StatesID::ShowByID){}
@@ -13,7 +13,6 @@ ShowByIDState::~ShowByIDState() = default;
 StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
                                                 std::list<StatesID>{
-                                              //      StatesID::ShowAll,
                                                     StatesID::InputID,
                                                     StatesID::Exit
                                                 },
@@ -40,8 +39,4 @@ StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, 
   std::string notFound { "Task was not found.\n" };
   IO.Output(notFound);
   return StateOperationResult::TASKS_LIST_EMPTY;
-}
-
-std::shared_ptr<State> ShowByIDState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
 }

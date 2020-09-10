@@ -3,7 +3,7 @@
 //
 
 #include "CompleteState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 CompleteState::CompleteState() : State(StatesID::Complete) {}
 
@@ -12,7 +12,6 @@ CompleteState::~CompleteState() = default;
 StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
   std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
                                                   std::list<StatesID>{
-                                                      //    StatesID::ShowAll,
                                                           StatesID::InputID,
                                                           StatesID::Exit
                                                   },
@@ -30,8 +29,4 @@ StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, 
     IO.Output(fail);
     return StateOperationResult::FAIL;
   }
-}
-
-std::shared_ptr<State> CompleteState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
 }

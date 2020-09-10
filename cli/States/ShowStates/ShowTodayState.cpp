@@ -4,7 +4,7 @@
 
 #include "StatesControllers/StateMachineMenu.h"
 #include "ShowTodayState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
 ShowTodayState::ShowTodayState() : State(StatesID::ShowToday) {}
@@ -41,6 +41,3 @@ StateOperationResult ShowTodayState::Do(const std::shared_ptr<Context>& context,
   return StateOperationResult::SUCCESS;
 }
 
-std::shared_ptr<State> ShowTodayState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
-}

@@ -3,7 +3,7 @@
 //
 
 #include "AddTaskState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
 AddTaskState::AddTaskState() : State(StatesID::AddTask){}
@@ -32,8 +32,4 @@ StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, c
     std::string fail { "Failed.\n" };
     return StateOperationResult::FAIL;
   }
-}
-
-std::shared_ptr<State> AddTaskState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
 }

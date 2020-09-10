@@ -12,7 +12,6 @@ class ShowByIDState : public State {
 
  public:
   StateOperationResult      Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) override;
-  std::shared_ptr<State>    ReadAction() override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_SHOWSTATES_SHOWBYIDSTATE_H_

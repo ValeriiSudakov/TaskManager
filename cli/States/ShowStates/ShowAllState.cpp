@@ -3,7 +3,7 @@
 //
 
 #include "ShowAllState.h"
-#include "States/Menus/BaseMenu.h"
+#include "States/Menus/Menu.h"
 #include "StatesControllers/StateMachineMenu.h"
 
 #include "Factory/Factory.h"
@@ -40,8 +40,4 @@ StateOperationResult ShowAllState::Do(const std::shared_ptr<Context>& context, c
 
 
   return StateOperationResult::SUCCESS;
-}
-
-std::shared_ptr<State> ShowAllState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
 }
