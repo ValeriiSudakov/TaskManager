@@ -18,5 +18,4 @@ void FiniteStateMachine::Execute(){
     }
     state = Factory::CreateState(nextState);
   }
-  io_->Output("\n");
 }

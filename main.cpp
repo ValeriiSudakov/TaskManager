@@ -3,12 +3,12 @@
 #include "IO_Layer.h"
 
 int main(){
-  StateMachineMenu menu(
-      StatesID::BaseMenu,
-      std::make_shared<Context>(std::move(std::make_unique<TaskService>(TaskService::Create()))),
-      std::move(std::make_unique<IO_Layer>())
-  );
+  std::unique_ptr<StateMachine> menu = std::make_unique<StateMachineMenu>(
+                                    StatesID::BaseMenu,
+                                    std::make_shared<Context>(std::move(std::make_unique<TaskService>(TaskService::Create()))),
+                                    std::move(std::make_unique<IO_Layer>())
+                                    );
 
-  menu.Execute();
+  menu->Execute();
   return 0;
 }
