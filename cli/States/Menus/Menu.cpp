@@ -4,8 +4,10 @@
 
 #include "Menu.h"
 #include "IO_Layer.h"
+#include "States/ShowStates/ShowState.h"
+#include "States/EditSystemStates/EditState.h"
 #include "Factory/Factory.h"
-StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, const IO_LayerInterface &IO) {}
+
 
 std::shared_ptr<State> Menu::ReadAction() {
   IO_Layer io;
@@ -13,17 +15,34 @@ std::shared_ptr<State> Menu::ReadAction() {
 
   io.Output({"Input command: "});
   std::string input { io.Input() };
-
-  for (const auto& action : actions_){
-    if (input == action.first){
-      return std::move(Factory::CreateState(action.second));
+  if (input == actions_->exit_.first){
+    return std::move(Factory::CreateState(actions_->exit_.second));
+  }
+  for (const auto& action : actions_->show_) {
+    if (input == action.first) {
+      return std::move(std::make_shared<ShowState>(action.second));
     }
   }
+  for (const auto& action : actions_->edit_){
+    if (input == action.first){
+      return std::move(std::make_shared<EditState>(action.second));
+    }
+  }
+
   return std::move(Factory::CreateState(GetStateID()));
 }
 
 void Menu::PrintNextStates(const IO_LayerInterface &io) const {
-  for (const auto& action : actions_){
-    io.Output(action.first + "\n");
+  io.Output({"\n"});
+  for (const auto& action : actions_->edit_){
+    io.Output({action.first + "\n"});
   }
+  for (const auto& action : actions_->show_){
+    io.Output({action.first + "\n"});
+  }
+  io.Output({actions_->exit_.first + "\n"});
+}
+
+StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, const IO_LayerInterface &IO) {
+  return StateOperationResult::SUCCESS;
 }

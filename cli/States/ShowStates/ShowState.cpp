@@ -1,7 +1,7 @@
 //
 // Created by valeriisudakov on 09.09.20.
 //
-
+#include "Factory/Factory.h"
 #include "ShowState.h"
 #include "StatesControllers/StateMachineMenu.h"
 #include "StatesControllers/FiniteStateMachine.h"
@@ -18,12 +18,13 @@ StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, cons
   );
   showMachine->Execute();
 
-  std::unique_ptr<StateMachineMenu> menu = std::make_unique<StateMachineMenu> (
-      StatesID::ContinueMenu,
-      context,
-      std::move(std::make_unique<IO_Layer>())
-  );
+  if (context->tasks_.empty()){
+    return StateOperationResult::TASKS_LIST_EMPTY;
+  }
 
-  menu->Execute();
   return StateOperationResult::SUCCESS;
+}
+
+std::shared_ptr<State> ShowState::ReadAction() {
+  return std::move(Factory::CreateState(StatesID::ContinueMenu));
 }
