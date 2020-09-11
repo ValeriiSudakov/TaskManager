@@ -8,7 +8,7 @@
 
 class ShowState : public State{
  public:
-  ShowState(StatesID showStateID) : State (StatesID::Show), showStateID_(showStateID){}
+  ShowState(StatesID showStateID) : State (StatesID::SHOW), showStateID_(showStateID){}
   ~ShowState() = default;
 
   StateOperationResult    Do(const std::shared_ptr<Context> &context, const InputOutputLayer &IO) override;

@@ -4,7 +4,7 @@
 
 #include "InputDateState.h"
 
-InputDateState::InputDateState() : State(StatesID::InputDate){}
+InputDateState::InputDateState() : State(StatesID::INPUT_DATE){}
 
 InputDateState::~InputDateState() = default;
 

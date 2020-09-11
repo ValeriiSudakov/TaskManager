@@ -6,15 +6,15 @@
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
-AddTaskState::AddTaskState() : State(StatesID::AddTask){}
+AddTaskState::AddTaskState() : State(StatesID::ADD_TASK){}
 
 AddTaskState::~AddTaskState() = default;
 
 StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> addTaskMachine = std::make_unique<FiniteStateMachine>(
                                           std::list<StatesID>{
-                                                    StatesID::InputTask,
-                                                    StatesID::Exit
+                                                    StatesID::INPUT_TASK,
+                                                    StatesID::EXIT
                                                 },
                                                 context,
                                                 std::move(std::make_unique<InputOutpuConsoleLayer>())

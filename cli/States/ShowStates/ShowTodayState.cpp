@@ -7,7 +7,7 @@
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
-ShowTodayState::ShowTodayState() : State(StatesID::ShowToday) {}
+ShowTodayState::ShowTodayState() : State(StatesID::SHOW_TODAY) {}
 
 ShowTodayState::~ShowTodayState() = default;
 

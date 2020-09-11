@@ -4,7 +4,7 @@
 
 int main(){
   std::unique_ptr<StateMachine> menu = std::make_unique<StateMachineMenu>(
-                                    StatesID::BaseMenu,
+                                    StatesID::BASE_MENU,
                                     std::make_shared<Context>(std::move(std::make_unique<TaskService>(TaskService::Create()))),
                                     std::move(std::make_unique<InputOutpuConsoleLayer>())
                                     );

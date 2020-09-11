@@ -7,7 +7,7 @@
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
-ShowThisWeekState::ShowThisWeekState() : State(StatesID::ShowThisWeek) {}
+ShowThisWeekState::ShowThisWeekState() : State(StatesID::SHOW_THIS_WEEK) {}
 
 ShowThisWeekState::~ShowThisWeekState() = default;
 

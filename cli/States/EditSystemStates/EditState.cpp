@@ -11,7 +11,7 @@ StateOperationResult EditState::Do(const std::shared_ptr<Context> &context, cons
   std::unique_ptr<StateMachine> editMachine = std::make_unique<FiniteStateMachine>(
       std::list<StatesID>{
           editStateID_,
-          StatesID::Exit
+          StatesID::EXIT
       },
       context,
       std::move(std::make_unique<InputOutpuConsoleLayer>())
@@ -21,5 +21,5 @@ StateOperationResult EditState::Do(const std::shared_ptr<Context> &context, cons
 }
 
 std::shared_ptr<State> EditState::ReadAction() {
-  return Factory::CreateState(StatesID::BaseMenu);
+  return Factory::CreateState(StatesID::BASE_MENU);
 }

@@ -14,7 +14,7 @@ void FiniteStateMachine::Execute(){
     if (StateOperationResult::SUCCESS == result){
       nextState = *(++statesIterator);
     } else if (StateOperationResult::TASKS_LIST_EMPTY == result){
-      nextState = StatesID::Exit;
+      nextState = StatesID::EXIT;
     }
     state = Factory::CreateState(nextState);
   }

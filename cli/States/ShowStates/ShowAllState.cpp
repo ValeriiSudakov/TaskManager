@@ -8,7 +8,7 @@
 
 #include "Factory/Factory.h"
 
-ShowAllState::ShowAllState() : State( StatesID::ShowAll){}
+ShowAllState::ShowAllState() : State( StatesID::SHOW_ALL){}
 
 ShowAllState::~ShowAllState() = default;
 

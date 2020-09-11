@@ -10,7 +10,7 @@ void StateMachineMenu::Execute(){
   while (state){
     auto result = state->Do(context_, *io_);
     if (StateOperationResult::TASKS_LIST_EMPTY == result){
-      state = Factory::CreateState(StatesID::BaseMenu);
+      state = Factory::CreateState(StatesID::BASE_MENU);
     }
     state = state->ReadAction();
   }

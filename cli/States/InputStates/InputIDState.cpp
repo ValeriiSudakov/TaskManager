@@ -4,7 +4,7 @@
 
 #include "InputIDState.h"
 
-InputIDState::InputIDState() : State(StatesID::InputID){}
+InputIDState::InputIDState() : State(StatesID::INPUT_ID){}
 
 InputIDState::~InputIDState() = default;
 

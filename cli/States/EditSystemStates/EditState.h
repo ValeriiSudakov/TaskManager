@@ -8,7 +8,7 @@
 
 class EditState : public State{
  public:
-  EditState(StatesID editStateID) : State (StatesID::Edit), editStateID_(editStateID){}
+  EditState(StatesID editStateID) : State (StatesID::EDIT), editStateID_(editStateID){}
   ~EditState() = default;
 
   StateOperationResult    Do(const std::shared_ptr<Context> &context, const InputOutputLayer& io) override;

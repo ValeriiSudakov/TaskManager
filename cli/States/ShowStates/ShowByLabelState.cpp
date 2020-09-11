@@ -7,15 +7,15 @@
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
-ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
+ShowByLabelState::ShowByLabelState() : State(StatesID::SHOW_BY_LABEL){}
 
 ShowByLabelState::~ShowByLabelState() = default;
 
 StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   std::unique_ptr<StateMachine> inputLabelDStateMachine = std::make_unique<FiniteStateMachine>(
       std::list<StatesID>{
-          StatesID::InputLabel,
-          StatesID::Exit
+          StatesID::INPUT_LABEL,
+          StatesID::EXIT
       },
       context,
       std::move(std::make_unique<InputOutpuConsoleLayer>())

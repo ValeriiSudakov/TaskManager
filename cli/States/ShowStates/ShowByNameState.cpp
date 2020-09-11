@@ -6,15 +6,15 @@
 #include "ShowByNameState.h"
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
-ShowByNameState::ShowByNameState() : State (StatesID::ShowByName) {}
+ShowByNameState::ShowByNameState() : State (StatesID::SHOW_BY_NAME) {}
 
 ShowByNameState::~ShowByNameState() = default;
 
 StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   std::unique_ptr<StateMachine> inputNameDStateMachine = std::make_unique<FiniteStateMachine>(
                                                     std::list<StatesID>{
-                                                        StatesID::InputName,
-                                                        StatesID::Exit
+                                                        StatesID::INPUT_NAME,
+                                                        StatesID::EXIT
                                                     },
                                                     context,
                                                     std::move(std::make_unique<InputOutpuConsoleLayer>())

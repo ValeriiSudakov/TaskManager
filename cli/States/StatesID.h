@@ -6,31 +6,31 @@
 #define TASKMANAGER_CLI_STATESLIST_H_
 
 enum class StatesID{
-  Show,
-  Edit,
-  ShowAll,
-  ShowByID,
-  ShowByLabel,
-  ShowByName,
-  ShowThisWeek,
-  ShowToday,
+  SHOW,
+  EDIT,
+  SHOW_ALL,
+  SHOW_BY_ID,
+  SHOW_BY_LABEL,
+  SHOW_BY_NAME,
+  SHOW_THIS_WEEK,
+  SHOW_TODAY,
 
-  AddTask,
-  AddSubtask,
-  Complete,
-  Delete,
-  Postpone,
+  ADD_TASK,
+  ADD_SUBTASK,
+  COMPLETE,
+  DELETE,
+  POSTPONE,
 
-  InputTask,
-  InputID,
-  InputDate,
-  InputPriority,
-  InputLabel,
-  InputName,
+  INPUT_TASK,
+  INPUT_ID,
+  INPUT_DATE,
+  INPUT_PRIORITY,
+  INPUT_LABEL,
+  INPUT_NAME,
 
-  BaseMenu,
-  ContinueMenu,
-  Exit
+  BASE_MENU,
+  CONTINUE_MENU,
+  EXIT
 };
 
 

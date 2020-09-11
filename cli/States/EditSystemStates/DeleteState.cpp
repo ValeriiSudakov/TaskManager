@@ -5,15 +5,15 @@
 #include "DeleteState.h"
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
-DeleteState::DeleteState() : State(StatesID::Delete){}
+DeleteState::DeleteState() : State(StatesID::DELETE){}
 
 DeleteState::~DeleteState() = default;
 
 StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
                                                     std::list<StatesID>{
-                                                        StatesID::InputID,
-                                                        StatesID::Exit
+                                                        StatesID::INPUT_ID,
+                                                        StatesID::EXIT
                                                     },
                                                     context,
                                                     std::move(std::make_unique<InputOutpuConsoleLayer>())

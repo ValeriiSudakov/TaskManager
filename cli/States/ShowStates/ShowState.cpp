@@ -11,7 +11,7 @@ StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, cons
   std::unique_ptr<StateMachine> showMachine = std::make_unique<FiniteStateMachine>(
       std::list<StatesID>{
           showStateID_,
-          StatesID::Exit
+          StatesID::EXIT
       },
       context,
       std::move(std::make_unique<InputOutpuConsoleLayer>())
@@ -26,5 +26,5 @@ StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, cons
 }
 
 std::shared_ptr<State> ShowState::ReadAction() {
-  return Factory::CreateState(StatesID::ContinueMenu);
+  return Factory::CreateState(StatesID::CONTINUE_MENU);
 }

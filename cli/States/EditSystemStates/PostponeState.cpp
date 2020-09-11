@@ -5,16 +5,16 @@
 #include "PostponeState.h"
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
-PostponeState::PostponeState() : State(StatesID::Postpone){}
+PostponeState::PostponeState() : State(StatesID::POSTPONE){}
 
 PostponeState::~PostponeState() = default;
 
 StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> postponeMachine = std::make_unique<FiniteStateMachine>(
                                               std::list<StatesID>{
-                                                   StatesID::InputID,
-                                                  StatesID::InputDate,
-                                                  StatesID::Exit
+                                                   StatesID::INPUT_ID,
+                                                  StatesID::INPUT_DATE,
+                                                  StatesID::EXIT
                                               },
                                               context,
                                               std::move(std::make_unique<InputOutpuConsoleLayer>())

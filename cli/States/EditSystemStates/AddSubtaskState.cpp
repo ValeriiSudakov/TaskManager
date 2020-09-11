@@ -6,16 +6,16 @@
 #include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
 
-AddSubtaskState::AddSubtaskState() : State(StatesID::AddSubtask){ }
+AddSubtaskState::AddSubtaskState() : State(StatesID::ADD_SUBTASK){ }
 
 AddSubtaskState::~AddSubtaskState() = default;
 
 StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> addTaskMachine = std::make_unique<FiniteStateMachine>(
                                                 std::list<StatesID>{
-                                                  StatesID::InputID,
-                                                  StatesID::InputTask,
-                                                  StatesID::Exit
+                                                  StatesID::INPUT_ID,
+                                                  StatesID::INPUT_TASK,
+                                                  StatesID::EXIT
                                                 },
                                                 context,
                                                 std::move(std::make_unique<InputOutpuConsoleLayer>())
