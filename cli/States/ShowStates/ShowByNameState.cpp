@@ -10,14 +10,14 @@ ShowByNameState::ShowByNameState() : State (StatesID::ShowByName) {}
 
 ShowByNameState::~ShowByNameState() = default;
 
-StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   std::unique_ptr<StateMachine> inputNameDStateMachine = std::make_unique<FiniteStateMachine>(
                                                     std::list<StatesID>{
                                                         StatesID::InputName,
                                                         StatesID::Exit
                                                     },
                                                     context,
-                                                    std::move(std::make_unique<IO_Layer>())
+                                                    std::move(std::make_unique<InputOutpuConsoleLayer>())
                                                 );
   inputNameDStateMachine->Execute();
 

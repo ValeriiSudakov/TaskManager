@@ -3,14 +3,14 @@
 //
 
 #include "Menu.h"
-#include "IO_Layer.h"
+#include "InputOutpuConsoleLayer.h"
 #include "States/ShowStates/ShowState.h"
 #include "States/EditSystemStates/EditState.h"
 #include "Factory/Factory.h"
 
 
 std::shared_ptr<State> Menu::ReadAction() {
-  IO_Layer io;
+  InputOutpuConsoleLayer io;
   PrintNextStates(io);
 
   io.Output({"Input command: "});
@@ -32,7 +32,7 @@ std::shared_ptr<State> Menu::ReadAction() {
   return std::move(Factory::CreateState(GetStateID()));
 }
 
-void Menu::PrintNextStates(const IO_LayerInterface &io) const {
+void Menu::PrintNextStates(const InputOutputLayer &io) const {
   io.Output({"\n"});
   for (const auto& action : actions_->edit_){
     io.Output({action.first + "\n"});
@@ -43,6 +43,6 @@ void Menu::PrintNextStates(const IO_LayerInterface &io) const {
   io.Output({actions_->exit_.first + "\n"});
 }
 
-StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, const IO_LayerInterface &IO) {
+StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, const InputOutputLayer &io) {
   return StateOperationResult::SUCCESS;
 }

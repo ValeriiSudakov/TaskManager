@@ -5,8 +5,8 @@
 #include "ShowState.h"
 #include "StatesControllers/StateMachineMenu.h"
 #include "StatesControllers/FiniteStateMachine.h"
-#include "IO_Layer.h"
-StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, const IO_LayerInterface &IO) {
+#include "InputOutpuConsoleLayer.h"
+StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, const InputOutputLayer &IO) {
 
   std::unique_ptr<StateMachine> showMachine = std::make_unique<FiniteStateMachine>(
       std::list<StatesID>{
@@ -14,7 +14,7 @@ StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, cons
           StatesID::Exit
       },
       context,
-      std::move(std::make_unique<IO_Layer>())
+      std::move(std::make_unique<InputOutpuConsoleLayer>())
   );
   showMachine->Execute();
 

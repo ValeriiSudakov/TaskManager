@@ -12,7 +12,7 @@ ShowAllState::ShowAllState() : State( StatesID::ShowAll){}
 
 ShowAllState::~ShowAllState() = default;
 
-StateOperationResult ShowAllState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult ShowAllState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   std::string output { "Tasks list will be updated. Sort tasks by priority? [y/n]: " };
   IO.Output(output);
   std::string inputSort { IO.Input()};

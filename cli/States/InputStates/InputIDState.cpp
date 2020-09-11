@@ -8,26 +8,26 @@ InputIDState::InputIDState() : State(StatesID::InputID){}
 
 InputIDState::~InputIDState() = default;
 
-StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO){
+StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io){
   std::string output {"Input ID: " };
-  IO.Output(output);
+  io.Output(output);
 
-  std::string idStr { IO.Input() };
+  std::string idStr {io.Input() };
 
   if (idStr.empty()){
     std::string emptyStrError { "ID must be non-empty.\n" };
-    IO.Output(emptyStrError);
+    io.Output(emptyStrError);
     return StateOperationResult::INCORRECT_INPUT;
   }
   if (idStr.find_first_not_of("0123456789") != std::string::npos){
     std::string strContainNumberError { "ID must contains only numbers!\n" };
-    IO.Output(strContainNumberError);
+    io.Output(strContainNumberError);
     return StateOperationResult::INCORRECT_INPUT;
   }
   auto id = std::atoi(idStr.c_str());
   if (id > context->tasks_.size()-1){
     std::string idOutOfRangeError{ "ID out of tasks range.\n" };
-    IO.Output(idOutOfRangeError);
+    io.Output(idOutOfRangeError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 

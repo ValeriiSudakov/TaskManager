@@ -11,14 +11,14 @@ ShowByLabelState::ShowByLabelState() : State(StatesID::ShowByLabel){}
 
 ShowByLabelState::~ShowByLabelState() = default;
 
-StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   std::unique_ptr<StateMachine> inputLabelDStateMachine = std::make_unique<FiniteStateMachine>(
       std::list<StatesID>{
           StatesID::InputLabel,
           StatesID::Exit
       },
       context,
-      std::move(std::make_unique<IO_Layer>())
+      std::move(std::make_unique<InputOutpuConsoleLayer>())
   );
   inputLabelDStateMachine->Execute();
 

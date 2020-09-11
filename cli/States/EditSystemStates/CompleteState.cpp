@@ -9,24 +9,24 @@ CompleteState::CompleteState() : State(StatesID::Complete) {}
 
 CompleteState::~CompleteState() = default;
 
-StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
                                                   std::list<StatesID>{
                                                           StatesID::InputID,
                                                           StatesID::Exit
                                                   },
                                                   context,
-                                                  std::move(std::make_unique<IO_Layer>())
+                                                  std::move(std::make_unique<InputOutpuConsoleLayer>())
                                               );
   inputIDStateMachine->Execute();
   auto result = context->taskService_->SetTaskComplete(context->buffer_.id);
   if (result){
     std::string success { "Task was completed.\n" };
-    IO.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Error.\n" };
-    IO.Output(fail);
+    io.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

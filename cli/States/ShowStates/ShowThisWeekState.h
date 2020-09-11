@@ -12,7 +12,7 @@ class ShowThisWeekState : public State {
   ~ShowThisWeekState();
 
  public:
-  StateOperationResult        Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) override;
+  StateOperationResult        Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_SHOWTHISWEEKSTATE_H_

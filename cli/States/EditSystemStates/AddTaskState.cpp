@@ -10,14 +10,14 @@ AddTaskState::AddTaskState() : State(StatesID::AddTask){}
 
 AddTaskState::~AddTaskState() = default;
 
-StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> addTaskMachine = std::make_unique<FiniteStateMachine>(
                                           std::list<StatesID>{
                                                     StatesID::InputTask,
                                                     StatesID::Exit
                                                 },
                                                 context,
-                                                std::move(std::make_unique<IO_Layer>())
+                                                std::move(std::make_unique<InputOutpuConsoleLayer>())
                                           );
 
   addTaskMachine->Execute();
@@ -26,7 +26,7 @@ StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, c
 
   if (result.success_){
     std::string success {"Task was added.\n"};
-    IO.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Failed.\n" };

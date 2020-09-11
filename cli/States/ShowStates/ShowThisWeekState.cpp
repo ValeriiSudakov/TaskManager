@@ -11,7 +11,7 @@ ShowThisWeekState::ShowThisWeekState() : State(StatesID::ShowThisWeek) {}
 
 ShowThisWeekState::~ShowThisWeekState() = default;
 
-StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
 
   std::string output { "Tasks list will be updated. Sort tasks by priority? [y/n]: " };
   IO.Output(output);

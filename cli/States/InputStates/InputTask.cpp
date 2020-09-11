@@ -9,7 +9,7 @@ InputTask::InputTask() : State(StatesID::InputTask){}
 
 InputTask::~InputTask() = default;
 
-StateOperationResult InputTask::Do(const std::shared_ptr<Context> &context, const IO_LayerInterface &IO) {
+StateOperationResult InputTask::Do(const std::shared_ptr<Context> &context, const InputOutputLayer &io) {
   auto contextForInput = std::make_shared<Context>(nullptr);
   std::unique_ptr<StateMachine> stateMachine = std::make_unique<FiniteStateMachine>(
                                                 std::list<StatesID>{
@@ -20,7 +20,7 @@ StateOperationResult InputTask::Do(const std::shared_ptr<Context> &context, cons
                                                   StatesID::Exit
                                                 },
                                                 contextForInput,
-                                                std::move(std::make_unique<IO_Layer>())
+                                                std::move(std::make_unique<InputOutpuConsoleLayer>())
                                               );
   stateMachine->Execute();
   context->buffer_ = contextForInput->buffer_;

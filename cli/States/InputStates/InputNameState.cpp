@@ -8,15 +8,15 @@ InputNameState::InputNameState(): State(StatesID::InputName){}
 
 InputNameState::~InputNameState() = default;
 
-StateOperationResult InputNameState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO){
+StateOperationResult InputNameState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io){
   std::string output { "Input name: " };
-  IO.Output(output);
+  io.Output(output);
 
-  std::string name { IO.Input() };
+  std::string name {io.Input() };
 
   if (name.empty()){
     std::string emptyNameError { "name must be non-empty.\n"};
-    IO.Output(emptyNameError);
+    io.Output(emptyNameError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 

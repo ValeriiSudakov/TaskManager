@@ -12,7 +12,7 @@ class InputDateState : public State{
   ~InputDateState();
 
  public:
-  StateOperationResult  Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) override;
+  StateOperationResult  Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTDATESTATE_H_

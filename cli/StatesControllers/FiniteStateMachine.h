@@ -11,7 +11,7 @@ class FiniteStateMachine : public StateMachine {
  public:
   FiniteStateMachine(const  std::list<StatesID>& states,
                      const std::shared_ptr<Context>& context,
-                     std::unique_ptr<IO_LayerInterface> io)
+                     std::unique_ptr<InputOutputLayer> io)
                      :
                      states_(states),
                      StateMachine(std::move(context), std::move(io)) { }

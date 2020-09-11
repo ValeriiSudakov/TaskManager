@@ -10,7 +10,7 @@
 #include "Context.h"
 #include "StateOperationResult.h"
 #include "StatesID.h"
-#include "IO_LayerInterface.h"
+#include "InputOutputLayer.h"
 
 class State {
  public:
@@ -19,7 +19,7 @@ class State {
 
  public:
   virtual std::shared_ptr<State>      ReadAction() { }
-  virtual StateOperationResult        Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) = 0;
+  virtual StateOperationResult        Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) = 0;
   StatesID                            GetStateID() const { return stateID_; }
 
  private:

@@ -12,7 +12,7 @@ class ShowTodayState :  public State {
   ~ShowTodayState();
 
  public:
-  StateOperationResult        Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) override;
+  StateOperationResult        Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_SHOWTODAYSTATE_H_

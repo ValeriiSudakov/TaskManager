@@ -10,7 +10,7 @@ AddSubtaskState::AddSubtaskState() : State(StatesID::AddSubtask){ }
 
 AddSubtaskState::~AddSubtaskState() = default;
 
-StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> addTaskMachine = std::make_unique<FiniteStateMachine>(
                                                 std::list<StatesID>{
                                                   StatesID::InputID,
@@ -18,7 +18,7 @@ StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context
                                                   StatesID::Exit
                                                 },
                                                 context,
-                                                std::move(std::make_unique<IO_Layer>())
+                                                std::move(std::make_unique<InputOutpuConsoleLayer>())
                                             );
   addTaskMachine->Execute();
 
@@ -28,11 +28,11 @@ StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context
 
   if (result.success_){
     std::string success {"Subtask was added.\n"} ;
-    IO.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Failed.\n" };
-    IO.Output(fail);
+    io.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

@@ -10,14 +10,14 @@ ShowByIDState::ShowByIDState():State(StatesID::ShowByID){}
 
 ShowByIDState::~ShowByIDState() = default;
 
-StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
                                                 std::list<StatesID>{
                                                     StatesID::InputID,
                                                     StatesID::Exit
                                                 },
                                                 context,
-                                                std::move(std::make_unique<IO_Layer>())
+                                                std::move(std::make_unique<InputOutpuConsoleLayer>())
                                             );
   inputIDStateMachine->Execute();
   auto task = context->taskService_->GetTask(context->buffer_.id);

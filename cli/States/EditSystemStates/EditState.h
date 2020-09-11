@@ -11,7 +11,7 @@ class EditState : public State{
   EditState(StatesID editStateID) : State (StatesID::Edit), editStateID_(editStateID){}
   ~EditState() = default;
 
-  StateOperationResult    Do(const std::shared_ptr<Context> &context, const IO_LayerInterface &IO) override;
+  StateOperationResult    Do(const std::shared_ptr<Context> &context, const InputOutputLayer& io) override;
   std::shared_ptr<State>  ReadAction() override;
 
  private:

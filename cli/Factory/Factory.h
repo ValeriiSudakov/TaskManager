@@ -7,7 +7,7 @@
 
 #include "StatesControllers/StateMachine.h"
 #include "StatesControllers/FiniteStateMachine.h"
-#include "IO_Layer.h"
+#include "InputOutpuConsoleLayer.h"
 
 #include "States/StatesID.h"
 #include "States/EditSystemStates/AddTaskState.h"
@@ -63,7 +63,7 @@ namespace Factory {
     if (state == StatesID::ShowByName) {
       return std::make_shared<ShowByNameState>();
     }
-    if (state == StatesID::ShowByLabel) {
+    if (StatesID::ShowByLabel == state) {
       return std::make_shared<ShowByLabelState>();
     }
     if (state == StatesID::ShowByID) {

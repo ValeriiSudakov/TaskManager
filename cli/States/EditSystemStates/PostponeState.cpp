@@ -9,7 +9,7 @@ PostponeState::PostponeState() : State(StatesID::Postpone){}
 
 PostponeState::~PostponeState() = default;
 
-StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const IO_LayerInterface& IO) {
+StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   std::unique_ptr<StateMachine> postponeMachine = std::make_unique<FiniteStateMachine>(
                                               std::list<StatesID>{
                                                    StatesID::InputID,
@@ -17,17 +17,17 @@ StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, 
                                                   StatesID::Exit
                                               },
                                               context,
-                                              std::move(std::make_unique<IO_Layer>())
+                                              std::move(std::make_unique<InputOutpuConsoleLayer>())
                                           );
   postponeMachine->Execute();
   auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
   if (result){
     std::string success { "Task postponed successfully.\n" };
-    IO.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Postpone failed.\n" };
-    IO.Output(fail);
+    io.Output(fail);
     return StateOperationResult::FAIL;
   }
 }
