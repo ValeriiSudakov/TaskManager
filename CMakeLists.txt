@@ -30,7 +30,7 @@ file(GLOB core_TEST_SOURCES "tests/*.cpp")
 
 add_executable(TaskManager ${core_HEADERS} ${core_CPP_SOURCES}
                            ${cli_HEADERS} ${cli_CPP_SOURCES}
-                            main.cpp)
+                            main.cpp )
 
 ############## boost ########################################################
 set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
@@ -51,7 +51,7 @@ include_directories(${GMOCK_INCLUDE_DIR})
 enable_testing()
 
 include_directories(tests)
-add_executable(coreTests ${core_TEST_SOURCES} ${core_CPP_SOURCES})
+add_executable(coreTests ${core_TEST_SOURCES} ${core_CPP_SOURCES} cli/Factory/FactoryStates.cpp cli/Factory/FactoryStates.h)
 
 target_link_libraries(coreTests GTest::GTest GTest::Main)
 gtest_discover_tests(coreTests)

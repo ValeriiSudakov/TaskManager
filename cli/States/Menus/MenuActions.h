@@ -5,6 +5,7 @@
 #ifndef TASKMANAGER_CLI_STATES_MENUS_MENUACTIONS_H_
 #define TASKMANAGER_CLI_STATES_MENUS_MENUACTIONS_H_
 #include <map>
+#include "States/StatesID.h"
 
 struct Actions{
   std::map<std::string, StatesID>   edit_;

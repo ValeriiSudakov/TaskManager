@@ -26,5 +26,5 @@ StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, cons
 }
 
 std::shared_ptr<State> ShowState::ReadAction() {
-  return std::move(Factory::CreateState(StatesID::ContinueMenu));
+  return Factory::CreateState(StatesID::ContinueMenu);
 }

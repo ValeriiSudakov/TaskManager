@@ -21,5 +21,5 @@ StateOperationResult EditState::Do(const std::shared_ptr<Context> &context, cons
 }
 
 std::shared_ptr<State> EditState::ReadAction() {
-  return std::move(Factory::CreateState(StatesID::BaseMenu));
+  return Factory::CreateState(StatesID::BaseMenu);
 }

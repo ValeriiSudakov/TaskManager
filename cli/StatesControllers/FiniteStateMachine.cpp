@@ -11,9 +11,9 @@ void FiniteStateMachine::Execute(){
   auto state = Factory::CreateState(*statesIterator);
   while (state){
     auto result = state->Do(context_, *io_);
-    if (result == StateOperationResult::SUCCESS){
+    if (StateOperationResult::SUCCESS == result){
       nextState = *(++statesIterator);
-    } else if (result == StateOperationResult::TASKS_LIST_EMPTY){
+    } else if (StateOperationResult::TASKS_LIST_EMPTY == result){
       nextState = StatesID::Exit;
     }
     state = Factory::CreateState(nextState);

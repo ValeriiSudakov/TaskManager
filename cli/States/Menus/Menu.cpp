@@ -20,12 +20,12 @@ std::shared_ptr<State> Menu::ReadAction() {
   }
   for (const auto& action : actions_->show_) {
     if (input == action.first) {
-      return std::move(std::make_shared<ShowState>(action.second));
+      return std::make_shared<ShowState>(action.second);
     }
   }
   for (const auto& action : actions_->edit_){
     if (input == action.first){
-      return std::move(std::make_shared<EditState>(action.second));
+      return std::make_shared<EditState>(action.second);
     }
   }
 
