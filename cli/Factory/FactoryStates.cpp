@@ -1,8 +1,6 @@
 //
 // Created by valeriisudakov on 11.09.20.
 //
-
-#include "States/Menus/MenuActions.h"
 #include "FactoryStates.h"
 #include "States/StatesID.h"
 #include "States/EditSystemStates/AddTaskState.h"
@@ -25,8 +23,6 @@
 #include "States/ShowStates/ShowByLabelState.h"
 #include "States/ShowStates/ShowByIDState.h"
 #include "States/Menus/Menu.h"
-
-#include "States/Menus/MenuActions.h"
 
 #include "LazyInitClass.h"
 
@@ -61,19 +57,23 @@ std::shared_ptr<State> FactoryStates::Create(StatesID id){
   if (StatesID::EXIT == id){
     return nullptr;
   }
-  for (auto& menu : menuStates_){
-    if (id == menu.first){
-      if (nullptr == menu.second){
-        menu.second = CreateMenu(menu.first);
-      }
-      return menu.second;
+  auto menu = menuStates_.find(id);
+  if (menuStates_.end() != menu){
+    if (nullptr == menu->second){
+      menu->second = CreateMenu(menu->first);
+    }
+    return menu->second;
+  }
+
+  auto state = states_.find(id);
+  if (states_.end() != state){
+    if (id == state->first){
+      return state->second->Create();
     }
   }
-  for (auto& state : states_){
-    if (id == state.first){
-      return state.second->Create();
-    }
-  }
+
+  // if State does not exist
+  return nullptr;
 }
 
 std::shared_ptr<State>  CreateMenu(StatesID id){
