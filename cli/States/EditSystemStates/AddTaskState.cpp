@@ -4,7 +4,7 @@
 
 #include "AddTaskState.h"
 #include "Factory/Factory.h"
-#include "InputOutpuConsoleLayer.h"
+#include "InputOutputConsoleLayer.h"
 
 AddTaskState::AddTaskState() : State(StatesID::ADD_TASK){}
 
@@ -13,7 +13,7 @@ AddTaskState::~AddTaskState() = default;
 StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   auto addTaskMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_TASK_PARAMS,
                                                            context,
-                                                           std::move(std::make_unique<InputOutpuConsoleLayer>()));
+                                                           std::move(std::make_unique<InputOutputConsoleLayer>()));
   addTaskMachine->Execute();
 
   auto result = context->taskService_->AddTask(TaskDTO::Create(context->buffer_.name, context->buffer_.label,

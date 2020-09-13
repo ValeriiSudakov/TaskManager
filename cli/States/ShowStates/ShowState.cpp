@@ -3,12 +3,12 @@
 //
 #include "Factory/Factory.h"
 #include "ShowState.h"
-#include "InputOutpuConsoleLayer.h"
+#include "InputOutputConsoleLayer.h"
 
 StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, const InputOutputLayer &IO) {
   auto showMachine = Factory::CreateAfterMenuState(   showStateID_,
                                                       context,
-                                                      std::move(std::make_unique<InputOutpuConsoleLayer>()));
+                                                      std::move(std::make_unique<InputOutputConsoleLayer>()));
   showMachine->Execute();
 
   if (context->tasks_.empty()){

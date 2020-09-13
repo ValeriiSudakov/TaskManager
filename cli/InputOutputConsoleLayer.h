@@ -2,11 +2,11 @@
 // Created by valeriisudakov on 31.08.20.
 //
 
-#ifndef TASKMANAGER_CLI_INPUTOUTPUCONSOLELAYER_H_
-#define TASKMANAGER_CLI_INPUTOUTPUCONSOLELAYER_H_
+#ifndef TASKMANAGER_CLI_INPUTOUTPUTCONSOLELAYER_H_
+#define TASKMANAGER_CLI_INPUTOUTPUTCONSOLELAYER_H_
 #include "InputOutputLayer.h"
 
-class InputOutpuConsoleLayer : public InputOutputLayer{
+class InputOutputConsoleLayer : public InputOutputLayer{
  public:
   std::string Input() const override {
     std::string str;
@@ -18,4 +18,4 @@ class InputOutpuConsoleLayer : public InputOutputLayer{
   }
 };
 
-#endif //TASKMANAGER_CLI_INPUTOUTPUCONSOLELAYER_H_
+#endif //TASKMANAGER_CLI_INPUTOUTPUTCONSOLELAYER_H_

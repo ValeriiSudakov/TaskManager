@@ -3,14 +3,14 @@
 //
 
 #include "Menu.h"
-#include "InputOutpuConsoleLayer.h"
+#include "InputOutputConsoleLayer.h"
 #include "States/ShowStates/ShowState.h"
 #include "States/EditSystemStates/EditState.h"
 #include "Factory/Factory.h"
 
 
 std::shared_ptr<State> Menu::ReadAction() {
-  InputOutpuConsoleLayer io;
+  InputOutputConsoleLayer io;
   PrintNextStates(io);
 
   io.Output({"Input command: "});

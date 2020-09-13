@@ -4,7 +4,7 @@
 
 #include "ShowByLabelState.h"
 #include "Factory/Factory.h"
-#include "InputOutpuConsoleLayer.h"
+#include "InputOutputConsoleLayer.h"
 
 ShowByLabelState::ShowByLabelState() : State(StatesID::SHOW_BY_LABEL){}
 
@@ -13,7 +13,7 @@ ShowByLabelState::~ShowByLabelState() = default;
 StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   auto inputLabelMachine = Factory::CreateFiniteStatesMachine( FiniteStateMachineID::INPUT_LABEL,
                                                                context,
-                                                               std::move(std::make_unique<InputOutpuConsoleLayer>()));
+                                                               std::move(std::make_unique<InputOutputConsoleLayer>()));
   inputLabelMachine->Execute();
 
   auto task = context->taskService_->GetTask(context->buffer_.id);

@@ -4,7 +4,7 @@
 
 #include "CompleteState.h"
 #include "Factory/Factory.h"
-#include "InputOutpuConsoleLayer.h"
+#include "InputOutputConsoleLayer.h"
 
 CompleteState::CompleteState() : State(StatesID::COMPLETE) {}
 
@@ -13,7 +13,7 @@ CompleteState::~CompleteState() = default;
 StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   auto inputIDMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_ID,
                                                            context,
-                                                           std::move(std::make_unique<InputOutpuConsoleLayer>()));
+                                                           std::move(std::make_unique<InputOutputConsoleLayer>()));
 
   inputIDMachine->Execute();
 

@@ -4,7 +4,7 @@
 
 #include "PostponeState.h"
 #include "Factory/Factory.h"
-#include "InputOutpuConsoleLayer.h"
+#include "InputOutputConsoleLayer.h"
 PostponeState::PostponeState() : State(StatesID::POSTPONE){}
 
 PostponeState::~PostponeState() = default;
@@ -12,7 +12,7 @@ PostponeState::~PostponeState() = default;
 StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
   auto postponeMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::POSTPONE,
                                                             context,
-                                                            std::move(std::make_unique<InputOutpuConsoleLayer>()));
+                                                            std::move(std::make_unique<InputOutputConsoleLayer>()));
 
   postponeMachine->Execute();
 

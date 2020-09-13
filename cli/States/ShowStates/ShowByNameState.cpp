@@ -1,7 +1,7 @@
 //
 // Created by valeriisudakov on 20.08.20.
 //
-#include "InputOutpuConsoleLayer.h"
+#include "InputOutputConsoleLayer.h"
 #include "ShowByNameState.h"
 #include "Factory/Factory.h"
 ShowByNameState::ShowByNameState() : State (StatesID::SHOW_BY_NAME) {}
@@ -11,7 +11,7 @@ ShowByNameState::~ShowByNameState() = default;
 StateOperationResult ShowByNameState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
   auto inputNameStateMachine = Factory::CreateFiniteStatesMachine( FiniteStateMachineID::INPUT_NAME,
                                                                  context,
-                                                                 std::move(std::make_unique<InputOutpuConsoleLayer>()));
+                                                                 std::move(std::make_unique<InputOutputConsoleLayer>()));
   inputNameStateMachine->Execute();
 
   std::string output { "Tasks list will be updated. Sort tasks by priority? [y/n]: " };

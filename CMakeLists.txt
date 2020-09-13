@@ -26,6 +26,7 @@ file(GLOB core_HEADERS "core/API/*.h" "core/Date/*.h" "core/Memory_Model/*.h"
 
 ############## tests ########################################################
 file(GLOB core_TEST_SOURCES "tests/core/*.cpp")
+file(GLOB cli_TEST_SOURCES "tests/cli/*.cpp")
 
 
 add_executable(TaskManager ${core_HEADERS} ${core_CPP_SOURCES}
@@ -52,7 +53,12 @@ enable_testing()
 
 include_directories(tests)
 add_executable(coreTests ${core_TEST_SOURCES} ${core_CPP_SOURCES})
+add_executable(cliTests ${core_TEST_SOURCES} ${core_CPP_SOURCES} ${cli_CPP_SOURCES} ${cli_TEST_SOURCES})
 
-target_link_libraries(coreTests GTest::GTest GTest::Main)
+target_link_libraries(coreTests GTest::GTest GTest::Main ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY})
 gtest_discover_tests(coreTests)
+
+target_link_libraries(cliTests GTest::GTest GTest::Main ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY})
+gtest_discover_tests(cliTests)
+
 
