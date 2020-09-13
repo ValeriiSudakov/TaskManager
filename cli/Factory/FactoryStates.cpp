@@ -28,31 +28,31 @@
 
 #include "States/Menus/MenuActions.h"
 
-#include "LasyInitClass.h"
+#include "LazyInitClass.h"
 
 FactoryStates::FactoryStates() {
   menuStates_[StatesID::BASE_MENU] = nullptr;
   menuStates_[StatesID::CONTINUE_MENU] = nullptr;
 
-  states_[StatesID::ADD_TASK] = std::make_unique<LasyInitClass<AddTaskState>>();
-  states_[StatesID::ADD_SUBTASK] = std::make_unique<LasyInitClass<AddSubtaskState>>();
-  states_[StatesID::POSTPONE] = std::make_unique<LasyInitClass<PostponeState  >>();
-  states_[StatesID::COMPLETE] = std::make_unique<LasyInitClass<CompleteState>>();
-  states_[StatesID::DELETE] = std::make_unique<LasyInitClass<DeleteState>>();
+  states_[StatesID::ADD_TASK] = std::make_unique<LazyInitClass<AddTaskState>>();
+  states_[StatesID::ADD_SUBTASK] = std::make_unique<LazyInitClass<AddSubtaskState>>();
+  states_[StatesID::POSTPONE] = std::make_unique<LazyInitClass<PostponeState  >>();
+  states_[StatesID::COMPLETE] = std::make_unique<LazyInitClass<CompleteState>>();
+  states_[StatesID::DELETE] = std::make_unique<LazyInitClass<DeleteState>>();
 
-  states_[StatesID::INPUT_TASK] = std::make_unique<LasyInitClass<InputTask>>();
-  states_[StatesID::INPUT_DATE] = std::make_unique<LasyInitClass<InputDateState>>();
-  states_[StatesID::INPUT_PRIORITY] = std::make_unique<LasyInitClass<InputPriorityState>>();
-  states_[StatesID::INPUT_LABEL] = std::make_unique<LasyInitClass<InputLabelState>>();
-  states_[StatesID::INPUT_NAME] = std::make_unique<LasyInitClass<InputNameState>>();
-  states_[StatesID::INPUT_ID] = std::make_unique<LasyInitClass<InputIDState>>();
+  states_[StatesID::INPUT_TASK] = std::make_unique<LazyInitClass<InputTask>>();
+  states_[StatesID::INPUT_DATE] = std::make_unique<LazyInitClass<InputDateState>>();
+  states_[StatesID::INPUT_PRIORITY] = std::make_unique<LazyInitClass<InputPriorityState>>();
+  states_[StatesID::INPUT_LABEL] = std::make_unique<LazyInitClass<InputLabelState>>();
+  states_[StatesID::INPUT_NAME] = std::make_unique<LazyInitClass<InputNameState>>();
+  states_[StatesID::INPUT_ID] = std::make_unique<LazyInitClass<InputIDState>>();
 
-  states_[StatesID::SHOW_ALL] = std::make_unique<LasyInitClass<ShowAllState>>();
-  states_[StatesID::SHOW_BY_ID] = std::make_unique<LasyInitClass<ShowByIDState>>();
-  states_[StatesID::SHOW_BY_LABEL] = std::make_unique<LasyInitClass<ShowByLabelState>>();
-  states_[StatesID::SHOW_BY_NAME] = std::make_unique<LasyInitClass<ShowByNameState>>();
-  states_[StatesID::SHOW_TODAY] = std::make_unique<LasyInitClass<ShowTodayState>>();
-  states_[StatesID::SHOW_THIS_WEEK] = std::make_unique<LasyInitClass<ShowThisWeekState>>();
+  states_[StatesID::SHOW_ALL] = std::make_unique<LazyInitClass<ShowAllState>>();
+  states_[StatesID::SHOW_BY_ID] = std::make_unique<LazyInitClass<ShowByIDState>>();
+  states_[StatesID::SHOW_BY_LABEL] = std::make_unique<LazyInitClass<ShowByLabelState>>();
+  states_[StatesID::SHOW_BY_NAME] = std::make_unique<LazyInitClass<ShowByNameState>>();
+  states_[StatesID::SHOW_TODAY] = std::make_unique<LazyInitClass<ShowTodayState>>();
+  states_[StatesID::SHOW_THIS_WEEK] = std::make_unique<LazyInitClass<ShowThisWeekState>>();
 
 }
 

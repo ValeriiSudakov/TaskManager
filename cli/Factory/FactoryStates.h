@@ -6,7 +6,7 @@
 #define TASKMANAGER_CLI_FACTORY_FACTORYSTATES_H_
 #include <map>
 #include "States/State.h"
-#include "LasyInit.h"
+#include "LazyInit.h"
 
 class FactoryStates {
  public:
@@ -17,7 +17,7 @@ class FactoryStates {
 
  private:
   std::map<StatesID, std::shared_ptr<State>> menuStates_;
-  std::map<StatesID, std::unique_ptr<LasyInit>> states_;
+  std::map<StatesID, std::unique_ptr<LazyInit>> states_;
 };
 
 std::shared_ptr<State> CreateMenu(StatesID id);

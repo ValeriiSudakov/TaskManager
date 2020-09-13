@@ -7,10 +7,10 @@
 #ifndef TASKMANAGER_CLI_FACTORY_LASYINIT_H_
 #define TASKMANAGER_CLI_FACTORY_LASYINIT_H_
 
-class LasyInit{
+class LazyInit{
  public:
   virtual std::shared_ptr<State> Create() = 0;
-  virtual ~LasyInit() = default;
+  virtual ~LazyInit() = default;
 };
 
 #endif //TASKMANAGER_CLI_FACTORY_LASYINIT_H_
