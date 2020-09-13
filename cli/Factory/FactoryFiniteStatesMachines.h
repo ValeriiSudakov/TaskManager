@@ -30,7 +30,6 @@ class FactoryFiniteStatesMachines {
 
  private:
   std::map<FiniteStateMachineID, std::shared_ptr<StateMachine>> stateMachines_;
-  std::set<FiniteStateMachineID> afterMenuMachines_;
 };
 
 #endif //TASKMANAGER_CLI_FACTORY_FACTORYFINITESTATESMACHINES_H_
