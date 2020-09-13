@@ -33,5 +33,5 @@ bool Date::IsThisWeek(const boost::gregorian::date& day){
 std::uint32_t Date::DayForEndOfWeek(){
   auto currentDate = Date::GetCurrentTime();
   auto dayOfWeek = currentDate.day_of_week();
-  return dayOfWeek == 0 ? 0 : currentDate.day_number() + 7 - dayOfWeek;
+  return dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + 7 - dayOfWeek;
 }

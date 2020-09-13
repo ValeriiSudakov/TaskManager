@@ -3,22 +3,20 @@
 //
 
 #include "CompleteState.h"
-#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
+#include "InputOutpuConsoleLayer.h"
+
 CompleteState::CompleteState() : State(StatesID::COMPLETE) {}
 
 CompleteState::~CompleteState() = default;
 
 StateOperationResult CompleteState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
-  std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
-                                                  std::list<StatesID>{
-                                                          StatesID::INPUT_ID,
-                                                          StatesID::EXIT
-                                                  },
-                                                  context,
-                                                  std::move(std::make_unique<InputOutpuConsoleLayer>())
-                                              );
-  inputIDStateMachine->Execute();
+  auto inputIDMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_ID,
+                                                           context,
+                                                           std::move(std::make_unique<InputOutpuConsoleLayer>()));
+
+  inputIDMachine->Execute();
+
   auto result = context->taskService_->SetTaskComplete(context->buffer_.id);
   if (result){
     std::string success { "Task was completed.\n" };

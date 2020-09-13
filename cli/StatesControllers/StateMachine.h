@@ -11,7 +11,7 @@
 class StateMachine {
  public:
   StateMachine(const std::shared_ptr<Context>& context, std::unique_ptr<InputOutputLayer> io) :
-                context_(std::move(context)), io_(std::move(io)){}
+                context_(context), io_(std::move(io)){}
 
               virtual ~StateMachine() = default;
 

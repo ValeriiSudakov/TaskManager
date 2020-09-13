@@ -1,11 +1,7 @@
 //
 // Created by valeriisudakov on 20.08.20.
 //
-
-#include "StatesControllers/StateMachineMenu.h"
 #include "ShowTodayState.h"
-#include "States/Menus/Menu.h"
-#include "Factory/Factory.h"
 
 ShowTodayState::ShowTodayState() : State(StatesID::SHOW_TODAY) {}
 

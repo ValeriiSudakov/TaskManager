@@ -4,8 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_STATE_H_
 #define TASKMANAGER_CLI_STATE_H_
-#include <set>
-#include <iostream>
+
 #include <memory>
 #include "Context.h"
 #include "StateOperationResult.h"

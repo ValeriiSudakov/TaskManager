@@ -2,25 +2,19 @@
 // Created by valeriisudakov on 20.08.20.
 //
 
-#include "StatesControllers/StateMachineMenu.h"
 #include "ShowByLabelState.h"
-#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
+#include "InputOutpuConsoleLayer.h"
 
 ShowByLabelState::ShowByLabelState() : State(StatesID::SHOW_BY_LABEL){}
 
 ShowByLabelState::~ShowByLabelState() = default;
 
 StateOperationResult ShowByLabelState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
-  std::unique_ptr<StateMachine> inputLabelDStateMachine = std::make_unique<FiniteStateMachine>(
-      std::list<StatesID>{
-          StatesID::INPUT_LABEL,
-          StatesID::EXIT
-      },
-      context,
-      std::move(std::make_unique<InputOutpuConsoleLayer>())
-  );
-  inputLabelDStateMachine->Execute();
+  auto inputLabelMachine = Factory::CreateFiniteStatesMachine( FiniteStateMachineID::INPUT_LABEL,
+                                                               context,
+                                                               std::move(std::make_unique<InputOutpuConsoleLayer>()));
+  inputLabelMachine->Execute();
 
   auto task = context->taskService_->GetTask(context->buffer_.id);
 

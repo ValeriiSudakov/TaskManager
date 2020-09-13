@@ -2,10 +2,7 @@
 // Created by valeriisudakov on 20.08.20.
 //
 
-#include "StatesControllers/StateMachineMenu.h"
 #include "ShowThisWeekState.h"
-#include "States/Menus/Menu.h"
-#include "Factory/Factory.h"
 
 ShowThisWeekState::ShowThisWeekState() : State(StatesID::SHOW_THIS_WEEK) {}
 

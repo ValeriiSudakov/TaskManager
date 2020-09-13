@@ -3,22 +3,19 @@
 //
 
 #include "DeleteState.h"
-#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
+#include "InputOutpuConsoleLayer.h"
+
 DeleteState::DeleteState() : State(StatesID::DELETE){}
 
 DeleteState::~DeleteState() = default;
 
 StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
-  std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
-                                                    std::list<StatesID>{
-                                                        StatesID::INPUT_ID,
-                                                        StatesID::EXIT
-                                                    },
-                                                    context,
-                                                    std::move(std::make_unique<InputOutpuConsoleLayer>())
-                                                );
-  inputIDStateMachine->Execute();
+  auto inputIDMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_ID,
+                                                           context,
+                                                           std::move(std::make_unique<InputOutpuConsoleLayer>()));
+  inputIDMachine->Execute();
+
   auto result = context->taskService_->RemoveTask(context->buffer_.id);
   if (result){
     std::string success { "Task was removed.\n" };

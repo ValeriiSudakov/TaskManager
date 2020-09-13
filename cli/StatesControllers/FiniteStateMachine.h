@@ -6,15 +6,16 @@
 #define TASKMANAGER_CLI_FINITESTATEMACHINE_H_
 #include "StateMachine.h"
 #include <list>
+#include <utility>
 
 class FiniteStateMachine : public StateMachine {
  public:
-  FiniteStateMachine(const  std::list<StatesID>& states,
+  FiniteStateMachine(std::list<StatesID>  states,
                      const std::shared_ptr<Context>& context,
                      std::unique_ptr<InputOutputLayer> io)
                      :
-                     states_(states),
-                     StateMachine(std::move(context), std::move(io)) { }
+                     states_(std::move(states)),
+                     StateMachine(context, std::move(io)) { }
   ~FiniteStateMachine() = default;
 
  public:

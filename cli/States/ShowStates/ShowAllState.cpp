@@ -3,10 +3,6 @@
 //
 
 #include "ShowAllState.h"
-#include "States/Menus/Menu.h"
-#include "StatesControllers/StateMachineMenu.h"
-
-#include "Factory/Factory.h"
 
 ShowAllState::ShowAllState() : State( StatesID::SHOW_ALL){}
 

@@ -2,23 +2,17 @@
 // Created by valeriisudakov on 25.08.20.
 //
 
+#include "InputOutpuConsoleLayer.h"
 #include "ShowByIDState.h"
-#include "States/Menus/Menu.h"
 #include "Factory/Factory.h"
-#include "StatesControllers/StateMachineMenu.h"
 ShowByIDState::ShowByIDState():State(StatesID::SHOW_BY_ID){}
 
 ShowByIDState::~ShowByIDState() = default;
 
 StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& IO) {
-  std::unique_ptr<StateMachine> inputIDStateMachine = std::make_unique<FiniteStateMachine>(
-                                                std::list<StatesID>{
-                                                    StatesID::INPUT_ID,
-                                                    StatesID::EXIT
-                                                },
-                                                context,
-                                                std::move(std::make_unique<InputOutpuConsoleLayer>())
-                                            );
+  auto inputIDStateMachine = Factory::CreateFiniteStatesMachine( FiniteStateMachineID::INPUT_ID,
+                                                                   context,
+                                                                   std::move(std::make_unique<InputOutpuConsoleLayer>()));
   inputIDStateMachine->Execute();
   auto task = context->taskService_->GetTask(context->buffer_.id);
 
