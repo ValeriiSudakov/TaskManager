@@ -11,34 +11,31 @@
 using ::testing::Return;
 
 
-class TestFiniteStatesMachine :  public ::testing::Test {
-
-};
-
 class MockIO : public InputOutputLayer{
  public:
   MOCK_METHOD(std::string, Input, (), (override));
   MOCK_METHOD(void, Output, (const std::string&), (override));
 };
 
+class TestFiniteStatesMachine :  public ::testing::Test {
 
+};
 
 TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesFiniteStatesMachine){
-
-  auto context = std::make_shared<Context>(nullptr);
-  auto io = std::make_shared<MockIO>();
-
   // 5 times - "input smth" , 1 time  - "error"
+
+  std::shared_ptr<MockIO> io = std::make_shared<MockIO>();
+  std::shared_ptr<Context> context = std::make_shared<Context>(nullptr);
   EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(5).WillOnce(Return("name"))
-                                       .WillOnce(Return(""))
-                                       .WillOnce(Return("Label"))
-                                       .WillOnce(Return("first"))
-                                       .WillOnce(Return("now"));
+      .WillOnce(Return(""))
+      .WillOnce(Return("Label"))
+      .WillOnce(Return("first"))
+      .WillOnce(Return("now"));
 
   auto stateMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_TASK_PARAMS,
                                                          context,
-                                                         io);
+                                                         *io);
   stateMachine->Execute();
 
 
@@ -47,9 +44,8 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesFiniteStatesMachine){
 
 TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
 
-  auto context = std::make_shared<Context>(nullptr);
-  auto io = std::make_shared<MockIO>();
-
+  std::shared_ptr<MockIO> io = std::make_shared<MockIO>();
+  std::shared_ptr<Context> context = std::make_shared<Context>(nullptr);
   // menus output: 8 +  "input command" * "name, label, priority, date, success" +8
   EXPECT_CALL(*io, Output).Times(22).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(6).WillOnce(Return("add task"))
@@ -61,7 +57,7 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
 
   auto inputNameMachine = Factory::CreateMenuStateMachine(StatesID::BASE_MENU,
                                                         context,
-                                                        io);
+                                                        *io);
 
   inputNameMachine->Execute();
 }

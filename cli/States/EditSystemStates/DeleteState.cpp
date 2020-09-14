@@ -10,7 +10,7 @@ DeleteState::DeleteState() : State(StatesID::DELETE){}
 
 DeleteState::~DeleteState() = default;
 
-StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) {
+StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
   auto inputIDMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_ID,
                                                            context,
                                                            io);
@@ -19,11 +19,11 @@ StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, st
 //  auto result = context->taskService_->RemoveTask(context->buffer_.id);
 //  if (result){
 //    std::string success { "Task was removed.\n" };
-//   io->Output(success);
+//   io.Output(success);
     return StateOperationResult::SUCCESS;
 //  } else {
 //    std::string fail { "Task was not found.\n" };
-//   io->Output(fail);
+//   io.Output(fail);
 //    return StateOperationResult::FAIL;
 //  }
 }

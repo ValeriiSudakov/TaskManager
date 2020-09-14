@@ -32,7 +32,7 @@ TEST_F(TestInput, shouldCorrectInputName){
   auto context = std::make_shared<Context>(nullptr);
   auto name = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_NAME,
                                                  context,
-                                                 io);
+                                                 *io);
   name->Execute();
 }
 
@@ -45,7 +45,7 @@ TEST_F(TestInput, shouldCorrectInputLabel){
   auto context = std::make_shared<Context>(nullptr);
   auto label = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_LABEL,
                                                  context,
-                                                 io);
+                                                  *io);
   label->Execute();
 }
 
@@ -58,6 +58,6 @@ TEST_F(TestInput, shouldCorrectInputDate){
   auto context = std::make_shared<Context>(nullptr);
   auto date = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE,
                                                   context,
-                                                  io);
+                                                  *io);
   date->Execute();
 }

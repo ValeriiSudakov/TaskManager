@@ -9,7 +9,7 @@ ShowByIDState::ShowByIDState():State(StatesID::SHOW_BY_ID){}
 
 ShowByIDState::~ShowByIDState() = default;
 
-StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) {
+StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
   auto inputIDStateMachine = Factory::CreateFiniteStatesMachine( FiniteStateMachineID::INPUT_ID,
                                                                    context,
                                                                    io);
@@ -24,13 +24,13 @@ StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, 
 //      std::cout<<"Subtasks:\n";
 //      for (const auto& sub : subtasks){
 //        std::string taskStr { "* " + sub.GetName() + "\n" };
-//       io->Output(taskStr);
+//       io.Output(taskStr);
 //      }
 //    }
 //
     return StateOperationResult::SUCCESS;
 //  }
 //  std::string notFound { "Task was not found.\n" };
-// io->Output(notFound);
+// io.Output(notFound);
 //  return StateOperationResult::TASKS_LIST_EMPTY;
 }

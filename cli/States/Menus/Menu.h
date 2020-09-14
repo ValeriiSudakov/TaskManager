@@ -13,11 +13,11 @@ class Menu : public State {
   virtual ~Menu() = default;
 
  public:
-  virtual StateOperationResult              Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) override;
-  virtual std::shared_ptr<State>            ReadAction(std::shared_ptr<InputOutputLayer> io) override;
+  virtual StateOperationResult              Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) override;
+  virtual std::shared_ptr<State>            ReadAction(InputOutputLayer& io) override;
 
  private:
-  void                                      PrintNextStates(std::shared_ptr<InputOutputLayer> io) const;
+  void                                      PrintNextStates(InputOutputLayer& io) const;
 
  private:
   std::unique_ptr<Actions> actions_;

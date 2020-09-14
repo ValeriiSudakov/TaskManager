@@ -10,9 +10,9 @@
 
 class ExecuteStatesMachine : public StateMachine {
  public:
-  ExecuteStatesMachine(std::list<StatesID>  states,
+  ExecuteStatesMachine(std::vector<StatesID>  states,
                        const std::shared_ptr<Context>& context,
-                       std::shared_ptr<InputOutputLayer> io)
+                       InputOutputLayer& io)
                      :
                      states_(std::move(states)),
                      StateMachine(context, io) { }
@@ -22,7 +22,7 @@ class ExecuteStatesMachine : public StateMachine {
   void Execute() override;
 
  private:
-  std::list<StatesID> states_;
+  std::vector<StatesID> states_;
 };
 
 #endif //TASKMANAGER_CLI_FINITESTATEMACHINE_H_

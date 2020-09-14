@@ -9,11 +9,11 @@
 #include "Factory/Factory.h"
 
 
-std::shared_ptr<State> Menu::ReadAction(std::shared_ptr<InputOutputLayer> io) {
+std::shared_ptr<State> Menu::ReadAction(InputOutputLayer& io) {
   PrintNextStates(io);
 
-  io->Output({"Input command: "});
-  std::string input { io->Input() };
+  io.Output({"Input command: "});
+  std::string input { io.Input() };
   if (input == actions_->exit_.first){
     return std::move(Factory::CreateState(actions_->exit_.second));
   }
@@ -31,17 +31,17 @@ std::shared_ptr<State> Menu::ReadAction(std::shared_ptr<InputOutputLayer> io) {
   return std::move(Factory::CreateState(GetStateID()));
 }
 
-void Menu::PrintNextStates(std::shared_ptr<InputOutputLayer> io) const {
-  io->Output({"\n"});
+void Menu::PrintNextStates(InputOutputLayer& io) const {
+  io.Output({"\n"});
   for (const auto& action : actions_->edit_){
-    io->Output({action.first + "\n"});
+    io.Output({action.first + "\n"});
   }
   for (const auto& action : actions_->show_){
-    io->Output({action.first + "\n"});
+    io.Output({action.first + "\n"});
   }
- io->Output({actions_->exit_.first + "\n"});
+ io.Output({actions_->exit_.first + "\n"});
 }
 
-StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, std::shared_ptr<InputOutputLayer> io) {
+StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) {
   return StateOperationResult::SUCCESS;
 }

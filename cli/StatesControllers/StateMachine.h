@@ -10,7 +10,7 @@
 
 class StateMachine {
  public:
-  StateMachine(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) :
+  StateMachine(const std::shared_ptr<Context>& context, InputOutputLayer& io) :
                 context_(context), io_(io){}
 
               virtual ~StateMachine() = default;
@@ -20,7 +20,7 @@ class StateMachine {
 
  protected:
   std::shared_ptr<Context> context_;
-  std::shared_ptr<InputOutputLayer> io_;
+  InputOutputLayer& io_;
 };
 
 #endif //TASKMANAGER_CLI_STATESCONTROLLERS_STATEMACHINE_H_

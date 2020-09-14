@@ -12,6 +12,6 @@ class ShowByLabelState : public State {
   ~ShowByLabelState();
 
  public:
-  StateOperationResult       Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) override;
+  StateOperationResult       Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) override;
 };
 #endif //TASKMANAGER_CLI_STATES_SHOWBYLABELSTATE_H_

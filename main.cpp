@@ -10,7 +10,7 @@ int main(){
   auto menu = Factory::CreateMenuStateMachine(StatesID::BASE_MENU,
                                                std::make_shared<Context>(std::move(std::make_unique<TaskService>(
                                                                                                  TaskService::Create()))),
-                                                 io
+                                                 *io
                                                  );
   menu->Execute();
   return 0;

@@ -11,7 +11,7 @@ public:
   ~InputTask();
 
 public:
-  StateOperationResult  Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) override;
+  StateOperationResult  Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTTASK_H_

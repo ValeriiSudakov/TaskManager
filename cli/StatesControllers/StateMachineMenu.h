@@ -10,7 +10,7 @@ class StateMachineMenu : public StateMachine {
  public:
   ~StateMachineMenu() = default;
 
-  StateMachineMenu(const StatesID& menuID, const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) :
+  StateMachineMenu(const StatesID& menuID, const std::shared_ptr<Context>& context, InputOutputLayer& io) :
                   menuID_(menuID), StateMachine(context, io) {}
  public:
   void Execute() override;
