@@ -32,7 +32,7 @@ std::shared_ptr<State> Menu::ReadAction() {
   return std::move(Factory::CreateState(GetStateID()));
 }
 
-void Menu::PrintNextStates(const InputOutputLayer &io) const {
+void Menu::PrintNextStates(InputOutputLayer& io) const {
   io.Output({"\n"});
   for (const auto& action : actions_->edit_){
     io.Output({action.first + "\n"});
@@ -43,6 +43,6 @@ void Menu::PrintNextStates(const InputOutputLayer &io) const {
   io.Output({actions_->exit_.first + "\n"});
 }
 
-StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, const InputOutputLayer &io) {
+StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) {
   return StateOperationResult::SUCCESS;
 }

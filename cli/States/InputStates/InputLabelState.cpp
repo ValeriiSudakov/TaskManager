@@ -8,7 +8,7 @@ InputLabelState::InputLabelState() : State(StatesID::INPUT_LABEL){}
 
 InputLabelState::~InputLabelState() = default;
 
-StateOperationResult InputLabelState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io){
+StateOperationResult InputLabelState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io){
   std::string output {"Input label: " };
   io.Output(output);
 

@@ -10,7 +10,7 @@ AddSubtaskState::AddSubtaskState() : State(StatesID::ADD_SUBTASK){ }
 
 AddSubtaskState::~AddSubtaskState() = default;
 
-StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
+StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
   auto addTaskMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_SUBTASK_PARAMS,
                                                            context,
                                                            std::move(std::make_unique<InputOutputConsoleLayer>()));

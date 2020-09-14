@@ -9,7 +9,7 @@ PostponeState::PostponeState() : State(StatesID::POSTPONE){}
 
 PostponeState::~PostponeState() = default;
 
-StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
+StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
   auto postponeMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::POSTPONE,
                                                             context,
                                                             std::move(std::make_unique<InputOutputConsoleLayer>()));

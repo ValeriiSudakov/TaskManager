@@ -11,7 +11,7 @@ class ShowState : public State{
   ShowState(StatesID showStateID) : State (StatesID::SHOW), showStateID_(showStateID){}
   ~ShowState() = default;
 
-  StateOperationResult    Do(const std::shared_ptr<Context> &context, const InputOutputLayer &IO) override;
+  StateOperationResult    Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) override;
   std::shared_ptr<State>  ReadAction() override;
  private:
   StatesID showStateID_;

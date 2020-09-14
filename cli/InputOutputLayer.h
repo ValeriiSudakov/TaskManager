@@ -10,8 +10,8 @@ class InputOutputLayer {
  public:
   virtual ~InputOutputLayer() = default;
 
-  virtual std::string Input() const = 0;
-  virtual void Output(const std::string& str) const = 0;
+  virtual std::string Input() = 0;
+  virtual void Output(const std::string& str) = 0;
 };
 
 

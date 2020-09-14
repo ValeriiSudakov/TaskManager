@@ -6,7 +6,7 @@
 #include "InputOutputConsoleLayer.h"
 #include "Factory/Factory.h"
 
-StateOperationResult EditState::Do(const std::shared_ptr<Context> &context, const InputOutputLayer &io) {
+StateOperationResult EditState::Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) {
   auto editMachine = Factory::CreateAfterMenuState(   editStateID_,
                                                       context,
                                                       std::move(std::make_unique<InputOutputConsoleLayer>()));

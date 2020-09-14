@@ -10,7 +10,7 @@ DeleteState::DeleteState() : State(StatesID::DELETE){}
 
 DeleteState::~DeleteState() = default;
 
-StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) {
+StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
   auto inputIDMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_ID,
                                                            context,
                                                            std::move(std::make_unique<InputOutputConsoleLayer>()));

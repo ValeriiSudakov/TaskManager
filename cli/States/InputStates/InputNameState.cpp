@@ -8,7 +8,7 @@ InputNameState::InputNameState(): State(StatesID::INPUT_NAME){}
 
 InputNameState::~InputNameState() = default;
 
-StateOperationResult InputNameState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io){
+StateOperationResult InputNameState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io){
   std::string output { "Input name: " };
   io.Output(output);
 

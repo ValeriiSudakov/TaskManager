@@ -5,7 +5,7 @@
 #include "ShowState.h"
 #include "InputOutputConsoleLayer.h"
 
-StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, const InputOutputLayer &IO) {
+StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) {
   auto showMachine = Factory::CreateAfterMenuState(   showStateID_,
                                                       context,
                                                       std::move(std::make_unique<InputOutputConsoleLayer>()));

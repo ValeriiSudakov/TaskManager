@@ -12,7 +12,7 @@ class AddSubtaskState : public State {
   ~AddSubtaskState();
 
  public:
-  StateOperationResult        Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io) override;
+  StateOperationResult        Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) override;
 };
 
 #endif //TASKMANAGER_CLI_STATES_ADDSUBTASK_H_

@@ -8,7 +8,7 @@ InputIDState::InputIDState() : State(StatesID::INPUT_ID){}
 
 InputIDState::~InputIDState() = default;
 
-StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, const InputOutputLayer& io){
+StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io){
   std::string output {"Input ID: " };
   io.Output(output);
 

@@ -8,12 +8,12 @@
 
 class InputOutputConsoleLayer : public InputOutputLayer{
  public:
-  std::string Input() const override {
+  std::string Input() override {
     std::string str;
     std::getline(std::cin, str);
     return str;
   }
-  void Output(const std::string& str) const{
+  void Output(const std::string& str) override{
     std::cout<<str;
   }
 };
