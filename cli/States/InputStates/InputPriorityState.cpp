@@ -9,12 +9,12 @@ InputPriorityState::InputPriorityState() : State(StatesID::INPUT_PRIORITY){}
 InputPriorityState::~InputPriorityState() = default;
 
 
-StateOperationResult InputPriorityState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io){
+StateOperationResult InputPriorityState::Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io){
 
   std::string output { "Input task priority [first/1, second/2, third/3, none/0/" ": " };
-  io.Output(output);
+ io->Output(output);
 
-  std::string priorityStr {io.Input() };
+  std::string priorityStr {io->Input() };
 
   Priority priority;
   if (priorityStr == "first" || priorityStr == "1") {
@@ -27,7 +27,7 @@ StateOperationResult InputPriorityState::Do(const std::shared_ptr<Context>& cont
     priority = Priority::NONE;
   } else {
     std::string incorrectPriorityError { "Incorrect input priority.\n" };
-    io.Output(incorrectPriorityError);
+   io->Output(incorrectPriorityError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 

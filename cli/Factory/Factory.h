@@ -19,15 +19,15 @@ class Factory{
   static std::shared_ptr<State>        CreateState(const StatesID& id);
   static std::shared_ptr<StateMachine> CreateFiniteStatesMachine(const FiniteStateMachineID& id,
                                                                  const std::shared_ptr<Context>& context,
-                                                                 std::unique_ptr<InputOutputLayer> io);
+                                                                 std::shared_ptr<InputOutputLayer> io);
 
   static std::shared_ptr<StateMachine> CreateMenuStateMachine(const StatesID &id,
                                                               const std::shared_ptr<Context> &context,
-                                                              std::unique_ptr<InputOutputLayer> io);
+                                                              std::shared_ptr<InputOutputLayer> io);
 
   static std::shared_ptr<StateMachine> CreateAfterMenuState(const StatesID& stateID,
                                                             const std::shared_ptr<Context>& context,
-                                                            std::unique_ptr<InputOutputLayer> io);
+                                                            std::shared_ptr<InputOutputLayer> io);
 
 };
 

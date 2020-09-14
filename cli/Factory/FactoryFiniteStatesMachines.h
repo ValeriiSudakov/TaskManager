@@ -16,16 +16,16 @@ class FactoryFiniteStatesMachines {
  public:
   std::shared_ptr<StateMachine> Create(const FiniteStateMachineID& id,
                                        const std::shared_ptr<Context>& context,
-                                             std::unique_ptr<InputOutputLayer> io);
+                                             std::shared_ptr<InputOutputLayer> io);
 
   std::shared_ptr<StateMachine> CreateAfterMenuState(const StatesID& stateID,
                                                      const std::shared_ptr<Context>& context,
-                                                     std::unique_ptr<InputOutputLayer> io);
+                                                     std::shared_ptr<InputOutputLayer> io);
 
 
   std::shared_ptr<StateMachine> CreateMenu(const StatesID& id,
                                            const std::shared_ptr<Context>& context,
-                                           std::unique_ptr<InputOutputLayer> io);
+                                           std::shared_ptr<InputOutputLayer> io);
 
 
  private:

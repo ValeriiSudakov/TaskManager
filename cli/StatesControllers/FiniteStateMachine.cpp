@@ -10,7 +10,7 @@ void FiniteStateMachine::Execute(){
   StatesID nextState = *statesIterator;
   auto state = Factory::CreateState(*statesIterator);
   while (state){
-    auto result = state->Do(context_, *io_);
+    auto result = state->Do(context_, io_);
     if (StateOperationResult::SUCCESS == result){
       nextState = *(++statesIterator);
     } else if (StateOperationResult::TASKS_LIST_EMPTY == result){

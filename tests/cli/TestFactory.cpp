@@ -12,11 +12,11 @@ class TestFactory :  public ::testing::Test {
  protected:
   virtual void SetUp() override{
     context = std::make_shared<Context>(nullptr);
-    io = std::move(std::make_unique<InputOutputConsoleLayer>());
+    io = std::make_shared<InputOutputConsoleLayer>();
   }
 
   std::shared_ptr<Context> context;
-  std::unique_ptr<InputOutputLayer> io;
+  std::shared_ptr<InputOutputLayer> io;
 
 };
 
@@ -81,44 +81,44 @@ TEST_F(TestFactory, shouldCorrectCreateStates){
 
 TEST_F(TestFactory, shouldCorrectCreateAfterMenu) {
 
-  auto show = Factory::CreateAfterMenuState(StatesID::SHOW, context, std::move(io));
+  auto show = Factory::CreateAfterMenuState(StatesID::SHOW, context, io);
   ASSERT_NE(show, nullptr);
 
-  auto edit = Factory::CreateAfterMenuState(StatesID::EDIT, context, std::move(io));
+  auto edit = Factory::CreateAfterMenuState(StatesID::EDIT, context, io);
   ASSERT_NE(edit, nullptr);
 
 }
 
 TEST_F(TestFactory, shouldCorrectCreateMenu){
 
-  auto baseMenu = Factory::CreateMenuStateMachine(StatesID::BASE_MENU, context, std::move(io));
+  auto baseMenu = Factory::CreateMenuStateMachine(StatesID::BASE_MENU, context, io);
   ASSERT_NE(baseMenu, nullptr);
 
-  auto continueMenu = Factory::CreateMenuStateMachine(StatesID::CONTINUE_MENU, context, std::move(io));
+  auto continueMenu = Factory::CreateMenuStateMachine(StatesID::CONTINUE_MENU, context, io);
   ASSERT_NE(continueMenu, nullptr);
 
 }
 
 TEST_F(TestFactory, shouldCorrectCreate){
 
-  auto inputName = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_NAME, context, std::move(io));
+  auto inputName = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_NAME, context, io);
   ASSERT_NE(inputName, nullptr);
 
-  auto inputLabel = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_LABEL, context, std::move(io));
+  auto inputLabel = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_LABEL, context, io);
   ASSERT_NE(inputName, nullptr);
 
-  auto inputID = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_ID, context, std::move(io));
+  auto inputID = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_ID, context, io);
   ASSERT_NE(inputID, nullptr);
 
-  auto inputDate = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE, context, std::move(io));
+  auto inputDate = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE, context, io);
   ASSERT_NE(inputDate, nullptr);
 
-  auto postpone = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::POSTPONE, context, std::move(io));
+  auto postpone = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::POSTPONE, context, io);
   ASSERT_NE(postpone, nullptr);
 
-  auto taskParams = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_TASK_PARAMS, context, std::move(io));
+  auto taskParams = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_TASK_PARAMS, context, io);
   ASSERT_NE(taskParams, nullptr);
 
-  auto subtaskParams = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_SUBTASK_PARAMS, context, std::move(io));
+  auto subtaskParams = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_SUBTASK_PARAMS, context, io);
   ASSERT_NE(subtaskParams, nullptr);
 }

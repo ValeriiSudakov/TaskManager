@@ -20,29 +20,29 @@ FactoryFiniteStatesMachines::~FactoryFiniteStatesMachines() = default;
 
 std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::CreateMenu(const StatesID& id,
                                                                       const std::shared_ptr<Context>& context,
-                                                                      std::unique_ptr<InputOutputLayer> io) {
+                                                                      std::shared_ptr<InputOutputLayer> io) {
 
-  return std::move(std::make_shared<StateMachineMenu>(id, context, std::move(io)));
+  return std::move(std::make_shared<StateMachineMenu>(id, context, io));
 
 }
 
 std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::CreateAfterMenuState(const StatesID& stateID,
                                                                                 const std::shared_ptr<Context> &context,
-                                                                                std::unique_ptr<InputOutputLayer> io) {
-  return std::move(std::make_shared<FiniteStateMachine>(
+                                                                                std::shared_ptr<InputOutputLayer> io) {
+  return std::make_shared<FiniteStateMachine>(
                                           std::list<StatesID>{
                                               stateID,
                                               StatesID::EXIT
                                           },
                                           context,
-                                          std::move(io)));
+                                          io);
 
 }
 
 
 std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteStateMachineID& id,
                                                                   const std::shared_ptr<Context>& context,
-                                                                        std::unique_ptr<InputOutputLayer> io) {
+                                                                        std::shared_ptr<InputOutputLayer> io) {
 
 
 
@@ -59,7 +59,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
                                                     StatesID::EXIT
                                                 },
                                                 context,
-                                                std::move(io));
+                                                io);
       }
   }
   else if (FiniteStateMachineID::INPUT_DATE == stateMachine->first){
@@ -70,7 +70,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
                                                     StatesID::EXIT
                                                 },
                                                 context,
-                                                std::move(io));
+                                                io);
     }
   }
   else if (FiniteStateMachineID::INPUT_LABEL == stateMachine->first){
@@ -81,7 +81,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
                                                       StatesID::EXIT
                                                   },
                                                   context,
-                                                  std::move(io));
+                                                  io);
     }
   }
   else if (FiniteStateMachineID::INPUT_NAME == stateMachine->first){
@@ -92,7 +92,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
                                                     StatesID::EXIT
                                                 },
                                                 context,
-                                                std::move(io));
+                                                io);
     }
   }
   else if (FiniteStateMachineID::POSTPONE == stateMachine->first){
@@ -104,7 +104,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
               StatesID::EXIT
           },
           context,
-          std::move(io));
+          io);
     }
   }
   else if (FiniteStateMachineID::INPUT_TASK_PARAMS == stateMachine->first){
@@ -118,7 +118,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
                                                     StatesID::EXIT
                                                 },
                                                 context,
-                                                std::move(io));
+                                                io);
     }
   }
   else if (FiniteStateMachineID::INPUT_SUBTASK_PARAMS == stateMachine->first){
@@ -130,7 +130,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
                                                     StatesID::EXIT
                                                 },
                                                 context,
-                                                std::move(io));
+                                                io);
     }
   }
   return stateMachine->second;

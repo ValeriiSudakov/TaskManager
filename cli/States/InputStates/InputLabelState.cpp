@@ -8,15 +8,15 @@ InputLabelState::InputLabelState() : State(StatesID::INPUT_LABEL){}
 
 InputLabelState::~InputLabelState() = default;
 
-StateOperationResult InputLabelState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io){
+StateOperationResult InputLabelState::Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io){
   std::string output {"Input label: " };
-  io.Output(output);
+ io->Output(output);
 
-  std::string labelStr {io.Input() };
+  std::string labelStr {io->Input() };
 
   if (labelStr.empty()){
     std::string emptyLabelError { "label must be non-empty.\n" };
-    io.Output(emptyLabelError);
+   io->Output(emptyLabelError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 

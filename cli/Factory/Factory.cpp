@@ -18,16 +18,16 @@ std::shared_ptr<State> Factory::CreateState(const StatesID &id) {
 
 std::shared_ptr<StateMachine> Factory::CreateFiniteStatesMachine(const FiniteStateMachineID &id,
                                                                const std::shared_ptr<Context> &context,
-                                                               std::unique_ptr<InputOutputLayer> io) {
+                                                               std::shared_ptr<InputOutputLayer> io) {
 
-  return statesMachineFactory->Create(id, context, std::move(io));
+  return statesMachineFactory->Create(id, context, io);
 }
 
 std::shared_ptr<StateMachine> Factory::CreateMenuStateMachine(const StatesID &id,
                                                             const std::shared_ptr<Context> &context,
-                                                            std::unique_ptr<InputOutputLayer> io) {
+                                                            std::shared_ptr<InputOutputLayer> io) {
 
-  return statesMachineFactory->CreateMenu(id, context, std::move(io));
+  return statesMachineFactory->CreateMenu(id, context, io);
 
 
 }
@@ -35,8 +35,8 @@ std::shared_ptr<StateMachine> Factory::CreateMenuStateMachine(const StatesID &id
 
 std::shared_ptr<StateMachine> Factory::CreateAfterMenuState(const StatesID& stateID,
                                                             const std::shared_ptr<Context>& context,
-                                                            std::unique_ptr<InputOutputLayer> io){
+                                                            std::shared_ptr<InputOutputLayer> io){
 
-  return statesMachineFactory->CreateAfterMenuState(stateID, context, std::move(io));
+  return statesMachineFactory->CreateAfterMenuState(stateID, context, io);
 }
 

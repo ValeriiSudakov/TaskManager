@@ -12,10 +12,10 @@ class FiniteStateMachine : public StateMachine {
  public:
   FiniteStateMachine(std::list<StatesID>  states,
                      const std::shared_ptr<Context>& context,
-                     std::unique_ptr<InputOutputLayer> io)
+                     std::shared_ptr<InputOutputLayer> io)
                      :
                      states_(std::move(states)),
-                     StateMachine(context, std::move(io)) { }
+                     StateMachine(context, io) { }
   ~FiniteStateMachine() = default;
 
  public:

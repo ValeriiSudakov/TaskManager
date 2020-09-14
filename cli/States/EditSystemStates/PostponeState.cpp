@@ -9,21 +9,21 @@ PostponeState::PostponeState() : State(StatesID::POSTPONE){}
 
 PostponeState::~PostponeState() = default;
 
-StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
+StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, std::shared_ptr<InputOutputLayer> io) {
   auto postponeMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::POSTPONE,
                                                             context,
-                                                            std::move(std::make_unique<InputOutputConsoleLayer>()));
+                                                            io);
 
   postponeMachine->Execute();
 
-  auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
-  if (result){
-    std::string success { "Task postponed successfully.\n" };
-    io.Output(success);
+//  auto result = context->taskService_->PostponeTask(context->buffer_.id, context->buffer_.date);
+//  if (result){
+//    std::string success { "Task postponed successfully.\n" };
+//   io->Output(success);
     return StateOperationResult::SUCCESS;
-  } else {
-    std::string fail { "Postpone failed.\n" };
-    io.Output(fail);
-    return StateOperationResult::FAIL;
-  }
+//  } else {
+//    std::string fail { "Postpone failed.\n" };
+//   io->Output(fail);
+//    return StateOperationResult::FAIL;
+//  }
 }

@@ -5,10 +5,10 @@
 #include "ShowState.h"
 #include "InputOutputConsoleLayer.h"
 
-StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) {
+StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, std::shared_ptr<InputOutputLayer> io) {
   auto showMachine = Factory::CreateAfterMenuState(   showStateID_,
                                                       context,
-                                                      std::move(std::make_unique<InputOutputConsoleLayer>()));
+                                                      io);
   showMachine->Execute();
 
   if (context->tasks_.empty()){
@@ -18,6 +18,6 @@ StateOperationResult ShowState::Do(const std::shared_ptr<Context> &context, Inpu
   return StateOperationResult::SUCCESS;
 }
 
-std::shared_ptr<State> ShowState::ReadAction() {
+std::shared_ptr<State> ShowState::ReadAction(std::shared_ptr<InputOutputLayer> io) {
   return Factory::CreateState(StatesID::CONTINUE_MENU);
 }
