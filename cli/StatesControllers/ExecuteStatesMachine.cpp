@@ -2,10 +2,10 @@
 // Created by valeriisudakov on 27.08.20.
 //
 
-#include "FiniteStateMachine.h"
+#include "ExecuteStatesMachine.h"
 #include "Factory/Factory.h"
 
-void FiniteStateMachine::Execute(){
+void ExecuteStatesMachine::Execute(){
   auto statesIterator = states_.begin();
   StatesID nextState = *statesIterator;
   auto state = Factory::CreateState(*statesIterator);

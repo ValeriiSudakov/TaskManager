@@ -62,5 +62,6 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
   auto inputNameMachine = Factory::CreateMenuStateMachine(StatesID::BASE_MENU,
                                                         context,
                                                         io);
+
   inputNameMachine->Execute();
 }

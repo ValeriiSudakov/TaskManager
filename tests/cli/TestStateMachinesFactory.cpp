@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "Factory/FactoryFiniteStatesMachines.h"
+#include "Factory/FactoryExecuteStatesMachine.h"
 #include "InputOutputConsoleLayer.h"
 #include <memory>
 
@@ -20,18 +20,18 @@ class TestStatesMachineFactory :  public ::testing::Test {
 };
 
 TEST_F(TestStatesMachineFactory, shouldCorrectCreateAfterMenu) {
-  FactoryFiniteStatesMachines factory;
+  FactoryExecuteStatesMachine factory;
 
-  auto show = factory.CreateAfterMenuState(StatesID::SHOW, context, io);
+  auto show = factory.CreateAfterMenuStatesMachine(StatesID::SHOW, context, io);
   ASSERT_NE(show, nullptr);
 
-  auto edit = factory.CreateAfterMenuState(StatesID::EDIT, context, io);
+  auto edit = factory.CreateAfterMenuStatesMachine(StatesID::EDIT, context, io);
   ASSERT_NE(edit, nullptr);
 
 }
 
 TEST_F(TestStatesMachineFactory, shouldCorrectCreateMenu){
-  FactoryFiniteStatesMachines factory;
+  FactoryExecuteStatesMachine factory;
 
   auto baseMenu = factory.CreateMenu(StatesID::BASE_MENU, context, io);
   ASSERT_NE(baseMenu, nullptr);
@@ -42,7 +42,7 @@ TEST_F(TestStatesMachineFactory, shouldCorrectCreateMenu){
 }
 
 TEST_F(TestStatesMachineFactory, shouldCorrectCreate){
-  FactoryFiniteStatesMachines factory;
+  FactoryExecuteStatesMachine factory;
 
   auto inputName = factory.Create(FiniteStateMachineID::INPUT_NAME, context, io);
   ASSERT_NE(inputName, nullptr);

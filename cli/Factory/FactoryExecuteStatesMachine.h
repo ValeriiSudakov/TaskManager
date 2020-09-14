@@ -2,25 +2,25 @@
 // Created by valeriisudakov on 13.09.20.
 //
 
-#ifndef TASKMANAGER_CLI_FACTORY_FACTORYFINITESTATESMACHINES_H_
-#define TASKMANAGER_CLI_FACTORY_FACTORYFINITESTATESMACHINES_H_
+#ifndef TASKMANAGER_CLI_FACTORY_FACTORYEXECUTESTATESMACHINE_H_
+#define TASKMANAGER_CLI_FACTORY_FACTORYEXECUTESTATESMACHINE_H_
 #include "StatesControllers/StateMachine.h"
 #include "StatesControllers/FiniteStatesMachinesList.h"
 #include <set>
 
-class FactoryFiniteStatesMachines {
+class FactoryExecuteStatesMachine {
  public:
-  FactoryFiniteStatesMachines();
-  ~FactoryFiniteStatesMachines();
+  FactoryExecuteStatesMachine();
+  ~FactoryExecuteStatesMachine();
 
  public:
   std::shared_ptr<StateMachine> Create(const FiniteStateMachineID& id,
                                        const std::shared_ptr<Context>& context,
                                              std::shared_ptr<InputOutputLayer> io);
 
-  std::shared_ptr<StateMachine> CreateAfterMenuState(const StatesID& stateID,
-                                                     const std::shared_ptr<Context>& context,
-                                                     std::shared_ptr<InputOutputLayer> io);
+  std::shared_ptr<StateMachine> CreateAfterMenuStatesMachine(const StatesID& stateID,
+                                                             const std::shared_ptr<Context>& context,
+                                                             std::shared_ptr<InputOutputLayer> io);
 
 
   std::shared_ptr<StateMachine> CreateMenu(const StatesID& id,
@@ -32,4 +32,4 @@ class FactoryFiniteStatesMachines {
   std::map<FiniteStateMachineID, std::shared_ptr<StateMachine>> stateMachines_;
 };
 
-#endif //TASKMANAGER_CLI_FACTORY_FACTORYFINITESTATESMACHINES_H_
+#endif //TASKMANAGER_CLI_FACTORY_FACTORYEXECUTESTATESMACHINE_H_

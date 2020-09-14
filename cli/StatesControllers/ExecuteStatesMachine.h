@@ -8,15 +8,15 @@
 #include <list>
 #include <utility>
 
-class FiniteStateMachine : public StateMachine {
+class ExecuteStatesMachine : public StateMachine {
  public:
-  FiniteStateMachine(std::list<StatesID>  states,
-                     const std::shared_ptr<Context>& context,
-                     std::shared_ptr<InputOutputLayer> io)
+  ExecuteStatesMachine(std::list<StatesID>  states,
+                       const std::shared_ptr<Context>& context,
+                       std::shared_ptr<InputOutputLayer> io)
                      :
                      states_(std::move(states)),
                      StateMachine(context, io) { }
-  ~FiniteStateMachine() = default;
+  ~ExecuteStatesMachine() = default;
 
  public:
   void Execute() override;

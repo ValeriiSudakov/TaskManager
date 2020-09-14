@@ -5,16 +5,17 @@
 #include "Factory.h"
 
 #include "StatesControllers/StateMachine.h"
-#include "FactoryFiniteStatesMachines.h"
+#include "FactoryExecuteStatesMachine.h"
 #include "FactoryStates.h"
 
-static const auto statesMachineFactory = std::make_unique<FactoryFiniteStatesMachines>();
+static const auto statesMachineFactory = std::make_unique<FactoryExecuteStatesMachine>();
 
 std::shared_ptr<State> Factory::CreateState(const StatesID &id) {
-
   static const auto statesFactory = std::make_unique<FactoryStates>();
   return statesFactory->Create(id);
 }
+
+
 
 std::shared_ptr<StateMachine> Factory::CreateFiniteStatesMachine(const FiniteStateMachineID &id,
                                                                const std::shared_ptr<Context> &context,
@@ -37,6 +38,6 @@ std::shared_ptr<StateMachine> Factory::CreateAfterMenuState(const StatesID& stat
                                                             const std::shared_ptr<Context>& context,
                                                             std::shared_ptr<InputOutputLayer> io){
 
-  return statesMachineFactory->CreateAfterMenuState(stateID, context, io);
+  return statesMachineFactory->CreateAfterMenuStatesMachine(stateID, context, io);
 }
 

@@ -1,11 +1,11 @@
 //
 // Created by valeriisudakov on 13.09.20.
 //
-#include "StatesControllers/FiniteStateMachine.h"
+#include "StatesControllers/ExecuteStatesMachine.h"
 #include "StatesControllers/StateMachineMenu.h"
-#include "FactoryFiniteStatesMachines.h"
+#include "FactoryExecuteStatesMachine.h"
 
-FactoryFiniteStatesMachines::FactoryFiniteStatesMachines(){
+FactoryExecuteStatesMachine::FactoryExecuteStatesMachine(){
   stateMachines_[FiniteStateMachineID::INPUT_ID] = nullptr;
   stateMachines_[FiniteStateMachineID::INPUT_DATE] = nullptr;
   stateMachines_[FiniteStateMachineID::INPUT_LABEL] = nullptr;
@@ -16,9 +16,9 @@ FactoryFiniteStatesMachines::FactoryFiniteStatesMachines(){
 
 }
 
-FactoryFiniteStatesMachines::~FactoryFiniteStatesMachines() = default;
+FactoryExecuteStatesMachine::~FactoryExecuteStatesMachine() = default;
 
-std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::CreateMenu(const StatesID& id,
+std::shared_ptr<StateMachine> FactoryExecuteStatesMachine::CreateMenu(const StatesID& id,
                                                                       const std::shared_ptr<Context>& context,
                                                                       std::shared_ptr<InputOutputLayer> io) {
 
@@ -26,10 +26,10 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::CreateMenu(const Stat
 
 }
 
-std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::CreateAfterMenuState(const StatesID& stateID,
-                                                                                const std::shared_ptr<Context> &context,
-                                                                                std::shared_ptr<InputOutputLayer> io) {
-  return std::make_shared<FiniteStateMachine>(
+std::shared_ptr<StateMachine> FactoryExecuteStatesMachine::CreateAfterMenuStatesMachine(const StatesID& stateID,
+                                                                                        const std::shared_ptr<Context> &context,
+                                                                                        std::shared_ptr<InputOutputLayer> io) {
+  return std::make_shared<ExecuteStatesMachine>(
                                           std::list<StatesID>{
                                               stateID,
                                               StatesID::EXIT
@@ -40,11 +40,9 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::CreateAfterMenuState(
 }
 
 
-std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteStateMachineID& id,
+std::shared_ptr<StateMachine> FactoryExecuteStatesMachine::Create(const FiniteStateMachineID& id,
                                                                   const std::shared_ptr<Context>& context,
-                                                                        std::shared_ptr<InputOutputLayer> io) {
-
-
+                                                                  std::shared_ptr<InputOutputLayer> io) {
 
   auto stateMachine = stateMachines_.find(id);
   if (stateMachines_.end() == stateMachine){
@@ -53,7 +51,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
 
   if (FiniteStateMachineID::INPUT_ID == stateMachine->first){
     if (!stateMachine->second) {
-      stateMachine->second = std::make_shared<FiniteStateMachine>(
+      stateMachine->second = std::make_shared<ExecuteStatesMachine>(
                                                 std::list<StatesID>{
                                                     StatesID::INPUT_ID,
                                                     StatesID::EXIT
@@ -64,7 +62,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
   }
   else if (FiniteStateMachineID::INPUT_DATE == stateMachine->first){
     if (!stateMachine->second){
-      stateMachine->second = std::make_shared<FiniteStateMachine>(
+      stateMachine->second = std::make_shared<ExecuteStatesMachine>(
                                                 std::list<StatesID>{
                                                     StatesID::INPUT_DATE,
                                                     StatesID::EXIT
@@ -75,7 +73,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
   }
   else if (FiniteStateMachineID::INPUT_LABEL == stateMachine->first){
     if (!stateMachine->second){
-      stateMachine->second = std::make_shared<FiniteStateMachine>(
+      stateMachine->second = std::make_shared<ExecuteStatesMachine>(
                                                   std::list<StatesID>{
                                                       StatesID::INPUT_LABEL,
                                                       StatesID::EXIT
@@ -86,7 +84,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
   }
   else if (FiniteStateMachineID::INPUT_NAME == stateMachine->first){
     if (!stateMachine->second){
-      stateMachine->second = std::make_shared<FiniteStateMachine>(
+      stateMachine->second = std::make_shared<ExecuteStatesMachine>(
                                                 std::list<StatesID>{
                                                     StatesID::INPUT_NAME,
                                                     StatesID::EXIT
@@ -97,7 +95,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
   }
   else if (FiniteStateMachineID::POSTPONE == stateMachine->first){
     if (!stateMachine->second){
-      stateMachine->second = std::make_shared<FiniteStateMachine>(
+      stateMachine->second = std::make_shared<ExecuteStatesMachine>(
           std::list<StatesID>{
               StatesID::INPUT_ID,
               StatesID::INPUT_DATE,
@@ -109,7 +107,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
   }
   else if (FiniteStateMachineID::INPUT_TASK_PARAMS == stateMachine->first){
     if (!stateMachine->second){
-      stateMachine->second = std::make_shared<FiniteStateMachine>(
+      stateMachine->second = std::make_shared<ExecuteStatesMachine>(
                                                 std::list<StatesID>{
                                                     StatesID::INPUT_NAME,
                                                     StatesID::INPUT_LABEL,
@@ -123,7 +121,7 @@ std::shared_ptr<StateMachine> FactoryFiniteStatesMachines::Create(const FiniteSt
   }
   else if (FiniteStateMachineID::INPUT_SUBTASK_PARAMS == stateMachine->first){
     if (!stateMachine->second){
-      stateMachine->second = std::make_shared<FiniteStateMachine>(
+      stateMachine->second = std::make_shared<ExecuteStatesMachine>(
                                                 std::list<StatesID>{
                                                     StatesID::INPUT_ID,
                                                     StatesID::INPUT_TASK,
