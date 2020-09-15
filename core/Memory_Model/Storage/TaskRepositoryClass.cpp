@@ -2,19 +2,19 @@
 // Created by R2D2 on 31.07.2020.
 //
 
-#include "TaskRepository.h"
+#include "TaskRepositoryClass.h"
 
-TaskRepository::TaskRepository(std::unique_ptr<TaskViewInterface> view, std::unique_ptr<TaskStorageInterface> storage)
+TaskRepositoryClass::TaskRepositoryClass(std::unique_ptr<TaskView> view, std::unique_ptr<TaskStorage> storage)
  : taskView_(std::move(view)), taskStorage_(std::move(storage)){}
 
-const std::unique_ptr<TaskViewInterface>& TaskRepository::GetTaskView() const{
+const std::unique_ptr<TaskView>& TaskRepositoryClass::GetTaskView() const{
   return taskView_;
 }
-const std::unique_ptr<TaskStorageInterface>& TaskRepository::GetTaskStorage() const{
+const std::unique_ptr<TaskStorage>& TaskRepositoryClass::GetTaskStorage() const{
   return taskStorage_;
 }
 
-AddTaskResult TaskRepository::AddTask(const TaskDTO& task){
+AddTaskResult TaskRepositoryClass::AddTask(const TaskDTO& task){
   auto taskFromDTO = Task::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate());
   if (!taskFromDTO.has_value()){
     return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
@@ -27,7 +27,7 @@ AddTaskResult TaskRepository::AddTask(const TaskDTO& task){
   return AddTaskResult(AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY, false);
 }
 
-AddTaskResult TaskRepository::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask){
+AddTaskResult TaskRepositoryClass::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask){
   auto subtaskFromDTO = Task::Create(subtask.GetName(), subtask.GetLabel(), subtask.GetPriority(), subtask.GetDate());
   if (!subtaskFromDTO.has_value()){
     return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
@@ -40,7 +40,7 @@ AddTaskResult TaskRepository::AddSubtask(const TaskID& rootTaskID, const TaskDTO
   return AddTaskResult(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK, false);
 }
 
-bool TaskRepository::RemoveTask(const TaskID& id){
+bool TaskRepositoryClass::RemoveTask(const TaskID& id){
   auto task = taskStorage_->GetTask(id);
   if (!task.has_value()){
     return false;
@@ -71,7 +71,7 @@ bool TaskRepository::RemoveTask(const TaskID& id){
 }
 
 
-bool TaskRepository::PostponeTask(const TaskID& id, const Date& date){
+bool TaskRepositoryClass::PostponeTask(const TaskID& id, const Date& date){
   auto oldTask = taskStorage_->GetTask(id);
   if (!oldTask.has_value()){
     return false;

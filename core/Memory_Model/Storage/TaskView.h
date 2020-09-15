@@ -1,34 +1,30 @@
 //
-// Created by valerii.sudakov on 7/27/2020.
+// Created by valeriisudakov on 13.08.20.
 //
 
-#ifndef TASKMANAGER_SRC_TASKVIEW_H_
-#define TASKMANAGER_SRC_TASKVIEW_H_
-#include "TaskViewInterface.h"
+#ifndef TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKVIEWINTERFACE_H_
+#define TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKVIEWINTERFACE_H_
 
-class TaskView : public TaskViewInterface{
+#include "Memory_Model/Task/TaskEntity.h"
+#include "API/Priority.h"
+#include <map>
+#include <vector>
+
+class TaskView {
  public:
-  TaskView();
- public:
-  void                      AddTask(const std::weak_ptr<TaskEntity>& task) override;
-  bool                      RemoveTask(const std::weak_ptr<TaskEntity>& task) override;
+ virtual ~TaskView() = default;
 
  public:
-  std::vector<TaskEntity>   GetTasks() const override;
-  std::vector<TaskEntity>   GetTodayTasks() const override;
-  std::vector<TaskEntity>   GetWeekTasks() const override;
-  std::vector<TaskEntity>   GetTasksByLabel(const std::string& label) const override;
-  std::vector<TaskEntity>   GetTasksByName(const std::string& name) const override;
-  std::vector<TaskEntity>   GetTasksByPriority(Priority taskPriority) const override;
+  virtual void                      AddTask(const std::weak_ptr<TaskEntity> &task) = 0;
+  virtual bool                      RemoveTask(const std::weak_ptr<TaskEntity> &task) = 0;
 
- private:
-  std::map<Priority, std::map<TaskID, std::weak_ptr<TaskEntity>>>                  byPriority_;
-  std::map<std::string, std::map<TaskID, std::weak_ptr<TaskEntity>>>               byName_;
-  std::map<std::string, std::map<TaskID, std::weak_ptr<TaskEntity>>>               byLabel_;
-  std::map<boost::gregorian::date, std::map<TaskID, std::weak_ptr<TaskEntity>>>    byDate_;
-
-  template <typename CollectionType, typename FindValueType>
-  bool RemoveFromMap(CollectionType& collection,const TaskID& id, const FindValueType& findValue);
+ public:
+  virtual std::vector<TaskEntity>   GetTasks() const = 0;
+  virtual std::vector<TaskEntity>   GetTodayTasks() const = 0;
+  virtual std::vector<TaskEntity>   GetWeekTasks() const = 0;
+  virtual std::vector<TaskEntity>   GetTasksByLabel(const std::string &label) const = 0;
+  virtual std::vector<TaskEntity>   GetTasksByName(const std::string &name) const = 0;
+  virtual std::vector<TaskEntity>   GetTasksByPriority(Priority taskPriority) const = 0;
 };
 
-#endif //TASKMANAGER_SRC_TASKVIEW_H_
+#endif //TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKVIEWINTERFACE_H_

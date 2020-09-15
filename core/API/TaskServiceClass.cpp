@@ -7,11 +7,11 @@
 #include <vector>
 
 TaskServiceClass TaskServiceClass::Create(){
-  return TaskServiceClass(std::move(std::make_unique<TaskRepository>(std::move(std::make_unique<TaskView>()),
-                                                                     std::move(std::make_unique<TaskStorage>()))));
+  return TaskServiceClass(std::move(std::make_unique<TaskRepositoryClass>(std::move(std::make_unique<TaskViewClass>()),
+                                                                          std::move(std::make_unique<TaskStorageClass>()))));
 }
 
-TaskServiceClass::TaskServiceClass(std::unique_ptr<TaskRepositoryInterface> taskRepository)
+TaskServiceClass::TaskServiceClass(std::unique_ptr<TaskRepository> taskRepository)
   : tasksRepository_(std::move(taskRepository)) {
 
 }

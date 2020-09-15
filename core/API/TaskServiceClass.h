@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "TaskService.h"
-#include "Memory_Model/Storage/TaskRepository.h"
+#include "Memory_Model/Storage/TaskRepositoryClass.h"
 #include "Memory_Model/Convertor.h"
 
 /*
@@ -39,9 +39,9 @@ class TaskServiceClass : public TaskService {
 
  private:
 
-  std::unique_ptr<TaskRepositoryInterface>            tasksRepository_;
+  std::unique_ptr<TaskRepository>            tasksRepository_;
 
-  TaskServiceClass(std::unique_ptr<TaskRepositoryInterface> taskRepository);
+  TaskServiceClass(std::unique_ptr<TaskRepository> taskRepository);
 
  private:
 

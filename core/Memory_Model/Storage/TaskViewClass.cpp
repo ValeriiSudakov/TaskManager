@@ -2,12 +2,12 @@
 // Created by valerii.sudakov on 7/27/2020.
 //
 
-#include "TaskView.h"
+#include "TaskViewClass.h"
 #include "Date/Date.h"
 
-TaskView::TaskView() = default;
+TaskViewClass::TaskViewClass() = default;
 
-void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
+void TaskViewClass::AddTask(const std::weak_ptr<TaskEntity>& task){
   TaskID id = task.lock()->GetId();
   byPriority_[task.lock()->GetPriority()].insert(std::make_pair(id, task));
   byDate_[task.lock()->GetDueDate().Get()].insert(std::make_pair(id, task));
@@ -16,7 +16,7 @@ void TaskView::AddTask(const std::weak_ptr<TaskEntity>& task){
 }
 
 template <typename CollectionType, typename FindValueType>
-bool TaskView::RemoveFromMap(CollectionType& collection,const TaskID& id, const FindValueType& findValue){
+bool TaskViewClass::RemoveFromMap(CollectionType& collection, const TaskID& id, const FindValueType& findValue){
   auto tasks = collection.find(findValue);
   if (tasks != collection.end()){
     auto task = tasks->second.find(id);
@@ -31,7 +31,7 @@ bool TaskView::RemoveFromMap(CollectionType& collection,const TaskID& id, const 
   return false;
 }
 
-bool TaskView::RemoveTask(const std::weak_ptr<TaskEntity>& task){
+bool TaskViewClass::RemoveTask(const std::weak_ptr<TaskEntity>& task){
   if (task.lock() == nullptr){
     return false;
   }
@@ -43,7 +43,7 @@ bool TaskView::RemoveTask(const std::weak_ptr<TaskEntity>& task){
   return true;
 }
 
-std::vector<TaskEntity> TaskView::GetTasks() const{
+std::vector<TaskEntity> TaskViewClass::GetTasks() const{
   std::vector<TaskEntity> returnTasks;
     for (const auto& dates : byDate_){
       for (const auto& tasks : dates.second){
@@ -53,7 +53,7 @@ std::vector<TaskEntity> TaskView::GetTasks() const{
   return returnTasks;
 }
 
-std::vector<TaskEntity> TaskView::GetTodayTasks() const{
+std::vector<TaskEntity> TaskViewClass::GetTodayTasks() const{
   std::vector<TaskEntity> returnTasks;
   auto currentDay = Date::GetCurrentTime();
   auto tasksToday = byDate_.find(currentDay);
@@ -67,7 +67,7 @@ std::vector<TaskEntity> TaskView::GetTodayTasks() const{
   return returnTasks;
 }
 
-std::vector<TaskEntity> TaskView::GetWeekTasks() const{
+std::vector<TaskEntity> TaskViewClass::GetWeekTasks() const{
   std::vector<TaskEntity> returnTasks;
   int dayOfEndOfWeek = Date::DayForEndOfWeek();
   int currentDay = Date::GetCurrentTime().day_number();
@@ -84,7 +84,7 @@ std::vector<TaskEntity> TaskView::GetWeekTasks() const{
   return returnTasks;
 }
 
-std::vector<TaskEntity> TaskView::GetTasksByLabel(const std::string& label) const{
+std::vector<TaskEntity> TaskViewClass::GetTasksByLabel(const std::string& label) const{
   std::vector<TaskEntity> returnTasks;
   auto tasksByLabel = byLabel_.find(label);
 
@@ -97,7 +97,7 @@ std::vector<TaskEntity> TaskView::GetTasksByLabel(const std::string& label) cons
   return returnTasks;
 }
 
-std::vector<TaskEntity> TaskView::GetTasksByName(const std::string& name) const{
+std::vector<TaskEntity> TaskViewClass::GetTasksByName(const std::string& name) const{
   std::vector<TaskEntity> returnTasks;
   auto tasksByName = byName_.find(name);
 
@@ -110,7 +110,7 @@ std::vector<TaskEntity> TaskView::GetTasksByName(const std::string& name) const{
   return returnTasks;
 }
 
-std::vector<TaskEntity> TaskView::GetTasksByPriority(Priority taskPriority) const{
+std::vector<TaskEntity> TaskViewClass::GetTasksByPriority(Priority taskPriority) const{
   std::vector<TaskEntity> returnTasks;
   auto tasksByPriority = byPriority_.find(taskPriority);
 
