@@ -16,15 +16,15 @@ StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, I
                                                            io);
   addTaskMachine->Execute();
 
-//  auto result = context->taskService_->AddTask(TaskDTO::Create(context->buffer_.name, context->buffer_.label,
-//                                                context->buffer_.priority, context->buffer_.date));
+  auto result = context->taskService_.AddTask(TaskDTO::Create(context->buffer_.name, context->buffer_.label,
+                                                context->buffer_.priority, context->buffer_.date));
 
-//  if (result.success_){
-//    std::string success {"Task was added.\n"};
-//   io.Output(success);
+  if (result.success_){
+    std::string success {"Task was added.\n"};
+   io.Output(success);
     return StateOperationResult::SUCCESS;
-//  } else {
-//    std::string fail { "Failed.\n" };
-//    return StateOperationResult::FAIL;
-//  }
+  } else {
+    std::string fail { "Failed.\n" };
+    return StateOperationResult::FAIL;
+  }
 }

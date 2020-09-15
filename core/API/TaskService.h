@@ -1,27 +1,25 @@
 //
-// Created by R2D2 on 15.07.2020.
+// Created by valeriisudakov on 15.09.20.
 //
 
-#ifndef TASKMANAGER_SRC_TASKSERVICE_H_
-#define TASKMANAGER_SRC_TASKSERVICE_H_
+#ifndef TASKMANAGER_CORE_API_TASKSERVICE_H_
+#define TASKMANAGER_CORE_API_TASKSERVICE_H_
+
 #include "TaskID.h"
 #include "Date/Date.h"
 #include "TaskDTO.h"
-#include "Memory_Model/Storage/TaskRepository.h"
-#include "Memory_Model/Convertor.h"
-
+#include "AddTaskResult.h"
 /*
- *  Enter point to the program.
- *
- *  All requests to the system starts here.
- *
- *  @author: Valerii Sudakov
- */
-class TaskService {
- public:
-  static TaskService Create();
- public:
+*  Enter point to the program.
+*
+*  All requests to the system starts here.
+*
+*  @author: Valerii Sudakov
+*/
 
+class TaskService{
+ public:
+  virtual ~TaskService() = default;
 /*
  * Add task to the system.
  *
@@ -30,7 +28,7 @@ class TaskService {
  *
  * @return-type: AddTaskResult that contains info about result of operation.
  */
-  AddTaskResult             AddTask(const TaskDTO& task);
+  virtual AddTaskResult             AddTask(const TaskDTO& task) = 0;
 /*
  * Add subtask to the system.
  *
@@ -41,16 +39,16 @@ class TaskService {
  *
  * @return-type: AddTaskResult that contains info about result of operation.
  */
-  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask);
+  virtual AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) = 0;
 
- /*
- *  Remove Task from the system.
- *
- *  @param: TaskID that contains ID of task to delete
- *
- *  @return-type: true if task was deleted successfully, false if not
- */
-  bool                      RemoveTask(const TaskID& ID);
+  /*
+  *  Remove Task from the system.
+  *
+  *  @param: TaskID that contains ID of task to delete
+  *
+  *  @return-type: true if task was deleted successfully, false if not
+  */
+  virtual bool                      RemoveTask(const TaskID& ID) = 0;
 
 /*
  * Postpone task date;
@@ -60,7 +58,7 @@ class TaskService {
  *
  * @return-type: true if task was found and postponed, false if not
  */
-  bool                      PostponeTask(const TaskID& ID, const Date& date);
+  virtual bool                      PostponeTask(const TaskID& ID, const Date& date) = 0;
 
 /*
  * Complete task;
@@ -69,7 +67,8 @@ class TaskService {
  *
  * @return-type: true if task was found and completed, false if not
  */
-  bool                      SetTaskComplete(const TaskID& ID);
+  virtual bool                      SetTaskComplete(const TaskID& ID) = 0;
+
  public:
 
 /*
@@ -79,7 +78,7 @@ class TaskService {
  *
  *  @return-type: if task exist - return value of TaskDTO, std::nullopt if not.
  */
-  std::optional<TaskDTO>    GetTask(const TaskID& id) const;
+  virtual std::optional<TaskDTO>    GetTask(const TaskID& id) const = 0;
 
 /*
  *  Returns subtasks of task as a vector of TaskDTO from the system by ID.
@@ -88,7 +87,7 @@ class TaskService {
  *
  *  @return-type: vector of TaskDTO.
  */
-  std::vector<TaskDTO>    GetSubtask(const TaskID& id) const;
+  virtual std::vector<TaskDTO>    GetSubtask(const TaskID& id) const = 0;
 /*
  * Returns all tasks from the systems
  *
@@ -96,7 +95,7 @@ class TaskService {
  *
  * @return-type: std::vector of TaskDTO.
  */
-  std::vector<TaskDTO>      GetTasks(bool byPriority) const;
+  virtual std::vector<TaskDTO>      GetTasks(bool byPriority) const = 0;
 
 /*
  * Returns all tasks for today from the systems
@@ -105,7 +104,7 @@ class TaskService {
  *
  * @return-type: std::vector of TaskDTO.
  */
-  std::vector<TaskDTO>      GetTodayTasks(bool byPriority) const;
+  virtual std::vector<TaskDTO>      GetTodayTasks(bool byPriority) const = 0;
 
 /*
  * Returns all tasks for this week from the systems
@@ -114,7 +113,7 @@ class TaskService {
  *
  * @return-type: std::vector of TaskDTO.
  */
-  std::vector<TaskDTO>      GetWeekTasks(bool byPriority) const;
+  virtual std::vector<TaskDTO>      GetWeekTasks(bool byPriority) const = 0;
 
 /*
  * Returns all tasks by label from the systems
@@ -124,7 +123,7 @@ class TaskService {
  *
  * @return-type: std::vector of TaskDTO.
  */
-  std::vector<TaskDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const;
+  virtual std::vector<TaskDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const = 0;
 
 /*
  * Returns all tasks by label from the systems
@@ -134,7 +133,7 @@ class TaskService {
  *
  * @return-type: std::vector of TaskDTO.
  */
-  std::vector<TaskDTO>      GetTasksByName(const std::string& name, bool byPriority) const;
+  virtual std::vector<TaskDTO>      GetTasksByName(const std::string& name, bool byPriority) const = 0;
 
 /*
  * Returns all tasks by priority from the systems
@@ -144,33 +143,7 @@ class TaskService {
  *
  * @return-type: std::vector of TaskDTO.
  */
-  std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const;
-
- private:
-
-  std::unique_ptr<TaskRepositoryInterface>            tasksRepository_;
-
-  TaskService(std::unique_ptr<TaskRepositoryInterface> taskRepository);
-
- private:
-
-/*
- * Converts from vector of TaskEntities to vector of TaskDTO
- *
- * @param: std::vector of TaskEntity
- *
- * @return-type: std::vector of TaskDTO
- */
-  std::vector<TaskDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO) const;
-
-/*
- * Converts from vector of TaskEntities to vector of TaskDTO and sorts it by priority
- *
- * @param: std::vector of TaskEntity
- *
- * @return-type: std::vector of TaskDTO
- */
-  std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO) const;
+  virtual std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const = 0;
 };
 
-#endif //TASKMANAGER_SRC_TASKSERVICE_H_
+#endif //TASKMANAGER_CORE_API_TASKSERVICE_H_

@@ -4,14 +4,13 @@
 
 #ifndef TASKMANAGER_CLI_CONTEXT_H_
 #define TASKMANAGER_CLI_CONTEXT_H_
-#include "API/TaskService.h"
+#include "API/TaskServiceClass.h"
 
 struct Context {
-
-  Context(std::unique_ptr<TaskService> taskService) : taskService_(std::move(taskService)){}
+  Context(TaskService& taskService) : taskService_(taskService){}
   ~Context() = default;
 
-  std::unique_ptr<TaskService> taskService_;
+  TaskService& taskService_;
   struct Buffer {
     std::string name;
     std::string label;
