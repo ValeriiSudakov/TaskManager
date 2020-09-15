@@ -8,7 +8,6 @@
 
 class TestConvertor : public ::testing::Test{
  protected:
- protected:
   virtual void SetUp() {
     auto task1 = Task::Create("task1", "label1", Priority::FIRST, Date::GetCurrentTime());
     TaskEntity t1(task1.value(), TaskID(1));

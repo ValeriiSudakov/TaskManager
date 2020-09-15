@@ -4,18 +4,39 @@
 
 #include "Factory/Factory.h"
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include <memory>
 #include "InputOutputConsoleLayer.h"
+#include "API/TaskService.h"
 
+class MockService : public TaskService{
+ public:
+  MOCK_METHOD(AddTaskResult,          AddTask,            (const TaskDTO&), (override));
+  MOCK_METHOD(AddTaskResult,          AddSubtask,         (const TaskID&, const TaskDTO&), (override));
+  MOCK_METHOD(bool,                   RemoveTask,         (const TaskID&), (override));
+  MOCK_METHOD(bool,                   PostponeTask,       (const TaskID&, const Date&), (override));
+  MOCK_METHOD(bool,                   SetTaskComplete,    (const TaskID&), (override));
+  MOCK_METHOD(std::optional<TaskDTO>, GetTask,            (const TaskID&), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetSubtask,         (const TaskID&), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasks,           (bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTodayTasks,      (bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetWeekTasks,       (bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasksByName,     (const std::string&, bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasksByLabel,    (const std::string&, bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasksByPriority, (const Priority&), (const override));
+
+};
 
 class TestFactory :  public ::testing::Test {
  protected:
   virtual void SetUp() override{
-    context = std::make_shared<Context>(nullptr);
+    service = std::make_unique<MockService>();
+    context = std::make_shared<Context>(*service);
     io = std::make_shared<InputOutputConsoleLayer>();
   }
 
   std::shared_ptr<Context> context;
+  std::unique_ptr<MockService> service;
   std::shared_ptr<InputOutputLayer> io;
 
 };

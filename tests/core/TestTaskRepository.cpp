@@ -3,14 +3,14 @@
 //
 
 #include <gtest/gtest.h>
-#include "Memory_Model/Storage/TaskRepository.h"
+#include "Memory_Model/Storage/TaskRepositoryClass.h"
 
 class TestTaskRepository : public ::testing::Test {
 };
 
 
 TEST_F(TestTaskRepository, shouldAddTask){
-  TaskRepository tr(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
+  TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   auto task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
   auto result = tr.AddTask(dto);
@@ -19,7 +19,7 @@ TEST_F(TestTaskRepository, shouldAddTask){
 }
 
 TEST_F(TestTaskRepository, shouldAddSubTask) {
-  TaskRepository tr(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
+  TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
   tr.AddTask(dto);
@@ -33,7 +33,7 @@ TEST_F(TestTaskRepository, shouldAddSubTask) {
 }
 
 TEST_F(TestTaskRepository, shouldntAddSubTask) {
-  TaskRepository tr(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
+  TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
   tr.AddTask(dto);
@@ -47,7 +47,7 @@ TEST_F(TestTaskRepository, shouldntAddSubTask) {
 }
 
 TEST_F(TestTaskRepository, shouldRemoveTask){
-  TaskRepository tr(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
+  TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
   tr.AddTask(dto);
@@ -68,6 +68,6 @@ TEST_F(TestTaskRepository, shouldRemoveTask){
 }
 
 TEST_F(TestTaskRepository, shouldntRemoveTask){
-  TaskRepository tr(std::move(std::make_unique<TaskView>()), std::move(std::make_unique<TaskStorage>()));
+  TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   ASSERT_FALSE(tr.RemoveTask(TaskID(421)));
 }

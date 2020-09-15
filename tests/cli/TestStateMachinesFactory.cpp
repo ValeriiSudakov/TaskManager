@@ -10,8 +10,9 @@
 class TestStatesMachineFactory :  public ::testing::Test {
  protected:
   virtual void SetUp() override{
-    context = std::make_shared<Context>(nullptr);
     io = std::make_shared<InputOutputConsoleLayer>();
+    context = std::make_shared<Context>(*std::make_unique<TaskServiceClass>(TaskServiceClass::Create()));
+
   }
 
   std::shared_ptr<Context> context;

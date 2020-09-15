@@ -17,15 +17,41 @@ class MockIO : public InputOutputLayer{
   MOCK_METHOD(void, Output, (const std::string&), (override));
 };
 
-class TestFiniteStatesMachine :  public ::testing::Test {
+class MockService : public TaskService{
+ public:
+  MOCK_METHOD(AddTaskResult,          AddTask,            (const TaskDTO&), (override));
+  MOCK_METHOD(AddTaskResult,          AddSubtask,         (const TaskID&, const TaskDTO&), (override));
+  MOCK_METHOD(bool,                   RemoveTask,         (const TaskID&), (override));
+  MOCK_METHOD(bool,                   PostponeTask,       (const TaskID&, const Date&), (override));
+  MOCK_METHOD(bool,                   SetTaskComplete,    (const TaskID&), (override));
+  MOCK_METHOD(std::optional<TaskDTO>, GetTask,            (const TaskID&), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetSubtask,         (const TaskID&), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasks,           (bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTodayTasks,      (bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetWeekTasks,       (bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasksByName,     (const std::string&, bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasksByLabel,    (const std::string&, bool), (const override));
+  MOCK_METHOD(std::vector<TaskDTO>,   GetTasksByPriority, (const Priority&), (const override));
 
+};
+
+class TestFiniteStatesMachine :  public ::testing::Test {
+ protected:
+  void SetUp() override{
+
+    io = std::make_shared<MockIO>();
+    service = std::make_unique<MockService>();
+    context = std::make_shared<Context>(*service);
+  }
+
+ protected:
+  std::shared_ptr<MockIO> io;
+  std::shared_ptr<Context> context;
+  std::unique_ptr<MockService> service;
 };
 
 TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesFiniteStatesMachine){
   // 5 times - "input smth" , 1 time  - "error"
-
-  std::shared_ptr<MockIO> io = std::make_shared<MockIO>();
-  std::shared_ptr<Context> context = std::make_shared<Context>(nullptr);
   EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(5).WillOnce(Return("name"))
       .WillOnce(Return(""))
@@ -37,17 +63,12 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesFiniteStatesMachine){
                                                          context,
                                                          *io);
   stateMachine->Execute();
-
-
 }
 
 
 TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
-
-  std::shared_ptr<MockIO> io = std::make_shared<MockIO>();
-  std::shared_ptr<Context> context = std::make_shared<Context>(nullptr);
-  // menus output: 8 +  "input command" * "name, label, priority, date, success" +8
-  EXPECT_CALL(*io, Output).Times(22).WillRepeatedly(Return());
+//  // menus output: 8 +  "input command" * "name, label, priority, date, success" +8
+  EXPECT_CALL(*io, Output).Times(23).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(6).WillOnce(Return("add task"))
                                       .WillOnce(Return("name"))
                                       .WillOnce(Return("label"))
@@ -55,9 +76,14 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
                                       .WillOnce(Return("now"))
                                       .WillOnce((Return("exit")));
 
+  EXPECT_CALL(*service, AddTask).Times(1).WillOnce(Return(AddTaskResult(true)));
   auto inputNameMachine = Factory::CreateMenuStateMachine(StatesID::BASE_MENU,
                                                         context,
                                                         *io);
 
   inputNameMachine->Execute();
+  ASSERT_EQ(context->buffer_.name, "name");
+  ASSERT_EQ(context->buffer_.label, "label");
+  ASSERT_EQ(context->buffer_.priority, Priority::FIRST);
+  ASSERT_EQ(context->buffer_.date.Get().day_number(), Date::GetCurrentTime().day_number());
 }

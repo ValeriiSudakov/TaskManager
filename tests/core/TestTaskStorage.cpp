@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "Memory_Model/Storage/TaskStorage.h"
+#include "Memory_Model/Storage/TaskStorageClass.h"
 #include "Date/Date.h"
 
 class TestTaskStorage : public ::testing::Test {
@@ -16,7 +16,7 @@ class TestTaskStorage : public ::testing::Test {
     auto task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
     ts.AddTask(task.value());
   }
-  TaskStorage ts;
+  TaskStorageClass ts;
 };
 
 TEST_F(TestTaskStorage, shouldAddTaskToStorage){

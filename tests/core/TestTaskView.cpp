@@ -3,13 +3,13 @@
 //
 
 #include <gtest/gtest.h>
-#include "API/TaskService.h"
+#include "API/TaskServiceClass.h"
 #include <iostream>
 
 class TestTaskView : public ::testing::Test {
 
  protected:
-  TaskView tv;
+  TaskViewClass tv;
   TaskIDGenerate taskIDGenerate;
 };
 
