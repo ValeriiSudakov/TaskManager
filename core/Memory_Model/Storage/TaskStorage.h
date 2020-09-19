@@ -1,21 +1,22 @@
 //
-// Created by valerii.sudakov on 8/4/2020.
+// Created by valeriisudakov on 13.08.20.
 //
 
-#ifndef TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
-#define TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
-
-#include "TaskStorageInterface.h"
-
-class TaskStorage : public TaskStorageInterface{
+#ifndef TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKSTORAGEINTERFACE_H_
+#define TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKSTORAGEINTERFACE_H_
+#include "Memory_Model/Task/TaskEntity.h"
+#include "Memory_Model/Task/TaskIDGenerate.h"
+#include <map>
+class TaskStorage{
  public:
-  std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const override;
-  std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task) override;
-  std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) override;
-  bool                                             RemoveTask(const TaskID& id) override;
- private:
-  TaskIDGenerate                                   taskIDGenerate_;
-  std::map<TaskID, std::shared_ptr<TaskEntity>>    tasks_;
+  virtual ~TaskStorage() = default;
+
+ public:
+  virtual std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const = 0;
+  virtual std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task) = 0;
+  virtual std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) = 0;
+  virtual bool                                             RemoveTask(const TaskID& id) = 0;
+  virtual bool                                             PostponeTask(const TaskID& id, const Date& date) = 0;
 };
 
-#endif //TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
+#endif //TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKSTORAGEINTERFACE_H_

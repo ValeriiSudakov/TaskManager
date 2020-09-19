@@ -38,6 +38,7 @@ public:
   const Date           GetDate() const;
   bool                 IsTaskComplete() const;
   const TaskID         GetTaskId() const;
+  const std::string    ToString() const;
 
  private:
   std::string   name_;
@@ -52,6 +53,8 @@ public:
 
   TaskDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
           bool taskComplete, const TaskID &taskId);
+
+  const std::string PriorityToString() const;
 };
 
 #endif //TASKMANAGER_SRC_TASKDTO_H_

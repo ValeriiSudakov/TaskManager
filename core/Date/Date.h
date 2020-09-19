@@ -19,6 +19,7 @@ class Date{
  public:
   Date(std::string date);
   Date(boost::gregorian::date date);
+  Date();
 
  public:
 

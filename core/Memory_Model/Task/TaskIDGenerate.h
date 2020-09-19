@@ -8,8 +8,9 @@
 
 class TaskIDGenerate {
  public:
-  TaskIDGenerate();
-  TaskID Generate();
+  TaskIDGenerate() : id_(0){}
+  TaskIDGenerate(std::uint32_t idStartValue) : id_(idStartValue) {}
+  TaskID Generate() {  return TaskID(id_++); }
 
  private:
   std::uint32_t id_;

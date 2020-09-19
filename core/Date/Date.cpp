@@ -6,6 +6,7 @@
 
 Date::Date(std::string date) : date_(boost::gregorian::from_string(date)){}
 Date::Date(boost::gregorian::date date) : date_(date) { }
+Date::Date() : date_(boost::gregorian::date() ) { }
 
 boost::gregorian::date Date::GetCurrentTime(){
   return boost::gregorian::day_clock::local_day();
@@ -32,5 +33,5 @@ bool Date::IsThisWeek(const boost::gregorian::date& day){
 std::uint32_t Date::DayForEndOfWeek(){
   auto currentDate = Date::GetCurrentTime();
   auto dayOfWeek = currentDate.day_of_week();
-  return dayOfWeek == 0 ? 0 : currentDate.day_number() + 7 - dayOfWeek;
+  return dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + 7 - dayOfWeek;
 }

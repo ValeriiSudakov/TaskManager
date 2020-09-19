@@ -41,3 +41,23 @@ const TaskID TaskDTO::GetTaskId() const {
   return taskID_;
 }
 
+const std::string TaskDTO::PriorityToString() const {
+  if (Priority_ == Priority::FIRST){
+    return "first";
+  } else if (Priority_ == Priority::SECOND){
+    return "second";
+  } else if (Priority_ == Priority::THIRD){
+    return "third";
+  } else {
+    return "none";
+  }
+}
+
+const std::string TaskDTO::ToString() const {
+  std::string result;
+  std::string priority = PriorityToString();
+  result += "Task name: " + name_ + "\nTask label: " + label_ + "\nTask priority: " + priority
+          + (taskComplete_ ? "\nCompleted" : "\nNot completed") + "\nDate: " + date_.ToString();
+  return result;
+}
+
