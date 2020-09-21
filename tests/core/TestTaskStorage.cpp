@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 #include "Memory_Model/Storage/TaskStorageClass.h"
 #include "Date/Date.h"
+#include "SerializeModel.pb.h"
 
 class TestTaskStorage : public ::testing::Test {
 
@@ -57,4 +58,38 @@ TEST_F(TestTaskStorage, shouldRemoveTask){
 
 TEST_F(TestTaskStorage, shouldntRemoveTask){
   ASSERT_FALSE(ts.RemoveTask(TaskID(1242131)));
+}
+
+TEST_F(TestTaskStorage, shouldSaveToFile){
+  auto result = ts.SaveToFile("SaveFile.txt");
+  ASSERT_TRUE(result);
+}
+
+TEST_F(TestTaskStorage, shouldntSaveToFile){
+  auto result = ts.SaveToFile("");
+  ASSERT_FALSE(result);
+}
+
+TEST_F(TestTaskStorage, shouldntLoadFromFile) {
+  TaskStorageClass storageFromFile;
+  auto result = storageFromFile.LoadFromFile("Sa23123123123.txt");
+  ASSERT_FALSE(result);
+}
+
+TEST_F(TestTaskStorage, shouldLoadFromFile){
+  TaskStorageClass storageFromFile;
+  auto result = storageFromFile.LoadFromFile("SaveFile.txt");
+  ASSERT_TRUE(result);
+
+  auto oldTask = ts.GetTask(TaskID(0));
+  auto newTask = storageFromFile.GetTask(TaskID(0));
+  ASSERT_TRUE(oldTask.has_value());
+  ASSERT_TRUE(newTask.has_value());
+
+  ASSERT_EQ(oldTask.value()->GetName(), newTask.value()->GetName());
+  ASSERT_EQ(oldTask.value()->GetLabel(), newTask.value()->GetLabel());
+  ASSERT_EQ(oldTask.value()->GetPriority(), newTask.value()->GetPriority());
+  ASSERT_EQ(oldTask.value()->GetDueDate().Get(), newTask.value()->GetDueDate().Get());
+  ASSERT_EQ(oldTask.value()->IsComplete(), newTask.value()->IsComplete());
+  ASSERT_EQ(oldTask.value()->GetSubtasks().size(), newTask.value()->GetSubtasks().size());
 }

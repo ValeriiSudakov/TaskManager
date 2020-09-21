@@ -4,9 +4,9 @@
 
 
 #include <gtest/gtest.h>
-//#include <gmock/gmock.h>
 #include "API/TaskServiceClass.h"
 #include <iostream>
+
 
 class TestTaskService : public ::testing::Test {
 
@@ -15,11 +15,6 @@ class TestTaskService : public ::testing::Test {
     ts = std::make_unique<TaskServiceClass>(TaskServiceClass::Create());
   }
   std::unique_ptr<TaskService> ts;
-};
-
-class FakeRepository : public TaskRepository{
-  public:
-   // MOCK_METHOD(std::unique_ptr<TaskView> , GetTaskView, (), (override));
 };
 
 TEST_F(TestTaskService, shouldAddTask) {
@@ -268,5 +263,21 @@ TEST_F(TestTaskService, shouldRemoveTask){
 TEST_F(TestTaskService, shouldntRemoveTask){
 
   auto result = ts->RemoveTask(TaskID(421));
+  ASSERT_FALSE(result);
+}
+
+TEST_F(TestTaskService, shouldSaveToFile){
+  auto result = ts->SaveToFile("SaveFile.txt");
+  ASSERT_TRUE(result);
+}
+
+
+TEST_F(TestTaskService, shouldLoadFromFile){
+  auto result = ts->LoadFromFile("SaveFile.txt");
+  ASSERT_TRUE(result);
+}
+
+TEST_F(TestTaskService, shouldntLoadFromFile){
+  auto result = ts->LoadFromFile("");
   ASSERT_FALSE(result);
 }

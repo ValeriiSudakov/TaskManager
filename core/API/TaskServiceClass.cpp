@@ -31,6 +31,13 @@ bool TaskServiceClass::RemoveTask(const TaskID& ID){
   return result;
 }
 
+bool TaskServiceClass::SaveToFile(const std::string &fileName) {
+  return tasksRepository_->SaveToFile(fileName);
+}
+
+bool TaskServiceClass::LoadFromFile(const std::string &fileName) {
+  return tasksRepository_->LoadFromFile(fileName);
+}
 
 bool TaskServiceClass::PostponeTask(const TaskID& ID, const Date& date){
   return tasksRepository_->PostponeTask(ID, date);

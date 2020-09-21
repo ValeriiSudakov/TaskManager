@@ -17,6 +17,11 @@ class TaskStorageClass : public TaskStorage{
   std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) override;
   bool                                             RemoveTask(const TaskID& id) override;
   bool                                             PostponeTask(const TaskID& id, const Date& date) override;
+  bool                                             SaveToFile(const std::string& fileName) override;
+  bool                                             LoadFromFile(const std::string& fileName) override;
+ private:
+  bool                                             SerializeStorage(const std::string& fileName);
+  bool                                             DeserializeStorage(const std::string &fileName);
  private:
   TaskIDGenerate                                   taskIDGenerate_;
   std::map<TaskID, std::shared_ptr<TaskEntity>>    tasks_;

@@ -81,3 +81,32 @@ bool TaskRepositoryClass::PostponeTask(const TaskID& id, const Date& date){
   taskView_->AddTask(taskStorage_->GetTask(id).value());
   return result;
 }
+
+bool TaskRepositoryClass::SaveToFile(const std::string& fileName) {
+  return taskStorage_->SaveToFile(fileName);
+}
+
+bool TaskRepositoryClass::LoadFromFile(const std::string& fileName) {
+  auto newTaskStorage_ = std::make_unique<TaskStorageClass>();
+
+  auto successLoading = newTaskStorage_->LoadFromFile(fileName);
+  if (!successLoading){
+    return false;
+  }
+
+  taskStorage_.release();
+  taskStorage_ = std::move(newTaskStorage_);
+  taskView_.release();
+  taskView_ = std::make_unique<TaskViewClass>();
+
+  for (int i = 0; ;++i) {
+    auto task = taskStorage_->GetTask(TaskID(i));
+    if (!task.has_value()){
+      break;
+    }
+    taskView_->AddTask(task.value());
+  }
+
+  return true;
+
+}

@@ -51,6 +51,24 @@ class TaskService{
   virtual bool                      RemoveTask(const TaskID& ID) = 0;
 
 /*
+ * Save all task of system to file.
+ *
+ * @param: fileName - path to file for save tasks.
+ *
+ * @return-type: true if success, false if not.
+ */
+  virtual bool                      SaveToFile(const std::string& fileName) = 0;
+
+/*
+ * Load all task from file to system.
+ *
+ * @param: fileName - path to file for load tasks.
+ *
+ * @return-type: true if success, false if not.
+ */
+  virtual bool                      LoadFromFile(const std::string& fileName) = 0;
+
+/*
  * Postpone task date;
  *
  * @param: TaskID that contains ID of task to postpone.
@@ -81,7 +99,7 @@ class TaskService{
   virtual std::optional<TaskDTO>    GetTask(const TaskID& id) const = 0;
 
 /*
- *  Returns subtasks of task as a vector of TaskDTO from the system by ID.
+ *  Returns subtasks of task as StorageModelForSerialize vector of TaskDTO from the system by ID.
  *
  *  @param: TaskID that contains ID of task to return.
  *
@@ -144,6 +162,7 @@ class TaskService{
  * @return-type: std::vector of TaskDTO.
  */
   virtual std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const = 0;
+
 };
 
 #endif //TASKMANAGER_CORE_API_TASKSERVICE_H_
