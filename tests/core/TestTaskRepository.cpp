@@ -146,11 +146,13 @@ TEST_F(TestTaskRepository, shouldCorrectSaveLoadWhenDeleteTask) {
   std::optional<Task> subTask1 = Task::Create("sub task1", "label", Priority::NONE, Date::GetCurrentTime());
   auto subtaskDTO1 = TaskDTO::Create(subTask1->GetName(), subTask1->GetLabel(), subTask1->GetPriority(), subTask1->GetDueDate());
   tr.AddSubtask(tr.GetTaskView()->GetTasksByName("task")[0].GetId(),subtaskDTO1);
+
   auto numberSubtaskOld = tr.GetTaskView()->GetTasksByName("task")[0].GetSubtasks().size();
   ASSERT_EQ(numberSubtaskOld, 2);
 
   auto removeResult = tr.RemoveTask(tr.GetTaskView()->GetTasksByName("sub task")[0].GetId());
   ASSERT_TRUE(removeResult);
+
   auto resultSave = tr.SaveToFile("SaveFile.txt");
   ASSERT_TRUE(resultSave);
 

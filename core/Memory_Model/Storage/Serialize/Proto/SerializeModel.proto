@@ -15,10 +15,8 @@ message SerializedTask{
 
 message SerializedTaskEntity{
   required SerializedTask task = 1;
-  required uint32 id = 2;
-  repeated uint32 subtasks = 3;
-  required bool complete = 4;
-  required uint32 rootID = 5;
+  required bool complete = 2;
+  optional uint32 rootID = 3;
 }
 
 message SerializedStorage{

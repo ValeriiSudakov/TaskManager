@@ -94,10 +94,11 @@ bool TaskStorageClass::DeserializeStorage(const std::string& fileName){
                                 boost::gregorian::date(task.task().date()));
 
     std::optional<std::shared_ptr<TaskEntity>> createdTask;
-    if (task.rootid() == task.id()){
-      createdTask = AddTask(newTask.value());
-    } else {
+
+    if (task.has_rootid()){
       createdTask = AddSubtask(TaskID(task.rootid()), newTask.value());
+    } else {
+      createdTask = AddTask(newTask.value());
     }
    if (task.complete()) {
      createdTask.value()->SetComplete();
@@ -127,13 +128,11 @@ bool TaskStorageClass::SerializeStorage(const std::string& fileName) {
     newTask->set_date(task.second->GetDueDate().Get().day_number());
     addTask->set_allocated_task(newTask.release());
 
-    addTask->set_id(idMapping[task.first]);
-    addTask->set_rootid(idMapping[task.second->GetParentId()]);
-    addTask->set_complete(task.second->IsComplete());
 
-    for (const auto &subID : task.second->GetSubtasks()) {
-      addTask->add_subtasks(idMapping[subID.first]);
+    if (task.second->GetId() != task.second->GetParentId()) {
+      addTask->set_rootid(idMapping[task.second->GetParentId()]);
     }
+    addTask->set_complete(task.second->IsComplete());
   }
 
   std::ofstream file(fileName);
