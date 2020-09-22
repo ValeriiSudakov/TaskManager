@@ -12,13 +12,16 @@
   TaskRepositoryClass(std::unique_ptr<TaskView> view, std::unique_ptr<TaskStorage> storage);
 
  public:
-  const std::unique_ptr<TaskView>&                 GetTaskView() const override;
-  const std::unique_ptr<TaskStorage>&              GetTaskStorage() const override;
+Ку  const std::unique_ptr<TaskView>&                          GetTaskView() const override;
+  const std::unique_ptr<TaskStorage>&                       GetTaskStorage() const override;
 
   AddTaskResult                                             AddTask(const TaskDTO& task) override;
   AddTaskResult                                             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;
   bool                                                      RemoveTask(const TaskID& id) override;
   bool                                                      PostponeTask(const TaskID& id, const Date& date) override;
+
+  bool                                                      SaveToFile(const std::string& fileName) override;
+  bool                                                      LoadFromFile(const std::string& fileName) override;
 
  private:
   std::unique_ptr<TaskView>      taskView_;

@@ -86,25 +86,24 @@ bool TaskStorageClass::DeserializeStorage(const std::string& fileName){
 
   storage.ParseFromIstream(&file);
   file.close();
+
   for (const auto& task : storage.tasks()){
     auto newTask = Task::Create(task.task().name(),
                                 task.task().label(),
                                 SerializedPriorityToPriority(task.task().priority()),
                                 boost::gregorian::date(task.task().date()));
 
+    std::optional<std::shared_ptr<TaskEntity>> createdTask;
     if (task.rootid() == task.id()){
-      AddTask(newTask.value());
+      createdTask = AddTask(newTask.value());
     } else {
-      AddSubtask(TaskID(task.rootid()), newTask.value());
+      createdTask = AddSubtask(TaskID(task.rootid()), newTask.value());
     }
-
-    if (task.complete()) {
-      auto TaskToComplete = GetTask(TaskID(task.id()));
-      TaskToComplete.value()->SetComplete();
+   if (task.complete()) {
+     createdTask.value()->SetComplete();
     }
   }
   return true;
-
 }
 
 bool TaskStorageClass::SerializeStorage(const std::string& fileName) {
@@ -116,31 +115,29 @@ bool TaskStorageClass::SerializeStorage(const std::string& fileName) {
     idMapping[task.first] = i;
     i++;
   }
-
   SerializedStorage storageToSave;
 
-  for (const auto& task : tasks_){
-    auto* addTask = storageToSave.add_tasks();
-    auto* newTask = new SerializedTask;
+  for (const auto &task : tasks_) {
+    auto *addTask = storageToSave.add_tasks();
+    auto newTask = std::make_unique<SerializedTask>();
 
     newTask->set_name(task.second->GetName());
     newTask->set_label(task.second->GetLabel());
     newTask->set_priority(PriorityToSerializedPriority(task.second->GetPriority()));
     newTask->set_date(task.second->GetDueDate().Get().day_number());
-
-    addTask->set_allocated_task(newTask);
+    addTask->set_allocated_task(newTask.release());
 
     addTask->set_id(idMapping[task.first]);
     addTask->set_rootid(idMapping[task.second->GetParentId()]);
     addTask->set_complete(task.second->IsComplete());
 
-    for(const auto& subID : task.second->GetSubtasks()){
+    for (const auto &subID : task.second->GetSubtasks()) {
       addTask->add_subtasks(idMapping[subID.first]);
     }
   }
 
   std::ofstream file(fileName);
-  if (!file.is_open()){
+  if (!file.is_open()) {
     return false;
   }
 
