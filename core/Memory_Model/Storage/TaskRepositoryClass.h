@@ -12,8 +12,9 @@
   TaskRepositoryClass(std::unique_ptr<TaskView> view, std::unique_ptr<TaskStorage> storage);
 
  public:
-  const std::unique_ptr<TaskView>&                 GetTaskView() const override;
-  const std::unique_ptr<TaskStorage>&              GetTaskStorage() const override;
+  void                                                      ResetRepository() override;
+  const std::unique_ptr<TaskView>&                          GetTaskView() const override;
+  const std::unique_ptr<TaskStorage>&                       GetTaskStorage() const override;
 
   AddTaskResult                                             AddTask(const TaskDTO& task) override;
   AddTaskResult                                             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;

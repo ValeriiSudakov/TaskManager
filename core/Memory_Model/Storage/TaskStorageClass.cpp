@@ -30,10 +30,15 @@ std::optional<std::shared_ptr<TaskEntity>> TaskStorageClass::AddSubtask(const Ta
   return std::nullopt;
 }
 
+const std::map<TaskID, std::shared_ptr<TaskEntity>>& TaskStorageClass::GetTasks() const {
+  return tasks_;
+}
+
 std::optional<std::shared_ptr<TaskEntity>> TaskStorageClass::GetTask(const TaskID& taskID) const{
   auto task = tasks_.find(taskID);
   return (task == tasks_.end()) ? std::nullopt : std::make_optional(task->second);
 }
+
 bool TaskStorageClass::RemoveTask(const TaskID &id) {
   auto task = tasks_.find(id);
   if (task != tasks_.end()){
