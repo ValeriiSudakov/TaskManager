@@ -81,3 +81,10 @@ bool TaskRepositoryClass::PostponeTask(const TaskID& id, const Date& date){
   taskView_->AddTask(taskStorage_->GetTask(id).value());
   return result;
 }
+
+void TaskRepositoryClass::ResetRepository() {
+  taskStorage_.reset();
+  taskStorage_ = std::make_unique<TaskStorageClass>();
+  taskView_.reset();
+  taskView_ = std::make_unique<TaskViewClass>();
+}

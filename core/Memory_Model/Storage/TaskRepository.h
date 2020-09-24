@@ -15,6 +15,7 @@ class TaskRepository{
   virtual ~TaskRepository() = default;
 
  public:
+  virtual void                                              ResetRepository() = 0;
   virtual const std::unique_ptr<TaskView>&                  GetTaskView() const = 0;
   virtual const std::unique_ptr<TaskStorage>&               GetTaskStorage() const = 0;
 
