@@ -12,8 +12,7 @@ class TestTaskRepository : public ::testing::Test {
 TEST_F(TestTaskRepository, shouldAddTask){
   TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   auto task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
-  auto result = tr.AddTask(dto);
+  auto result = tr.AddTask(task.value());
 
   ASSERT_TRUE(result.success_);
 }
@@ -21,13 +20,10 @@ TEST_F(TestTaskRepository, shouldAddTask){
 TEST_F(TestTaskRepository, shouldAddSubTask) {
   TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
-  tr.AddTask(dto);
+  tr.AddTask(task.value());
 
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto subtaskDTO = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
-  auto result = tr.AddSubtask(tr.GetTaskView()->GetTasksByName("task")[0].GetId(),subtaskDTO);
-
+  auto result = tr.AddSubtask(tr.GetTaskView()->GetTasksByName("task")[0].GetId(),subTask.value());
 
   ASSERT_TRUE(result.success_);
 }
@@ -35,12 +31,10 @@ TEST_F(TestTaskRepository, shouldAddSubTask) {
 TEST_F(TestTaskRepository, shouldntAddSubTask) {
   TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
-  tr.AddTask(dto);
+  tr.AddTask(task.value());
 
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto subtaskDTO = TaskDTO::Create(subTask->GetName(), subTask->GetLabel(), subTask->GetPriority(), subTask->GetDueDate());
-  auto result = tr.AddSubtask(TaskID(2134515),subtaskDTO);
+  auto result = tr.AddSubtask(TaskID(2134515),subTask.value());
 
 
   ASSERT_FALSE(result.success_);
@@ -49,16 +43,13 @@ TEST_F(TestTaskRepository, shouldntAddSubTask) {
 TEST_F(TestTaskRepository, shouldRemoveTask){
   TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::Create(task->GetName(), task->GetLabel(), task->GetPriority(), task->GetDueDate());
-  tr.AddTask(dto);
+  tr.AddTask(task.value());
 
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto subtaskDTO = TaskDTO::Create(subTask->GetName(), subTask->GetLabel(), subTask->GetPriority(), subTask->GetDueDate());
-  tr.AddSubtask(tr.GetTaskView()->GetTasksByName("task")[0].GetId(),subtaskDTO);
+  tr.AddSubtask(tr.GetTaskView()->GetTasksByName("task")[0].GetId(),subTask.value());
 
   std::optional<Task> subTask1 = Task::Create("sub task1", "label", Priority::NONE, Date::GetCurrentTime());
-  auto subtaskDTO1 = TaskDTO::Create(subTask1->GetName(), subTask1->GetLabel(), subTask1->GetPriority(), subTask1->GetDueDate());
-  tr.AddSubtask(tr.GetTaskView()->GetTasksByName("sub task")[0].GetId(),subtaskDTO1);
+  tr.AddSubtask(tr.GetTaskView()->GetTasksByName("sub task")[0].GetId(),subTask1.value());
 
 
   ASSERT_TRUE(tr.RemoveTask(TaskID(0)));

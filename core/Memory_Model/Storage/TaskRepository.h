@@ -19,8 +19,8 @@ class TaskRepository{
   virtual const std::unique_ptr<TaskView>&                  GetTaskView() const = 0;
   virtual const std::unique_ptr<TaskStorage>&               GetTaskStorage() const = 0;
 
-  virtual AddTaskResult                                     AddTask(const TaskDTO& task) = 0;
-  virtual AddTaskResult                                     AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) = 0;
+  virtual AddTaskResult                                     AddTask(const Task& task) = 0;
+  virtual AddTaskResult                                     AddSubtask(const TaskID& rootTaskID, const Task& subtask) = 0;
   virtual bool                                              RemoveTask(const TaskID& id) = 0;
   virtual bool                                              PostponeTask(const TaskID& id, const Date& date) = 0;
 };

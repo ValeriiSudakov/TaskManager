@@ -17,12 +17,20 @@ TaskServiceClass::TaskServiceClass(std::unique_ptr<TaskRepository> taskRepositor
 }
 
 AddTaskResult TaskServiceClass::AddTask(const TaskDTO& task){
-  AddTaskResult addNewTask = tasksRepository_->AddTask(task);
+  auto transformTask = Task::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate());
+  if (!transformTask.has_value()){
+    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
+  }
+  AddTaskResult addNewTask = tasksRepository_->AddTask(transformTask.value());
   return addNewTask.success_;
 }
 
 AddTaskResult TaskServiceClass::AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask){
-  auto addNewSubtask = tasksRepository_->AddSubtask(rootTaskID, subtask);
+  auto transformTask = Task::Create(subtask.GetName(), subtask.GetLabel(), subtask.GetPriority(), subtask.GetDate());
+  if (!transformTask.has_value()){
+    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
+  }
+  auto addNewSubtask = tasksRepository_->AddSubtask(rootTaskID, transformTask.value());
   return addNewSubtask.success_;
 }
 
