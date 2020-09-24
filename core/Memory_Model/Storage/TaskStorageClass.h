@@ -12,6 +12,7 @@ class TaskStorageClass : public TaskStorage{
   TaskStorageClass();
 
  public:
+  std::map<TaskID, std::shared_ptr<TaskEntity>>    GetTasks() const override;
   std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const override;
   std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task) override;
   std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) override;

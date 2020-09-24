@@ -12,6 +12,7 @@ class TaskStorage{
   virtual ~TaskStorage() = default;
 
  public:
+  virtual std::map<TaskID, std::shared_ptr<TaskEntity>>    GetTasks() const = 0;
   virtual std::optional<std::shared_ptr<TaskEntity>>       GetTask(const TaskID& taskID) const = 0;
   virtual std::optional<std::shared_ptr<TaskEntity>>       AddTask(const Task& task) = 0;
   virtual std::optional<std::shared_ptr<TaskEntity>>       AddSubtask(const TaskID& rootTaskID, const Task& subtask) = 0;
