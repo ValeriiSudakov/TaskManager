@@ -30,7 +30,7 @@ std::optional<std::shared_ptr<TaskEntity>> TaskStorageClass::AddSubtask(const Ta
   return std::nullopt;
 }
 
-std::map<TaskID, std::shared_ptr<TaskEntity>> TaskStorageClass::GetTasks() const {
+const std::map<TaskID, std::shared_ptr<TaskEntity>>& TaskStorageClass::GetTasks() const {
   return tasks_;
 }
 
