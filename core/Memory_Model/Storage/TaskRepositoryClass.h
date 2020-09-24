@@ -16,8 +16,8 @@
   const std::unique_ptr<TaskView>&                          GetTaskView() const override;
   const std::unique_ptr<TaskStorage>&                       GetTaskStorage() const override;
 
-  AddTaskResult                                             AddTask(const TaskDTO& task) override;
-  AddTaskResult                                             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;
+  AddTaskResult                                             AddTask(const Task &task) override;
+  AddTaskResult                                             AddSubtask(const TaskID& rootTaskID, const Task& subtask) override;
   bool                                                      RemoveTask(const TaskID& id) override;
   bool                                                      PostponeTask(const TaskID& id, const Date& date) override;
 
