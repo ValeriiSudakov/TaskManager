@@ -1,0 +1,24 @@
+enum SerializePriority{
+  NONE = 0;
+  FIRST = 1;
+  SECOND = 2;
+  THIRD = 3;
+}
+
+message SerializedTask{
+  required string name = 1;
+  required string label = 2;
+  required SerializePriority priority = 3;
+  required uint32 date = 4;
+}
+
+message SerializedTaskEntity{
+  required SerializedTask task = 1;
+  required uint32 id = 2;
+  required bool complete = 3;
+  required uint32 rootID = 4;
+}
+
+message SerializedStorage{
+  repeated SerializedTaskEntity tasks = 1;
+}
