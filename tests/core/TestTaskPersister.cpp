@@ -11,7 +11,7 @@ class TestTaskPersister : public ::testing::Test {
   void SetUp() override{
     repository = std::make_unique<TaskRepositoryClass>(std::make_unique<TaskViewClass>(),
                                                        std::make_unique<TaskStorageClass>());
-    persister = std::make_unique<TaskPersister>();
+    persister = std::make_unique<DataPersister::TaskPersister>();
     auto task = Task::Create("name", "label", Priority::FIRST, Date::GetCurrentTime());
     repository->AddTask(task.value());
   }

@@ -8,8 +8,7 @@
 #include "Memory_Model/Storage/TaskRepositoryClass.h"
 
 
-
-bool TaskPersister::Save(const std::string &fileName, TaskRepository &repository) {
+bool DataPersister::TaskPersister::Save(const std::string &fileName, TaskRepository &repository) {
   std::ofstream file(fileName);
   if (!file.is_open()) {
     return false;
@@ -36,7 +35,7 @@ bool TaskPersister::Save(const std::string &fileName, TaskRepository &repository
 }
 
 
-bool TaskPersister::Load(const std::string &fileName, std::unique_ptr<TaskRepository>& repository) {
+bool DataPersister::TaskPersister::Load(const std::string &fileName, std::unique_ptr<TaskRepository>& repository) {
   std::ifstream file(fileName);
   if (!file.is_open()) {
     return false;
@@ -56,6 +55,36 @@ bool TaskPersister::Load(const std::string &fileName, std::unique_ptr<TaskReposi
   return true;
 }
 
+
+void DataPersister::AddSerializedTask(SerializedStorage& storage, std::unique_ptr<SerializedTaskEntity>& task){
+  auto* addTask = storage.add_tasks();
+  addTask->set_allocated_task (task->release_task());
+  addTask->set_id             (task->id());
+  addTask->set_rootid         (task->rootid());
+  addTask->set_complete       (task->complete());
+}
+
+std::unique_ptr<SerializedTaskEntity> DataPersister::MakeSerializeTask(const TaskEntity& task,
+                                                                       std::map<TaskID, TaskID>& idMapping){
+  auto newTask = std::make_unique<SerializedTask>();
+  newTask->set_name     (task.GetName());
+  newTask->set_label    (task.GetLabel());
+  newTask->set_priority (PriorityToSerializedPriority(task.GetPriority()));
+  newTask->set_date     (task.GetDueDate().Get().day_number());
+
+  auto newTaskEntity = std::make_unique<SerializedTaskEntity>();
+  newTaskEntity->set_allocated_task(newTask.release());
+
+  auto newID = idMapping[task.GetId()];
+  newTaskEntity->set_id(newID.Get());
+
+  auto newParentID = idMapping[task.GetParentId()];
+  newTaskEntity->set_rootid(newParentID.Get());
+
+  newTaskEntity->set_complete(task.IsComplete());
+
+  return std::move(newTaskEntity);
+}
 
 
 
