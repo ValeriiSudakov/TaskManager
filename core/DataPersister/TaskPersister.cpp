@@ -86,5 +86,26 @@ std::unique_ptr<SerializedTaskEntity> DataPersister::MakeSerializeTask(const Tas
   return std::move(newTaskEntity);
 }
 
+bool DataPersister::FillNewTasksToRepository(SerializedStorage& serializedStorage,
+                                             TaskRepository& repository){
+  for (const auto& task : serializedStorage.tasks()){
+    auto newTask = Task::Create(task.task().name(), task.task().label(),
+                                SerializedPriorityToPriority(task.task().priority()),
+                                boost::gregorian::date(task.task().date()));
+    if (!newTask.has_value()){
+      return false;
+    }
+    if (task.rootid() == task.id()){
+      repository.AddTask(newTask.value());
+    } else{
+      repository.AddSubtask(TaskID(task.rootid()), newTask.value());
+    }
+    if (task.complete()){
+      auto toComplete = repository.GetTaskStorage()->GetTask(TaskID(task.id()));
+      toComplete.value()->SetComplete();
+    }
+  }
+  return true;
+}
 
 

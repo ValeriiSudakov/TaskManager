@@ -17,6 +17,9 @@ namespace DataPersister {
   std::unique_ptr<SerializedTaskEntity> MakeSerializeTask(const TaskEntity& task,
                                                           std::map<TaskID, TaskID>& idMapping);
   void                                  AddSerializedTask(SerializedStorage& storage, std::unique_ptr<SerializedTaskEntity>& task);
+  bool                                  FillNewTasksToRepository(SerializedStorage& serializedStorage,
+                                                               TaskRepository& repository);
+
 
 }
 #endif //TASKMANAGER_CORE_DATAPERSISTER_TASKPERSISTER_H_

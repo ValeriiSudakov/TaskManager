@@ -25,9 +25,6 @@ namespace DataPersister{
 
   SerializePriority                     PriorityToSerializedPriority(const Priority& priority);
   Priority                              SerializedPriorityToPriority(const SerializePriority& priority);
-  bool                                  FillNewTasksToRepository(SerializedStorage& serializedStorage,
-                                                                 TaskRepository& repository);
-
 }
 
 #endif //TASKMANAGER_CORE_DATAPERSISTER_PERSISTER_H_
