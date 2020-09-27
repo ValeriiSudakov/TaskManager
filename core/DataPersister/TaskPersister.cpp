@@ -17,9 +17,9 @@ bool DataPersister::TaskPersister::Save(const std::string &fileName, TaskReposit
   auto tasksToSave = repository.GetTaskStorage()->GetTasks();
   //        oldID  newID
   std::map<TaskID, TaskID> idMapping;
-  int i = 0;
+  TaskIDGenerate newID;
   for (const auto &task : tasksToSave) {
-    idMapping.insert(std::make_pair(task.first, TaskID(i++)));
+    idMapping.insert(std::make_pair(task.first, newID.Generate()));
   }
 
   SerializedStorage storageToSave;
