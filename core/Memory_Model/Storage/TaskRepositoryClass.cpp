@@ -82,6 +82,15 @@ bool TaskRepositoryClass::PostponeTask(const TaskID& id, const Date& date){
   return result;
 }
 
+bool TaskRepositoryClass::SetTaskComplete(const TaskID &id) {
+  auto task = taskStorage_->GetTask(id);
+  if (!task.has_value()){
+    return false;
+  }
+  task.value()->SetComplete();
+  return true;
+}
+
 void TaskRepositoryClass::ResetRepository() {
   taskStorage_.reset();
   taskStorage_ = std::make_unique<TaskStorageClass>();
@@ -89,24 +98,13 @@ void TaskRepositoryClass::ResetRepository() {
   taskView_ = std::make_unique<TaskViewClass>();
 }
 
-TaskRepositoryDTO TaskRepositoryClass::DTOFromEntity(const TaskEntity &entity) const {
-  return TaskRepositoryDTO::Create(entity.GetName(), entity.GetLabel(), entity.GetPriority(),
-                                   entity.GetDueDate(), entity.IsComplete(), entity.GetId(), entity.GetParentId());
-}
-
-std::optional<TaskEntity> TaskRepositoryClass::EntityFromDTO(const TaskRepositoryDTO &dto) {
-  auto newTask = Task::Create(dto.GetName(), dto.GetLabel(), dto.GetPriority(), dto.GetDate());
-  if (!newTask.has_value()){
-    return std::nullopt;
-  }
-  return TaskEntity(newTask.value(), taskIDGenerate_.Generate());
-}
-
 std::optional<TaskRepositoryDTO> TaskRepositoryClass::GetTask(const TaskID& id) const {
+
   auto task = taskStorage_->GetTask(id);
   if (task.has_value()){
     return std::nullopt;
   }
+
   return DTOFromEntity(*task.value());
 }
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetSubtask(const TaskID& id) const {
@@ -187,6 +185,19 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasksByPriority(const Pri
     tasksDTO.push_back(DTOFromEntity(task));
   }
   return tasksDTO;
+}
+
+TaskRepositoryDTO TaskRepositoryClass::DTOFromEntity(const TaskEntity &entity) const {
+  return TaskRepositoryDTO::Create(entity.GetName(), entity.GetLabel(), entity.GetPriority(),
+                                   entity.GetDueDate(), entity.IsComplete(), entity.GetId(), entity.GetParentId());
+}
+
+std::optional<TaskEntity> TaskRepositoryClass::EntityFromDTO(const TaskRepositoryDTO &dto) {
+  auto newTask = Task::Create(dto.GetName(), dto.GetLabel(), dto.GetPriority(), dto.GetDate());
+  if (!newTask.has_value()){
+    return std::nullopt;
+  }
+  return TaskEntity(newTask.value(), taskIDGenerate_.Generate());
 }
 
 void TaskRepositoryClass::SortByPriority(const std::vector<TaskRepositoryDTO> &tasks) const {

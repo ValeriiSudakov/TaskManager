@@ -20,7 +20,7 @@
   AddTaskResult                       AddSubtask(const TaskID& rootTaskID, const TaskRepositoryDTO& subtask) override;
   bool                                RemoveTask(const TaskID& id) override;
   bool                                PostponeTask(const TaskID& id, const Date& date) override;
-  bool                                SetTaskComplete(const TaskID& ID) override;
+  bool                                SetTaskComplete(const TaskID& id) override;
 
   std::optional<TaskRepositoryDTO>    GetTask(const TaskID& id) const override;
   std::vector<TaskRepositoryDTO>      GetSubtask(const TaskID& id) const override;

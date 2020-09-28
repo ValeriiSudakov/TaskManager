@@ -45,57 +45,62 @@ bool TaskServiceClass::PostponeTask(const TaskID& ID, const Date& date){
 }
 
 bool TaskServiceClass::SetTaskComplete(const TaskID &ID) {
-  auto task = tasksRepository_->GetTaskStorage()->GetTask(ID);
-  if (!task.has_value()){
-    return false;
-  }
-  task.value()->SetComplete();
-  return true;
+  return tasksRepository_->SetTaskComplete(ID);
 }
 
 std::optional<TaskServiceDTO> TaskServiceClass::GetTask(const TaskID& id) const{
-  auto task = tasksRepository_->GetTaskStorage()->GetTask(id);
-  return task.has_value() ? std::make_optional(TaskServiceDTO::Create(task.value()->GetName(), task.value()->GetLabel(),
-                                                                              task.value()->GetPriority(), task.value()->GetDueDate(),
-                                                                              task.value()->IsComplete(), task.value()->GetId())) : std::nullopt;
+  auto task = tasksRepository_->GetTask(id);
+  if (!task.has_value()){
+    return std::nullopt;
+  }
+  return MakeTaskDTO(task.value());
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetSubtask(const TaskID& id) const{
-  auto subtasks = tasksRepository_->GetTaskStorage()->GetTask(id).value()->GetSubtasks();
-  std::vector<TaskEntity> temp;
-  for (auto const& task : subtasks){
-    temp.push_back(*task.second.lock());
-  }
-  return convertor::toTaskDTO::notSortedVector(temp);
+  auto subtasks = tasksRepository_->GetSubtask(id);
+  return MakeTasksDTO(subtasks);
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetTasks(bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasks();
-  return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
+  auto tasks = tasksRepository_->GetTasks(byPriority);
+  return MakeTasksDTO(tasks);
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetTodayTasks(bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView()->GetTodayTasks();
-  return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
+  auto tasks = tasksRepository_->GetTodayTasks(byPriority);
+  return MakeTasksDTO(tasks);
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetWeekTasks(bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView()->GetWeekTasks();
-  return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
+  auto tasks = tasksRepository_->GetWeekTasks(byPriority);
+  return MakeTasksDTO(tasks);
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetTasksByLabel(const std::string& label, bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasksByLabel(label);
-  return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
+  auto tasks = tasksRepository_->GetTasksByLabel(label, byPriority);
+  return MakeTasksDTO(tasks);
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetTasksByName(const std::string& name, bool byPriority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasksByName(name);
-  return byPriority ? convertor::toTaskDTO::sortedVectorByPriority(sortedTasks) : convertor::toTaskDTO::notSortedVector(sortedTasks);
+  auto tasks = tasksRepository_->GetTasksByName(name, byPriority);
+  return MakeTasksDTO(tasks);
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetTasksByPriority(const Priority& priority) const{
-  auto sortedTasks = tasksRepository_->GetTaskView()->GetTasksByPriority(priority);
-  return convertor::toTaskDTO::notSortedVector(sortedTasks);
+  auto tasks = tasksRepository_->GetTasksByPriority(priority);
+  return MakeTasksDTO(tasks);
+}
+
+TaskServiceDTO TaskServiceClass::MakeTaskDTO(const TaskRepositoryDTO& task) const {
+  return TaskServiceDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate(),
+                                task.Complete(), task.GetTaskId());
+}
+
+std::vector<TaskServiceDTO> TaskServiceClass::MakeTasksDTO(const std::vector<TaskRepositoryDTO> &tasksForDTO) const {
+  std::vector<TaskServiceDTO> result;
+  for (const auto& task : tasksForDTO){
+    result.push_back(MakeTaskDTO(task));
+  }
+  return result;
 }
 

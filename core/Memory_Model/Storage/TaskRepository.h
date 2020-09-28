@@ -19,15 +19,15 @@ class TaskRepository{
   virtual AddTaskResult                       AddSubtask(const TaskID& rootTaskID, const TaskRepositoryDTO& subtask) = 0;
   virtual bool                                RemoveTask(const TaskID& id) = 0;
   virtual bool                                PostponeTask(const TaskID& id, const Date& date) = 0;
-  virtual bool                                SetTaskComplete(const TaskID& ID) = 0;
+  virtual bool                                SetTaskComplete(const TaskID& id) = 0;
 
   virtual std::optional<TaskRepositoryDTO>    GetTask(const TaskID& id) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetSubtask(const TaskID& id) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetTasks(bool byPriority) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetTodayTasks(bool byPriority) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetWeekTasks(bool byPriority) const = 0;
-  virtual std::vector<TaskRepositoryDTO>      GetTasksByLabel(const std::string& label) const = 0;
-  virtual std::vector<TaskRepositoryDTO>      GetTasksByName(const std::string& name) const = 0;
+  virtual std::vector<TaskRepositoryDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const = 0;
+  virtual std::vector<TaskRepositoryDTO>      GetTasksByName(const std::string& name, bool byPriority) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetTasksByPriority(const Priority& priority) const = 0;
 };
 

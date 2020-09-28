@@ -52,16 +52,16 @@ class TaskServiceClass : public TaskService {
  *
  * @return-type: std::vector of TaskServiceDTO
  */
-  std::vector<TaskServiceDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO) const;
+  std::vector<TaskServiceDTO>      MakeTasksDTO(const std::vector<TaskRepositoryDTO>& tasksForDTO) const;
 
 /*
- * Converts from vector of TaskEntities to vector of TaskServiceDTO and sorts it by priority
+ * Converts from vector of TaskEntities to vector of TaskServiceDTO
  *
  * @param: std::vector of TaskEntity
  *
  * @return-type: std::vector of TaskServiceDTO
  */
-  std::vector<TaskServiceDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO) const;
+  TaskServiceDTO                   MakeTaskDTO(const TaskRepositoryDTO& task) const;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_
