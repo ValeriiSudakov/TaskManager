@@ -22,15 +22,17 @@ class TaskServiceDTO {
  *
  * @return-type: TaskServiceDTO
  */
-  static TaskServiceDTO        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date);
+  static std::optional<TaskServiceDTO>        Create(const std::string &name, const std::string &label,
+                                                     const Priority &priority, const Date &date);
 
 /*
  * Create DTO based on the TaskEntity.
  *
  * @return-type: TaskServiceDTO
  */
-  static TaskServiceDTO        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
-                                      bool taskComplete, const TaskID &taskId);
+  static std::optional<TaskServiceDTO>        Create(const std::string &name, const std::string &label,
+                                                     const Priority &priority, const Date &date,
+                                                     bool taskComplete, const TaskID &taskId);
 
 public:
   const std::string            GetName() const;

@@ -23,14 +23,14 @@ class TaskRepositoryDTO {
  *
  * @return-type: TaskRepositoryDTO
  */
-  static TaskRepositoryDTO        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date);
+  static std::optional<TaskRepositoryDTO>        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date);
 
 /*
  * Create DTO based on the TaskEntity.
  *
  * @return-type: TaskRepositoryDTO
  */
-  static TaskRepositoryDTO        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+  static std::optional<TaskRepositoryDTO>        Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
                                          bool taskComplete, const TaskID &taskId, const TaskID& rootID);
 
  public:
@@ -39,7 +39,7 @@ class TaskRepositoryDTO {
   const Priority                  GetPriority() const;
   const Date                      GetDate() const;
   bool                            Complete() const;
-  const TaskID                    GetTaskId() const;
+  const TaskID                    GetID() const;
 
  private:
   std::string                     name_;

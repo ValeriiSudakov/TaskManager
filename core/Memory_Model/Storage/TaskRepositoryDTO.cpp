@@ -13,12 +13,18 @@ TaskRepositoryDTO::TaskRepositoryDTO(const std::string &name, const std::string 
     : name_(name), label_(label), Priority_(priority), date_(date), taskComplete_(false), taskID_(TaskID()), rootID_(taskID_) {}
 
 
-TaskRepositoryDTO TaskRepositoryDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+std::optional<TaskRepositoryDTO> TaskRepositoryDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
                                       bool taskComplete, const TaskID &taskId, const TaskID& rootID){
+  if (name.empty() || label.empty()){
+    return std::nullopt;
+  }
   return TaskRepositoryDTO(name, label, priority, date, taskComplete, taskId, rootID);
 }
 
-TaskRepositoryDTO TaskRepositoryDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date){
+std::optional<TaskRepositoryDTO> TaskRepositoryDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date){
+  if (name.empty() || label.empty()){
+    return std::nullopt;
+  }
   return TaskRepositoryDTO(name, label, priority, date);
 }
 
@@ -37,6 +43,6 @@ const Date TaskRepositoryDTO::GetDate() const {
 bool TaskRepositoryDTO::Complete() const {
   return taskComplete_;
 }
-const TaskID TaskRepositoryDTO::GetTaskId() const {
+const TaskID TaskRepositoryDTO::GetID() const {
   return taskID_;
 }

@@ -13,12 +13,18 @@ TaskServiceDTO::TaskServiceDTO(const std::string &name, const std::string &label
   : name_(name), label_(label), Priority_(priority), date_(date), taskComplete_(false), taskID_(TaskID()){}
 
 
-TaskServiceDTO TaskServiceDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
+std::optional<TaskServiceDTO> TaskServiceDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
                                       bool taskComplete, const TaskID &taskId){
+  if (name.empty() || label.empty()){
+    return std::nullopt;
+  }
   return TaskServiceDTO(name, label, priority, date, taskComplete, taskId);
 }
 
-TaskServiceDTO TaskServiceDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date){
+std::optional<TaskServiceDTO> TaskServiceDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date){
+  if (name.empty() || label.empty()){
+    return std::nullopt;
+  }
   return TaskServiceDTO(name, label, priority, date);
 }
 
