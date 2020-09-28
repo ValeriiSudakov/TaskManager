@@ -6,7 +6,6 @@
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "TaskService.h"
 #include "Memory_Model/Storage/TaskRepositoryClass.h"
-#include "Memory_Model/Convertor.h"
 
 /*
  *  Enter point to the program.
@@ -46,22 +45,31 @@ class TaskServiceClass : public TaskService {
  private:
 
 /*
- * Converts from vector of TaskEntities to vector of TaskServiceDTO
+ * Converts from vector of TaskRepositoryDTO to vector of TaskServiceDTO
  *
- * @param: std::vector of TaskEntity
+ * @param: std::vector of TaskRepositoryDTO
  *
  * @return-type: std::vector of TaskServiceDTO
  */
   std::vector<TaskServiceDTO>      MakeTasksDTO(const std::vector<TaskRepositoryDTO>& tasksForDTO) const;
 
 /*
- * Converts from vector of TaskEntities to vector of TaskServiceDTO
+ * Converts from TaskRepositoryDTO to vector of TaskServiceDTO
  *
- * @param: std::vector of TaskEntity
+ * @param: TaskRepositoryDTO
  *
  * @return-type: std::vector of TaskServiceDTO
  */
   TaskServiceDTO                   MakeTaskDTO(const TaskRepositoryDTO& task) const;
+
+/*
+ * Converts from TaskServiceDTO to vector of TaskRepositoryDTO
+ *
+ * @param: TaskServiceDTO
+ *
+ * @return-type: TaskRepositoryDTO
+ */
+  TaskRepositoryDTO                   MakeTaskRepositoryDTO(const TaskServiceDTO& task) const;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_

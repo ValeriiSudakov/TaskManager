@@ -17,20 +17,13 @@ TaskServiceClass::TaskServiceClass(std::unique_ptr<TaskRepository> taskRepositor
 }
 
 AddTaskResult TaskServiceClass::AddTask(const TaskServiceDTO& task){
-  auto transformTask = Task::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate());
-  if (!transformTask.has_value()){
-    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
-  }
-  AddTaskResult addNewTask = tasksRepository_->AddTask(transformTask.value());
+  AddTaskResult addNewTask = tasksRepository_->AddTask(MakeTaskRepositoryDTO(task));
   return addNewTask.success_;
 }
 
 AddTaskResult TaskServiceClass::AddSubtask(const TaskID& rootTaskID, const TaskServiceDTO& subtask){
-  auto transformTask = Task::Create(subtask.GetName(), subtask.GetLabel(), subtask.GetPriority(), subtask.GetDate());
-  if (!transformTask.has_value()){
-    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
-  }
-  auto addNewSubtask = tasksRepository_->AddSubtask(rootTaskID, transformTask.value());
+  auto dtoSubtask = MakeTaskRepositoryDTO(subtask);
+  auto addNewSubtask = tasksRepository_->AddSubtask(rootTaskID, dtoSubtask);
   return addNewSubtask.success_;
 }
 
@@ -92,8 +85,10 @@ std::vector<TaskServiceDTO> TaskServiceClass::GetTasksByPriority(const Priority&
 }
 
 TaskServiceDTO TaskServiceClass::MakeTaskDTO(const TaskRepositoryDTO& task) const {
-  return TaskServiceDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate(),
-                                task.Complete(), task.GetTaskId());
+  auto newTask = TaskServiceDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate(),
+                                     task.Complete(), task.GetID());
+  assert(newTask.has_value());
+  return newTask.value();
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::MakeTasksDTO(const std::vector<TaskRepositoryDTO> &tasksForDTO) const {
@@ -102,5 +97,11 @@ std::vector<TaskServiceDTO> TaskServiceClass::MakeTasksDTO(const std::vector<Tas
     result.push_back(MakeTaskDTO(task));
   }
   return result;
+}
+
+TaskRepositoryDTO TaskServiceClass::MakeTaskRepositoryDTO(const TaskServiceDTO &task) const {
+  auto newTask =  TaskRepositoryDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate());
+  assert(newTask.has_value());
+  return newTask.value();
 }
 
