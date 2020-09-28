@@ -3,10 +3,11 @@
 //
 
 #include <gtest/gtest.h>
-#include "API/TaskDTO.h"
+#include "API/TaskServiceDTO.h"
 #include "Date/Date.h"
 #include "Memory_Model/Task/TaskIDGenerate.h"
 #include <iostream>
+#include "Memory_Model/Task/Task.h"
 
 class TestTaskDTO : public ::testing::Test {
 
@@ -18,8 +19,8 @@ TEST_F(TestTaskDTO, shouldCreateTaskDTO){
   TaskID id = taskIDGenerate.Generate();
   std::optional<Task> task = Task::Create("task name", "label", Priority::NONE, date);
 
-  auto taskDTO = TaskDTO::Create(task.value().GetName(), task.value().GetLabel(), task.value().GetPriority(),
-                  task.value().GetDueDate(), false,  id);
+  auto taskDTO = TaskServiceDTO::Create(task.value().GetName(), task.value().GetLabel(), task.value().GetPriority(),
+                                                task.value().GetDueDate(), false, id);
 
   ASSERT_EQ(taskDTO.GetName(), "task name");
   ASSERT_EQ(taskDTO.GetLabel(), "label");

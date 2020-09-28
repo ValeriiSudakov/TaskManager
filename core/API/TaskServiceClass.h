@@ -20,22 +20,22 @@ class TaskServiceClass : public TaskService {
   static TaskServiceClass Create();
  public:
 
-  AddTaskResult             AddTask(const TaskDTO& task) override;
-  AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskDTO& subtask) override;
-  bool                      RemoveTask(const TaskID& ID) override;
-  bool                      PostponeTask(const TaskID& ID, const Date& date) override;
-  bool                      SetTaskComplete(const TaskID& ID) override;
+  AddTaskResult                    AddTask(const TaskServiceDTO& task) override;
+  AddTaskResult                    AddSubtask(const TaskID& rootTaskID, const TaskServiceDTO& subtask) override;
+  bool                             RemoveTask(const TaskID& ID) override;
+  bool                             PostponeTask(const TaskID& ID, const Date& date) override;
+  bool                             SetTaskComplete(const TaskID& ID) override;
 
  public:
 
-  std::optional<TaskDTO>    GetTask(const TaskID& id) const override;
-  std::vector<TaskDTO>      GetSubtask(const TaskID& id) const override;
-  std::vector<TaskDTO>      GetTasks(bool byPriority) const override;
-  std::vector<TaskDTO>      GetTodayTasks(bool byPriority) const override;
-  std::vector<TaskDTO>      GetWeekTasks(bool byPriority) const override;
-  std::vector<TaskDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const override;
-  std::vector<TaskDTO>      GetTasksByName(const std::string& name, bool byPriority) const override;
-  std::vector<TaskDTO>      GetTasksByPriority(const Priority& priority) const override;
+  std::optional<TaskServiceDTO>    GetTask(const TaskID& id) const override;
+  std::vector<TaskServiceDTO>      GetSubtask(const TaskID& id) const override;
+  std::vector<TaskServiceDTO>      GetTasks(bool byPriority) const override;
+  std::vector<TaskServiceDTO>      GetTodayTasks(bool byPriority) const override;
+  std::vector<TaskServiceDTO>      GetWeekTasks(bool byPriority) const override;
+  std::vector<TaskServiceDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const override;
+  std::vector<TaskServiceDTO>      GetTasksByName(const std::string& name, bool byPriority) const override;
+  std::vector<TaskServiceDTO>      GetTasksByPriority(const Priority& priority) const override;
 
  private:
 
@@ -46,22 +46,22 @@ class TaskServiceClass : public TaskService {
  private:
 
 /*
- * Converts from vector of TaskEntities to vector of TaskDTO
+ * Converts from vector of TaskEntities to vector of TaskServiceDTO
  *
  * @param: std::vector of TaskEntity
  *
- * @return-type: std::vector of TaskDTO
+ * @return-type: std::vector of TaskServiceDTO
  */
-  std::vector<TaskDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO) const;
+  std::vector<TaskServiceDTO>      MakeTasksDTO(const std::vector<TaskEntity>& tasksForDTO) const;
 
 /*
- * Converts from vector of TaskEntities to vector of TaskDTO and sorts it by priority
+ * Converts from vector of TaskEntities to vector of TaskServiceDTO and sorts it by priority
  *
  * @param: std::vector of TaskEntity
  *
- * @return-type: std::vector of TaskDTO
+ * @return-type: std::vector of TaskServiceDTO
  */
-  std::vector<TaskDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO) const;
+  std::vector<TaskServiceDTO>      MakeTasksDTObyPriority(const std::vector<TaskEntity>& tasksForDTO) const;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_

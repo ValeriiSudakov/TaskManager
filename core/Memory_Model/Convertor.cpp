@@ -4,24 +4,24 @@
 
 #include "Convertor.h"
 
-std::vector<TaskDTO> convertor::toTaskDTO::notSortedVector(const std::vector<TaskEntity>& tasksForDTO){
-  std::vector<TaskDTO> tasksDTO;
+std::vector<TaskServiceDTO> convertor::toTaskDTO::notSortedVector(const std::vector<TaskEntity>& tasksForDTO){
+  std::vector<TaskServiceDTO> tasksDTO;
   for (const auto& task : tasksForDTO){
-    auto dto = TaskDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDueDate(),
-                               task.IsComplete(), task.GetId());
+    auto dto = TaskServiceDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDueDate(),
+                                              task.IsComplete(), task.GetId());
     tasksDTO.push_back(dto);
   }
 
   return tasksDTO;
 }
 
-std::vector<TaskDTO>  convertor::toTaskDTO::sortedVectorByPriority(const std::vector<TaskEntity>& tasksForDTO){
-  std::vector<TaskDTO> tasksDTO;
+std::vector<TaskServiceDTO>  convertor::toTaskDTO::sortedVectorByPriority(const std::vector<TaskEntity>& tasksForDTO){
+  std::vector<TaskServiceDTO> tasksDTO;
   for (const auto& task : tasksForDTO){
-    auto dto = TaskDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(),
-                               task.GetDueDate(), task.IsComplete(), task.GetId());
+    auto dto = TaskServiceDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(),
+                                              task.GetDueDate(), task.IsComplete(), task.GetId());
     tasksDTO.push_back(dto);
   }
-  std::sort(tasksDTO.begin(), tasksDTO.end(), [](const TaskDTO& a, const TaskDTO& b) { return a.GetPriority() < b.GetPriority(); });
+  std::sort(tasksDTO.begin(), tasksDTO.end(), [](const TaskServiceDTO& a, const TaskServiceDTO& b) { return a.GetPriority() < b.GetPriority(); });
   return tasksDTO;
 }

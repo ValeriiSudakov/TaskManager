@@ -24,8 +24,8 @@ class FakeRepository : public TaskRepository{
 
 TEST_F(TestTaskService, shouldAddTask) {
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::Create(task.value().GetName(), task.value().GetLabel(),
-                                     task.value().GetPriority(), task.value().GetDueDate());
+  auto dto = TaskServiceDTO::Create(task.value().GetName(), task.value().GetLabel(),
+                                            task.value().GetPriority(), task.value().GetDueDate());
   auto result = ts->AddTask(dto);
   ASSERT_TRUE(result.success_);
 }
@@ -33,7 +33,7 @@ TEST_F(TestTaskService, shouldAddTask) {
 TEST_F(TestTaskService, shouldCreateTask) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto taskTest = ts->GetTasksByName("task", false);
@@ -44,12 +44,12 @@ TEST_F(TestTaskService, shouldCreateTask) {
 TEST_F(TestTaskService, shouldCreateSubTask) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::Create(subTask.value().GetName(), subTask.value().GetLabel(),
-                                     subTask.value().GetPriority(), subTask.value().GetDueDate());
+  auto dto = TaskServiceDTO::Create(subTask.value().GetName(), subTask.value().GetLabel(),
+                                            subTask.value().GetPriority(), subTask.value().GetDueDate());
   auto taskTest = ts->GetTasksByName("task", false);
   auto result = ts->AddSubtask(taskTest[0].GetTaskId(), dto);
   ASSERT_TRUE(result.success_);
@@ -58,13 +58,13 @@ TEST_F(TestTaskService, shouldCreateSubTask) {
 TEST_F(TestTaskService, shouldntCreateSubTaskWithIncorrectID) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   TaskIDGenerate idGenerate;
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto dto = TaskDTO::Create(subTask.value().GetName(), subTask.value().GetLabel(),
-                                     subTask.value().GetPriority(), subTask.value().GetDueDate());
+  auto dto = TaskServiceDTO::Create(subTask.value().GetName(), subTask.value().GetLabel(),
+                                            subTask.value().GetPriority(), subTask.value().GetDueDate());
   TaskID incorrectID(987);
   auto result = ts->AddSubtask(incorrectID, dto);
   ASSERT_FALSE(result.success_);
@@ -73,7 +73,7 @@ TEST_F(TestTaskService, shouldntCreateSubTaskWithIncorrectID) {
 TEST_F(TestTaskService, shouldPostpone){
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto now = Date(Date::GetCurrentTime());
@@ -92,7 +92,7 @@ TEST_F(TestTaskService, shouldntPostpone){
 TEST_F(TestTaskService, shouldGetByID) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto result = ts->GetTask(TaskID());
@@ -109,7 +109,7 @@ TEST_F(TestTaskService, shouldntGetByID) {
 TEST_F(TestTaskService, shouldFoundTaskByName) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTasksByName("task", false);
@@ -119,7 +119,7 @@ TEST_F(TestTaskService, shouldFoundTaskByName) {
 TEST_F(TestTaskService, shouldFoundTaskByNameAndPriority) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTasksByName("task", true);
@@ -136,7 +136,7 @@ TEST_F(TestTaskService, shouldNotFoundTaskByName) {
 TEST_F(TestTaskService, shouldFoundTaskByLabel) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTasksByLabel("label", false);
@@ -146,7 +146,7 @@ TEST_F(TestTaskService, shouldFoundTaskByLabel) {
 TEST_F(TestTaskService, shouldFoundTaskByLabelAndPriority) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTasksByLabel("label", true);
@@ -163,7 +163,7 @@ TEST_F(TestTaskService, shouldNotFoundTaskByLabel) {
 TEST_F(TestTaskService, shouldFoundTasks) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTasks( false);
@@ -173,7 +173,7 @@ TEST_F(TestTaskService, shouldFoundTasks) {
 TEST_F(TestTaskService, shouldFoundTasksByPriority) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTasks(true);
@@ -190,7 +190,7 @@ TEST_F(TestTaskService, shouldNotFoundTasks) {
 TEST_F(TestTaskService, shouldFoundTodayTasks) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTodayTasks( false);
@@ -200,7 +200,7 @@ TEST_F(TestTaskService, shouldFoundTodayTasks) {
 TEST_F(TestTaskService, shouldFoundTodayTasksByPriority) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTodayTasks(true);
@@ -216,7 +216,7 @@ TEST_F(TestTaskService, shouldNotFoundTodayTasks) {
 TEST_F(TestTaskService, shouldFoundWeekTasks) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetWeekTasks( false);
@@ -226,7 +226,7 @@ TEST_F(TestTaskService, shouldFoundWeekTasks) {
 TEST_F(TestTaskService, shouldFoundWeekTasksByPriority) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetWeekTasks(true);
@@ -242,7 +242,7 @@ TEST_F(TestTaskService, shouldNotFoundWeekTasks) {
 TEST_F(TestTaskService, shouldFoundTasksPriority) {
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto resultSearch = ts->GetTasksByPriority(Priority::NONE);
@@ -258,7 +258,7 @@ TEST_F(TestTaskService, shouldNotFoundTasksPriority) {
 TEST_F(TestTaskService, shouldRemoveTask){
 
   auto test = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
-  auto testDTO = TaskDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
+  auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ts->AddTask(testDTO);
 
   auto result = ts->RemoveTask(TaskID(0));

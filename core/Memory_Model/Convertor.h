@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_SRC_CONVERTOR_H_
 #define TASKMANAGER_SRC_CONVERTOR_H_
-#include "API/TaskDTO.h"
+#include "API/TaskServiceDTO.h"
 #include "Memory_Model/Task/TaskEntity.h"
 
 
@@ -12,22 +12,22 @@ namespace convertor{
 
   namespace toTaskDTO{
   /*
-  * Converts from vector of TaskEntities to vector of TaskDTO
+  * Converts from vector of TaskEntities to vector of TaskServiceDTO
   *
   * @param: std::vector of TaskEntity
   *
-  * @return-type: std::vector of TaskDTO
+  * @return-type: std::vector of TaskServiceDTO
   */
-  std::vector<TaskDTO> notSortedVector(const std::vector<TaskEntity>& tasksForDTO);
+  std::vector<TaskServiceDTO> notSortedVector(const std::vector<TaskEntity>& tasksForDTO);
 
   /*
-  * Converts from vector of TaskEntities to vector of TaskDTO and sorts it by priority
+  * Converts from vector of TaskEntities to vector of TaskServiceDTO and sorts it by priority
   *
   * @param: std::vector of TaskEntity
   *
-  * @return-type: std::vector of TaskDTO
+  * @return-type: std::vector of TaskServiceDTO
   */
-  std::vector<TaskDTO> sortedVectorByPriority(const std::vector<TaskEntity>& tasksForDTO);
+  std::vector<TaskServiceDTO> sortedVectorByPriority(const std::vector<TaskEntity>& tasksForDTO);
 
   }
 }

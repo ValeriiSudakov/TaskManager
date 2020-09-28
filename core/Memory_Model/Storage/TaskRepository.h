@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKREPOSITORYINTERFACE_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKREPOSITORYINTERFACE_H_
 #include "API/AddTaskResult.h"
-#include "API/TaskDTO.h"
+#include "API/TaskServiceDTO.h"
 #include "API/Priority.h"
 #include "TaskViewClass.h"
 #include "TaskStorageClass.h"
