@@ -34,7 +34,7 @@
  private:
    TaskRepositoryDTO                  DTOFromEntity(const TaskEntity& entity) const;
    std::optional<TaskEntity>          EntityFromDTO(const TaskRepositoryDTO& dto);
-   void                               SortByPriority(const std::vector<TaskRepositoryDTO>& tasks) const;
+   void                               SortByPriority(std::vector<TaskRepositoryDTO>& tasks) const;
 
  private:
   std::unique_ptr<TaskView>           taskView_;
