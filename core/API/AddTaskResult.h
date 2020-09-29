@@ -5,6 +5,7 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_ADDTASKRESULT_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_ADDTASKRESULT_H_
 #include <optional>
+#include "TaskID.h"
 
 /*
  * Contains information about result of the add operation
@@ -17,11 +18,20 @@ struct AddTaskResult {
     NOT_FOUND_PARENT_TASK,
     TASK_IS_DAMAGED
   };
- std::optional<ErrorType>   error_;
- bool                       success_;
+  std::optional<ErrorType>   error_;
+  std::optional<TaskID>      id_;
+  bool                       success_;
 
-  AddTaskResult(bool success) : success_(success) {}
-  AddTaskResult(const std::optional<ErrorType> &error, bool success) : error_(error), success_(success) {}
+  static AddTaskResult       Success(const TaskID& id) {
+    return AddTaskResult(std::nullopt, true, id);
+  }
+  static AddTaskResult       Failed(const AddTaskResult::ErrorType& error) {
+    return AddTaskResult(error, true, std::nullopt);
+  }
+
+ private:
+  AddTaskResult(const std::optional<ErrorType>& error, bool success, const std::optional<TaskID>& id)
+    : error_(error), success_(success), id_(id) {}
 };
 
 #endif //TASKMANAGER_SRC_MEMORY_MODEL_ADDTASKRESULT_H_

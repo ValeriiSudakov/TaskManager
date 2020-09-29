@@ -11,34 +11,34 @@ TaskRepositoryClass::TaskRepositoryClass(std::unique_ptr<TaskView> view, std::un
 AddTaskResult TaskRepositoryClass::AddTask(const TaskRepositoryDTO &task){
   auto newTaskEntity = EntityFromDTO(task);
   if (!newTaskEntity.has_value()){
-    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
+    return AddTaskResult::Failed(AddTaskResult::ErrorType::TASK_IS_DAMAGED);
   }
   auto newTask = taskStorage_->AddTask(newTaskEntity.value());
   if (newTask.has_value()) {
     taskView_->AddTask(newTask.value());
-    return AddTaskResult(true);
+    return AddTaskResult::Success(newTask.value()->GetId());
   }
-  return AddTaskResult(AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY, false);
+  return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY);
 }
 
 AddTaskResult TaskRepositoryClass::AddSubtask(const TaskID& rootTaskID, const TaskRepositoryDTO& subtask){
   auto rootTask = taskStorage_->GetTask(rootTaskID);
   if (!rootTask.has_value()){
-    return AddTaskResult(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK, false);
+    return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK);
   }
 
   auto newTaskEntity = EntityFromDTO(subtask);
   if (!newTaskEntity.has_value()){
-    return AddTaskResult(AddTaskResult::ErrorType::TASK_IS_DAMAGED, false);
+    return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK);
   }
   auto newTask = taskStorage_->AddTask(newTaskEntity.value());
   if (newTask.has_value()) {
     taskView_->AddTask(newTask.value());
     rootTask.value()->AddSubtasks(newTask.value());
-    return AddTaskResult(true);
+    return AddTaskResult::Success(newTask.value()->GetId());
   }
 
-  return AddTaskResult(AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY, false);
+  return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY);
 }
 
 bool TaskRepositoryClass::RemoveTask(const TaskID& id){
@@ -124,9 +124,6 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasks() const{
   std::vector<TaskRepositoryDTO> tasksDTO;
   for (const auto& task : tasks){
     tasksDTO.push_back(DTOFromEntity(*task.second));
-  }
-  if (byPriority){
-    SortByPriority(tasksDTO);
   }
   return tasksDTO;
 }
