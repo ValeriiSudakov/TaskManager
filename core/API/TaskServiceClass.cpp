@@ -18,13 +18,13 @@ TaskServiceClass::TaskServiceClass(std::unique_ptr<TaskRepository> taskRepositor
 
 AddTaskResult TaskServiceClass::AddTask(const TaskServiceDTO& task){
   AddTaskResult addNewTask = tasksRepository_->AddTask(MakeTaskRepositoryDTO(task));
-  return addNewTask.success_;
+  return addNewTask;
 }
 
 AddTaskResult TaskServiceClass::AddSubtask(const TaskID& rootTaskID, const TaskServiceDTO& subtask){
   auto dtoSubtask = MakeTaskRepositoryDTO(subtask);
   auto addNewSubtask = tasksRepository_->AddSubtask(rootTaskID, dtoSubtask);
-  return addNewSubtask.success_;
+  return addNewSubtask;
 }
 
 bool TaskServiceClass::RemoveTask(const TaskID& ID){
@@ -55,7 +55,7 @@ std::vector<TaskServiceDTO> TaskServiceClass::GetSubtask(const TaskID& id) const
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetTasks(bool byPriority) const{
-  auto tasks = tasksRepository_->GetTasks(byPriority);
+  auto tasks = tasksRepository_->GetTasks();
   return MakeTasksDTO(tasks);
 }
 
