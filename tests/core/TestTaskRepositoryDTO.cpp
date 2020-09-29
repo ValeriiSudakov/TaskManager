@@ -22,12 +22,12 @@ TEST_F(TestTaskRepositoryDTO, shouldCreateTaskRepositoryDTO){
   auto taskDTO = TaskRepositoryDTO::Create(task.value().GetName(), task.value().GetLabel(), task.value().GetPriority(),
                                         task.value().GetDueDate(), false, id, id);
 
-  ASSERT_EQ(taskDTO.GetName(), "task name");
-  ASSERT_EQ(taskDTO.GetLabel(), "label");
-  ASSERT_EQ(taskDTO.GetPriority(), Priority::NONE);
-  Date date1 = taskDTO.GetDate();
+  ASSERT_EQ(taskDTO.value().GetName(), "task name");
+  ASSERT_EQ(taskDTO.value().GetLabel(), "label");
+  ASSERT_EQ(taskDTO.value().GetPriority(), Priority::NONE);
+  Date date1 = taskDTO.value().GetDate();
   ASSERT_EQ(date.Get().day_number(), date1.Get().day_number());
-  ASSERT_EQ(taskDTO.GetTaskId(),  id);
-  ASSERT_EQ(taskDTO.Complete(), false);
+  ASSERT_EQ(taskDTO.value().GetID(),  id);
+  ASSERT_EQ(taskDTO.value().Complete(), false);
 
 }
