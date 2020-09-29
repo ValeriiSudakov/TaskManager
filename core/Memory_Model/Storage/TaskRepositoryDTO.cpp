@@ -46,3 +46,7 @@ bool TaskRepositoryDTO::Complete() const {
 const TaskID TaskRepositoryDTO::GetID() const {
   return taskID_;
 }
+
+const TaskID TaskRepositoryDTO::GetRootID() const{
+  return rootID_;
+}
