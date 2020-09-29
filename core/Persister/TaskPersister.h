@@ -11,7 +11,7 @@ class TaskRepositoryDTO;
 namespace DataPersister {
   class TaskPersister : public DataPersister::Persister {
    public:
-    TaskPersister(const std::string& fileName, TaskRepository& repository)
+    TaskPersister(const std::string& fileName, std::shared_ptr<TaskRepository>& repository)
     : repository_(repository), fileName_(fileName) {}
 
    public:
@@ -19,7 +19,7 @@ namespace DataPersister {
     bool                                Load() override;
 
    private:
-    TaskRepository&                     repository_;
+    std::shared_ptr<TaskRepository>     repository_;
     std::string                         fileName_;
 
   };

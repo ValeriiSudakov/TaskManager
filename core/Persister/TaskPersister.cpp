@@ -15,7 +15,7 @@ bool DataPersister::TaskPersister::Save() {
     return false;
   }
 
-  auto tasksToSave = repository_.GetTasks();
+  auto tasksToSave = repository_->GetTasks();
   //        oldID  newID
   std::map<TaskID, TaskID> idMapping;
   TaskIDGenerate newID;
@@ -46,17 +46,14 @@ bool DataPersister::TaskPersister::Load() {
   storageToLoad.ParseFromIstream(&file);
   file.close();
 
-  std::unique_ptr<TaskRepository> newRepository = std::make_unique<TaskRepositoryClass>(std::make_unique<TaskViewClass>(),
+  std::shared_ptr<TaskRepository> newRepository = std::make_shared<TaskRepositoryClass>(std::make_unique<TaskViewClass>(),
                                                                                         std::make_unique<TaskStorageClass>());
   auto result = DataPersister::FillNewTasksToRepository(storageToLoad, *newRepository);
   if (!result){
     return false;
   }
-  repository_.ResetRepository();
-  for (const auto& task : newRepository->GetTasks()){
-    task.GetRootID() == task.GetID() ? repository_.AddTask(task) : repository_.AddSubtask(task.GetRootID(), task);
-  }
-
+  repository_.reset();
+  repository_ = std::move(newRepository);
   return true;
 }
 
