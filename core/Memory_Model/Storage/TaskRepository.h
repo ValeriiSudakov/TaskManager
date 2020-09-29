@@ -23,7 +23,7 @@ class TaskRepository{
 
   virtual std::optional<TaskRepositoryDTO>    GetTask(const TaskID& id) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetSubtask(const TaskID& id) const = 0;
-  virtual std::vector<TaskRepositoryDTO>      GetTasks(bool byPriority) const = 0;
+  virtual std::vector<TaskRepositoryDTO>      GetTasks() const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetTodayTasks(bool byPriority) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetWeekTasks(bool byPriority) const = 0;
   virtual std::vector<TaskRepositoryDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const = 0;
