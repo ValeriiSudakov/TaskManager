@@ -24,7 +24,7 @@
 
   std::optional<TaskRepositoryDTO>    GetTask(const TaskID& id) const override;
   std::vector<TaskRepositoryDTO>      GetSubtask(const TaskID& id) const override;
-  std::vector<TaskRepositoryDTO>      GetTasks(bool byPriority) const override;
+  std::vector<TaskRepositoryDTO>      GetTasks() const override;
   std::vector<TaskRepositoryDTO>      GetTodayTasks(bool byPriority) const override;
   std::vector<TaskRepositoryDTO>      GetWeekTasks(bool byPriority) const override;
   std::vector<TaskRepositoryDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const override;

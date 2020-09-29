@@ -29,7 +29,7 @@ class TaskServiceClass : public TaskService {
 
   std::optional<TaskServiceDTO>    GetTask(const TaskID& id) const override;
   std::vector<TaskServiceDTO>      GetSubtask(const TaskID& id) const override;
-  std::vector<TaskServiceDTO>      GetTasks(bool byPriority) const override;
+  std::vector<TaskServiceDTO>      GetTasks() const override;
   std::vector<TaskServiceDTO>      GetTodayTasks(bool byPriority) const override;
   std::vector<TaskServiceDTO>      GetWeekTasks(bool byPriority) const override;
   std::vector<TaskServiceDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const override;
