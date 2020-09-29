@@ -31,6 +31,6 @@ StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, I
     return StateOperationResult::INCORRECT_INPUT;
   }
 
-  context->buffer_.id = context->tasks_[id].GetTaskId().Get();
+  context->buffer_.id = context->tasks_[id].GetID().Get();
   return StateOperationResult::SUCCESS;
 }

@@ -40,6 +40,7 @@ class TaskRepositoryDTO {
   const Date                      GetDate() const;
   bool                            Complete() const;
   const TaskID                    GetID() const;
+  const TaskID                    GetRootID() const;
 
  private:
   std::string                     name_;

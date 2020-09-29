@@ -55,7 +55,7 @@ std::vector<TaskServiceDTO> TaskServiceClass::GetSubtask(const TaskID& id) const
 }
 
 std::vector<TaskServiceDTO> TaskServiceClass::GetTasks(bool byPriority) const{
-  auto tasks = tasksRepository_->GetTasks(byPriority);
+  auto tasks = tasksRepository_->GetTasks();
   return MakeTasksDTO(tasks);
 }
 

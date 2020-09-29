@@ -119,14 +119,11 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetSubtask(const TaskID& id)
   return subtasks;
 }
 
-std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasks(bool byPriority) const{
+std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasks() const{
   auto tasks = taskStorage_->GetTasks();
   std::vector<TaskRepositoryDTO> tasksDTO;
   for (const auto& task : tasks){
     tasksDTO.push_back(DTOFromEntity(*task.second));
-  }
-  if (byPriority){
-    SortByPriority(tasksDTO);
   }
   return tasksDTO;
 }
