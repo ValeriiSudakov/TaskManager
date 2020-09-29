@@ -26,7 +26,7 @@ struct AddTaskResult {
     return AddTaskResult(std::nullopt, true, id);
   }
   static AddTaskResult       Failed(const AddTaskResult::ErrorType& error) {
-    return AddTaskResult(error, true, std::nullopt);
+    return AddTaskResult(error, false, std::nullopt);
   }
 
  private:
