@@ -7,27 +7,10 @@
 
 TaskStorageClass::TaskStorageClass() = default;
 
-std::optional<std::shared_ptr<TaskEntity>> TaskStorageClass::AddTask(const Task& task){
-  TaskID newTaskID = taskIDGenerate_.Generate();
-  auto newEntityTask = std::make_shared<TaskEntity>(task, newTaskID);
-  tasks_.insert(std::make_pair(newTaskID, newEntityTask));
+std::optional<std::shared_ptr<TaskEntity>>  TaskStorageClass::AddTask(const TaskEntity& task){
+  auto newEntityTask = std::make_shared<TaskEntity>(task);
+  tasks_.insert(std::make_pair(task.GetId(), newEntityTask));
   return newEntityTask;
-}
-
-std::optional<std::shared_ptr<TaskEntity>> TaskStorageClass::AddSubtask(const TaskID &rootTaskID, const Task &subtask) {
-
-  auto task = tasks_.find(rootTaskID);
-  if (task != tasks_.end()){ // if task exist
-    TaskID newTaskID = taskIDGenerate_.Generate();
-    auto newEntityTask = std::make_shared<TaskEntity>(subtask, TaskID(newTaskID), rootTaskID);
-
-    task->second->AddSubtasks(newEntityTask);
-    tasks_.insert(std::make_pair(newTaskID, newEntityTask));
-
-    return newEntityTask;
-  }
-
-  return std::nullopt;
 }
 
 const std::map<TaskID, std::shared_ptr<TaskEntity>>& TaskStorageClass::GetTasks() const {

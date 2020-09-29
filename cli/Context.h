@@ -18,7 +18,7 @@ struct Context {
     Date date;
     TaskID id;
   } buffer_;
-  std::vector<TaskDTO> tasks_;
+  std::vector<TaskServiceDTO> tasks_;
 };
 
 #endif //TASKMANAGER_CLI_CONTEXT_H_

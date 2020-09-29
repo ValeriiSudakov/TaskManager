@@ -34,11 +34,11 @@ class TaskEntity {
   void                                                      SetComplete();
 
  private:
-  Task                                                  task_;
-  TaskID                                                id_;
-  TaskID                                                parentID_;
-  bool                                                  complete_;
-  std::map<TaskID, std::weak_ptr<TaskEntity>>           subtasks_;
+  Task                                                      task_;
+  TaskID                                                    id_;
+  TaskID                                                    parentID_;
+  bool                                                      complete_;
+  std::map<TaskID, std::weak_ptr<TaskEntity>>               subtasks_;
 };
 
 #endif //TASKMANAGER_SRC_TASKENTITY_H_

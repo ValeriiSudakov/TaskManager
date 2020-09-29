@@ -3,23 +3,24 @@
 //
 
 #include <gtest/gtest.h>
-#include "API/TaskDTO.h"
+#include "Memory_Model/Storage/TaskRepositoryDTO.h"
 #include "Date/Date.h"
 #include "Memory_Model/Task/TaskIDGenerate.h"
 #include <iostream>
+#include "Memory_Model/Task/Task.h"
 
-class TestTaskDTO : public ::testing::Test {
+class TestTaskRepositoryDTO : public ::testing::Test {
 
 };
 
-TEST_F(TestTaskDTO, shouldCreateTaskDTO){
+TEST_F(TestTaskRepositoryDTO, shouldCreateTaskRepositoryDTO){
   TaskIDGenerate taskIDGenerate;
   Date date = Date::GetCurrentTime();
   TaskID id = taskIDGenerate.Generate();
   std::optional<Task> task = Task::Create("task name", "label", Priority::NONE, date);
 
-  auto taskDTO = TaskDTO::Create(task.value().GetName(), task.value().GetLabel(), task.value().GetPriority(),
-                  task.value().GetDueDate(), false,  id);
+  auto taskDTO = TaskRepositoryDTO::Create(task.value().GetName(), task.value().GetLabel(), task.value().GetPriority(),
+                                        task.value().GetDueDate(), false, id, id);
 
   ASSERT_EQ(taskDTO.GetName(), "task name");
   ASSERT_EQ(taskDTO.GetLabel(), "label");
@@ -27,6 +28,6 @@ TEST_F(TestTaskDTO, shouldCreateTaskDTO){
   Date date1 = taskDTO.GetDate();
   ASSERT_EQ(date.Get().day_number(), date1.Get().day_number());
   ASSERT_EQ(taskDTO.GetTaskId(),  id);
-  ASSERT_EQ(taskDTO.IsTaskComplete(), false);
+  ASSERT_EQ(taskDTO.Complete(), false);
 
 }
