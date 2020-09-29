@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package Serialized;
+
+enum Priority{
+  FIRST = 0;
+  SECOND = 1;
+  THIRD = 2;
+  NONE = 3;
+}
+
+message Task{
+  string name = 1;
+  string label = 2;
+  Priority priority = 3;
+  uint32 date = 4;
+  bool complete = 5;
+  repeated Task subtasks = 6;
+}
+
+message Service{
+  repeated Task tasks = 1;
+}
