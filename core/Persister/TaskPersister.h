@@ -11,6 +11,9 @@
 
 class TaskPersister : public Persister{
  public:
+  TaskPersister(TaskRepository& repository) : repository_(repository) {}
+
+ public:
   bool Load() override;
   bool Save() override;
 
