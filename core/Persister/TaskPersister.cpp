@@ -29,12 +29,9 @@ bool TaskPersister::Save() {
   Serialized::Storage storage;
   for (auto& task : tasks){
     if (task.GetID() == task.GetRootID()){
-      auto serializedTask = std::move(PersisterUtils::SerializedTaskFromDTO(task));
-
-      auto* allocatedTask = storage.add_tasks();
-      PersisterUtils::FillTask(*allocatedTask, *serializedTask);
-
-      PersisterUtils::AddSubtasks(*serializedTask, task, repository_);
+      Serialized::Task* newTask = storage.add_tasks();
+      PersisterUtils::SerializedTaskFromDTO(task, *newTask);
+      PersisterUtils::AddSubtasks(*newTask, task, repository_);
     }
   }
 
