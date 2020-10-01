@@ -33,7 +33,7 @@
 
  private:
    TaskRepositoryDTO                  DTOFromEntity(const TaskEntity& entity) const;
-   std::optional<TaskEntity>          EntityFromDTO(const TaskRepositoryDTO& dto);
+   std::optional<TaskEntity>          EntityFromDTO(const TaskRepositoryDTO& dto, std::optional<TaskID> rootID);
    void                               SortByPriority(std::vector<TaskRepositoryDTO>& tasks) const;
 
  private:
