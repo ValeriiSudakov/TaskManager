@@ -11,9 +11,8 @@ namespace PersisterUtils{
   Priority                              SerializedPriorityToPriority(const Serialized::Priority& priority);
   Serialized::Priority                  PriorityToSerializedPriority(const Priority& priority);
 
-  std::unique_ptr<Serialized::Task>     SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO);
-
-  void                                  FillTask(Serialized::Task& newTask, Serialized::Task& data);
+  void                                  SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO,
+                                                              Serialized::Task& task);
 
   void                                  AddSubtasks(Serialized::Task& serializedTask, TaskRepositoryDTO& task,
                                                     TaskRepository& repository_);
@@ -22,9 +21,6 @@ namespace PersisterUtils{
                                                                 TaskRepository& repository_);
 
   TaskRepositoryDTO                     DTOFromSerializedTask(const Serialized::Task& task);
-
-  bool                                  FillNewTasksToRepository(Serialized::Storage& serializedStorage,
-                                                                TaskRepository& repository);
 }
 
 #endif //TASKMANAGER_CORE_PERSISTER_TASKPERSISTERUTILS_H_

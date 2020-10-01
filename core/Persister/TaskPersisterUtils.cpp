@@ -5,16 +5,13 @@
 #include "TaskPersisterUtils.h"
 
 
-std::unique_ptr<Serialized::Task> PersisterUtils::SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO){
-  auto task = std::make_unique<Serialized::Task>();
-
-  task->set_name(taskDTO.GetName());
-  task->set_label(taskDTO.GetLabel());
-  task->set_priority(PriorityToSerializedPriority(taskDTO.GetPriority()));
-  task->set_date(taskDTO.GetDate().Get().day_number());
-  task->set_complete(taskDTO.Complete());
-
-  return  std::move(task);
+void PersisterUtils::SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO,
+                                           Serialized::Task& task){
+  task.set_name(taskDTO.GetName());
+  task.set_label(taskDTO.GetLabel());
+  task.set_priority(PriorityToSerializedPriority(taskDTO.GetPriority()));
+  task.set_date(taskDTO.GetDate().Get().day_number());
+  task.set_complete(taskDTO.Complete());
 }
 
 
@@ -27,7 +24,7 @@ TaskRepositoryDTO PersisterUtils::DTOFromSerializedTask(const Serialized::Task& 
   return dto.value();
 }
 
-void AddSubtasksToRepository(Serialized::Task& serializedTask, TaskID& rootID, TaskRepository& repository_){
+void PersisterUtils::AddSubtasksToRepository(Serialized::Task& serializedTask, TaskID& rootID, TaskRepository& repository_){
   if (serializedTask.subtasks().empty()){
     return;
   }
@@ -47,22 +44,11 @@ void PersisterUtils::AddSubtasks(Serialized::Task& serializedTask, TaskRepositor
   if (subtasks.empty()){
     return;
   }
-  for (auto& task : subtasks){
-    auto newSubtask = std::move(SerializedTaskFromDTO(task));
-
-    auto* allocatedTask = serializedTask.add_subtasks();
-    FillTask(*allocatedTask, *newSubtask);
-
-    AddSubtasks(*allocatedTask, task, repository_);
+  for (auto& subtask : subtasks){
+    Serialized::Task* allocatedTask = serializedTask.add_subtasks();
+    SerializedTaskFromDTO(subtask, *allocatedTask);
+    AddSubtasks(*allocatedTask, subtask, repository_);
   }
-}
-
-void PersisterUtils::FillTask(Serialized::Task& newTask, Serialized::Task& data){
-  newTask.set_name(data.name());
-  newTask.set_label(data.label());
-  newTask.set_priority(data.priority());
-  newTask.set_date(data.date());
-  newTask.set_complete(data.complete());
 }
 
 Serialized::Priority PersisterUtils::PriorityToSerializedPriority(const Priority& priority){
