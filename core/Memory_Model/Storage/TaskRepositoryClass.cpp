@@ -9,7 +9,7 @@ TaskRepositoryClass::TaskRepositoryClass(std::unique_ptr<TaskView> view, std::un
  : taskView_(std::move(view)), taskStorage_(std::move(storage)){}
 
 AddTaskResult TaskRepositoryClass::AddTask(const TaskRepositoryDTO &task){
-  auto newTaskEntity = EntityFromDTO(task);
+  auto newTaskEntity = EntityFromDTO(task, std::nullopt);
   if (!newTaskEntity.has_value()){
     return AddTaskResult::Failed(AddTaskResult::ErrorType::TASK_IS_DAMAGED);
   }
@@ -27,11 +27,12 @@ AddTaskResult TaskRepositoryClass::AddSubtask(const TaskID& rootTaskID, const Ta
     return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK);
   }
 
-  auto newTaskEntity = EntityFromDTO(subtask);
+  auto newTaskEntity = EntityFromDTO(subtask, rootTaskID);
   if (!newTaskEntity.has_value()){
     return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK);
   }
   auto newTask = taskStorage_->AddTask(newTaskEntity.value());
+
   if (newTask.has_value()) {
     taskView_->AddTask(newTask.value());
     rootTask.value()->AddSubtasks(newTask.value());
@@ -110,7 +111,7 @@ std::optional<TaskRepositoryDTO> TaskRepositoryClass::GetTask(const TaskID& id) 
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetSubtask(const TaskID& id) const {
   auto task = taskStorage_->GetTask(id);
   std::vector<TaskRepositoryDTO> subtasks;
-  if (task.has_value()){
+  if (!task.has_value()){
     return subtasks;
   }
   for (const auto& subtask : task.value()->GetSubtasks()){
@@ -192,12 +193,16 @@ TaskRepositoryDTO TaskRepositoryClass::DTOFromEntity(const TaskEntity &entity) c
   return task.value();
 }
 
-std::optional<TaskEntity> TaskRepositoryClass::EntityFromDTO(const TaskRepositoryDTO &dto) {
+std::optional<TaskEntity> TaskRepositoryClass::EntityFromDTO(const TaskRepositoryDTO &dto, std::optional<TaskID> rootID) {
   auto newTask = Task::Create(dto.GetName(), dto.GetLabel(), dto.GetPriority(), dto.GetDate());
   if (!newTask.has_value()){
     return std::nullopt;
   }
-  return TaskEntity(newTask.value(), taskIDGenerate_.Generate());
+  if (rootID.has_value()){
+    return TaskEntity(newTask.value(), taskIDGenerate_.Generate(), rootID.value());
+  } else {
+    return TaskEntity(newTask.value(), taskIDGenerate_.Generate());
+  }
 }
 
 void TaskRepositoryClass::SortByPriority(std::vector<TaskRepositoryDTO> &tasks) const {
