@@ -8,6 +8,8 @@
 bool TaskPersister::Load() {
   Serialized::Storage storage;
   //read from stream
+  storage.ParseFromIstream(&file_);
+
   for (auto& task : storage.tasks()){
     auto taskDTO = PersisterUtils::DTOFromSerializedTask(task);
     auto addTaskResult = repository_.AddTask(taskDTO);
@@ -36,4 +38,5 @@ bool TaskPersister::Save() {
   }
 
   // write to stream
+  return storage.SerializeToOstream(&file_);
 }

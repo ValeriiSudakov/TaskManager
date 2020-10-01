@@ -11,13 +11,18 @@
 
 class TaskPersister : public Persister{
  public:
-  TaskPersister(TaskRepository& repository) : repository_(repository) {}
+  TaskPersister(TaskRepository& repository, std::fstream& file)
+    : repository_(repository) {
+      std::swap(file, file_);
+  }
+
 
  public:
   bool Load() override;
   bool Save() override;
 
  private:
+  std::fstream file_;
   TaskRepository& repository_;
 };
 
