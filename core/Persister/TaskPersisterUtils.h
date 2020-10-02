@@ -17,7 +17,7 @@ namespace PersisterUtils{
   void                                  AddSubtasks(Serialized::Task& serializedTask, TaskRepositoryDTO& task,
                                                     TaskRepository& repository_);
 
-  void                                  AddSubtasksToRepository(Serialized::Task& serializedTask, TaskID& rootID,
+  void                                  AddSubtasksToRepository(const Serialized::Task& serializedTask, TaskID& rootID,
                                                                 TaskRepository& repository_);
 
   TaskRepositoryDTO                     DTOFromSerializedTask(const Serialized::Task& task);

@@ -24,18 +24,17 @@ TaskRepositoryDTO PersisterUtils::DTOFromSerializedTask(const Serialized::Task& 
   return dto.value();
 }
 
-void PersisterUtils::AddSubtasksToRepository(Serialized::Task& serializedTask, TaskID& rootID, TaskRepository& repository_){
+void PersisterUtils::AddSubtasksToRepository(const Serialized::Task& serializedTask, TaskID& rootID, TaskRepository& repository_){
   if (serializedTask.subtasks().empty()){
     return;
   }
 
   for (auto& subtask : serializedTask.subtasks()){
-    auto subtaskDTO = PersisterUtils::DTOFromSerializedTask(subtask);
+    auto subtaskDTO    = PersisterUtils::DTOFromSerializedTask(subtask);
 
     auto addTaskResult = repository_.AddSubtask(rootID, subtaskDTO);
 
-    auto nonConstTask = subtask;
-    AddSubtasksToRepository(nonConstTask, addTaskResult.id_.value(), repository_);
+    AddSubtasksToRepository(subtask, addTaskResult.id_.value(), repository_);
   }
 }
 
