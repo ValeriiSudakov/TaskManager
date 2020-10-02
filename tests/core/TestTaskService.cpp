@@ -4,7 +4,7 @@
 
 
 #include <gtest/gtest.h>
-//#include <gmock/gmock.h>
+#include <gmock/gmock.h>
 #include "API/TaskServiceClass.h"
 #include <iostream>
 
@@ -12,7 +12,7 @@ class TestTaskService : public ::testing::Test {
 
  protected:
   virtual void SetUp() {
-    ts = std::make_unique<TaskServiceClass>(TaskServiceClass::Create());
+    ts = std::make_unique<TaskServiceClass>(TaskServiceUtils::GetRepositoryFactory());
   }
   std::unique_ptr<TaskService> ts;
 };
@@ -49,7 +49,7 @@ TEST_F(TestTaskService, shouldCreateSubTask) {
   auto testDTO = TaskServiceDTO::Create(test->GetName(), test->GetLabel(), test->GetPriority(), test->GetDueDate());
   ASSERT_TRUE(testDTO.has_value());
   ts->AddTask(testDTO.value());
-  
+
   std::optional<Task> subTask = Task::Create("sub task", "label", Priority::NONE, Date::GetCurrentTime());
   auto dto = TaskServiceDTO::Create(subTask.value().GetName(), subTask.value().GetLabel(),
                                             subTask.value().GetPriority(), subTask.value().GetDueDate());
