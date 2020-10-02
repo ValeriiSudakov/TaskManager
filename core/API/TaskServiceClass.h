@@ -17,8 +17,9 @@
  */
 class TaskServiceClass : public TaskService {
  public:
-  TaskServiceClass(std::function<std::unique_ptr<TaskRepository>()> repositoryFactory) {
-    tasksRepository_ = std::move(repositoryFactory());
+  TaskServiceClass(std::function<std::unique_ptr<TaskRepository>()> repositoryFactory)
+    : repositoryFactory_(repositoryFactory)  {
+    tasksRepository_ = std::move(repositoryFactory_());
   }
 
  public:
@@ -41,8 +42,8 @@ class TaskServiceClass : public TaskService {
   std::vector<TaskServiceDTO>      GetTasksByPriority(const Priority& priority) const override;
 
  private:
-  std::unique_ptr<TaskRepository>  tasksRepository_;
-
+  std::unique_ptr<TaskRepository>                   tasksRepository_;
+  std::function<std::unique_ptr<TaskRepository>()>  repositoryFactory_;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_
