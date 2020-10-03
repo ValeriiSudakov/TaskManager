@@ -6,8 +6,7 @@
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "TaskService.h"
 #include "TaskServiceUtils.h"
-#include "Memory_Model/Storage/TaskRepositoryClass.h"
-
+#include "Memory_Model/Storage/TaskRepositoryController.h"
 /*
  *  Enter point to the program.
  *
@@ -17,10 +16,8 @@
  */
 class TaskServiceClass : public TaskService {
  public:
-  TaskServiceClass(std::function<std::unique_ptr<TaskRepository>()> repositoryFactory)
-    : repositoryFactory_(repositoryFactory)  {
-    tasksRepository_ = std::move(repositoryFactory_());
-  }
+  TaskServiceClass(const std::function<std::unique_ptr<TaskRepository>()>& repositoryFactory)
+    : repositoryController_(std::move(std::make_unique<TaskRepositoryController>(repositoryFactory))) { }
 
  public:
   AddTaskResult                    AddTask(const TaskServiceDTO& task) override;
@@ -42,8 +39,7 @@ class TaskServiceClass : public TaskService {
   std::vector<TaskServiceDTO>      GetTasksByPriority(const Priority& priority) const override;
 
  private:
-  std::unique_ptr<TaskRepository>                   tasksRepository_;
-  std::function<std::unique_ptr<TaskRepository>()>  repositoryFactory_;
+  std::unique_ptr<TaskRepositoryController> repositoryController_;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_
