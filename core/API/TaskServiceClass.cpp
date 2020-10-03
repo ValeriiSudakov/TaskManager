@@ -22,6 +22,13 @@ bool TaskServiceClass::RemoveTask(const TaskID& ID){
   return result;
 }
 
+bool TaskServiceClass::Save() {
+  return repositoryController_->Save();
+}
+
+bool TaskServiceClass::Load() {
+  return repositoryController_->Load();
+}
 
 bool TaskServiceClass::PostponeTask(const TaskID& ID, const Date& date){
   return repositoryController_->Get()->PostponeTask(ID, date);
