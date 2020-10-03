@@ -19,7 +19,7 @@ bool TaskRepositoryController::Save() {
 }
 
 bool TaskRepositoryController::Load() {
-  std::fstream file("Tasks.txt", std::ios::out);
+  std::fstream file("Tasks.txt", std::ios::in);
   auto newRepository = repositoryFactory_();
   auto persister = PersisterUtils::CreatePersister(*newRepository, file);
   auto result = persister->Load();
