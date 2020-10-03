@@ -7,7 +7,7 @@
 
 int main(){
   auto io = std::make_shared<InputOutputConsoleLayer>();
-  std::unique_ptr<TaskService> service = std::make_unique<TaskServiceClass>(TaskServiceClass::Create());
+  std::unique_ptr<TaskService> service = std::make_unique<TaskServiceClass>(TaskServiceUtils::GetRepositoryFactory());
   auto menu = Factory::CreateMenuStateMachine(StatesID::BASE_MENU,
                                                std::make_shared<Context>(*service),*io );
   menu->Execute();

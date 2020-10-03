@@ -15,9 +15,12 @@ StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context
                                                            context,
                                                            io);
   addTaskMachine->Execute();
-  auto result = context->taskService_.AddSubtask(context->buffer_.id,
-                                                 TaskServiceDTO::TaskServiceDTO(context->buffer_.name, context->buffer_.label,
-                                                                                context->buffer_.priority, context->buffer_.date));
+  auto task = TaskServiceDTO::Create(context->buffer_.name, context->buffer_.label,
+                         context->buffer_.priority, context->buffer_.date);
+  if (!task.has_value()){
+    return StateOperationResult::FAIL;
+  }
+  auto result = context->taskService_.AddSubtask(context->buffer_.id, task.value());
 
   if (result.success_){
     std::string success {"Subtask was added.\n"} ;
