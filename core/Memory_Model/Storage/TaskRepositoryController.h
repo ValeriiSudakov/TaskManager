@@ -15,7 +15,8 @@ class TaskRepositoryController {
 
  public:
   const std::unique_ptr<TaskRepository>&            Get() const;
-
+  bool                                              Save();
+  bool                                              Load();
  private:
   std::unique_ptr<TaskRepository>                   tasksRepository_;
   std::function<std::unique_ptr<TaskRepository>()>  repositoryFactory_;
