@@ -30,46 +30,69 @@ class TestEditStates :  public ::testing::Test {
 TEST_F(TestEditStates, shouldShowAll){
   auto state = Factory::CreateState(StatesID::SHOW_ALL);
 
-  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("y"));
-  EXPECT_CALL(*service, GetTasks).Times(1).WillOnce(Return(std::vector<TaskServiceDTO>()));
+  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(3).WillOnce(Return("y"))
+                                      .WillOnce(Return("n"))
+                                      .WillOnce(Return("12312312"));
+  EXPECT_CALL(*service, GetTasks).Times(2).WillRepeatedly(Return(std::vector<TaskServiceDTO>()));
+  state->Do(context, *io);
+  state->Do(context, *io);
   state->Do(context, *io);
 }
 
 TEST_F(TestEditStates, shouldShowToday){
   auto state = Factory::CreateState(StatesID::SHOW_TODAY);
 
-  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("y"));
-  EXPECT_CALL(*service, GetTodayTasks).Times(1).WillOnce(Return(std::vector<TaskServiceDTO>()));
+  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(3).WillOnce(Return("y"))
+                                      .WillOnce(Return("n"))
+                                      .WillOnce(Return("12312312"));
+  EXPECT_CALL(*service, GetTodayTasks).Times(2).WillRepeatedly(Return(std::vector<TaskServiceDTO>()));
+  state->Do(context, *io);
+  state->Do(context, *io);
   state->Do(context, *io);
 }
 
 TEST_F(TestEditStates, shouldShowThisWeek){
   auto state = Factory::CreateState(StatesID::SHOW_THIS_WEEK);
-
-  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("y"));
-  EXPECT_CALL(*service, GetWeekTasks).Times(1).WillOnce(Return(std::vector<TaskServiceDTO>()));
+  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(3).WillOnce(Return("y"))
+      .WillOnce(Return("n"))
+      .WillOnce(Return("12312312"));
+  EXPECT_CALL(*service, GetWeekTasks).Times(2).WillRepeatedly(Return(std::vector<TaskServiceDTO>()));
+  state->Do(context, *io);
+  state->Do(context, *io);
   state->Do(context, *io);
 }
 
 TEST_F(TestEditStates, shouldShowByName){
   auto state = Factory::CreateState(StatesID::SHOW_BY_NAME);
 
-  EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return("name"))
-                                      .WillOnce(Return("y"));
-  EXPECT_CALL(*service, GetTasksByName).Times(1).WillOnce(Return(std::vector<TaskServiceDTO>()));
+  EXPECT_CALL(*io, Output).Times(9).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(6).WillOnce(Return("name"))
+                                      .WillOnce(Return("y"))
+                                      .WillOnce(Return("name3"))
+                                      .WillOnce(Return("n"))
+                                      .WillOnce(Return("name2"))
+                                      .WillOnce(Return("12312312"));
+  EXPECT_CALL(*service, GetTasksByName).Times(2).WillRepeatedly(Return(std::vector<TaskServiceDTO>()));
+  state->Do(context, *io);
+  state->Do(context, *io);
   state->Do(context, *io);
 }
 
 TEST_F(TestEditStates, shouldShowByLabel){
   auto state = Factory::CreateState(StatesID::SHOW_BY_LABEL);
 
-  EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return("label"))
-      .WillOnce(Return("y"));
-  EXPECT_CALL(*service, GetTasksByLabel).Times(1).WillOnce(Return(std::vector<TaskServiceDTO>()));
+  EXPECT_CALL(*io, Output).Times(9).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(6).WillOnce(Return("label"))
+      .WillOnce(Return("y"))
+      .WillOnce(Return("label3"))
+      .WillOnce(Return("n"))
+      .WillOnce(Return("label2"))
+      .WillOnce(Return("12312312"));
+  EXPECT_CALL(*service, GetTasksByLabel).Times(2).WillRepeatedly(Return(std::vector<TaskServiceDTO>()));
+  state->Do(context, *io);
+  state->Do(context, *io);
   state->Do(context, *io);
 }
