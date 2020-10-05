@@ -20,6 +20,8 @@ enum class StatesID{
   COMPLETE,
   DELETE,
   POSTPONE,
+  SAVE,
+  LOAD,
 
   INPUT_TASK,
   INPUT_ID,
