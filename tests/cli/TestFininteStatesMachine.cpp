@@ -44,9 +44,10 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesFiniteStatesMachine){
 
 
 TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
-//  // menus output: 10 +  "input command" * "name, label, priority, date, success" +10
-  EXPECT_CALL(*io, Output).Times(27).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(6).WillOnce(Return("add task"))
+//  // menus output: 10 + 10 + "input command" * "name, label, priority, date, success" +10 +2 (empty lines)
+  EXPECT_CALL(*io, Output).Times(38).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(7).WillOnce(Return("adkjaskldjAKLSJLK!JKLJSA"))
+                                      .WillOnce(Return("add task"))
                                       .WillOnce(Return("name"))
                                       .WillOnce(Return("label"))
                                       .WillOnce(Return("first"))
