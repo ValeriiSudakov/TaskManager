@@ -5,8 +5,8 @@
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "TaskService.h"
-#include "Memory_Model/Storage/TaskRepositoryClass.h"
-
+#include "TaskServiceUtils.h"
+#include "Memory_Model/Storage/TaskRepositoryController.h"
 /*
  *  Enter point to the program.
  *
@@ -16,17 +16,20 @@
  */
 class TaskServiceClass : public TaskService {
  public:
-  static TaskServiceClass Create();
- public:
+  TaskServiceClass(const std::function<std::unique_ptr<TaskRepository>()>& repositoryFactory)
+    : repositoryController_(std::move(std::make_unique<TaskRepositoryController>(repositoryFactory))) { }
 
+ public:
   AddTaskResult                    AddTask(const TaskServiceDTO& task) override;
   AddTaskResult                    AddSubtask(const TaskID& rootTaskID, const TaskServiceDTO& subtask) override;
   bool                             RemoveTask(const TaskID& ID) override;
   bool                             PostponeTask(const TaskID& ID, const Date& date) override;
+  bool                             Save() override;
+  bool                             Load() override;
+
   bool                             SetTaskComplete(const TaskID& ID) override;
 
  public:
-
   std::optional<TaskServiceDTO>    GetTask(const TaskID& id) const override;
   std::vector<TaskServiceDTO>      GetSubtask(const TaskID& id) const override;
   std::vector<TaskServiceDTO>      GetTasks(bool byPriority) const override;
@@ -34,42 +37,11 @@ class TaskServiceClass : public TaskService {
   std::vector<TaskServiceDTO>      GetWeekTasks(bool byPriority) const override;
   std::vector<TaskServiceDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const override;
   std::vector<TaskServiceDTO>      GetTasksByName(const std::string& name, bool byPriority) const override;
+
   std::vector<TaskServiceDTO>      GetTasksByPriority(const Priority& priority) const override;
 
  private:
-
-  std::unique_ptr<TaskRepository>            tasksRepository_;
-
-  TaskServiceClass(std::unique_ptr<TaskRepository> taskRepository);
-
- private:
-
-/*
- * Converts from vector of TaskRepositoryDTO to vector of TaskServiceDTO
- *
- * @param: std::vector of TaskRepositoryDTO
- *
- * @return-type: std::vector of TaskServiceDTO
- */
-  std::vector<TaskServiceDTO>      MakeTasksDTO(const std::vector<TaskRepositoryDTO>& tasksForDTO) const;
-
-/*
- * Converts from TaskRepositoryDTO to vector of TaskServiceDTO
- *
- * @param: TaskRepositoryDTO
- *
- * @return-type: std::vector of TaskServiceDTO
- */
-  TaskServiceDTO                   MakeTaskDTO(const TaskRepositoryDTO& task) const;
-
-/*
- * Converts from TaskServiceDTO to vector of TaskRepositoryDTO
- *
- * @param: TaskServiceDTO
- *
- * @return-type: TaskRepositoryDTO
- */
-  TaskRepositoryDTO                   MakeTaskRepositoryDTO(const TaskServiceDTO& task) const;
+  std::unique_ptr<TaskRepositoryController> repositoryController_;
 };
 
 #endif //TASKMANAGER_SRC_TASKSERVICE_H_

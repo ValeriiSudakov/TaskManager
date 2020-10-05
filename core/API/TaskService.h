@@ -41,6 +41,20 @@ class TaskService{
  */
   virtual AddTaskResult             AddSubtask(const TaskID& rootTaskID, const TaskServiceDTO& subtask) = 0;
 
+/*
+ * Load all task to the system.
+ *
+ * @return-type: true if success, false if not.
+ */
+  virtual bool                      Load() = 0;
+
+/*
+ * Save all task of the system.
+ *
+ * @return-type: true if success, false if not.
+ */
+  virtual bool                      Save() = 0;
+
   /*
   *  Remove Task from the system.
   *

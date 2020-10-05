@@ -7,6 +7,7 @@
 //
 #include <gtest/gtest.h>
 #include "Memory_Model/Task/TaskEntity.h"
+#include "Memory_Model/Task/TaskIDGenerate.h"
 #include "API/TaskServiceClass.h"
 #include "API/Priority.h"
 #include "Date/Date.h"

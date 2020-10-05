@@ -7,6 +7,8 @@
 #include "Memory_Model/Storage/TaskRepository.h"
 #include "SerializedModel.pb.h"
 
+class Persister;
+
 namespace PersisterUtils{
   Priority                              SerializedPriorityToPriority(const Serialized::Priority& priority);
   Serialized::Priority                  PriorityToSerializedPriority(const Priority& priority);
@@ -17,10 +19,12 @@ namespace PersisterUtils{
   void                                  AddSubtasks(Serialized::Task& serializedTask, TaskRepositoryDTO& task,
                                                     TaskRepository& repository_);
 
-  void                                  AddSubtasksToRepository(Serialized::Task& serializedTask, TaskID& rootID,
+  void                                  AddSubtasksToRepository(const Serialized::Task& serializedTask, TaskID& rootID,
                                                                 TaskRepository& repository_);
 
-  TaskRepositoryDTO                     DTOFromSerializedTask(const Serialized::Task& task);
+  std::optional<TaskRepositoryDTO>      DTOFromSerializedTask(const Serialized::Task& task);
+
+  std::unique_ptr<Persister>            CreatePersister(TaskRepository& repository, std::fstream& stream);
 }
 
 #endif //TASKMANAGER_CORE_PERSISTER_TASKPERSISTERUTILS_H_

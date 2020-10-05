@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "API/TaskServiceClass.h"
+#include "Memory_Model/Storage/TaskRepositoryClass.h"
 #include <iostream>
 
 class TestTaskView : public ::testing::Test {

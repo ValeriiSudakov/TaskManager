@@ -27,7 +27,6 @@ class MockService : public TaskService{
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByName, (const std::string&, bool), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByLabel, (const std::string&, bool), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByPriority, (const Priority&), (const override));
-
 };
 
 class MockIO : public InputOutputLayer{
@@ -52,7 +51,7 @@ class TestInput :  public ::testing::Test {
 using ::testing::Return;
 
 
-TEST_F(TestInput, shouldBeCorrectInputName){
+TEST_F(TestInput, shouldCorrectInputName){
   EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(2).WillOnce(Return(""))
                                       .WillOnce(Return("name"));
@@ -65,7 +64,7 @@ TEST_F(TestInput, shouldBeCorrectInputName){
   ASSERT_EQ(context->buffer_.name, "name");
 }
 
-TEST_F(TestInput, shouldCorrectInputLabel){
+TEST_F(TestInput, shouldBeCorrectLabelInput){
   EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(2).WillOnce(Return(""))
       .WillOnce(Return("label"));
@@ -78,7 +77,7 @@ TEST_F(TestInput, shouldCorrectInputLabel){
 }
 
 
-TEST_F(TestInput, shouldCorrectInputDatetime){
+TEST_F(TestInput, shouldCorrectInputDate){
   EXPECT_CALL(*io, Output).Times(1).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("now"));
   auto date = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE,
