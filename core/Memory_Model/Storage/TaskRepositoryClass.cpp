@@ -93,13 +93,6 @@ bool TaskRepositoryClass::SetTaskComplete(const TaskID &id) {
   return true;
 }
 
-void TaskRepositoryClass::ResetRepository() {
-  taskStorage_.reset();
-  taskStorage_ = std::make_unique<TaskStorageClass>();
-  taskView_.reset();
-  taskView_ = std::make_unique<TaskViewClass>();
-}
-
 std::optional<TaskRepositoryDTO> TaskRepositoryClass::GetTask(const TaskID& id) const {
 
   auto task = taskStorage_->GetTask(id);

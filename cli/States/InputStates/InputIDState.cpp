@@ -24,8 +24,10 @@ StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, I
    io.Output(strContainNumberError);
     return StateOperationResult::INCORRECT_INPUT;
   }
+
   auto id = std::atoi(idStr.c_str());
-  if (id > context->tasks_.size()-1){
+  int tasksNumber = context->tasks_.size()-1;
+  if (id > tasksNumber){
     std::string idOutOfRangeError{ "ID out of tasks range.\n" };
    io.Output(idOutOfRangeError);
     return StateOperationResult::INCORRECT_INPUT;
