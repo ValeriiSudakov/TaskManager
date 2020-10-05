@@ -3,21 +3,14 @@
 //
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "Factory/Factory.h"
 #include <memory>
-#include "InputOutputLayer.h"
 #include "mock/Service.h"
+#include "mock/InputOutput.h"
 
-using ::MockService;
 using ::testing::Return;
-
-
-class MockIO : public InputOutputLayer{
- public:
-  MOCK_METHOD(std::string, Input, (), (override));
-  MOCK_METHOD(void, Output, (const std::string&), (override));
-};
+using ::MockService;
+using ::MockIO;
 
 class TestFiniteStatesMachine :  public ::testing::Test {
  protected:
@@ -51,8 +44,8 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesFiniteStatesMachine){
 
 
 TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
-//  // menus output: 8 +  "input command" * "name, label, priority, date, success" +8
-  EXPECT_CALL(*io, Output).Times(23).WillRepeatedly(Return());
+//  // menus output: 10 +  "input command" * "name, label, priority, date, success" +10
+  EXPECT_CALL(*io, Output).Times(27).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(6).WillOnce(Return("add task"))
                                       .WillOnce(Return("name"))
                                       .WillOnce(Return("label"))
