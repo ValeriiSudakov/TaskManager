@@ -8,6 +8,8 @@
 #include "States/EditSystemStates/CompleteState.h"
 #include "States/EditSystemStates/DeleteState.h"
 #include "States/EditSystemStates/PostponeState.h"
+#include "States/EditSystemStates/LoadState.h"
+#include "States/EditSystemStates/SaveState.h"
 
 #include "States/InputStates/InputTask.h"
 #include "States/InputStates/InputNameState.h"
@@ -35,6 +37,8 @@ FactoryStates::FactoryStates() {
   states_[StatesID::POSTPONE] = std::make_unique<LazyInitClass<PostponeState  >>();
   states_[StatesID::COMPLETE] = std::make_unique<LazyInitClass<CompleteState>>();
   states_[StatesID::DELETE] = std::make_unique<LazyInitClass<DeleteState>>();
+  states_[StatesID::LOAD] = std::make_unique<LazyInitClass<LoadState>>();
+  states_[StatesID::SAVE] = std::make_unique<LazyInitClass<SaveState>>();
 
   states_[StatesID::INPUT_TASK] = std::make_unique<LazyInitClass<InputTask>>();
   states_[StatesID::INPUT_DATE] = std::make_unique<LazyInitClass<InputDateState>>();
@@ -80,6 +84,8 @@ std::shared_ptr<State>  CreateMenu(StatesID id){
   if (StatesID::BASE_MENU == id){
     std::unique_ptr<Actions> actions = std::make_unique<Actions>();
     actions->edit_.insert(std::make_pair("add task",      StatesID::ADD_TASK));
+    actions->edit_.insert(std::make_pair("save",          StatesID::SAVE));
+    actions->edit_.insert(std::make_pair("load",          StatesID::LOAD));
     actions->show_.insert(std::make_pair("show all",      StatesID::SHOW_ALL));
     actions->show_.insert(std::make_pair("show this week",StatesID::SHOW_THIS_WEEK));
     actions->show_.insert(std::make_pair("show today",    StatesID::SHOW_TODAY));
