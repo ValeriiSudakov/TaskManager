@@ -16,7 +16,7 @@ StateOperationResult SaveState::Do(const std::shared_ptr<Context>& context, Inpu
     std::string success { "Tasks were saved.\n" };
     io.Output(success);
   } else {
-    std::string fail { "Failed. Check file path for mistake.\n" };
+    std::string fail { "Smth wrong...\n" };
     io.Output(fail);
   }
   return StateOperationResult::SUCCESS;
