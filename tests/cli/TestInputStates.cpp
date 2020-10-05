@@ -5,35 +5,13 @@
 
 #include "Factory/Factory.h"
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <memory>
-#include "InputOutputLayer.h"
+#include "mock/Service.h"
+#include "mock/InputOutput.h"
 
-
-class MockService : public TaskService{
- public:
-  MOCK_METHOD(AddTaskResult,                 AddTask,            (const TaskServiceDTO&), (override));
-  MOCK_METHOD(AddTaskResult,                 AddSubtask,         (const TaskID&, const TaskServiceDTO&), (override));
-  MOCK_METHOD(bool,                          RemoveTask,         (const TaskID&), (override));
-  MOCK_METHOD(bool,                          PostponeTask,       (const TaskID&, const Date&), (override));
-  MOCK_METHOD(bool,                          SetTaskComplete,    (const TaskID&), (override));
-  MOCK_METHOD(bool,                          Save, (), (override));
-  MOCK_METHOD(bool,                          Load, (), (override));
-  MOCK_METHOD(std::optional<TaskServiceDTO>, GetTask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetSubtask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTodayTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetWeekTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByName, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByLabel, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByPriority, (const Priority&), (const override));
-};
-
-class MockIO : public InputOutputLayer{
- public:
-  MOCK_METHOD(std::string, Input, (), (override));
-  MOCK_METHOD(void, Output, (const std::string&), (override));
-};
+using ::testing::Return;
+using ::MockService;
+using ::MockIO;
 
 class TestInput :  public ::testing::Test {
   void SetUp() override{
@@ -47,8 +25,6 @@ class TestInput :  public ::testing::Test {
   std::shared_ptr<Context> context;
   std::unique_ptr<MockService> service;
 };
-
-using ::testing::Return;
 
 
 TEST_F(TestInput, shouldCorrectInputName){

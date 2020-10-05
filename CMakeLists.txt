@@ -17,7 +17,7 @@ file(GLOB_RECURSE core_HEADERS "core/*.h")
 ############## tests ########################################################
 file(GLOB core_TEST_SOURCES "tests/core/*.cpp")
 file(GLOB cli_TEST_SOURCES "tests/cli/*.cpp")
-
+file(GLOB cli_TEST_MOCKS "tests/mock/*.h")
 ############## protobuf ########################################################
 find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
@@ -55,7 +55,8 @@ add_executable(cliTests  ${core_TEST_SOURCES} ${core_CPP_SOURCES} ${PROTO_SRCS} 
 target_link_libraries(coreTests GTest::GTest GTest::Main ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES})
 gtest_discover_tests(coreTests)
 
-target_link_libraries(cliTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES})
+target_link_libraries(cliTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY}
+        ${cli_TEST_MOCKS} ${Protobuf_LIBRARIES})
 gtest_discover_tests(cliTests)
 
 ############## main exe ########################################################
