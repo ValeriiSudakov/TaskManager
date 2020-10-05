@@ -22,7 +22,7 @@ namespace PersisterUtils{
   void                                  AddSubtasksToRepository(const Serialized::Task& serializedTask, TaskID& rootID,
                                                                 TaskRepository& repository_);
 
-  TaskRepositoryDTO                     DTOFromSerializedTask(const Serialized::Task& task);
+  std::optional<TaskRepositoryDTO>      DTOFromSerializedTask(const Serialized::Task& task);
 
   std::unique_ptr<Persister>            CreatePersister(TaskRepository& repository, std::fstream& stream);
 }

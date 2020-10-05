@@ -24,7 +24,7 @@ std::function<std::unique_ptr<TaskRepository>()> GetRepositoryFactory();
  *
  * @return-type: std::vector of TaskServiceDTO
  */
-std::vector<TaskServiceDTO>      MakeTasksDTO(const std::vector<TaskRepositoryDTO>& tasksForDTO);
+std::vector<TaskServiceDTO>         MakeTasksDTO(const std::vector<TaskRepositoryDTO>& tasksForDTO);
 
 /*
  * Converts from TaskRepositoryDTO to vector of TaskServiceDTO
@@ -33,7 +33,7 @@ std::vector<TaskServiceDTO>      MakeTasksDTO(const std::vector<TaskRepositoryDT
  *
  * @return-type: std::vector of TaskServiceDTO
  */
-TaskServiceDTO                   MakeTaskDTO(const TaskRepositoryDTO& task);
+std::optional<TaskServiceDTO>       MakeTaskDTO(const TaskRepositoryDTO& task);
 
 /*
  * Converts from TaskServiceDTO to vector of TaskRepositoryDTO

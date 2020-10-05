@@ -19,13 +19,12 @@ void PersisterUtils::SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO,
 }
 
 
-TaskRepositoryDTO PersisterUtils::DTOFromSerializedTask(const Serialized::Task& task){
+std::optional<TaskRepositoryDTO> PersisterUtils::DTOFromSerializedTask(const Serialized::Task& task){
   auto dto = TaskRepositoryDTO::Create(task.name(), task.label(),
                                        SerializedPriorityToPriority(task.priority()),
                                        Date(boost::gregorian::date(task.date())),
                                        task.complete(), TaskID(), TaskID());
-  assert(dto.has_value());
-  return dto.value();
+  return dto;
 }
 
 void PersisterUtils::AddSubtasksToRepository(const Serialized::Task& serializedTask, TaskID& rootID, TaskRepository& repository_){
@@ -36,7 +35,7 @@ void PersisterUtils::AddSubtasksToRepository(const Serialized::Task& serializedT
   for (auto& subtask : serializedTask.subtasks()){
     auto subtaskDTO    = PersisterUtils::DTOFromSerializedTask(subtask);
 
-    auto addTaskResult = repository_.AddSubtask(rootID, subtaskDTO);
+    auto addTaskResult = repository_.AddSubtask(rootID, subtaskDTO.value());
 
     AddSubtasksToRepository(subtask, addTaskResult.id_.value(), repository_);
   }

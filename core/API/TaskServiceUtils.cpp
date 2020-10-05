@@ -15,23 +15,21 @@ std::function<std::unique_ptr<TaskRepository>()> TaskServiceUtils::GetRepository
   return factory;
 }
 
-TaskServiceDTO TaskServiceUtils::MakeTaskDTO(const TaskRepositoryDTO& task) {
+std::optional<TaskServiceDTO> TaskServiceUtils::MakeTaskDTO(const TaskRepositoryDTO& task) {
   auto newTask = TaskServiceDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate(),
                                         task.Complete(), task.GetID());
-  assert(newTask.has_value());
-  return newTask.value();
+  return newTask;
 }
 
 std::vector<TaskServiceDTO> TaskServiceUtils::MakeTasksDTO(const std::vector<TaskRepositoryDTO> &tasksForDTO) {
   std::vector<TaskServiceDTO> result;
   for (const auto& task : tasksForDTO){
-    result.push_back(MakeTaskDTO(task));
+    result.push_back(MakeTaskDTO(task).value());
   }
   return result;
 }
 
 TaskRepositoryDTO TaskServiceUtils::MakeTaskRepositoryDTO(const TaskServiceDTO &task) {
   auto newTask =  TaskRepositoryDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate());
-  assert(newTask.has_value());
   return newTask.value();
 }

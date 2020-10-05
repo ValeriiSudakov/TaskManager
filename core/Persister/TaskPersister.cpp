@@ -12,7 +12,10 @@ bool TaskPersister::Load() {
 
   for (auto& task : storage.tasks()){
     auto taskDTO = PersisterUtils::DTOFromSerializedTask(task);
-    auto addTaskResult = repository_.AddTask(taskDTO);
+    if (!taskDTO.has_value()){
+      return false;
+    }
+    auto addTaskResult = repository_.AddTask(taskDTO.value());
     if (!addTaskResult.success_){
       return false;
     }
