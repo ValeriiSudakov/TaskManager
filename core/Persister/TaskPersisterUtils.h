@@ -24,7 +24,7 @@ namespace PersisterUtils{
 
   std::optional<TaskRepositoryDTO>      DTOFromSerializedTask(const Serialized::Task& task);
 
-  std::unique_ptr<Persister>            CreatePersister(TaskRepository& repository, std::fstream& stream);
+  std::unique_ptr<Persister>            Create(TaskRepository& repository, std::fstream& stream);
 }
 
 #endif //TASKMANAGER_CORE_PERSISTER_TASKPERSISTERUTILS_H_
