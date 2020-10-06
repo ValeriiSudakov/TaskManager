@@ -7,6 +7,8 @@
 #include "TaskService.h"
 #include "TaskServiceUtils.h"
 #include "Memory_Model/Storage/TaskRepositoryController.h"
+#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
+
 /*
  *  Enter point to the program.
  *
@@ -16,8 +18,8 @@
  */
 class TaskServiceClass : public TaskService {
  public:
-  TaskServiceClass(const std::function<std::unique_ptr<TaskRepository>()>& repositoryFactory)
-    : repositoryController_(std::move(std::make_unique<TaskRepositoryController>(repositoryFactory))) { }
+  TaskServiceClass(std::unique_ptr<RepositoriesFactory> repositoryFactory)
+    : repositoryController_(std::move(std::make_unique<TaskRepositoryController>(std::move(repositoryFactory)))) { }
 
  public:
   AddTaskResult                    AddTask(const TaskServiceDTO& task) override;

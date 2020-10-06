@@ -5,11 +5,13 @@
 #include <gtest/gtest.h>
 #include "Memory_Model/Storage/TaskRepositoryController.h"
 #include "API/TaskServiceUtils.h"
+#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
 
 class TestTaskRepositoryController : public ::testing::Test {
  protected:
   void SetUp() override{
-    repository = std::make_unique<TaskRepositoryController>(TaskServiceUtils::GetRepositoryFactory());
+    auto factory = std::make_unique<TaskRepositoryFactory>();
+    repository = std::make_unique<TaskRepositoryController>(std::move(factory));
   }
  protected:
   std::unique_ptr<TaskRepositoryController> repository;

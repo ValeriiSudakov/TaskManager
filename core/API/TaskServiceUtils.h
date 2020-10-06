@@ -10,12 +10,6 @@
 class TaskRepository;
 
 namespace TaskServiceUtils {
-/*
- *  Create and return pointer to factory-method of TaskRepository
- *
- *  @return-type: pointer to factory-method of TaskRepository
- */
-std::function<std::unique_ptr<TaskRepository>()> GetRepositoryFactory();
 
 /*
  * Converts from vector of TaskRepositoryDTO to vector of TaskServiceDTO

@@ -11,7 +11,8 @@ class TestStatesMachineFactory :  public ::testing::Test {
  protected:
   virtual void SetUp() override{
     io = std::make_shared<InputOutputConsoleLayer>();
-    context = std::make_shared<Context>(*std::make_unique<TaskServiceClass>(TaskServiceUtils::GetRepositoryFactory()));
+    auto factory = std::make_unique<TaskRepositoryFactory>();
+    context = std::make_shared<Context>(*std::make_unique<TaskServiceClass>(std::move(factory)));
 
   }
 

@@ -7,12 +7,14 @@
 #include <gmock/gmock.h>
 #include "API/TaskServiceClass.h"
 #include <iostream>
+#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
 
 class TestTaskService : public ::testing::Test {
 
  protected:
   virtual void SetUp() {
-    ts = std::make_unique<TaskServiceClass>(TaskServiceUtils::GetRepositoryFactory());
+    std::unique_ptr<RepositoriesFactory> factory = std::make_unique<TaskRepositoryFactory>();
+    ts = std::make_unique<TaskServiceClass>(std::move(factory));
   }
   std::unique_ptr<TaskService> ts;
 };

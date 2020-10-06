@@ -5,12 +5,13 @@
 #ifndef TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYCONTOLLER_H_
 #define TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYCONTOLLER_H_
 #include "TaskRepository.h"
+#include "Memory_Model/RepositoriesFactory/RepositoriesFactory.h"
 
 class TaskRepositoryController {
  public:
-  TaskRepositoryController(const std::function<std::unique_ptr<TaskRepository>()>& repositoryFactory)
-    : repositoryFactory_(repositoryFactory) {
-      tasksRepository_ = std::move(repositoryFactory_());
+  TaskRepositoryController(std::unique_ptr<RepositoriesFactory> repositoryFactory)
+    : repositoryFactory_(std::move(repositoryFactory)) {
+    tasksRepository_ = std::move(repositoryFactory_->Create());
   }
 
  public:
@@ -19,7 +20,7 @@ class TaskRepositoryController {
   bool                                              Load();
  private:
   std::unique_ptr<TaskRepository>                   tasksRepository_;
-  std::function<std::unique_ptr<TaskRepository>()>  repositoryFactory_;
+  std::unique_ptr<RepositoriesFactory>              repositoryFactory_;
 };
 
 #endif //TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYCONTOLLER_H_
