@@ -3,39 +3,14 @@
 //
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "Factory/Factory.h"
 #include <memory>
-#include "InputOutputLayer.h"
+#include "mock/Service.h"
+#include "mock/InputOutput.h"
 
 using ::testing::Return;
-
-
-class MockIO : public InputOutputLayer{
- public:
-  MOCK_METHOD(std::string, Input, (), (override));
-  MOCK_METHOD(void, Output, (const std::string&), (override));
-};
-
-class MockService : public TaskService{
- public:
-  MOCK_METHOD(AddTaskResult,                 AddTask,            (const TaskServiceDTO&), (override));
-  MOCK_METHOD(AddTaskResult,                 AddSubtask,         (const TaskID&, const TaskServiceDTO&), (override));
-  MOCK_METHOD(bool,                          RemoveTask,         (const TaskID&), (override));
-  MOCK_METHOD(bool,                          PostponeTask,       (const TaskID&, const Date&), (override));
-  MOCK_METHOD(bool,                          SetTaskComplete,    (const TaskID&), (override));
-  MOCK_METHOD(bool,                          Save, (), (override));
-  MOCK_METHOD(bool,                          Load, (), (override));
-  MOCK_METHOD(std::optional<TaskServiceDTO>, GetTask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetSubtask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTodayTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetWeekTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByName, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByLabel, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByPriority, (const Priority&), (const override));
-
-};
+using ::MockService;
+using ::MockIO;
 
 class TestFiniteStatesMachine :  public ::testing::Test {
  protected:
@@ -69,9 +44,10 @@ TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesFiniteStatesMachine){
 
 
 TEST_F(TestFiniteStatesMachine, shouldCorrectChangeStatesMenuStatesMachine) {
-//  // menus output: 8 +  "input command" * "name, label, priority, date, success" +8
-  EXPECT_CALL(*io, Output).Times(23).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(6).WillOnce(Return("add task"))
+//  // menus output: 10 + 10 + "input command" * "name, label, priority, date, success" +10 +2 (empty lines)
+  EXPECT_CALL(*io, Output).Times(38).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(7).WillOnce(Return("adkjaskldjAKLSJLK!JKLJSA"))
+                                      .WillOnce(Return("add task"))
                                       .WillOnce(Return("name"))
                                       .WillOnce(Return("label"))
                                       .WillOnce(Return("first"))

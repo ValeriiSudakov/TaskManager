@@ -4,30 +4,11 @@
 
 #include "Factory/Factory.h"
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <memory>
 #include "InputOutputConsoleLayer.h"
-#include "API/TaskService.h"
+#include "mock/Service.h"
 
-class MockService : public TaskService{
- public:
-  MOCK_METHOD(AddTaskResult,                 AddTask,            (const TaskServiceDTO&), (override));
-  MOCK_METHOD(AddTaskResult,                 AddSubtask,         (const TaskID&, const TaskServiceDTO&), (override));
-  MOCK_METHOD(bool,                          RemoveTask,         (const TaskID&), (override));
-  MOCK_METHOD(bool,                          PostponeTask,       (const TaskID&, const Date&), (override));
-  MOCK_METHOD(bool,                          SetTaskComplete,    (const TaskID&), (override));
-  MOCK_METHOD(bool,                          Save, (), (override));
-  MOCK_METHOD(bool,                          Load, (), (override));
-  MOCK_METHOD(std::optional<TaskServiceDTO>, GetTask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetSubtask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTodayTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetWeekTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByName, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByLabel, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByPriority, (const Priority&), (const override));
-
-};
+using ::MockService;
 
 class TestFactory :  public ::testing::Test {
  protected:
@@ -97,6 +78,12 @@ TEST_F(TestFactory, shouldCorrectCreateStates){
 
   auto showWeek = Factory::CreateState(StatesID::SHOW_THIS_WEEK);
   ASSERT_EQ(showWeek->GetStateID(), StatesID::SHOW_THIS_WEEK);
+
+  auto save = Factory::CreateState(StatesID::SAVE);
+  ASSERT_EQ(save->GetStateID(), StatesID::SAVE);
+
+  auto load = Factory::CreateState(StatesID::LOAD);
+  ASSERT_EQ(load->GetStateID(), StatesID::LOAD);
 
   auto Exit = Factory::CreateState(StatesID::EXIT);
   ASSERT_EQ(Exit, nullptr);

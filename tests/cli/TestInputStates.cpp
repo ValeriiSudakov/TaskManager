@@ -5,35 +5,13 @@
 
 #include "Factory/Factory.h"
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <memory>
-#include "InputOutputLayer.h"
+#include "mock/Service.h"
+#include "mock/InputOutput.h"
 
-
-class MockService : public TaskService{
- public:
-  MOCK_METHOD(AddTaskResult,                 AddTask,            (const TaskServiceDTO&), (override));
-  MOCK_METHOD(AddTaskResult,                 AddSubtask,         (const TaskID&, const TaskServiceDTO&), (override));
-  MOCK_METHOD(bool,                          RemoveTask,         (const TaskID&), (override));
-  MOCK_METHOD(bool,                          PostponeTask,       (const TaskID&, const Date&), (override));
-  MOCK_METHOD(bool,                          SetTaskComplete,    (const TaskID&), (override));
-  MOCK_METHOD(bool,                          Save, (), (override));
-  MOCK_METHOD(bool,                          Load, (), (override));
-  MOCK_METHOD(std::optional<TaskServiceDTO>, GetTask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetSubtask, (const TaskID&), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTodayTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetWeekTasks, (bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByName, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByLabel, (const std::string&, bool), (const override));
-  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByPriority, (const Priority&), (const override));
-};
-
-class MockIO : public InputOutputLayer{
- public:
-  MOCK_METHOD(std::string, Input, (), (override));
-  MOCK_METHOD(void, Output, (const std::string&), (override));
-};
+using ::testing::Return;
+using ::MockService;
+using ::MockIO;
 
 class TestInput :  public ::testing::Test {
   void SetUp() override{
@@ -47,8 +25,6 @@ class TestInput :  public ::testing::Test {
   std::shared_ptr<Context> context;
   std::unique_ptr<MockService> service;
 };
-
-using ::testing::Return;
 
 
 TEST_F(TestInput, shouldCorrectInputName){
@@ -85,4 +61,42 @@ TEST_F(TestInput, shouldCorrectInputDate){
                                                   *io);
   date->Execute();
   ASSERT_EQ(context->buffer_.date.Get().day_number(), Date::GetCurrentTime().day_number());
+}
+
+TEST_F(TestInput, shouldIncorrectInputDate){
+  EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return("h1yuoas;jfnb1"))
+                                      .WillOnce(Return("now"));
+  auto date = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE,
+                                                 context,
+                                                 *io);
+  date->Execute();
+  ASSERT_EQ(context->buffer_.date.Get().day_number(), Date::GetCurrentTime().day_number());
+}
+
+
+TEST_F(TestInput, shouldIncorrectInputID){
+  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(3).WillOnce(Return("123"))
+                                      .WillOnce(Return("asdas"))
+                                      .WillOnce(Return(""));
+  auto date = Factory::CreateState(StatesID::INPUT_ID);
+  date->Do(context,*io);
+  date->Do(context,*io);
+  date->Do(context,*io);
+}
+
+TEST_F(TestInput, shouldIncorrectInputPriority){
+  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(5).WillOnce(Return("first"))
+                                      .WillOnce(Return("second"))
+                                      .WillOnce(Return("3"))
+                                      .WillOnce(Return("0"))
+                                      .WillOnce(Return("AAAAAAAAAAAAAAAAAAAAAAAAa"));
+  auto date = Factory::CreateState(StatesID::INPUT_PRIORITY);
+  date->Do(context,*io);
+  date->Do(context,*io);
+  date->Do(context,*io);
+  date->Do(context,*io);
+  date->Do(context,*io);
 }

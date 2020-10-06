@@ -13,8 +13,6 @@ class TaskRepository{
   virtual ~TaskRepository() = default;
 
  public:
-  virtual void                                ResetRepository() = 0;
-
   virtual AddTaskResult                       AddTask(const TaskRepositoryDTO& task) = 0;
   virtual AddTaskResult                       AddSubtask(const TaskID& rootTaskID, const TaskRepositoryDTO& subtask) = 0;
   virtual bool                                RemoveTask(const TaskID& id) = 0;

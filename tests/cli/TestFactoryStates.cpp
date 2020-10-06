@@ -65,6 +65,12 @@ TEST_F(TestFactoryStates, shouldCreateCorrectState){
   auto showWeek = factory.Create(StatesID::SHOW_THIS_WEEK);
   ASSERT_EQ(showWeek->GetStateID(), StatesID::SHOW_THIS_WEEK);
 
+  auto save = factory.Create(StatesID::SAVE);
+  ASSERT_EQ(save->GetStateID(), StatesID::SAVE);
+
+  auto load = factory.Create(StatesID::LOAD);
+  ASSERT_EQ(load->GetStateID(), StatesID::LOAD);
+
   auto Exit = factory.Create(StatesID::EXIT);
   ASSERT_EQ(Exit, nullptr);
 }

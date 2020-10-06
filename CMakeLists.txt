@@ -7,7 +7,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories(core)
 include_directories(cli)
 
-
 ############## cli ########################################################
 file(GLOB_RECURSE cli_CPP_SOURCES "cli/*.cpp")
 file(GLOB_RECURSE cli_HEADERS "cli/*.h")
@@ -17,7 +16,7 @@ file(GLOB_RECURSE core_HEADERS "core/*.h")
 ############## tests ########################################################
 file(GLOB core_TEST_SOURCES "tests/core/*.cpp")
 file(GLOB cli_TEST_SOURCES "tests/cli/*.cpp")
-
+file(GLOB_RECURSE tests_MOCKS "tests/*.h")
 ############## protobuf ########################################################
 find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
@@ -48,14 +47,15 @@ include_directories(${GMOCK_INCLUDE_DIR})
 enable_testing()
 
 include_directories(tests)
-add_executable(coreTests ${core_TEST_SOURCES} ${core_CPP_SOURCES} ${PROTO_SRCS} ${PROTO_HDRS})
-add_executable(cliTests  ${core_TEST_SOURCES} ${core_CPP_SOURCES} ${PROTO_SRCS} ${PROTO_HDRS}
-        ${cli_CPP_SOURCES}   ${cli_TEST_SOURCES})
+add_executable(coreTests ${core_HEADERS} ${core_CPP_SOURCES} ${core_TEST_SOURCES} ${PROTO_SRCS} ${PROTO_HDRS})
+add_executable(cliTests  ${core_HEADERS} ${core_CPP_SOURCES} ${cli_HEADERS} ${cli_CPP_SOURCES}
+        ${PROTO_SRCS} ${PROTO_HDRS}  ${tests_MOCKS} ${core_TEST_SOURCES} ${cli_TEST_SOURCES})
 
 target_link_libraries(coreTests GTest::GTest GTest::Main ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES})
 gtest_discover_tests(coreTests)
 
-target_link_libraries(cliTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES})
+target_link_libraries(cliTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY}
+        ${cli_TEST_MOCKS} ${Protobuf_LIBRARIES} )
 gtest_discover_tests(cliTests)
 
 ############## main exe ########################################################
