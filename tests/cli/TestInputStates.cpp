@@ -31,8 +31,8 @@ TEST_F(TestInput, shouldCorrectInputName){
   EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(2).WillOnce(Return(""))
                                       .WillOnce(Return("name"));
-  std::unique_ptr<RepositoriesFactory> factory = std::make_unique<TaskRepositoryFactory>();
-  auto context = std::make_shared<Context>(*std::make_unique<TaskServiceClass>(std::move(factory)));
+
+  auto context = std::make_shared<Context>(*std::make_unique<MockService>());
   auto name = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_NAME,
                                                  context,
                                                  *io);

@@ -4,10 +4,10 @@
 
 #ifndef TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYCONTOLLER_H_
 #define TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYCONTOLLER_H_
-#include "TaskRepository.h"
 #include "Memory_Model/RepositoriesFactory/RepositoriesFactory.h"
+#include "RepositoryController.h"
 
-class TaskRepositoryController {
+class TaskRepositoryController : public RepositoryController{
  public:
   TaskRepositoryController(std::unique_ptr<RepositoriesFactory> repositoryFactory)
     : repositoryFactory_(std::move(repositoryFactory)) {

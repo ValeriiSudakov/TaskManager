@@ -6,13 +6,17 @@
 #include "Factory/FactoryExecuteStatesMachine.h"
 #include "InputOutputConsoleLayer.h"
 #include <memory>
+#include "mock/Service.h"
+#include "mock/InputOutput.h"
+
+using ::MockIO;
+using ::MockService;
 
 class TestStatesMachineFactory :  public ::testing::Test {
  protected:
   virtual void SetUp() override{
-    io = std::make_shared<InputOutputConsoleLayer>();
-    auto factory = std::make_unique<TaskRepositoryFactory>();
-    context = std::make_shared<Context>(*std::make_unique<TaskServiceClass>(std::move(factory)));
+    io = std::make_shared<MockIO>();
+    context = std::make_shared<Context>(*std::make_unique<MockService>());
 
   }
 
