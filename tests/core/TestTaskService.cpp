@@ -14,7 +14,7 @@ class TestTaskService : public ::testing::Test {
  protected:
   virtual void SetUp() {
     auto factory = std::make_unique<TaskRepositoryFactory>();
-    auto controller = std::make_unique<TaskRepositoryController>(std::move(std::move(factory)));
+    auto controller = std::make_unique<TaskRepositoryController>(std::move(factory));
     ts = std::make_unique<TaskServiceClass>(std::move(controller));
   }
   std::unique_ptr<TaskService> ts;
