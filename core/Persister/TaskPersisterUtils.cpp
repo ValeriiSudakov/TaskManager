@@ -5,7 +5,7 @@
 #include "TaskPersisterUtils.h"
 #include "Persister/TaskPersister.h"
 
-std::unique_ptr<Persister> PersisterUtils::CreatePersister(TaskRepository &repository, std::fstream &stream) {
+std::unique_ptr<Persister> PersisterUtils::Create(TaskRepository &repository, std::fstream &stream) {
   return std::move(std::make_unique<TaskPersister>(repository, stream));
 }
 

@@ -12,7 +12,7 @@ const std::unique_ptr<TaskRepository>& TaskRepositoryController::Get() const {
 
 bool TaskRepositoryController::Save() {
   std::fstream file("Tasks.txt", std::ios::out);
-  auto persister = PersisterUtils::CreatePersister(*tasksRepository_, file);
+  auto persister = PersisterUtils::Create(*tasksRepository_, file);
   auto result = persister->Save();
   file.close();
   return result;
@@ -20,8 +20,8 @@ bool TaskRepositoryController::Save() {
 
 bool TaskRepositoryController::Load() {
   std::fstream file("Tasks.txt", std::ios::in);
-  auto newRepository = repositoryFactory_();
-  auto persister = PersisterUtils::CreatePersister(*newRepository, file);
+  auto newRepository = std::move(repositoryFactory_->Create());
+  auto persister = PersisterUtils::Create(*newRepository, file);
   auto result = persister->Load();
 
   if (result){

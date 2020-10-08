@@ -5,13 +5,13 @@
 #include <gtest/gtest.h>
 #include "Memory_Model/Storage/TaskRepositoryClass.h"
 #include "Persister/TaskPersister.h"
+#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
 
 class TestTaskPersister : public ::testing::Test {
  protected:
   void SetUp() override{
-    repository = std::make_unique<TaskRepositoryClass>(std::make_unique<TaskViewClass>(),
-                                                       std::make_unique<TaskStorageClass>());
-
+    factory = std::make_unique<TaskRepositoryFactory>();
+    repository = std::move(factory->Create());
     auto task = TaskRepositoryDTO::Create("name", "label", Priority::FIRST, Date::GetCurrentTime());
     auto addResult = repository->AddTask(task.value());
     repository->AddSubtask(addResult.id_.value(), task.value());
@@ -20,6 +20,8 @@ class TestTaskPersister : public ::testing::Test {
     repository.reset();
   }
  protected:
+
+  std::unique_ptr<RepositoriesFactory> factory;
   std::unique_ptr<TaskRepository> repository;
 };
 
@@ -36,8 +38,7 @@ TEST_F(TestTaskPersister, shouldLoad){
   auto resultSave = persister->Save();
   ASSERT_TRUE(resultSave);
   persister.reset();
-  std::unique_ptr<TaskRepository> repository1 = std::make_unique<TaskRepositoryClass>(std::make_unique<TaskViewClass>(),
-                                                         std::make_unique<TaskStorageClass>());
+  std::unique_ptr<TaskRepository> repository1 = std::move(factory->Create());
 
   std::fstream file1("file1.txt", std::fstream::in);
   std::unique_ptr<Persister> persister1 = std::make_unique<TaskPersister>(*repository1, file1);
