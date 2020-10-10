@@ -27,7 +27,8 @@ std::shared_ptr<State> Menu::ReadAction(InputOutputLayer& io) {
       return std::make_shared<EditState>(action.second);
     }
   }
-
+  std::string error{input + ": command not found\n"};
+  io.Output(error);
   return std::move(Factory::CreateState(GetStateID()));
 }
 

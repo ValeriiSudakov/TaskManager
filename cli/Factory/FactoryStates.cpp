@@ -103,7 +103,7 @@ std::shared_ptr<State>  CreateMenu(StatesID id){
     actions->edit_.insert(std::make_pair("complete", StatesID::COMPLETE));
     actions->edit_.insert(std::make_pair("postpone", StatesID::POSTPONE));
     actions->show_.insert(std::make_pair("show by id", StatesID::SHOW_BY_ID));
-    actions->exit_.first = "back to menu";
+    actions->exit_.first = "back";
     actions->exit_.second = StatesID::BASE_MENU;
 
     return std::move(std::make_shared<Menu>(StatesID::CONTINUE_MENU, std::move(actions)));
