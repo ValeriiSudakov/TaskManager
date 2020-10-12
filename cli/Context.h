@@ -17,6 +17,7 @@ struct Context {
     Priority priority;
     Date date;
     TaskID id;
+    std::string fileName;
   } buffer_;
   std::vector<TaskServiceDTO> tasks_;
 };

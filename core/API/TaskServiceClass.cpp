@@ -22,12 +22,12 @@ bool TaskServiceClass::RemoveTask(const TaskID& ID){
   return result;
 }
 
-bool TaskServiceClass::Save() {
-  return repositoryController_->Save();
+bool TaskServiceClass::Save(const std::string& filename) {
+  return repositoryController_->Save(filename);
 }
 
-bool TaskServiceClass::Load() {
-  return repositoryController_->Load();
+bool TaskServiceClass::Load(const std::string& filename) {
+  return repositoryController_->Load(filename);
 }
 
 bool TaskServiceClass::PostponeTask(const TaskID& ID, const Date& date){

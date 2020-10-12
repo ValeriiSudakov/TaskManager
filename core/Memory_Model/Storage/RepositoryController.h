@@ -12,8 +12,8 @@ class RepositoryController {
   virtual ~RepositoryController() = default;
 
   virtual const std::unique_ptr<TaskRepository>&            Get() const = 0;
-  virtual bool                                              Save() = 0;
-  virtual bool                                              Load() = 0;
+  virtual bool                                              Save(const std::string& filename) = 0;
+  virtual bool                                              Load(const std::string& filename) = 0;
 };
 
 #endif //TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_REPOSITORYCONTROLLER_H_

@@ -53,17 +53,8 @@ TEST_F(TestInput, shouldBeCorrectLabelInput){
 }
 
 
-TEST_F(TestInput, shouldCorrectInputDate){
-  EXPECT_CALL(*io, Output).Times(1).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("now"));
-  auto date = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE,
-                                                  context,
-                                                  *io);
-  date->Execute();
-  ASSERT_EQ(context->buffer_.date.Get().day_number(), Date::GetCurrentTime().day_number());
-}
 
-TEST_F(TestInput, shouldIncorrectInputDate){
+TEST_F(TestInput, shouldCorrectInputDate){
   EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(2).WillOnce(Return("h1yuoas;jfnb1"))
                                       .WillOnce(Return("now"));
@@ -75,28 +66,37 @@ TEST_F(TestInput, shouldIncorrectInputDate){
 }
 
 
-TEST_F(TestInput, shouldIncorrectInputID){
+TEST_F(TestInput, shouldCorrectInputID){
   EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(3).WillOnce(Return("123"))
                                       .WillOnce(Return("asdas"))
                                       .WillOnce(Return(""));
-  auto date = Factory::CreateState(StatesID::INPUT_ID);
-  date->Do(context,*io);
-  date->Do(context,*io);
-  date->Do(context,*io);
+  auto id = Factory::CreateState(StatesID::INPUT_ID);
+  id->Do(context,*io);
+  id->Do(context,*io);
+  id->Do(context,*io);
 }
 
-TEST_F(TestInput, shouldIncorrectInputPriority){
+TEST_F(TestInput, shouldCorrectInputPriority){
   EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(5).WillOnce(Return("first"))
                                       .WillOnce(Return("second"))
                                       .WillOnce(Return("3"))
                                       .WillOnce(Return("0"))
                                       .WillOnce(Return("AAAAAAAAAAAAAAAAAAAAAAAAa"));
-  auto date = Factory::CreateState(StatesID::INPUT_PRIORITY);
-  date->Do(context,*io);
-  date->Do(context,*io);
-  date->Do(context,*io);
-  date->Do(context,*io);
-  date->Do(context,*io);
+  auto priority = Factory::CreateState(StatesID::INPUT_PRIORITY);
+  priority->Do(context,*io);
+  priority->Do(context,*io);
+  priority->Do(context,*io);
+  priority->Do(context,*io);
+  priority->Do(context,*io);
+}
+
+TEST_F(TestInput, shouldCorrectInputFileName){
+  EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return(""))
+      .WillOnce(Return("file"));
+  auto filename = Factory::CreateState(StatesID::INPUT_FILE_NAME);
+  filename->Do(context,*io);
+  filename->Do(context,*io);
 }
