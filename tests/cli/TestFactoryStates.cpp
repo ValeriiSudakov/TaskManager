@@ -35,6 +35,9 @@ TEST_F(TestFactoryStates, shouldCreateCorrectState){
   auto inputDate = factory.Create(StatesID::INPUT_DATE);
   ASSERT_EQ(inputDate->GetStateID(), StatesID::INPUT_DATE);
 
+  auto inputFileName = factory.Create(StatesID::INPUT_FILE_NAME);
+  ASSERT_EQ(inputFileName->GetStateID(), StatesID::INPUT_FILE_NAME);
+
   auto inputPriority = factory.Create(StatesID::INPUT_PRIORITY);
   ASSERT_EQ(inputPriority->GetStateID(), StatesID::INPUT_PRIORITY);
 

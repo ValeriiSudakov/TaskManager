@@ -49,6 +49,9 @@ TEST_F(TestFactory, shouldCorrectCreateStates){
   auto inputDate = Factory::CreateState(StatesID::INPUT_DATE);
   ASSERT_EQ(inputDate->GetStateID(), StatesID::INPUT_DATE);
 
+  auto inputFileName = Factory::CreateState(StatesID::INPUT_FILE_NAME);
+  ASSERT_EQ(inputFileName->GetStateID(), StatesID::INPUT_FILE_NAME);
+
   auto inputPriority = Factory::CreateState(StatesID::INPUT_PRIORITY);
   ASSERT_EQ(inputPriority->GetStateID(), StatesID::INPUT_PRIORITY);
 
@@ -122,6 +125,9 @@ TEST_F(TestFactory, shouldCorrectCreate){
 
   auto inputDate = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE, context, *io);
   ASSERT_NE(inputDate, nullptr);
+
+  auto inputFileName = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_FILE_NAME, context, *io);
+  ASSERT_NE(inputFileName, nullptr);
 
   auto postpone = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::POSTPONE, context, *io);
   ASSERT_NE(postpone, nullptr);
