@@ -22,7 +22,7 @@ bool TaskPersister::Load() {
     auto nonConstTask = task;
     PersisterUtils::AddSubtasksToRepository(nonConstTask, addTaskResult.id_.value(), repository_);
   }
-
+  return true;
 }
 
 bool TaskPersister::Save() {
