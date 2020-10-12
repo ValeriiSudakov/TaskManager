@@ -17,6 +17,7 @@
 #include "States/InputStates/InputPriorityState.h"
 #include "States/InputStates/InputDateState.h"
 #include "States/InputStates/InputIDState.h"
+#include "States/InputStates/InputFileNameState.h"
 
 #include "States/ShowStates/ShowAllState.h"
 #include "States/ShowStates/ShowTodayState.h"
@@ -46,6 +47,7 @@ FactoryStates::FactoryStates() {
   states_[StatesID::INPUT_LABEL] = std::make_unique<LazyInitClass<InputLabelState>>();
   states_[StatesID::INPUT_NAME] = std::make_unique<LazyInitClass<InputNameState>>();
   states_[StatesID::INPUT_ID] = std::make_unique<LazyInitClass<InputIDState>>();
+  states_[StatesID::INPUT_FILE_NAME] = std::make_unique<LazyInitClass<InputFileNameState>>();
 
   states_[StatesID::SHOW_ALL] = std::make_unique<LazyInitClass<ShowAllState>>();
   states_[StatesID::SHOW_BY_ID] = std::make_unique<LazyInitClass<ShowByIDState>>();

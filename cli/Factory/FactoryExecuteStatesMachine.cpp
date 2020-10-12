@@ -10,6 +10,7 @@ FactoryExecuteStatesMachine::FactoryExecuteStatesMachine(){
   stateMachines_[FiniteStateMachineID::INPUT_DATE] = nullptr;
   stateMachines_[FiniteStateMachineID::INPUT_LABEL] = nullptr;
   stateMachines_[FiniteStateMachineID::INPUT_NAME] = nullptr;
+  stateMachines_[FiniteStateMachineID::INPUT_FILE_NAME] = nullptr;
   stateMachines_[FiniteStateMachineID::POSTPONE] = nullptr;
   stateMachines_[FiniteStateMachineID::INPUT_SUBTASK_PARAMS] = nullptr;
   stateMachines_[FiniteStateMachineID::INPUT_TASK_PARAMS] = nullptr;
@@ -85,6 +86,17 @@ std::shared_ptr<StateMachine> FactoryExecuteStatesMachine::Create(const FiniteSt
                                               },
                                               context,
                                               io);
+
+  }
+  else if (FiniteStateMachineID::INPUT_FILE_NAME == stateMachine->first){
+
+    stateMachine->second = std::make_shared<ExecuteStatesMachine>(
+        std::vector<StatesID>{
+            StatesID::INPUT_FILE_NAME,
+            StatesID::EXIT
+        },
+        context,
+        io);
 
   }
   else if (FiniteStateMachineID::POSTPONE == stateMachine->first){
