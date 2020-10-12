@@ -14,8 +14,8 @@ class MockService : public TaskService{
   MOCK_METHOD(bool,                          RemoveTask,         (const TaskID&), (override));
   MOCK_METHOD(bool,                          PostponeTask,       (const TaskID&, const Date&), (override));
   MOCK_METHOD(bool,                          SetTaskComplete,    (const TaskID&), (override));
-  MOCK_METHOD(bool,                          Save, (), (override));
-  MOCK_METHOD(bool,                          Load, (), (override));
+  MOCK_METHOD(bool,                          Save, (const std::string&), (override));
+  MOCK_METHOD(bool,                          Load, (const std::string&), (override));
   MOCK_METHOD(std::optional<TaskServiceDTO>, GetTask, (const TaskID&), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetSubtask, (const TaskID&), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasks, (bool), (const override));

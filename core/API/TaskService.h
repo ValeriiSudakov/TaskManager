@@ -44,16 +44,20 @@ class TaskService{
 /*
  * Load all task to the system.
  *
+ * @param: file name to load tasks
+ *
  * @return-type: true if success, false if not.
  */
-  virtual bool                      Load() = 0;
+  virtual bool                      Load(const std::string& filename) = 0;
 
 /*
  * Save all task of the system.
  *
+ * @param: file name to save tasks
+ *
  * @return-type: true if success, false if not.
  */
-  virtual bool                      Save() = 0;
+  virtual bool                      Save(const std::string& filename) = 0;
 
   /*
   *  Remove Task from the system.

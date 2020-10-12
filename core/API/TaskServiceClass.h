@@ -25,8 +25,8 @@ class TaskServiceClass : public TaskService {
   AddTaskResult                    AddSubtask(const TaskID& rootTaskID, const TaskServiceDTO& subtask) override;
   bool                             RemoveTask(const TaskID& ID) override;
   bool                             PostponeTask(const TaskID& ID, const Date& date) override;
-  bool                             Save() override;
-  bool                             Load() override;
+  bool                             Save(const std::string& filename) override;
+  bool                             Load(const std::string& filename) override;
 
   bool                             SetTaskComplete(const TaskID& ID) override;
 

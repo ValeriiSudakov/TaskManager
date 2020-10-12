@@ -28,8 +28,8 @@ TEST_F(TestTaskRepositoryController, shouldSaveAndLoad){
   auto addSubtaskResult = repository->Get()->AddSubtask(addTaskResult.id_.value(), testSubtask.value());
   ASSERT_TRUE(addSubtaskResult.success_);
 
-  ASSERT_TRUE(repository->Save());
-  ASSERT_TRUE(repository->Load());
+  ASSERT_TRUE(repository->Save("TestSave"));
+  ASSERT_TRUE(repository->Load("TestSave"));
 
   auto tasks = repository->Get()->GetTasks();
   ASSERT_EQ(tasks.size(), 2);
