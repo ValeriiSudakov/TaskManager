@@ -10,6 +10,7 @@ bool TaskPersister::Load() {
   //read from stream
   storage.ParseFromIstream(&file_);
 
+  std::scoped_lock<std::mutex> lock(mu_);
   for (auto& task : storage.tasks()){
     auto taskDTO = PersisterUtils::DTOFromSerializedTask(task);
     if (!taskDTO.has_value()){
@@ -26,6 +27,8 @@ bool TaskPersister::Load() {
 }
 
 bool TaskPersister::Save() {
+
+  std::scoped_lock<std::mutex> lock(mu_);
   auto tasks = repository_.GetTasks();
   if (tasks.empty()){
     return true;

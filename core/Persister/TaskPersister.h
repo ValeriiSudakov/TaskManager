@@ -8,6 +8,7 @@
 #include "Persister.h"
 #include "Memory_Model/Storage/TaskRepository.h"
 #include "fstream"
+#include <mutex>
 
 class TaskPersister : public Persister{
  public:
@@ -24,6 +25,7 @@ class TaskPersister : public Persister{
  private:
   std::fstream file_;
   TaskRepository& repository_;
+  std::mutex mu_;
 };
 
 #endif //TASKMANAGER_CORE_PERSISTER_TASKPERSISTER_H_
