@@ -11,7 +11,11 @@ LoadState::LoadState() : State(StatesID::LOAD){}
 LoadState::~LoadState() = default;
 
 StateOperationResult LoadState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
-  auto result = context->taskService_.Load();
+  auto inputFileNameMachine = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_FILE_NAME,
+                                                           context,
+                                                           io);
+  inputFileNameMachine->Execute();
+  auto result = context->taskService_.Load(context->buffer_.fileName);
   if (result){
     std::string success { "Tasks were loaded.\n" };
     io.Output(success);

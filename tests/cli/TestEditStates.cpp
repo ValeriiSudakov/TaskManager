@@ -43,8 +43,8 @@ TEST_F(TestEditStates, shouldCorrectWorksAddTask){
 TEST_F(TestEditStates, shouldLoad){
   auto loadState = Factory::CreateState(StatesID::LOAD);
 
-  EXPECT_CALL(*io, Output).Times(1).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(0);
+  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("file.txt"));
   EXPECT_CALL(*service, Load).Times(1).WillOnce(Return(true));
   loadState->Do(context, *io);
 }
@@ -52,8 +52,8 @@ TEST_F(TestEditStates, shouldLoad){
 TEST_F(TestEditStates, shouldSave){
   auto loadState = Factory::CreateState(StatesID::SAVE);
 
-  EXPECT_CALL(*io, Output).Times(1).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(0);
+  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("file.txt"));
   EXPECT_CALL(*service, Save).Times(1).WillOnce(Return(true));
   loadState->Do(context, *io);
 }
