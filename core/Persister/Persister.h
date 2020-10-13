@@ -5,6 +5,12 @@
 #ifndef TASKMANAGER_CORE_PERSISTER_PERSISTER_H_
 #define TASKMANAGER_CORE_PERSISTER_PERSISTER_H_
 
+/*
+ * Persister interface.
+ * Provides methods to save/load data.
+ *
+ * @author: Valerii Sudakov.
+ */
 class Persister {
  public:
   virtual ~Persister() = default;
