@@ -6,6 +6,12 @@
 #define TASKMANAGER_SRC_TASKVIEW_H_
 #include "TaskView.h"
 
+/*
+ * Task view class.
+ * @see: TaskView.h
+ *
+ * @author: Valerii Sudakov.
+ */
 class TaskViewClass : public TaskView{
  public:
   TaskViewClass();

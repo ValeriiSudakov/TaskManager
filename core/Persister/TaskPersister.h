@@ -9,6 +9,14 @@
 #include "Memory_Model/Storage/TaskRepository.h"
 #include "fstream"
 
+/*
+ * Task Persister.
+ * @see Persister.
+ *
+ * Class provides methods to save/load task of TaskRepository to file.
+ *
+ * @author: Valerii Sudakov
+ */
 class TaskPersister : public Persister{
  public:
   TaskPersister(TaskRepository& repository, std::fstream& file)

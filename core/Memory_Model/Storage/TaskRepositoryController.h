@@ -7,6 +7,12 @@
 #include "Memory_Model/RepositoriesFactory/RepositoriesFactory.h"
 #include "RepositoryController.h"
 
+/*
+ * TaskRepository class.
+ * @see: RepositoryController.
+ *
+ * @author: Valerii Sudakov.
+ */
 class TaskRepositoryController : public RepositoryController{
  public:
   TaskRepositoryController(std::unique_ptr<RepositoriesFactory> repositoryFactory)
