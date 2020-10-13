@@ -7,7 +7,19 @@
 #include "TaskRepository.h"
 #include "TaskViewClass.h"
 #include "TaskStorageClass.h"
-
+/*
+ * TaskRepository class.
+ * Class-holder of TaskStorage, TaskView and TaskIDGenerator.
+ * Performs all repository edit-operation: Create, Remove, Postpone, Complete
+ * and makes requests to Storage and View to.
+ *
+ * Get tasks requests: makes requests to view or storage, get tasks from there,
+ * convert to TaskRepositoryDTO and return it.
+ *
+ * @see: TaskRepository.h
+ *
+ * @author: Valerii Sudakov.
+ */
  class TaskRepositoryClass
      : public TaskRepository {
  public:

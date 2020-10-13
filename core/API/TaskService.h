@@ -69,7 +69,7 @@ class TaskService{
   virtual bool                      RemoveTask(const TaskID& ID) = 0;
 
 /*
- * Postpone task date;
+ * Postpone task date
  *
  * @param: TaskID that contains ID of task to postpone.
  * @param: Date that contains new date of task (postpone).
@@ -79,7 +79,7 @@ class TaskService{
   virtual bool                      PostponeTask(const TaskID& ID, const Date& date) = 0;
 
 /*
- * Complete task;
+ * Complete task
  *
  * @param: TaskID that contains ID of task to complete.
  *
@@ -144,7 +144,7 @@ class TaskService{
   virtual std::vector<TaskServiceDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const = 0;
 
 /*
- * Returns all tasks by label from the systems
+ * Returns all tasks by name from the systems
  *
  * @param: name - search criteria for tasks in the system
  * @param byPriority. if true - returned tasks will be sorted by priority, not if false.
@@ -156,7 +156,7 @@ class TaskService{
 /*
  * Returns all tasks by priority from the systems
  *
- * @param: label - search criteria for tasks in the system
+ * @param: priority - search criteria for tasks in the system
  * @param byPriority. if true - returned tasks will be sorted by priority, not if false.
  *
  * @return-type: std::vector of TaskServiceDTO.

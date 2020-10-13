@@ -7,6 +7,12 @@
 
 #include "TaskStorage.h"
 
+/*
+ * TaskStorage class.
+ * @see: TaskStorage.h
+ *
+ * @author: Valerii Sudakov.
+ */
 class TaskStorageClass : public TaskStorage{
  public:
   TaskStorageClass();
