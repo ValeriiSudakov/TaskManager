@@ -5,13 +5,13 @@
 #ifndef TASKMANAGER_SRC_TASKREPOSITORY_H_
 #define TASKMANAGER_SRC_TASKREPOSITORY_H_
 #include "TaskRepository.h"
-#include "TaskViewClass.h"
-#include "TaskStorageClass.h"
+#include "Repository/View/TaskViewClass.h"
+#include "Repository/Storage/TaskStorageClass.h"
 /*
  * TaskRepository class.
  * Class-holder of TaskStorage, TaskView and TaskIDGenerator.
  * Performs all repository edit-operation: Create, Remove, Postpone, Complete
- * and makes requests to Storage and View to.
+ * and makes requests to Repository and View to.
  *
  * Get tasks requests: makes requests to view or storage, get tasks from there,
  * convert to TaskRepositoryDTO and return it.

@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_CORE_MEMORY_MODEL_REPOSITORIESFACTORY_TASKREPOSITORYFACTORY_H_
 #define TASKMANAGER_CORE_MEMORY_MODEL_REPOSITORIESFACTORY_TASKREPOSITORYFACTORY_H_
 #include "RepositoriesFactory.h"
-#include "Memory_Model/Storage/TaskRepositoryClass.h"
+#include "Repository/TaskRepositoryClass.h"
 
 class TaskRepositoryFactory : public RepositoriesFactory {
  public:

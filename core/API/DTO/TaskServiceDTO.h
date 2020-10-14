@@ -4,9 +4,9 @@
 
 #ifndef TASKMANAGER_SRC_TASKDTO_H_
 #define TASKMANAGER_SRC_TASKDTO_H_
-#include "Date/Date.h"
-#include "TaskID.h"
-#include "Priority.h"
+#include "Repository/Task/Date/Date.h"
+#include "Repository/Task/ID/TaskID.h"
+#include "Repository/Task/Priority.h"
 
 /*
  * DTO TaskService information.

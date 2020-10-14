@@ -4,8 +4,8 @@
 
 #ifndef TASKMANAGER_CORE_API_TASKSERVICEUTILS_H_
 #define TASKMANAGER_CORE_API_TASKSERVICEUTILS_H_
-#include "TaskServiceDTO.h"
-#include "Memory_Model/Storage/TaskRepositoryDTO.h"
+#include "API/DTO/TaskServiceDTO.h"
+#include "Repository/DTO/TaskRepositoryDTO.h"
 
 class TaskRepository;
 

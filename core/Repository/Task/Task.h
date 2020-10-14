@@ -8,7 +8,7 @@
 #include <ctime>
 #include <optional>
 #include "Date/Date.h"
-#include "API/Priority.h"
+#include "Priority.h"
 
 class Task {
 

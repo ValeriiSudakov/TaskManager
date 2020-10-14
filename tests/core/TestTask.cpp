@@ -6,11 +6,10 @@
 // Created by R2D2 on 15.07.2020.
 //
 #include <gtest/gtest.h>
-#include "Memory_Model/Task/TaskEntity.h"
-#include "Memory_Model/Task/TaskIDGenerate.h"
-#include "API/TaskServiceClass.h"
-#include "API/Priority.h"
-#include "Date/Date.h"
+#include "Repository/Task/TaskEntity.h"
+#include "Repository/Task/ID/TaskIDGenerate.h"
+#include "Repository/Task/Priority.h"
+#include "Repository/Task/Date/Date.h"
 #include <iostream>
 
 class TestTaskEntity : public ::testing::Test {

@@ -5,10 +5,10 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "API/TaskServiceClass.h"
+#include "API/Service/TaskServiceClass.h"
 #include <iostream>
-#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
-#include "Memory_Model/Storage/TaskRepositoryController.h"
+#include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
+#include "Repository/RepositoryController/TaskRepositoryController.h"
 class TestTaskService : public ::testing::Test {
 
  protected:

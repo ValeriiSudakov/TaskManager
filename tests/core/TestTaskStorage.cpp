@@ -3,8 +3,8 @@
 //
 
 #include <gtest/gtest.h>
-#include "Memory_Model/Storage/TaskStorageClass.h"
-#include "Date/Date.h"
+#include "Repository/Storage/TaskStorageClass.h"
+#include "Repository/Task/Date/Date.h"
 
 class TestTaskStorage : public ::testing::Test {
 
