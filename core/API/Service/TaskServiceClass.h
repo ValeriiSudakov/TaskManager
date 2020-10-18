@@ -5,8 +5,8 @@
 #ifndef TASKMANAGER_SRC_TASKSERVICE_H_
 #define TASKMANAGER_SRC_TASKSERVICE_H_
 #include "TaskService.h"
-#include "TaskServiceUtils.h"
-#include "Memory_Model/Storage/RepositoryController.h"
+#include "API/Utils/TaskServiceUtils.h"
+#include "Repository/RepositoryController/RepositoryController.h"
 
 /*
  *  Enter point to the program.

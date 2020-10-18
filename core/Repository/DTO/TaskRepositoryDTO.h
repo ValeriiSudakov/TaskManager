@@ -5,9 +5,9 @@
 #ifndef TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYDTO_H_
 #define TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYDTO_H_
 
-#include "Date/Date.h"
-#include "API/TaskID.h"
-#include "API/Priority.h"
+#include "Repository/Task/Date/Date.h"
+#include "Repository/Task/ID/TaskID.h"
+#include "Repository/Task/Priority.h"
 
 /*
  * DTO TaskRepository information.

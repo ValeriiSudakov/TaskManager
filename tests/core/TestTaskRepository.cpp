@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "Memory_Model/Storage/TaskRepositoryClass.h"
+#include "Repository/TaskRepositoryClass.h"
 
 class TestTaskRepository : public ::testing::Test {
 };

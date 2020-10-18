@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "API/TaskServiceClass.h"
+#include "API/Service/TaskServiceClass.h"
 #include <iostream>
 #include <stdexcept>
 

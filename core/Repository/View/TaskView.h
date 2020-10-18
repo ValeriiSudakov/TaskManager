@@ -5,8 +5,8 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKVIEWINTERFACE_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKVIEWINTERFACE_H_
 
-#include "Memory_Model/Task/TaskEntity.h"
-#include "API/Priority.h"
+#include "Repository/Task/TaskEntity.h"
+#include "Repository/Task/Priority.h"
 #include <map>
 #include <vector>
 

@@ -3,9 +3,9 @@
 //
 
 #include <gtest/gtest.h>
-#include "Memory_Model/Storage/TaskRepositoryClass.h"
+#include "Repository/TaskRepositoryClass.h"
 #include "Persister/TaskPersister.h"
-#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
+#include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
 
 class TestTaskPersister : public ::testing::Test {
  protected:

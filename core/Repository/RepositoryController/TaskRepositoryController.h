@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYCONTOLLER_H_
 #define TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_TASKREPOSITORYCONTOLLER_H_
-#include "Memory_Model/RepositoriesFactory/RepositoriesFactory.h"
+#include "Repository/RepositoriesFactory/RepositoriesFactory.h"
 #include "RepositoryController.h"
 
 /*

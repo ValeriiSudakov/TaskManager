@@ -3,9 +3,9 @@
 //
 
 #include <gtest/gtest.h>
-#include "Memory_Model/Storage/TaskRepositoryController.h"
-#include "API/TaskServiceUtils.h"
-#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
+#include "Repository/RepositoryController/TaskRepositoryController.h"
+#include "API/Utils/TaskServiceUtils.h"
+#include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
 
 class TestTaskRepositoryController : public ::testing::Test {
  protected:

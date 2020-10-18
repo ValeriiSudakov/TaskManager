@@ -2,8 +2,8 @@
 #include "StatesControllers/StateMachineMenu.h"
 #include "InputOutputConsoleLayer.h"
 #include "States/StatesID.h"
-#include "Memory_Model/RepositoriesFactory/TaskRepositoryFactory.h"
-#include "Memory_Model/Storage/TaskRepositoryController.h"
+#include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
+#include "Repository/RepositoryController/TaskRepositoryController.h"
 #include "Factory/Factory.h"
 
 int main(){
