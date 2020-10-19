@@ -42,11 +42,6 @@
   std::vector<TaskRepositoryDTO>      GetTasksByPriority(const Priority& priority) const override;
 
  private:
-   TaskRepositoryDTO                  DTOFromEntity(const TaskEntity& entity) const;
-   std::optional<TaskEntity>          EntityFromDTO(const TaskRepositoryDTO& dto, std::optional<TaskID> rootID);
-   void                               SortByPriority(std::vector<TaskRepositoryDTO>& tasks) const;
-
- private:
   std::unique_ptr<TaskView>           taskView_;
   std::unique_ptr<TaskStorage>        taskStorage_;
   TaskIDGenerate                      taskIDGenerate_;
