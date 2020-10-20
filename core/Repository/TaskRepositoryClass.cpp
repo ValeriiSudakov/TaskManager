@@ -9,7 +9,7 @@ TaskRepositoryClass::TaskRepositoryClass(std::unique_ptr<TaskView> view, std::un
  : taskView_(std::move(view)), taskStorage_(std::move(storage)){}
 
 AddTaskResult TaskRepositoryClass::AddTask(const TaskRepositoryDTO &task){
-  auto newTaskEntity = TaskRepositoryUtils::NewEntityFromDTO(task, taskIDGenerate_, std::nullopt);
+  auto newTaskEntity = task_repository_utils::NewEntityFromDTO(task, taskIDGenerate_, std::nullopt);
   if (!newTaskEntity.has_value()){
     return AddTaskResult::Failed(AddTaskResult::ErrorType::TASK_IS_DAMAGED);
   }
@@ -27,7 +27,7 @@ AddTaskResult TaskRepositoryClass::AddSubtask(const TaskID& rootTaskID, const Ta
     return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK);
   }
 
-  auto newTaskEntity = TaskRepositoryUtils::NewEntityFromDTO(subtask, taskIDGenerate_, rootTaskID);
+  auto newTaskEntity = task_repository_utils::NewEntityFromDTO(subtask, taskIDGenerate_, rootTaskID);
   if (!newTaskEntity.has_value()){
     return AddTaskResult::Failed(AddTaskResult::ErrorType::NOT_FOUND_PARENT_TASK);
   }
@@ -99,7 +99,7 @@ std::optional<TaskRepositoryDTO> TaskRepositoryClass::GetTask(const TaskID& id) 
   if (!task.has_value()){
     return std::nullopt;
   }
-  return TaskRepositoryUtils::DTOFromEntity(*task.value());
+  return task_repository_utils::DTOFromEntity(*task.value());
 }
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetSubtask(const TaskID& id) const {
   auto task = taskStorage_->GetTask(id);
@@ -108,7 +108,7 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetSubtask(const TaskID& id)
     return subtasks;
   }
   for (const auto& subtask : task.value()->GetSubtasks()){
-    subtasks.push_back(TaskRepositoryUtils::DTOFromEntity(*subtask.second.lock()));
+    subtasks.push_back(task_repository_utils::DTOFromEntity(*subtask.second.lock()));
   }
   return subtasks;
 }
@@ -117,7 +117,7 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasks() const{
   auto tasks = taskStorage_->GetTasks();
   std::vector<TaskRepositoryDTO> tasksDTO;
   for (const auto& task : tasks){
-    tasksDTO.push_back(TaskRepositoryUtils::DTOFromEntity(*task.second));
+    tasksDTO.push_back(task_repository_utils::DTOFromEntity(*task.second));
   }
   return tasksDTO;
 }
@@ -125,9 +125,9 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasks() const{
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTodayTasks(bool byPriority) const {
   auto tasks = taskView_->GetTodayTasks();
   std::vector<TaskRepositoryDTO> tasksDTO;
-  TaskRepositoryUtils::VectorFromEntitiesToDTO(tasks, tasksDTO);
+  task_repository_utils::VectorFromEntitiesToDTO(tasks, tasksDTO);
   if (byPriority){
-    TaskRepositoryUtils::SortByPriority(tasksDTO);
+    task_repository_utils::SortByPriority(tasksDTO);
   }
   return tasksDTO;
 }
@@ -135,9 +135,9 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTodayTasks(bool byPriorit
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetWeekTasks(bool byPriority) const{
   auto tasks = taskView_->GetWeekTasks();
   std::vector<TaskRepositoryDTO> tasksDTO;
-  TaskRepositoryUtils::VectorFromEntitiesToDTO(tasks, tasksDTO);
+  task_repository_utils::VectorFromEntitiesToDTO(tasks, tasksDTO);
   if (byPriority){
-    TaskRepositoryUtils::SortByPriority(tasksDTO);
+    task_repository_utils::SortByPriority(tasksDTO);
   }
   return tasksDTO;
 }
@@ -145,9 +145,9 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetWeekTasks(bool byPriority
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasksByLabel(const std::string& label, bool byPriority) const {
   auto tasks = taskView_->GetTasksByLabel(label);
   std::vector<TaskRepositoryDTO> tasksDTO;
-  TaskRepositoryUtils::VectorFromEntitiesToDTO(tasks, tasksDTO);
+  task_repository_utils::VectorFromEntitiesToDTO(tasks, tasksDTO);
   if (byPriority){
-    TaskRepositoryUtils::SortByPriority(tasksDTO);
+    task_repository_utils::SortByPriority(tasksDTO);
   }
   return tasksDTO;
 }
@@ -155,9 +155,9 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasksByLabel(const std::s
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasksByName(const std::string& name, bool byPriority) const {
   auto tasks = taskView_->GetTasksByName(name);
   std::vector<TaskRepositoryDTO> tasksDTO;
-  TaskRepositoryUtils::VectorFromEntitiesToDTO(tasks, tasksDTO);
+  task_repository_utils::VectorFromEntitiesToDTO(tasks, tasksDTO);
   if (byPriority){
-    TaskRepositoryUtils::SortByPriority(tasksDTO);
+    task_repository_utils::SortByPriority(tasksDTO);
   }
   return tasksDTO;
 }
@@ -165,7 +165,7 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasksByPriority(const Pri
   auto tasks = taskView_->GetTasksByPriority(priority);
   std::vector<TaskRepositoryDTO> tasksDTO;
   for (const auto& task : tasks){
-    tasksDTO.push_back(TaskRepositoryUtils::DTOFromEntity(task));
+    tasksDTO.push_back(task_repository_utils::DTOFromEntity(task));
   }
   return tasksDTO;
 }

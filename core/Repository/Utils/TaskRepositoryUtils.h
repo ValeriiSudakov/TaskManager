@@ -8,7 +8,7 @@
 #include "Repository/Task/TaskEntity.h"
 #include "Repository/Task/ID/TaskIDGenerate.h"
 
-namespace TaskRepositoryUtils {
+namespace task_repository_utils {
 
   TaskRepositoryDTO                  DTOFromEntity(const TaskEntity& entity);
   void                               VectorFromEntitiesToDTO(const std::vector<TaskEntity>& entities,
