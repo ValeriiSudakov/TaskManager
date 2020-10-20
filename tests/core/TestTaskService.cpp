@@ -240,3 +240,32 @@ TEST_F(TestTaskService, shouldntRemoveTask){
   auto result = ts->RemoveTask(TaskID(421));
   ASSERT_FALSE(result);
 }
+
+TEST_F(TestTaskService, shouldGetSubtasks){
+  auto subtasks = ts->GetSubtask(TaskID(0));
+  ASSERT_TRUE(subtasks.empty());
+
+  auto testDTO = TaskServiceDTO::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+  ts->AddTask(testDTO.value());
+
+  auto testDTO1 = TaskServiceDTO::Create("sub", "label", Priority::NONE, Date::GetCurrentTime());
+  ts->AddSubtask(TaskID(0), testDTO1.value());
+
+  auto subtasks1 = ts->GetSubtask(TaskID(0));
+  ASSERT_EQ(subtasks1.size(), 1);
+}
+
+TEST_F(TestTaskService, shouldSetComplete) {
+  auto testDTO = TaskServiceDTO::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+  ts->AddTask(testDTO.value());
+
+  ASSERT_TRUE(ts->SetTaskComplete(TaskID(0)));
+}
+
+TEST_F(TestTaskService, shouldSave){
+  ASSERT_TRUE(ts->Save("savefile.txt"));
+}
+
+TEST_F(TestTaskService, shouldLoad){
+  ASSERT_TRUE(ts->Load("savefile.txt"));
+}
