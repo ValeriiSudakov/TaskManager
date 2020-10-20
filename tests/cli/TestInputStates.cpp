@@ -28,43 +28,69 @@ class TestInput :  public ::testing::Test {
 
 
 TEST_F(TestInput, shouldCorrectInputName){
-  EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return(""))
-                                      .WillOnce(Return("name"));
+  auto inputName = Factory::CreateState(StatesID::INPUT_NAME);
 
-  auto context = std::make_shared<Context>(*std::make_unique<MockService>());
-  auto name = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_NAME,
-                                                 context,
-                                                 *io);
-  name->Execute();
+  EXPECT_CALL(*io, Output).Times(1).WillOnce(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("name"));
+
+  auto result = inputName->Do(context, *io);
+  ASSERT_EQ(result, StateOperationResult::SUCCESS);
   ASSERT_EQ(context->buffer_.name, "name");
 }
 
-TEST_F(TestInput, shouldBeCorrectLabelInput){
-  EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return(""))
-      .WillOnce(Return("label"));
+TEST_F(TestInput, shouldntCorrectInputName){
+  auto inputName = Factory::CreateState(StatesID::INPUT_NAME);
 
-  auto label = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_LABEL,
-                                                 context,
-                                                  *io);
-  label->Execute();
+  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return(""));
+
+  auto result = inputName->Do(context, *io);
+  ASSERT_EQ(result, StateOperationResult::INCORRECT_INPUT);
+  ASSERT_EQ(context->buffer_.name, "");
+}
+
+TEST_F(TestInput, shouldBeCorrectLabelInput){
+  auto inputLabel = Factory::CreateState(StatesID::INPUT_LABEL);
+
+  EXPECT_CALL(*io, Output).Times(1).WillOnce(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("label"));
+
+  auto result = inputLabel->Do(context, *io);
+  ASSERT_EQ(result, StateOperationResult::SUCCESS);
   ASSERT_EQ(context->buffer_.label, "label");
 }
 
+TEST_F(TestInput, shouldBeIncorrectLabelInput){
+  auto inputLabel = Factory::CreateState(StatesID::INPUT_LABEL);
 
+  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return(""));
+
+  auto result = inputLabel->Do(context, *io);
+  ASSERT_EQ(result, StateOperationResult::INCORRECT_INPUT);
+  ASSERT_EQ(context->buffer_.label, "");
+}
 
 TEST_F(TestInput, shouldCorrectInputDate){
-  EXPECT_CALL(*io, Output).Times(3).WillRepeatedly(Return());
-  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return("h1yuoas;jfnb1"))
-                                      .WillOnce(Return("now"));
-  auto date = Factory::CreateFiniteStatesMachine(FiniteStateMachineID::INPUT_DATE,
-                                                 context,
-                                                 *io);
-  date->Execute();
+  auto inputDate = Factory::CreateState(StatesID::INPUT_DATE);
+
+  EXPECT_CALL(*io, Output).Times(1).WillOnce(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("now"));
+
+  auto result = inputDate->Do(context, *io);
+  ASSERT_EQ(result, StateOperationResult::SUCCESS);
   ASSERT_EQ(context->buffer_.date.Get().day_number(), Date::GetCurrentTime().day_number());
 }
 
+TEST_F(TestInput, shouldntCorrectInputDate){
+  auto inputDate = Factory::CreateState(StatesID::INPUT_DATE);
+
+  EXPECT_CALL(*io, Output).Times(2).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(1).WillOnce(Return("12sag12fas"));
+
+  auto result = inputDate->Do(context, *io);
+  ASSERT_EQ(result, StateOperationResult::INCORRECT_INPUT);
+}
 
 TEST_F(TestInput, shouldCorrectInputID){
   EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
