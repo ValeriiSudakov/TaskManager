@@ -65,3 +65,19 @@ TEST_F(TestTaskRepository, shouldntRemoveTask){
   TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
   ASSERT_FALSE(tr.RemoveTask(TaskID(421)));
 }
+
+TEST_F(TestTaskRepository, shouldSetComplete){
+  TaskRepositoryClass tr(std::move(std::make_unique<TaskViewClass>()), std::move(std::make_unique<TaskStorageClass>()));
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
+  tr.AddTask(ToDTO(task.value()));
+
+  auto uncompletedTask = tr.GetTask(TaskID(0));
+  ASSERT_FALSE(uncompletedTask.value().Complete());
+
+  ASSERT_FALSE(tr.SetTaskComplete(TaskID(412423512)));
+  ASSERT_TRUE(tr.SetTaskComplete(TaskID(0)));
+
+  auto completeTask = tr.GetTask(TaskID(0));
+  ASSERT_TRUE(completeTask.value().Complete());
+
+}
