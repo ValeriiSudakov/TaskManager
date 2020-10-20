@@ -17,20 +17,20 @@ StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, 
   auto task = context->taskService_.GetTask(context->buffer_.id);
 
   if (task.has_value()){
-    std::cout<<task.value().ToString()<<std::endl;
+    io.Output(task->ToString());
 
     auto subtasks = context->taskService_.GetSubtask(context->buffer_.id);
     if (!subtasks.empty()){
-      std::cout<<"Subtasks:\n";
+      io.Output({"Subtasks:\n"});
       for (const auto& sub : subtasks){
         std::string taskStr { "* " + sub.GetName() + "\n" };
-       io.Output(taskStr);
+        io.Output(taskStr);
       }
     }
 
     return StateOperationResult::SUCCESS;
   }
   std::string notFound { "Task was not found.\n" };
- io.Output(notFound);
+  io.Output(notFound);
   return StateOperationResult::TASKS_LIST_EMPTY;
 }

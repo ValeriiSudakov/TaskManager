@@ -3,14 +3,15 @@
 //
 
 #include "TaskServiceDTO.h"
+#include "Utils/TaskServiceDTOUtils.h"
 
 TaskServiceDTO::TaskServiceDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
                                bool taskComplete, const TaskID &taskId)
-                 : name_(name), label_(label), Priority_(priority), date_(date), taskComplete_(taskComplete), taskID_(taskId) {}
+                 : name_(name), label_(label), priority_(priority), date_(date), taskComplete_(taskComplete), taskID_(taskId) {}
 
 
 TaskServiceDTO::TaskServiceDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date)
-  : name_(name), label_(label), Priority_(priority), date_(date), taskComplete_(false), taskID_(TaskID()){}
+  : name_(name), label_(label), priority_(priority), date_(date), taskComplete_(false), taskID_(TaskID()){}
 
 
 std::optional<TaskServiceDTO> TaskServiceDTO::Create(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
@@ -35,7 +36,7 @@ const std::string TaskServiceDTO::GetLabel() const {
   return label_;
 }
 const Priority TaskServiceDTO::GetPriority() const{
-  return Priority_;
+  return priority_;
 }
 const Date TaskServiceDTO::GetDate() const {
   return date_;
@@ -47,21 +48,9 @@ const TaskID TaskServiceDTO::GetTaskId() const {
   return taskID_;
 }
 
-const std::string TaskServiceDTO::PriorityToString() const {
-  if (Priority_ == Priority::FIRST){
-    return "first";
-  } else if (Priority_ == Priority::SECOND){
-    return "second";
-  } else if (Priority_ == Priority::THIRD){
-    return "third";
-  } else {
-    return "none";
-  }
-}
-
 const std::string TaskServiceDTO::ToString() const {
   std::string result;
-  std::string priority = PriorityToString();
+  std::string priority = task_service_dto_utils::PriorityToString(priority_);
   result += "Task name: " + name_ + "\nTask label: " + label_ + "\nTask priority: " + priority
           + (taskComplete_ ? "\nCompleted" : "\nNot completed") + "\nDate: " + date_.ToString();
   return result;

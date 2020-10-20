@@ -19,11 +19,11 @@ StateOperationResult PostponeState::Do(const std::shared_ptr<Context>& context, 
   auto result = context->taskService_.PostponeTask(context->buffer_.id, context->buffer_.date);
   if (result){
     std::string success { "Task postponed successfully.\n" };
-   io.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Postpone failed.\n" };
-   io.Output(fail);
+    io.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

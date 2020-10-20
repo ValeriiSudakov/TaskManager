@@ -24,11 +24,11 @@ StateOperationResult AddSubtaskState::Do(const std::shared_ptr<Context>& context
 
   if (result.success_){
     std::string success {"Subtask was added.\n"} ;
-   io.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Failed.\n" };
-   io.Output(fail);
+    io.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

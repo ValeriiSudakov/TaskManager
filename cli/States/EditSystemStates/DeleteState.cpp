@@ -19,11 +19,11 @@ StateOperationResult DeleteState::Do(const std::shared_ptr<Context>& context, In
   auto result = context->taskService_.RemoveTask(context->buffer_.id);
   if (result){
     std::string success { "Task was removed.\n" };
-   io.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Task was not found.\n" };
-   io.Output(fail);
+    io.Output(fail);
     return StateOperationResult::FAIL;
   }
 }

@@ -6,6 +6,7 @@
 #include "API/DTO/TaskServiceDTO.h"
 #include "Repository/Task/Date/Date.h"
 #include "Repository/Task/ID/TaskIDGenerate.h"
+#include "API/DTO/Utils/TaskServiceDTOUtils.h"
 #include <iostream>
 #include "Repository/Task/Task.h"
 
@@ -32,4 +33,24 @@ TEST_F(TestTaskServiceDTO, shouldCreateTaskDTO){
   ASSERT_EQ(taskDTO.value().GetTaskId(),  id);
   ASSERT_EQ(taskDTO.value().IsTaskComplete(), false);
 
+}
+
+TEST_F(TestTaskServiceDTO, shouldConvertToString){
+  auto dto = TaskServiceDTO::Create("name", "label", Priority::FIRST,
+                                              Date::GetCurrentTime(), false, TaskID(0));
+
+  std::string dtoStrNotCompleted = "Task name: " + dto.value().GetName() + "\nTask label: " + dto.value().GetLabel() +
+      "\nTask priority: " + task_service_dto_utils::PriorityToString(dto.value().GetPriority())
+      + (dto.value().IsTaskComplete() ? "\nCompleted" : "\nNot completed") + "\nDate: " + dto.value().GetDate().ToString();
+
+  ASSERT_EQ(dtoStrNotCompleted, dto.value().ToString());
+
+  auto dto1 = TaskServiceDTO::Create("asdas", "ladasdasdbel", Priority::SECOND,
+                                    Date::GetCurrentTime(), true, TaskID(0));
+
+  std::string dtoStrCompleted = "Task name: " + dto1.value().GetName() + "\nTask label: " + dto1.value().GetLabel() +
+      "\nTask priority: " + task_service_dto_utils::PriorityToString(dto1.value().GetPriority())
+      + (dto1.value().IsTaskComplete() ? "\nCompleted" : "\nNot completed") + "\nDate: " + dto1.value().GetDate().ToString();
+
+  ASSERT_EQ(dtoStrCompleted, dto1.value().ToString());
 }

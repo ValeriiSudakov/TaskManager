@@ -19,6 +19,9 @@ class TestEditStates :  public ::testing::Test {
     io = std::make_shared<MockIO>();
     service = std::make_unique<MockService>();
     context = std::make_shared<Context>(*service);
+    auto task = TaskServiceDTO::Create("name", "label", Priority::SECOND,
+                                       Date::GetCurrentTime(), false, TaskID(0));
+    context->tasks_.push_back(task.value());
   }
 
  protected:
@@ -36,6 +39,25 @@ TEST_F(TestEditStates, shouldShowAll){
                                       .WillOnce(Return("12312312"));
   EXPECT_CALL(*service, GetTasks).Times(2).WillRepeatedly(Return(std::vector<TaskServiceDTO>()));
   state->Do(context, *io);
+  state->Do(context, *io);
+  state->Do(context, *io);
+}
+
+TEST_F(TestEditStates, shouldShowByID){
+  auto state = Factory::CreateState(StatesID::SHOW_BY_ID);
+  // 2 times input id,  1 times task info, 1 time subtasks, 1 time subtask, 1 time not found
+  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(2).WillOnce(Return("0"))
+                                      .WillOnce(Return("0"));
+
+  auto task = TaskServiceDTO::Create("name", "label", Priority::SECOND, Date::GetCurrentTime());
+  EXPECT_CALL(*service, GetTask).Times(2).WillOnce(Return(task))
+      .WillOnce(Return(std::optional<TaskServiceDTO>()));
+
+  std::vector<TaskServiceDTO> subtasks;
+  subtasks.push_back(task.value());
+  EXPECT_CALL(*service, GetSubtask).Times(1).WillOnce(Return(subtasks));
+
   state->Do(context, *io);
   state->Do(context, *io);
 }

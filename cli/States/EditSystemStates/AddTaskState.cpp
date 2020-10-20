@@ -26,10 +26,11 @@ StateOperationResult AddTaskState::Do(const std::shared_ptr<Context>& context, I
 
   if (result.success_){
     std::string success {"Task was added.\n"};
-   io.Output(success);
+    io.Output(success);
     return StateOperationResult::SUCCESS;
   } else {
     std::string fail { "Failed.\n" };
+    io.Output(fail);
     return StateOperationResult::FAIL;
   }
 }
