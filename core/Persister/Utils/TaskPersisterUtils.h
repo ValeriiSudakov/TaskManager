@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_CORE_PERSISTER_TASKPERSISTERUTILS_H_
 #define TASKMANAGER_CORE_PERSISTER_TASKPERSISTERUTILS_H_
 #include "Repository/TaskRepository.h"
-#include "SerializedModel.pb.h"
+#include "RepositoryData.pb.h"
 
 /*
  * Persister utils.
@@ -14,49 +14,49 @@
  */
 class Persister;
 
-namespace PersisterUtils{
+namespace persister_utils{
 /*
- * Convert function from Serialized::Priority to Priority.
+ * Convert function from proto::Priority to Priority.
  *
- * @param: Serialized::Priority.
+ * @param: proto::Priority.
  *
  * @return-type: Priority.
  */
-  Priority                              SerializedPriorityToPriority(const Serialized::Priority& priority);
+  Priority                              SerializedPriorityToPriority(const proto::Priority& priority);
 
 /*
- * Convert function from Priority to Serialized::Priority.
+ * Convert function from Priority to proto::Priority.
  *
  * @param: Priority.
  *
- * @return-type: Serialized::Priority.
+ * @return-type: proto::Priority.
  */
-  Serialized::Priority                  PriorityToSerializedPriority(const Priority& priority);
+  proto::Priority                  PriorityToSerializedPriority(const Priority& priority);
 
 /*
- * Convert function from TaskRepositoryDTO to Serialized::Task
+ * Convert function from TaskRepositoryDTO to proto::Task
  *
  * @param: reference to TaskRepository - data to source.
- * @param: reference to Serialized::Task - destination of data.
+ * @param: reference to proto::Task - destination of data.
  */
   void                                  SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO,
-                                                              Serialized::Task& task);
+                                                              proto::Task& task);
 
 /*
- * Add subtasks to Serialized::Task.
+ * Add subtasks to proto::Task.
  * Recursive function. Takes subtasks of TaskRepositoryDTO and
- * set it to Serialized::Task.
+ * set it to proto::Task.
  *
- * @param: Serialized::Task - destination of data.
+ * @param: proto::Task - destination of data.
  * @param: TaskRepositoryDTO - contains root ID of subtasks
  * @param: TaskRepository - data source of tasks.
  */
-  void                                  AddSubtasks(Serialized::Task& serializedTask, TaskRepositoryDTO& task,
+  void                                  AddSubtasks(proto::Task& serializedTask, TaskRepositoryDTO& task,
                                                     TaskRepository& repository_);
 
 /*
  * Add subtasks to Repository.
- * Recursive function. Takes subtasks of Serialized::Task and
+ * Recursive function. Takes subtasks of proto::Task and
  * set it to TaskRepository.
  *
  * @param: TaskRepository - destination of data.
@@ -64,17 +64,17 @@ namespace PersisterUtils{
  * @param: SerializedTask - data source of tasks.
  */
 
-  void                                  AddSubtasksToRepository(const Serialized::Task& serializedTask, TaskID& rootID,
+  void                                  AddSubtasksToRepository(const proto::Task& serializedTask, TaskID& rootID,
                                                                 TaskRepository& repository_);
 
 /*
- * Convert function from Serialized::Task To TaskRepositoryDTO.
+ * Convert function from proto::Task To TaskRepositoryDTO.
  *
- * @param: Serialized::Task - source of data to convert.
+ * @param: proto::Task - source of data to convert.
  *
  * @return-type: TaskRepositoryDTO if converted success, nullopt if not.
  */
-  std::optional<TaskRepositoryDTO>      DTOFromSerializedTask(const Serialized::Task& task);
+  std::optional<TaskRepositoryDTO>      DTOFromSerializedTask(const proto::Task& task);
 
 /*
  * Factory method of TaskPersister.

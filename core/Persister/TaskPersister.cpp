@@ -6,12 +6,12 @@
 #include "Persister/Utils/TaskPersisterUtils.h"
 
 bool TaskPersister::Load() {
-  Serialized::Storage storage;
+  proto::Storage storage;
   //read from stream
   storage.ParseFromIstream(&file_);
 
   for (auto& task : storage.tasks()){
-    auto taskDTO = PersisterUtils::DTOFromSerializedTask(task);
+    auto taskDTO = persister_utils::DTOFromSerializedTask(task);
     if (!taskDTO.has_value()){
       return false;
     }
@@ -20,7 +20,7 @@ bool TaskPersister::Load() {
       return false;
     }
     auto nonConstTask = task;
-    PersisterUtils::AddSubtasksToRepository(nonConstTask, addTaskResult.id_.value(), repository_);
+    persister_utils::AddSubtasksToRepository(nonConstTask, addTaskResult.id_.value(), repository_);
   }
   return true;
 }
@@ -31,12 +31,12 @@ bool TaskPersister::Save() {
     return true;
   }
 
-  Serialized::Storage storage;
+  proto::Storage storage;
   for (auto& task : tasks){
     if (task.GetID() == task.GetRootID()){
-      Serialized::Task* newTask = storage.add_tasks();
-      PersisterUtils::SerializedTaskFromDTO(task, *newTask);
-      PersisterUtils::AddSubtasks(*newTask, task, repository_);
+      proto::Task* newTask = storage.add_tasks();
+      persister_utils::SerializedTaskFromDTO(task, *newTask);
+      persister_utils::AddSubtasks(*newTask, task, repository_);
     }
   }
 

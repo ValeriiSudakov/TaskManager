@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package proto;
+
+enum Priority{
+  FIRST = 0;
+  SECOND = 1;
+  THIRD = 2;
+  NONE = 3;
+}

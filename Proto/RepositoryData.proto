@@ -1,0 +1,18 @@
+syntax = "proto3";
+import "Priority.proto";
+import "Date.proto";
+package proto;
+
+message Task{
+  string name = 1;
+  string label = 2;
+  proto.Priority priority = 3;
+  proto.Date date = 4;
+  bool complete = 5;
+  repeated Task subtasks = 6;
+}
+
+message Storage{
+  repeated Task tasks = 1;
+}
+
