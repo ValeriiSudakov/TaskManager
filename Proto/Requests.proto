@@ -1,0 +1,71 @@
+syntax = "proto3";
+import "TransportTaskData.proto";
+import "ID.proto";
+import "Priority.proto";
+import "Date.proto";
+
+package requests;
+
+message AddTask{
+  transport.Task taskData = 1;
+}
+
+message AddSubtask{
+  proto.ID rootID = 1;
+  transport.Task subtaskData = 2;
+}
+
+message RemoveTask{
+  proto.ID id = 1;
+}
+
+message PostponeTask{
+  proto.ID id = 1;
+  proto.Date date = 2;
+}
+
+message Save{
+  string filename = 1;
+}
+
+message Load{
+  string filename = 1;
+}
+
+message SetComplete{
+  proto.ID id = 1;
+}
+
+message GetTask{
+  proto.ID id = 1;
+}
+
+message GetSubtasks{
+  proto.ID id = 1;
+}
+
+message GetTasks{
+  bool sortByPriority = 1;
+}
+
+message GetTodayTasks{
+  bool sortByPriority = 1;
+}
+
+message GetWeekTasks{
+  bool sortByPriority = 1;
+}
+
+message GetTasksByName{
+  string name = 1;
+  bool sortByPriority = 2;
+}
+
+message GetTasksByLabel{
+  string label = 1;
+  bool sortByPriority = 2;
+}
+
+message GetTasksByPriority{
+  proto.Priority priority = 1;
+}
