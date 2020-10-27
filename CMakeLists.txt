@@ -17,6 +17,7 @@ file(GLOB_RECURSE core_HEADERS "core/*.h")
 file(GLOB core_TEST_SOURCES "tests/core/*.cpp")
 file(GLOB cli_TEST_SOURCES "tests/cli/*.cpp")
 file(GLOB_RECURSE tests_MOCKS "tests/*.h")
+
 ############## protobuf ########################################################
 find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
@@ -27,6 +28,55 @@ protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_SOURCES})
 message("Generated ${PROTO_SRCS} ${PROTO_HDRS}")
 
 SET_SOURCE_FILES_PROPERTIES(${PROTO_SRCS} ${PROTO_HDRS} PROPERTIES GENERATED TRUE)
+
+############## grpc ########################################################
+# Since FetchContent uses add_subdirectory under the hood, we can use
+# the grpc targets directly from this build.
+
+set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
+set(_REFLECTION gRPC::grpc++_reflection)
+
+# Find gRPC installation
+# Looks for gRPCConfig.cmake file installed by gRPC's cmake installation.
+find_package(gRPC CONFIG REQUIRED)
+message(STATUS "Using gRPC ${gRPC_VERSION}")
+
+set(_GRPC_GRPCPP gRPC::grpc++)
+find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
+
+# Proto file
+get_filename_component(service_proto "Proto/TaskServiceTransport.proto" ABSOLUTE)
+get_filename_component(service_proto_path "${service_proto}" PATH)
+
+# Generated sources
+set(service_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/TaskServiceTransport.pb.cc")
+set(service_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/TaskServiceTransport.pb.h")
+set(service_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/TaskServiceTransport.grpc.pb.cc")
+set(service_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/TaskServiceTransport.grpc.pb.h")
+add_custom_command(
+        OUTPUT "${service_proto_srcs}" "${service_proto_hdrs}" "${service_grpc_srcs}" "${service_grpc_hdrs}"
+        COMMAND protoc
+        ARGS -I "${service_proto_path}"
+        --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
+        --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
+        --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
+        ${service_proto}
+        DEPENDS ${service_proto})
+
+# Include generated *.pb.h files
+include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+
+############ Server #####################################################
+
+add_executable(Server Server.cpp
+        ${core_HEADERS} ${core_CPP_SOURCES}
+        ${cli_HEADERS} ${cli_CPP_SOURCES}
+        ${PROTO_SRCS} ${PROTO_HDRS}
+        ${ts_proto_srcs}
+        ${ts_grpc_srcs})
+
+target_link_libraries(Server ${_REFLECTION}
+        ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
 
 ############## boost ########################################################
 set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
@@ -67,6 +117,8 @@ gtest_discover_tests(allTests)
 add_executable(TaskManager ${core_HEADERS} ${core_CPP_SOURCES}
         ${cli_HEADERS} ${cli_CPP_SOURCES}
         ${PROTO_SRCS} ${PROTO_HDRS}
+        ${service_proto_srcs} ${service_grpc_srcs}
         main.cpp )
 
-target_link_libraries(TaskManager ${Protobuf_LIBRARIES})
+target_link_libraries(TaskManager ${Protobuf_LIBRARIES} ${_REFLECTION}
+        ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
