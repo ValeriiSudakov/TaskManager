@@ -98,6 +98,14 @@ TEST_F(TestTaskServiceServer, shouldGetByID) {
   ASSERT_EQ("name", response2->task().name());
 }
 
+TEST_F(TestTaskServiceServer, shouldGetSortedTasks) {
+  auto response2 = std::make_unique<::response::GetTasks>();
+  auto request2 = std::make_unique<::requests::GetTasks>();
+  request2->set_sortbypriority(true);
+  ts->GetTasks(nullptr, request2.get(), response2.get());
+  ASSERT_EQ("name", response2->tasks().Get(0).name());
+}
+
 TEST_F(TestTaskServiceServer, shouldntGetByID) {
   auto response = std::make_unique<::response::GetTask>();
   auto request = std::make_unique<::requests::GetTask>();
