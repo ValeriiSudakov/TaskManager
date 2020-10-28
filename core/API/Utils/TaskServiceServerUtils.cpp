@@ -52,11 +52,11 @@ transport::Error task_service_server_utils::ToTransport(const AddTaskResult::Err
   }
 }
 
-TaskRepositoryDTO task_service_server_utils::ToTaskRepositoryDTO(const transport::Task &task) {
+std::optional<TaskRepositoryDTO> task_service_server_utils::ToTaskRepositoryDTO(const transport::Task &task) {
   auto DTO = TaskRepositoryDTO::Create(task.name(), task.label(),
                                        persister_utils::SerializedPriorityToPriority(task.priority()),
                                        boost::gregorian::date(task.date().value()),
                                        task.complete(), TaskID(task.id().value()),
                                 TaskID(0));
-  return DTO.value();
+  return DTO;
 }

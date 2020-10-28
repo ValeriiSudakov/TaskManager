@@ -9,7 +9,13 @@
 ::grpc::Status TaskServiceServer::AddTask(::grpc::ServerContext *context,
                                           const ::requests::AddTask *request,
                                           ::response::AddTask *response) {
-  auto addingNewTask = repositoryController_->Get()->AddTask(task_service_server_utils::ToTaskRepositoryDTO(request->taskdata()));
+  auto dto = task_service_server_utils::ToTaskRepositoryDTO(request->taskdata());
+  if (!dto.has_value()){
+    response->mutable_result()->set_success(false);
+    response->mutable_result()->set_error(transport::Error::TASK_IS_DAMAGED);
+    return grpc::Status::OK;
+  }
+  auto addingNewTask = repositoryController_->Get()->AddTask(dto.value());
   auto result = task_service_server_utils::ToTransport(addingNewTask);
 
   if (addingNewTask.success_){
@@ -25,9 +31,13 @@
 ::grpc::Status TaskServiceServer::AddSubtask(::grpc::ServerContext *context,
                                              const ::requests::AddSubtask *request,
                                              ::response::AddSubtask *response) {
-
-  auto addingNewTask = repositoryController_->Get()->AddSubtask(TaskID(request->rootid().value()),
-                                                                task_service_server_utils::ToTaskRepositoryDTO(request->subtaskdata()));
+  auto dto = task_service_server_utils::ToTaskRepositoryDTO(request->subtaskdata());
+  if (!dto.has_value()){
+    response->mutable_result()->set_success(false);
+    response->mutable_result()->set_error(transport::Error::TASK_IS_DAMAGED);
+    return grpc::Status::OK;
+  }
+  auto addingNewTask = repositoryController_->Get()->AddSubtask(TaskID(request->rootid().value()), dto.value());
   auto result = task_service_server_utils::ToTransport(addingNewTask);
 
   if (addingNewTask.success_){

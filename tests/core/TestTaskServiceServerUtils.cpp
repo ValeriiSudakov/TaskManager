@@ -46,10 +46,10 @@ TEST_F(TestTaskServiceServerUtils, shouldConvertToTaskRepositoryDTO){
   task.mutable_date()->set_value(Date::GetCurrentTime().day_number());
   auto dto = task_service_server_utils::ToTaskRepositoryDTO(task);
 
-  ASSERT_EQ(dto.GetName(), task.name());
-  ASSERT_EQ(dto.GetLabel(), task.label());
-  ASSERT_EQ(dto.GetPriority(), persister_utils::SerializedPriorityToPriority(task.priority()));
-  ASSERT_EQ(dto.GetDate().Get().day_number(), task.date().value());
+  ASSERT_EQ(dto.value().GetName(), task.name());
+  ASSERT_EQ(dto.value().GetLabel(), task.label());
+  ASSERT_EQ(dto.value().GetPriority(), persister_utils::SerializedPriorityToPriority(task.priority()));
+  ASSERT_EQ(dto.value().GetDate().Get().day_number(), task.date().value());
 }
 
 TEST_F(TestTaskServiceServerUtils, shouldSortTasksDTO){

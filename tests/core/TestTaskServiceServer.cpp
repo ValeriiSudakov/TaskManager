@@ -41,6 +41,17 @@ TEST_F(TestTaskServiceServer, shouldAddTask) {
   ASSERT_TRUE(response->result().success());
 }
 
+// adding tasks with empty data
+TEST_F(TestTaskServiceServer, shouldntAddTask) {
+  auto response = std::make_unique<::response::AddTask>();
+  auto request = std::make_unique<::requests::AddTask>();
+  request->mutable_taskdata()->set_name("");
+  request->mutable_taskdata()->set_label("");
+  ts->AddTask(nullptr, request.get(), response.get());
+  ASSERT_FALSE(response->result().success());
+  ASSERT_EQ(response->result().error(), transport::Error::TASK_IS_DAMAGED);
+}
+
 TEST_F(TestTaskServiceServer, shouldCreateTask) {
   auto response1 = std::make_unique<::response::GetTasksByName>();
   auto request1 = std::make_unique<::requests::GetTasksByName>();
@@ -48,7 +59,6 @@ TEST_F(TestTaskServiceServer, shouldCreateTask) {
   ts->GetTasksByName(nullptr, request1.get(), response1.get());
   ASSERT_EQ(response1->tasks().size(), 1);
 }
-
 
 TEST_F(TestTaskServiceServer, shouldCreateSubTask) {
   auto response1 = std::make_unique<::response::AddSubtask>();
@@ -60,6 +70,17 @@ TEST_F(TestTaskServiceServer, shouldCreateSubTask) {
   request1->mutable_rootid()->set_value(0);
   auto result1 = ts->AddSubtask(nullptr, request1.get(), response1.get());
   ASSERT_TRUE(response1->result().success());
+}
+
+// adding subtask with empty data
+TEST_F(TestTaskServiceServer, shouldntAddSubtask) {
+  auto response = std::make_unique<::response::AddSubtask>();
+  auto request = std::make_unique<::requests::AddSubtask>();
+  request->mutable_subtaskdata()->set_name("");
+  request->mutable_subtaskdata()->set_label("");
+  ts->AddSubtask(nullptr, request.get(), response.get());
+  ASSERT_FALSE(response->result().success());
+  ASSERT_EQ(response->result().error(), transport::Error::TASK_IS_DAMAGED);
 }
 
 TEST_F(TestTaskServiceServer, shouldntCreateSubTaskWithIncorrectID) {
@@ -280,7 +301,7 @@ TEST_F(TestTaskServiceServer, shouldRemoveTask){
 TEST_F(TestTaskServiceServer, shouldntRemoveTask){
   auto response = std::make_unique<::response::RemoveTask>();
   auto request = std::make_unique<::requests::RemoveTask>();
-  request->mutable_id()->set_value(123123123120);
+  request->mutable_id()->set_value(1231233120);
   ts->RemoveTask(nullptr, request.get(), response.get());
   ASSERT_FALSE(response->success());
 }
