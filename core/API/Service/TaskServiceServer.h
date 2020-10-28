@@ -5,9 +5,7 @@
 #ifndef TASKMANAGER_CORE_API_SERVICE_TASKSERVICESERVER_H_
 #define TASKMANAGER_CORE_API_SERVICE_TASKSERVICESERVER_H_
 
-#include <grpcpp/grpcpp.h>
-#include <grpcpp/health_check_service_interface.h>
-#include <grpcpp/ext/proto_server_reflection_plugin.h>
+
 #include "TaskServiceTransport.pb.h"
 #include "TaskServiceTransport.grpc.pb.h"
 #include "Repository/RepositoryController/RepositoryController.h"

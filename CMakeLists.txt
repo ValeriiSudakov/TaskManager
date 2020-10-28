@@ -97,28 +97,31 @@ include_directories(${GMOCK_INCLUDE_DIR})
 enable_testing()
 
 include_directories(tests)
-add_executable(coreTests ${core_HEADERS} ${core_CPP_SOURCES} ${core_TEST_SOURCES} ${PROTO_SRCS} ${PROTO_HDRS})
+add_executable(coreTests ${core_HEADERS} ${core_CPP_SOURCES} ${core_TEST_SOURCES} ${PROTO_SRCS}
+                         ${PROTO_HDRS} ${service_proto_srcs} ${service_grpc_srcs})
 add_executable(cliTests  ${core_HEADERS} ${core_CPP_SOURCES} ${cli_HEADERS} ${cli_CPP_SOURCES}
                          ${PROTO_SRCS} ${PROTO_HDRS}  ${tests_MOCKS} ${cli_TEST_SOURCES})
 add_executable(allTests  ${core_HEADERS} ${core_CPP_SOURCES} ${cli_HEADERS} ${cli_CPP_SOURCES}
-                         ${PROTO_SRCS} ${PROTO_HDRS}  ${tests_MOCKS} ${core_TEST_SOURCES} ${cli_TEST_SOURCES})
+                         ${PROTO_SRCS} ${PROTO_HDRS}  ${tests_MOCKS} ${core_TEST_SOURCES} ${cli_TEST_SOURCES}
+                         ${service_proto_srcs} ${service_grpc_srcs})
 
-target_link_libraries(coreTests GTest::GTest GTest::Main ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES})
+target_link_libraries(coreTests GTest::GTest GTest::Main ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES}
+                         ${_REFLECTION} ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
 gtest_discover_tests(coreTests)
 
-target_link_libraries(cliTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES} ${cli_TEST_MOCKS} )
+target_link_libraries(cliTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY}
+                         ${Protobuf_LIBRARIES} ${cli_TEST_MOCKS} )
 gtest_discover_tests(cliTests)
 
-target_link_libraries(allTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES} ${cli_TEST_MOCKS} )
+target_link_libraries(allTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOCK_MAIN_LIBRARY} ${Protobuf_LIBRARIES}
+                         ${cli_TEST_MOCKS} ${_REFLECTION} ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
 gtest_discover_tests(allTests)
 
 ############## main exe ########################################################
 
-add_executable(TaskManager ${core_HEADERS} ${core_CPP_SOURCES}
-        ${cli_HEADERS} ${cli_CPP_SOURCES}
-        ${PROTO_SRCS} ${PROTO_HDRS}
-        ${service_proto_srcs} ${service_grpc_srcs}
-        main.cpp )
+add_executable(TaskManager ${core_HEADERS} ${core_CPP_SOURCES} ${cli_HEADERS} ${cli_CPP_SOURCES}
+                           ${PROTO_SRCS} ${PROTO_HDRS} ${service_proto_srcs} ${service_grpc_srcs}
+                           Client.cpp Server.cpp main.cpp )
 
 target_link_libraries(TaskManager ${Protobuf_LIBRARIES} ${_REFLECTION}
         ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})

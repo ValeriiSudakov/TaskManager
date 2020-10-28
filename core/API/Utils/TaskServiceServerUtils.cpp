@@ -29,13 +29,17 @@ transport::Task task_service_server_utils::ToTransport(const TaskRepositoryDTO& 
   resultTask.mutable_date()->set_value(task.GetDate().Get().day_number());
   resultTask.set_complete(task.Complete());
   resultTask.mutable_id()->set_value(task.GetID().Get());
+  return resultTask;
 }
 
 transport::AddTaskResult task_service_server_utils::ToTransport(const AddTaskResult& result) {
   transport::AddTaskResult transportResult;
   transportResult.mutable_id()->set_value(result.id_->Get());
   transportResult.set_success(result.success_);
-  transportResult.set_error(task_service_server_utils::ToTransport(result.error_.value()));
+  if (result.error_.has_value()) {
+    transportResult.set_error(task_service_server_utils::ToTransport(result.error_.value()));
+  }
+  return transportResult;
 }
 
 transport::Error task_service_server_utils::ToTransport(const AddTaskResult::ErrorType& error) {
