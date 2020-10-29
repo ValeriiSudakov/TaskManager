@@ -16,7 +16,8 @@ struct AddTaskResult {
   enum class ErrorType{
     NOT_ENOUGH_FREE_MEMORY,
     NOT_FOUND_PARENT_TASK,
-    TASK_IS_DAMAGED
+    TASK_IS_DAMAGED,
+    BAD_CONNECTION
   };
   std::optional<ErrorType>   error_;
   std::optional<TaskID>      id_;
