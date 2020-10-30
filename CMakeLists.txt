@@ -8,10 +8,10 @@ include_directories(core)
 include_directories(cli)
 
 ############## cli ########################################################
-file(GLOB_RECURSE cli_CPP_SOURCES "cli/*.cpp")
+file(GLOB_RECURSE cli_SOURCES "cli/*.cpp")
 file(GLOB_RECURSE cli_HEADERS "cli/*.h")
 ############## core ########################################################
-file(GLOB_RECURSE core_CPP_SOURCES "core/*.cpp")
+file(GLOB_RECURSE core_SOURCES "core/*.cpp")
 file(GLOB_RECURSE core_HEADERS "core/*.h")
 ############## tests ########################################################
 file(GLOB core_TEST_SOURCES "tests/core/*.cpp")
@@ -66,18 +66,6 @@ add_custom_command(
 # Include generated *.pb.h files
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
-############ Server #####################################################
-
-add_executable(Server Server.cpp
-        ${core_HEADERS} ${core_CPP_SOURCES}
-        ${cli_HEADERS} ${cli_CPP_SOURCES}
-        ${PROTO_SRCS} ${PROTO_HDRS}
-        ${ts_proto_srcs}
-        ${ts_grpc_srcs})
-
-target_link_libraries(Server ${_REFLECTION}
-        ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
-
 ############## boost ########################################################
 set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
 set(Boost_USE_DEBUG_LIBS         OFF) # ignore debug libs and
@@ -97,11 +85,11 @@ include_directories(${GMOCK_INCLUDE_DIR})
 enable_testing()
 
 include_directories(tests)
-add_executable(coreTests ${core_HEADERS} ${core_CPP_SOURCES} ${core_TEST_SOURCES} ${PROTO_SRCS}
+add_executable(coreTests ${core_HEADERS} ${core_SOURCES} ${core_TEST_SOURCES} ${PROTO_SRCS}
                          ${PROTO_HDRS} ${service_proto_srcs} ${service_grpc_srcs})
-add_executable(cliTests  ${core_HEADERS} ${core_CPP_SOURCES} ${cli_HEADERS} ${cli_CPP_SOURCES}
+add_executable(cliTests  ${core_HEADERS} ${core_SOURCES} ${cli_HEADERS} ${cli_SOURCES}
                          ${PROTO_SRCS} ${PROTO_HDRS}  ${tests_MOCKS} ${cli_TEST_SOURCES})
-add_executable(allTests  ${core_HEADERS} ${core_CPP_SOURCES} ${cli_HEADERS} ${cli_CPP_SOURCES}
+add_executable(allTests  ${core_HEADERS} ${core_SOURCES} ${cli_HEADERS} ${cli_SOURCES}
                          ${PROTO_SRCS} ${PROTO_HDRS}  ${tests_MOCKS} ${core_TEST_SOURCES} ${cli_TEST_SOURCES}
                          ${service_proto_srcs} ${service_grpc_srcs})
 
@@ -117,11 +105,20 @@ target_link_libraries(allTests GTest::GTest GTest::Main  ${GMOCK_LIBRARY} ${GMOC
                          ${cli_TEST_MOCKS} ${_REFLECTION} ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
 gtest_discover_tests(allTests)
 
-############## main exe ########################################################
 
-add_executable(TaskManager ${core_HEADERS} ${core_CPP_SOURCES} ${cli_HEADERS} ${cli_CPP_SOURCES}
-                           ${PROTO_SRCS} ${PROTO_HDRS} ${service_proto_srcs} ${service_grpc_srcs}
-                           Client.cpp Server.cpp main.cpp )
+############ Server #####################################################
+add_executable(Server Server.cpp
+        ${cli_SOURCES} ${cli_HEADERS}
+        ${core_SOURCES} ${core_HEADERS}
+        ${PROTO_SRCS} ${PROTO_HDRS}
+        ${service_proto_srcs}
+        ${service_grpc_srcs})
+
+target_link_libraries(Server
+        ${Protobuf_LIBRARIES}
+        ${_REFLECTION}
+        ${_GRPC_GRPCPP}
+        ${_PROTOBUF_LIBPROTOBUF})
 
 target_link_libraries(TaskManager ${Protobuf_LIBRARIES} ${_REFLECTION}
         ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
