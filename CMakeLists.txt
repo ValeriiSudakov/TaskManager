@@ -120,5 +120,16 @@ target_link_libraries(Server
         ${_GRPC_GRPCPP}
         ${_PROTOBUF_LIBPROTOBUF})
 
-target_link_libraries(TaskManager ${Protobuf_LIBRARIES} ${_REFLECTION}
-        ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF})
+############ Client #####################################################
+add_executable(Client Client.cpp
+        ${cli_HEADERS} ${cli_SOURCES}
+        ${core_HEADERS} ${core_SOURCES}
+        ${PROTO_SRCS} ${PROTO_HDRS}
+        ${service_proto_srcs}
+        ${service_grpc_srcs})
+
+target_link_libraries(Client
+        ${Protobuf_LIBRARIES}
+        ${_REFLECTION}
+        ${_GRPC_GRPCPP}
+        ${_PROTOBUF_LIBPROTOBUF})

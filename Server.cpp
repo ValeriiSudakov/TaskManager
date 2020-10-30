@@ -7,7 +7,6 @@
 #include <grpcpp/ext/proto_server_reflection_plugin.h>
 
 #include "TaskServiceTransport.pb.h"
-#include "TaskServiceTransport.grpc.pb.h"
 #include "API/Service/TaskServiceServer.h"
 #include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
 #include "Repository/RepositoryController/TaskRepositoryController.h"
