@@ -12,7 +12,7 @@
 namespace task_service_client_utils {
   void                                    FillTransportTaskFromDTO(const TaskServiceDTO& source, transport::Task* destination);
   AddTaskResult::ErrorType                FromTransportError(const transport::Error& error);
-std::optional<TaskServiceDTO>             FromTransportTask(const transport::Task& source);
+  std::optional<TaskServiceDTO>           FromTransportTask(const transport::Task& source);
 };
 
 #endif //TASKMANAGER_CORE_API_UTILS_TASKSERVICECLIENTUTILS_H_
