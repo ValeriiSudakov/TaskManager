@@ -32,7 +32,7 @@ class TaskServiceClient : public TaskService {
   std::vector<TaskServiceDTO>     GetTasksByName(const std::string &name, bool byPriority) const override;
   std::vector<TaskServiceDTO>     GetTasksByPriority(const Priority &priority) const override;
  private:
-  std::unique_ptr<transport::TaskService::Stub> serverRequest_;
+  std::unique_ptr<transport::TaskService::StubInterface> serverRequest_;
 };
 
 #endif //TASKMANAGER_CORE_API_SERVICE_TASKSERVICECLIENT_H_

@@ -15,7 +15,6 @@
 
 int main() {
   std::string target_str;
-  std::string arg_str("--target");
   target_str = "localhost:50051";
   auto stub = std::make_unique<transport::TaskService::Stub>(grpc::CreateChannel(
                                                             target_str,
