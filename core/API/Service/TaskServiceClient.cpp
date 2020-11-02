@@ -14,7 +14,7 @@ AddTaskResult TaskServiceClient::AddTask(const TaskServiceDTO &task) {
   task_service_client_utils::FillTransportTaskFromDTO(task, request.mutable_taskdata());
 
   response::AddTask response;
-  auto result = serverRequest_->AddTask(&context, request, &response);
+  auto result = server_requests_maker_->AddTask(&context, request, &response);
 
   if (result.ok()){
     if (response.result().success()){
@@ -33,7 +33,7 @@ AddTaskResult TaskServiceClient::AddSubtask(const TaskID &rootTaskID, const Task
   request.mutable_rootid()->set_value(rootTaskID.Get());
 
   response::AddSubtask response;
-  auto result = serverRequest_->AddSubtask(&context, request, &response);
+  auto result = server_requests_maker_->AddSubtask(&context, request, &response);
 
   if (result.ok()){
     if (response.result().success()){
@@ -51,7 +51,7 @@ bool TaskServiceClient::Load(const std::string &filename) {
   request.set_filename(filename);
 
   response::Load response;
-  auto result = serverRequest_->Load(&context, request, &response);
+  auto result = server_requests_maker_->Load(&context, request, &response);
   if (result.ok()){
     return response.success();
   }
@@ -65,7 +65,7 @@ bool TaskServiceClient::Save(const std::string &filename) {
   request.set_filename(filename);
 
   response::Save response;
-  auto result = serverRequest_->Save(&context, request, &response);
+  auto result = server_requests_maker_->Save(&context, request, &response);
   if (result.ok()){
     return response.success();
   }
@@ -79,7 +79,7 @@ bool TaskServiceClient::RemoveTask(const TaskID &ID) {
   request.mutable_id()->set_value(ID.Get());
 
   response::RemoveTask response;
-  auto result = serverRequest_->RemoveTask(&context, request, &response);
+  auto result = server_requests_maker_->RemoveTask(&context, request, &response);
   if (result.ok()){
     return response.success();
   }
@@ -94,7 +94,7 @@ bool TaskServiceClient::PostponeTask(const TaskID &ID, const Date &date) {
   request.mutable_date()->set_value(date.Get().day_number());
 
   response::PostponeTask response;
-  auto result = serverRequest_->PostponeTask(&context, request, &response);
+  auto result = server_requests_maker_->PostponeTask(&context, request, &response);
   if (result.ok()){
     return response.success();
   }
@@ -108,7 +108,7 @@ bool TaskServiceClient::SetTaskComplete(const TaskID &ID) {
   request.mutable_id()->set_value(ID.Get());
 
   response::SetComplete response;
-  auto result = serverRequest_->SetComplete(&context, request, &response);
+  auto result = server_requests_maker_->SetComplete(&context, request, &response);
   if (result.ok()){
     return response.success();
   }
@@ -122,7 +122,7 @@ std::optional<TaskServiceDTO> TaskServiceClient::GetTask(const TaskID &id) const
   request.mutable_id()->set_value(id.Get());
 
   response::GetTask response;
-  auto result = serverRequest_->GetTask(&context, request, &response);
+  auto result = server_requests_maker_->GetTask(&context, request, &response);
   if (result.ok()){
     if (!response.has_task()){
       return std::nullopt;
@@ -139,7 +139,7 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetSubtask(const TaskID &id) cons
   request.mutable_id()->set_value(id.Get());
 
   response::GetSubtasks response;
-  auto result = serverRequest_->GetSubtasks(&context, request, &response);
+  auto result = server_requests_maker_->GetSubtasks(&context, request, &response);
   std::vector<TaskServiceDTO> tasks;
   if (result.ok()) {
     for (const auto& task : response.tasks()){
@@ -156,7 +156,7 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetTasks(bool byPriority) const {
   request.set_sortbypriority(byPriority);
 
   response::GetTasks response;
-  auto result = serverRequest_->GetTasks(&context, request, &response);
+  auto result = server_requests_maker_->GetTasks(&context, request, &response);
   std::vector<TaskServiceDTO> tasks;
   if (result.ok()) {
     for (const auto& task : response.tasks()){
@@ -172,7 +172,7 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetTodayTasks(bool byPriority) co
   request.set_sortbypriority(byPriority);
 
   response::GetTodayTasks response;
-  auto result = serverRequest_->GetTodayTasks(&context, request, &response);
+  auto result = server_requests_maker_->GetTodayTasks(&context, request, &response);
   std::vector<TaskServiceDTO> tasks;
   if (result.ok()) {
     for (const auto& task : response.tasks()){
@@ -188,7 +188,7 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetWeekTasks(bool byPriority) con
   request.set_sortbypriority(byPriority);
 
   response::GetWeekTasks response;
-  auto result = serverRequest_->GetWeekTasks(&context, request, &response);
+  auto result = server_requests_maker_->GetWeekTasks(&context, request, &response);
   std::vector<TaskServiceDTO> tasks;
   if (result.ok()) {
     for (const auto& task : response.tasks()){
@@ -205,7 +205,7 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetTasksByLabel(const std::string
   request.set_label(label);
 
   response::GetTasksByLabel response;
-  auto result = serverRequest_->GetTasksByLabel(&context, request, &response);
+  auto result = server_requests_maker_->GetTasksByLabel(&context, request, &response);
   std::vector<TaskServiceDTO> tasks;
   if (result.ok()) {
     for (const auto& task : response.tasks()){
@@ -222,7 +222,7 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetTasksByName(const std::string 
   request.set_name(name);
 
   response::GetTasksByName response;
-  auto result = serverRequest_->GetTasksByName(&context, request, &response);
+  auto result = server_requests_maker_->GetTasksByName(&context, request, &response);
   std::vector<TaskServiceDTO> tasks;
   if (result.ok()) {
     for (const auto& task : response.tasks()){
@@ -238,7 +238,7 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetTasksByPriority(const Priority
   requests::GetTasksByPriority request;
   request.set_priority(persister_utils::PriorityToSerializedPriority(priority));
   response::GetTasksByPriority response;
-  auto result = serverRequest_->GetTasksByPriority(&context, request, &response);
+  auto result = server_requests_maker_->GetTasksByPriority(&context, request, &response);
   std::vector<TaskServiceDTO> tasks;
   if (result.ok()) {
     for (const auto& task : response.tasks()){

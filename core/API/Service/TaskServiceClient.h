@@ -10,8 +10,8 @@
 
 class TaskServiceClient : public TaskService {
  public:
-  TaskServiceClient(std::unique_ptr<transport::TaskService::Stub> server_request)
-  : serverRequest_(std::move(server_request)) {  }
+  TaskServiceClient(std::unique_ptr<transport::TaskService::StubInterface> server_requests_maker)
+  : server_requests_maker_(std::move(server_requests_maker)) {  }
 
  public:
   AddTaskResult                   AddTask(const TaskServiceDTO &task) override;
@@ -32,7 +32,7 @@ class TaskServiceClient : public TaskService {
   std::vector<TaskServiceDTO>     GetTasksByName(const std::string &name, bool byPriority) const override;
   std::vector<TaskServiceDTO>     GetTasksByPriority(const Priority &priority) const override;
  private:
-  std::unique_ptr<transport::TaskService::StubInterface> serverRequest_;
+  std::unique_ptr<transport::TaskService::StubInterface> server_requests_maker_;
 };
 
 #endif //TASKMANAGER_CORE_API_SERVICE_TASKSERVICECLIENT_H_
