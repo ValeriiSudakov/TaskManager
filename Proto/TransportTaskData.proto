@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "Priority.proto";
+import "ID.proto";
+import "Date.proto";
+
+package transport;
+
+message Task{
+  string name = 1;
+  string label = 2;
+  proto.Priority priority = 3;
+  proto.Date date = 4;
+  bool complete = 5;
+  proto.ID id = 6;
+}

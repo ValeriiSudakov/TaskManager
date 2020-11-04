@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CORE_PERSISTER_TASKPERSISTER_H_
 #define TASKMANAGER_CORE_PERSISTER_TASKPERSISTER_H_
-#include "SerializedModel.pb.h"
+#include "RepositoryData.pb.h"
 #include "Persister.h"
 #include "Repository/TaskRepository.h"
 #include "fstream"

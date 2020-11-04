@@ -1,0 +1,24 @@
+syntax = "proto3";
+import "TransportTaskData.proto";
+import "Requests.proto";
+import "Response.proto";
+
+package transport;
+
+service TaskService{
+  rpc AddTask             (requests.AddTask)              returns (response.AddTask) {};
+  rpc AddSubtask          (requests.AddSubtask)           returns (response.AddSubtask) {};
+  rpc RemoveTask          (requests.RemoveTask)           returns (response.RemoveTask) {};
+  rpc PostponeTask        (requests.PostponeTask)         returns (response.PostponeTask) {};
+  rpc Save                (requests.Save)                 returns (response.Save) {};
+  rpc Load                (requests.Load)                 returns (response.Load) {};
+  rpc SetComplete         (requests.SetComplete)          returns (response.SetComplete) {};
+  rpc GetTask             (requests.GetTask)              returns (response.GetTask) {};
+  rpc GetSubtasks         (requests.GetSubtasks)          returns (response.GetSubtasks) {};
+  rpc GetTasks            (requests.GetTasks)             returns (response.GetTasks) {};
+  rpc GetTodayTasks       (requests.GetTodayTasks)        returns (response.GetTodayTasks) {};
+  rpc GetWeekTasks        (requests.GetWeekTasks)         returns (response.GetWeekTasks) {};
+  rpc GetTasksByName      (requests.GetTasksByName)       returns (response.GetTasksByName) {};
+  rpc GetTasksByLabel     (requests.GetTasksByLabel)      returns (response.GetTasksByLabel) {};
+  rpc GetTasksByPriority  (requests.GetTasksByPriority)   returns (response.GetTasksByPriority) {};
+}

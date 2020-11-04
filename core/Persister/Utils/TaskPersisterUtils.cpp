@@ -6,35 +6,35 @@
 #include "Persister/TaskPersister.h"
 #include <memory>
 
-std::unique_ptr<Persister> PersisterUtils::Create(TaskRepository &repository, std::fstream &stream) {
+std::unique_ptr<Persister> persister_utils::Create(TaskRepository &repository, std::fstream &stream) {
   return std::move(std::make_unique<TaskPersister>(repository, stream));
 }
 
-void PersisterUtils::SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO,
-                                           Serialized::Task& task){
+void persister_utils::SerializedTaskFromDTO(const TaskRepositoryDTO& taskDTO,
+                                            proto::Task& task){
   task.set_name(taskDTO.GetName());
   task.set_label(taskDTO.GetLabel());
   task.set_priority(PriorityToSerializedPriority(taskDTO.GetPriority()));
-  task.set_date(taskDTO.GetDate().Get().day_number());
+  task.mutable_date()->set_value(taskDTO.GetDate().Get().day_number());
   task.set_complete(taskDTO.Complete());
 }
 
 
-std::optional<TaskRepositoryDTO> PersisterUtils::DTOFromSerializedTask(const Serialized::Task& task){
+std::optional<TaskRepositoryDTO> persister_utils::DTOFromSerializedTask(const proto::Task& task){
   auto dto = TaskRepositoryDTO::Create(task.name(), task.label(),
                                        SerializedPriorityToPriority(task.priority()),
-                                       Date(boost::gregorian::date(task.date())),
+                                       Date(boost::gregorian::date(task.date().value())),
                                        task.complete(), TaskID(), TaskID());
   return dto;
 }
 
-void PersisterUtils::AddSubtasksToRepository(const Serialized::Task& serializedTask, TaskID& rootID, TaskRepository& repository_){
+void persister_utils::AddSubtasksToRepository(const proto::Task& serializedTask, TaskID& rootID, TaskRepository& repository_){
   if (serializedTask.subtasks().empty()){
     return;
   }
 
   for (auto& subtask : serializedTask.subtasks()){
-    auto subtaskDTO    = PersisterUtils::DTOFromSerializedTask(subtask);
+    auto subtaskDTO    = persister_utils::DTOFromSerializedTask(subtask);
 
     auto addTaskResult = repository_.AddSubtask(rootID, subtaskDTO.value());
 
@@ -42,38 +42,38 @@ void PersisterUtils::AddSubtasksToRepository(const Serialized::Task& serializedT
   }
 }
 
-void PersisterUtils::AddSubtasks(Serialized::Task& serializedTask, TaskRepositoryDTO& task, TaskRepository& repository_){
+void persister_utils::AddSubtasks(proto::Task& serializedTask, TaskRepositoryDTO& task, TaskRepository& repository_){
   auto subtasks = repository_.GetSubtask(task.GetID());
   if (subtasks.empty()){
     return;
   }
   for (auto& subtask : subtasks){
-    Serialized::Task* allocatedTask = serializedTask.add_subtasks();
+    proto::Task* allocatedTask = serializedTask.add_subtasks();
     SerializedTaskFromDTO(subtask, *allocatedTask);
     AddSubtasks(*allocatedTask, subtask, repository_);
   }
 }
 
-Serialized::Priority PersisterUtils::PriorityToSerializedPriority(const Priority& priority){
+proto::Priority persister_utils::PriorityToSerializedPriority(const Priority& priority){
   if (Priority::FIRST == priority){
-    return Serialized::Priority::FIRST;
+    return proto::Priority::FIRST;
   } else if (Priority::SECOND == priority){
-    return Serialized::Priority::SECOND;
+    return proto::Priority::SECOND;
   } else if (Priority::THIRD == priority){
-    return Serialized::Priority::THIRD;
+    return proto::Priority::THIRD;
   } else if (Priority::NONE == priority) {
-    return Serialized::Priority::NONE;
+    return proto::Priority::NONE;
   }
 }
 
-Priority PersisterUtils::SerializedPriorityToPriority(const Serialized::Priority& priority){
-  if (Serialized::Priority::FIRST == priority){
+Priority persister_utils::SerializedPriorityToPriority(const proto::Priority& priority){
+  if (proto::Priority::FIRST == priority){
     return Priority::FIRST;
-  } else if (Serialized::Priority::SECOND == priority){
+  } else if (proto::Priority::SECOND == priority){
     return Priority::SECOND;
-  } else if (Serialized::Priority::THIRD == priority){
+  } else if (proto::Priority::THIRD == priority){
     return Priority::THIRD;
-  } else if (Serialized::Priority::NONE == priority) {
+  } else if (proto::Priority::NONE == priority) {
     return Priority::NONE;
   }
 }

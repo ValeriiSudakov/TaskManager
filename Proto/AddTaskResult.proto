@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "ID.proto";
+package transport;
+
+enum Error{
+  NOT_ENOUGH_FREE_MEMORY = 0;
+  NOT_FOUND_PARENT_TASK = 1;
+  TASK_IS_DAMAGED = 2;
+}
+
+message AddTaskResult{
+  bool success = 1;
+  proto.ID id = 2;
+  Error error = 3;
+}

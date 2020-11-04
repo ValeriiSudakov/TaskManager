@@ -1,0 +1,65 @@
+syntax = "proto3";
+import "AddTaskResult.proto";
+import "TransportTaskData.proto";
+
+package response;
+
+message AddTask{
+  transport.AddTaskResult result = 1;
+}
+
+message AddSubtask{
+  transport.AddTaskResult result = 1;
+}
+
+message RemoveTask{
+  bool success = 1;
+}
+
+message PostponeTask{
+  bool success = 1;
+}
+
+message Save{
+  bool success = 1;
+}
+
+message Load{
+  bool success = 1;
+}
+
+message SetComplete{
+  bool success = 1;
+}
+
+message GetTask{
+  transport.Task task = 1;
+}
+
+message GetSubtasks{
+  repeated transport.Task tasks = 1;
+}
+
+message GetTasks{
+  repeated transport.Task tasks = 1;
+}
+
+message GetTodayTasks{
+  repeated transport.Task tasks = 1;
+}
+
+message GetWeekTasks{
+  repeated transport.Task tasks = 1;
+}
+
+message GetTasksByName{
+  repeated transport.Task tasks = 1;
+}
+
+message GetTasksByLabel{
+  repeated transport.Task tasks = 1;
+}
+
+message GetTasksByPriority{
+  repeated transport.Task tasks = 1;
+}
