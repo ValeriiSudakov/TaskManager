@@ -3,7 +3,6 @@
 ////
 
 #include <gtest/gtest.h>
-#include "mock/TransportServiceStub.h"
 #include "API/Service/TaskServiceClient.h"
 #include "API/Utils/TaskServiceClientUtils.h"
 #include "Persister/Utils/TaskPersisterUtils.h"
