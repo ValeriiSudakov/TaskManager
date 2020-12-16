@@ -69,16 +69,21 @@ std::vector<TaskEntity> TaskViewClass::GetTodayTasks() const{
 
 std::vector<TaskEntity> TaskViewClass::GetWeekTasks() const{
   std::vector<TaskEntity> returnTasks;
-  int dayOfEndOfWeek = Date::DayForEndOfWeek();
-  int currentDay = Date::GetCurrentTime().day_number();
-  auto taskWeek = byDate_.find(boost::gregorian::date(currentDay));
 
-  while (currentDay <= dayOfEndOfWeek && taskWeek != byDate_.end()){
-    for (const auto& tasks : taskWeek->second){
-      returnTasks.push_back(*tasks.second.lock());
+  std::cout<<"Begin of week: " << Date(boost::gregorian::date((int)Date::BeginOfWeek())).ToString() <<"\n";
+
+  int weekBegins = Date::BeginOfWeek();
+  int weekEnds = Date::EndOfWeek();
+  int currentDay = weekBegins;
+
+  while (currentDay <= weekEnds){
+    auto taskWeek = byDate_.find(boost::gregorian::date(currentDay));
+    if (taskWeek != byDate_.end()){
+      for (const auto& tasks : taskWeek->second){
+        returnTasks.push_back(*tasks.second.lock());
+      }
     }
     currentDay++;
-    taskWeek = byDate_.find(boost::gregorian::date(currentDay));
   }
 
   return returnTasks;
