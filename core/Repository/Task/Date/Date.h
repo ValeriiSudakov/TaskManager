@@ -60,11 +60,18 @@ class Date{
   static bool                       IsToday(const boost::gregorian::date& day);
 
 /*
- * Calculating and return number of days till end of week
+ * Calculating and return week ends day
  *
- * @return-type: result of calculating
+ * @return-type: day number
  */
-  static std::uint32_t              DayForEndOfWeek();
+  static std::uint32_t              EndOfWeek();
+
+/*
+ * Calculating and return week begins day
+ *
+ * @return-type: day number
+ */
+    static std::uint32_t              BeginOfWeek();
  private:
   boost::gregorian::date date_;
 

@@ -56,13 +56,23 @@ TEST_F(TestDate, shouldntBeToday){
 TEST_F(TestDate, shouldBeThisWeek){
   Date date(Date::GetCurrentTime());
   ASSERT_TRUE(Date::IsThisWeek(date.Get()));
+
+  Date EndOfWeek(boost::gregorian::date( (int)Date::EndOfWeek()));
+  ASSERT_TRUE(Date::IsThisWeek(EndOfWeek.Get()));
+
+  Date beginOfWeek(boost::gregorian::date( (int)Date::BeginOfWeek()));
+  ASSERT_TRUE(Date::IsThisWeek(beginOfWeek.Get()));
 }
 
 TEST_F(TestDate, shouldntBeThisWeek){
-  Date date(Date::GetCurrentTime());
                                                 // calc day after end of week
-  Date dayAfterEndOfWeek(boost::gregorian::date(Date::DayForEndOfWeek() + 1));
+  Date dayAfterEndOfWeek(boost::gregorian::date( (int)Date::EndOfWeek() + 1));
   ASSERT_FALSE(Date::IsThisWeek(dayAfterEndOfWeek.Get()));
+
+  // calc day after end of week
+  Date dayBeforeBeginOfWeek(boost::gregorian::date((int)Date::BeginOfWeek() - 1));
+  ASSERT_FALSE(Date::IsThisWeek(dayBeforeBeginOfWeek.Get()));
+
 }
 
 TEST_F(TestDate, shouldConvertToString){

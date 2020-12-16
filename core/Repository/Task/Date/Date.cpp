@@ -20,18 +20,23 @@ std::string Date::ToString() const {
   return boost::gregorian::to_iso_extended_string(date_);
 }
 
+bool Date::IsThisWeek(const boost::gregorian::date &day) {
+    return (Date::BeginOfWeek() <= day.day_number() && day.day_number() <= Date::EndOfWeek());
+}
+
 bool Date::IsToday(const boost::gregorian::date& day) {
   return Date::GetCurrentTime().day_number() == day.day_number();
 }
 
-bool Date::IsThisWeek(const boost::gregorian::date& day){
-  Date currentDate(Date::GetCurrentTime());
-  int endOfWeek = DayForEndOfWeek();
-  return currentDate.Get().day_number() <= day.day_number() && day.day_number() <= endOfWeek;
-}
-
-std::uint32_t Date::DayForEndOfWeek(){
+std::uint32_t Date::EndOfWeek(){
+        /** days of week begins from 0 - sunday **/
   auto currentDate = Date::GetCurrentTime();
   auto dayOfWeek = currentDate.day_of_week();
-  return dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + 7 - dayOfWeek;
+  return (dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + 7 - dayOfWeek);
+}
+
+std::uint32_t Date::BeginOfWeek(){
+          /** days of week begins from 0 - sunday **/
+    auto currentDate = Date::GetCurrentTime();
+    return currentDate.day_number() - currentDate.day_of_week() + 1;
 }
