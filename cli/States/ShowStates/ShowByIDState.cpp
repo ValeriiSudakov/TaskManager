@@ -21,7 +21,7 @@ StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, 
 
     auto subtasks = context->taskService_.GetSubtask(context->buffer_.id);
     if (!subtasks.empty()){
-      io.Output({"Subtasks:\n"});
+      io.Output({"\nSubtasks:\n"});
       for (const auto& sub : subtasks){
         std::string taskStr { "* " + sub.GetName() + "\n" };
         io.Output(taskStr);
