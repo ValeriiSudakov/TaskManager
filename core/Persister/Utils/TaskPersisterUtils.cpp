@@ -64,6 +64,7 @@ proto::Priority persister_utils::PriorityToSerializedPriority(const Priority& pr
   } else if (Priority::NONE == priority) {
     return proto::Priority::NONE;
   }
+  return proto::Priority::NONE;
 }
 
 Priority persister_utils::SerializedPriorityToPriority(const proto::Priority& priority){
@@ -76,5 +77,6 @@ Priority persister_utils::SerializedPriorityToPriority(const proto::Priority& pr
   } else if (proto::Priority::NONE == priority) {
     return Priority::NONE;
   }
+  return Priority::NONE;
 }
 

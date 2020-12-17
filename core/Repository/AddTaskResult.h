@@ -17,7 +17,8 @@ struct AddTaskResult {
     NOT_ENOUGH_FREE_MEMORY,
     NOT_FOUND_PARENT_TASK,
     TASK_IS_DAMAGED,
-    BAD_CONNECTION
+    BAD_CONNECTION,
+    UNKNOWN_ERROR_STATE
   };
   std::optional<ErrorType>   error_;
   std::optional<TaskID>      id_;

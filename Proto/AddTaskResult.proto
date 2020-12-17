@@ -6,6 +6,7 @@ enum Error{
   NOT_ENOUGH_FREE_MEMORY = 0;
   NOT_FOUND_PARENT_TASK = 1;
   TASK_IS_DAMAGED = 2;
+  UNKNOWN_ERROR_STATE = 3;
 }
 
 message AddTaskResult{

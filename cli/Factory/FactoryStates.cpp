@@ -110,4 +110,5 @@ std::shared_ptr<State>  CreateMenu(StatesID id){
 
     return std::move(std::make_shared<Menu>(StatesID::CONTINUE_MENU, std::move(actions)));
   }
+  return std::shared_ptr<State>();
 }

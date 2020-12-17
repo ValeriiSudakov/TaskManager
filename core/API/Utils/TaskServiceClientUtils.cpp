@@ -21,6 +21,7 @@ AddTaskResult::ErrorType task_service_client_utils::FromTransportError(const tra
   } else if (transport::Error::NOT_ENOUGH_FREE_MEMORY == error){
     return AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY;
   }
+  return AddTaskResult::ErrorType::UNKNOWN_ERROR_STATE;
 }
 
 std::optional<TaskServiceDTO> task_service_client_utils::FromTransportTask(const transport::Task& source) {

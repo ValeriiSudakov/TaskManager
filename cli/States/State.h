@@ -17,7 +17,7 @@ class State {
   virtual ~State() = default;
 
  public:
-  virtual std::shared_ptr<State>      ReadAction(InputOutputLayer& io) { }
+  virtual std::shared_ptr<State>      ReadAction(InputOutputLayer& io) { return std::shared_ptr<State>(); }
   virtual StateOperationResult        Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) = 0;
   StatesID                            GetStateID() const { return stateID_; }
 

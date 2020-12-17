@@ -50,6 +50,7 @@ transport::Error task_service_server_utils::ToTransport(const AddTaskResult::Err
   } else if (AddTaskResult::ErrorType::NOT_ENOUGH_FREE_MEMORY == error){
     return transport::Error::NOT_ENOUGH_FREE_MEMORY;
   }
+  return transport::Error::UNKNOWN_ERROR_STATE;
 }
 
 std::optional<TaskRepositoryDTO> task_service_server_utils::ToTaskRepositoryDTO(const transport::Task &task) {
