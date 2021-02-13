@@ -14,12 +14,12 @@
 #include "Factory/Factory.h"
 #include <thread>
 #include <chrono>
+#include "conifg.h"
 
 int main() {
   auto io = std::make_shared<InputOutputConsoleLayer>();
 
-  std::string target_str;
-  target_str = "localhost:50051";
+  std::string target_str{config::network::CLIENT_LOCALHOST + ":" + config::network::SERVER_PORT};
 
   auto channel = grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials());
   int retry_counter = 10;

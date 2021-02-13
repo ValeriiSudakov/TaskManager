@@ -12,8 +12,12 @@
 #include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
 #include "Repository/RepositoryController/TaskRepositoryController.h"
 
+#include "conifg.h"
+
 int main(){
-  std::string server_address("0.0.0.0:50051");
+  InputOutputConsoleLayer io;
+
+  std::string server_address(config::network::SERVER_LOCALHOST + ":" + config::network::SERVER_PORT);
   std::unique_ptr<RepositoriesFactory> factory = std::make_unique<TaskRepositoryFactory>();
   std::unique_ptr<RepositoryController> controller = std::make_unique<TaskRepositoryController>(std::move(factory));
   TaskServiceServer taskServiceServer(std::move(controller));
@@ -26,14 +30,10 @@ int main(){
   // Register "service" as the instance through which we'll communicate with
   // clients. In this case it corresponds to an *synchronous* service.
   builder.RegisterService(&taskServiceServer);
-  // Finally assemble the server.
+
+  io.Output("Starting server on: " + server_address);
   std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
 
-  InputOutputConsoleLayer io;
-  io.Output(std::string{"Server listening on " + server_address});
-
-  // Wait for the server to shutdown. Note that some other thread must be
-  // responsible for shutting down the server for this call to ever return.
   server->Wait();
   return 0;
 }
