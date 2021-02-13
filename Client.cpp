@@ -12,29 +12,31 @@
 #include "InputOutputConsoleLayer.h"
 #include "States/StatesID.h"
 #include "Factory/Factory.h"
+#include <thread>
+#include <chrono>
 
 int main() {
-  std::string target_str;
-  target_str = "localhost:50051";
-  auto stub = std::make_unique<transport::TaskService::Stub>(grpc::CreateChannel(
-                                                            target_str,
-                                                            grpc::InsecureChannelCredentials()));
-
   auto io = std::make_shared<InputOutputConsoleLayer>();
 
-  // Check connection to the server
-  // make simple request to check
-  {
-    auto context = std::make_unique<grpc::ClientContext>();
-    requests::AddTask request;
-    response::AddTask response;
-    auto result = stub->AddTask(context.get(), request, &response);
-    if (!result.ok()){
-      io->Output("Error. Cannot connect to the server.\n");
-      return 0;
-    }
-    io->Output("Connected to the server successfully.\n");
+  std::string target_str;
+  target_str = "localhost:50051";
+
+  auto channel = grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials());
+  int retry_counter = 10;
+  while (true){
+      if (GRPC_CHANNEL_READY == channel->GetState(true)){
+          io->Output("Connected.");
+          break;
+      }
+      if (--retry_counter < 0){
+          io->Output("Error. Cannot connect to the server.\n");
+          return 0;
+      }
+      io->Output("Cannot connect to the server. Try to reconnect..\n");
+      std::this_thread::sleep_for(std::chrono::seconds(1));
   }
+  auto stub = std::make_unique<transport::TaskService::Stub>(channel);
+
 
   std::unique_ptr<TaskService> client = std::make_unique<TaskServiceClient>(std::move(stub));
 
