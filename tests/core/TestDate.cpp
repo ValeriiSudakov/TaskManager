@@ -54,14 +54,12 @@ TEST_F(TestDate, shouldntBeToday){
 }
 
 TEST_F(TestDate, shouldBeThisWeek){
-  Date date(Date::GetCurrentTime());
-  ASSERT_TRUE(Date::IsThisWeek(date.Get()));
+  auto beginning_of_week = Date::BeginOfWeek();
 
-  Date EndOfWeek(boost::gregorian::date( (int)Date::EndOfWeek()));
-  ASSERT_TRUE(Date::IsThisWeek(EndOfWeek.Get()));
-
-  Date beginOfWeek(boost::gregorian::date( (int)Date::BeginOfWeek()));
-  ASSERT_TRUE(Date::IsThisWeek(beginOfWeek.Get()));
+  for (int i = 0; i < 6; i++){
+    Date date(boost::gregorian::date(beginning_of_week+i));
+    ASSERT_TRUE(Date::IsThisWeek(date.Get()));
+  }
 }
 
 TEST_F(TestDate, shouldntBeThisWeek){

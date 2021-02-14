@@ -32,11 +32,16 @@ std::uint32_t Date::EndOfWeek(){
         /** days of week begins from 0 - sunday **/
   auto currentDate = Date::GetCurrentTime();
   auto dayOfWeek = currentDate.day_of_week();
+  // if today is sunday - ending of week is today;
+  // else: current day + number days of week(7) - current day of week
   return (dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + 7 - dayOfWeek);
 }
 
 std::uint32_t Date::BeginOfWeek(){
           /** days of week begins from 0 - sunday **/
-    auto currentDate = Date::GetCurrentTime();
-    return currentDate.day_number() - currentDate.day_of_week() + 1;
+  auto currentDate = Date::GetCurrentTime();
+  auto dayOfWeek = currentDate.day_of_week();
+  // if today is sunday - beginning of week is: current day - 6
+  // else: current day - number days of week(7) + current day of week
+  return (dayOfWeek == 0 ? currentDate.day_number() - 6 : currentDate.day_number() - 7 + dayOfWeek);
 }
