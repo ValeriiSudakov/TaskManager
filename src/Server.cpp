@@ -24,7 +24,7 @@ class ServerController{
   }
  public:
   void Start(InputOutputConsoleLayer io){
-    std::string server_address(config::network::SERVER_LOCALHOST + ":" + config::network::SERVER_PORT);
+    server_address_ = config::network::SERVER_LOCALHOST + ":" + config::network::SERVER_PORT;
 
     std::unique_ptr<RepositoriesFactory> factory = std::make_unique<TaskRepositoryFactory>();
     std::unique_ptr<RepositoryController> controller = std::make_unique<TaskRepositoryController>(std::move(factory));
@@ -34,34 +34,29 @@ class ServerController{
     grpc::reflection::InitProtoReflectionServerBuilderPlugin();
     grpc::ServerBuilder builder;
     // Listen on the given address without any authentication mechanism.
-    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+    builder.AddListeningPort(server_address_, grpc::InsecureServerCredentials());
     // Register "service" as the instance through which we'll communicate with
     // clients. In this case it corresponds to an *synchronous* service.
     builder.RegisterService(&taskServiceServer);
 
-    io.Output("Starting server on: " + server_address + "\n");
-
-    server_mutex_.lock();
+    io_.Output("Starting server on: " + server_address_ + "\n");
 
     server_ = std::move(builder.BuildAndStart());
+
     if (!server_){
-      server_mutex_.unlock();
       io.Output(std::string{"Error. Server was not created. Shutting down\n"});
       return;
     } else {
-      io.Output(std::string{"Server is listening on: " + server_address + "\n"});
+      io.Output(std::string{"Server is listening on: " + server_address_ + "\n"});
     }
-    server_mutex_.unlock();
     server_->Wait();
   }
   void Stop(){
-    server_mutex_.lock();
     server_->Shutdown();
-    server_mutex_.unlock();
   }
  private:
+  std::string server_address_;
   InputOutputConsoleLayer io_;
-  std::mutex server_mutex_;
   std::unique_ptr<grpc::Server> server_;
 };
 
@@ -77,10 +72,10 @@ int main(){
 
   while(io.Input() != "q");
 
-  io.Output("Shutdown server...\n");
-  server_controller->Stop();
-
   if (server_thread && server_thread->joinable()){
+    io.Output("Shutdown server...\n");
+    server_controller->Stop();
+
     server_thread->join();
     io.Output(std::string{"Server stopped working.\n"});
   }
