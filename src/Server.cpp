@@ -68,7 +68,7 @@ int main(){
   auto server_thread = std::make_unique<std::thread>(std::bind(&ServerController::Start, server_controller.get(), io));
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
-  io.Output("Inpuq 'q' to quit\n");
+  io.Output("Input 'q' to quit\n");
 
   while(io.Input() != "q");
 
