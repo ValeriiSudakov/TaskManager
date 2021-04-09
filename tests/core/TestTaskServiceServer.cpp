@@ -4,13 +4,13 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "API/Service/TaskServiceServer.h"
+#include "TaskServiceServer.h"
 #include <iostream>
-#include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
-#include "Repository/RepositoryController/TaskRepositoryController.h"
-#include "API/Service/TaskServiceServer.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
-#include "API/Utils/TaskServiceServerUtils.h"
+#include "TaskRepositoryFactory.h"
+#include "TaskRepositoryController.h"
+#include "TaskServiceServer.h"
+#include "TaskPersisterUtils.h"
+#include "TaskServiceServerUtils.h"
 
 class TestTaskServiceServer : public ::testing::Test {
  protected:

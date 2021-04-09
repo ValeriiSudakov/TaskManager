@@ -1,5 +1,5 @@
 //
-// Created by R2D2 on 15.07.2020.
+// Created by valeriisudakov on 15.07.2020.
 //
 
 #include "TaskEntity.h"

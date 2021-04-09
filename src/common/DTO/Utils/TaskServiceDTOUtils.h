@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CORE_API_DTO_UTILS_TASKSERVICEDTOUTILS_H_
 #define TASKMANAGER_CORE_API_DTO_UTILS_TASKSERVICEDTOUTILS_H_
-#include "Repository/Task/Priority.h"
+#include "Priority.h"
 #include <string>
 
 namespace task_service_dto_utils {

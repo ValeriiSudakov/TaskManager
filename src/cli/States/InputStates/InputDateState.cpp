@@ -3,6 +3,7 @@
 //
 
 #include "InputDateState.h"
+#include "Date.h"
 
 InputDateState::InputDateState() : State(StatesID::INPUT_DATE){}
 
@@ -22,7 +23,7 @@ StateOperationResult InputDateState::Do(const std::shared_ptr<Context>& context,
       date = Date(dateStr);
     } catch (const std::exception &ex) {
       std::string error { "Incorrect input date.\n" };
-     io.Output(error);
+      io.Output(error);
       return  StateOperationResult::INCORRECT_INPUT;
     }
   }

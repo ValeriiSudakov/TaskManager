@@ -3,8 +3,9 @@
 //
 
 #include <gtest/gtest.h>
-#include "API/Utils/TaskServiceServerUtils.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
+#include "TaskServiceServerUtils.h"
+#include "TaskPersisterUtils.h"
+#include "utils.h"
 class TestTaskServiceServerUtils : public ::testing::Test {
 
 };
@@ -14,7 +15,7 @@ TEST_F(TestTaskServiceServerUtils, shouldConvertToTransportTask){
   auto result = task_service_server_utils::ToTransport(dto);
   ASSERT_EQ(dto.GetName(), result.name());
   ASSERT_EQ(dto.GetLabel(), result.label());
-  ASSERT_EQ(dto.GetPriority(), persister_utils::SerializedPriorityToPriority(result.priority()));
+  ASSERT_EQ(dto.GetPriority(), SerializedPriorityToPriority(result.priority()));
   ASSERT_EQ(dto.GetDate().Get().day_number(), result.date().value());
 }
 
@@ -48,7 +49,7 @@ TEST_F(TestTaskServiceServerUtils, shouldConvertToTaskRepositoryDTO){
 
   ASSERT_EQ(dto.value().GetName(), task.name());
   ASSERT_EQ(dto.value().GetLabel(), task.label());
-  ASSERT_EQ(dto.value().GetPriority(), persister_utils::SerializedPriorityToPriority(task.priority()));
+  ASSERT_EQ(dto.value().GetPriority(), SerializedPriorityToPriority(task.priority()));
   ASSERT_EQ(dto.value().GetDate().Get().day_number(), task.date().value());
 }
 

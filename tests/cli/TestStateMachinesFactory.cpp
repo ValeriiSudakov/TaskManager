@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "Factory/FactoryExecuteStatesMachine.h"
+#include "FactoryExecuteStatesMachine.h"
 #include "InputOutputConsoleLayer.h"
 #include <memory>
 #include "mock/Service.h"

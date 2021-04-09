@@ -3,7 +3,7 @@
 //
 
 #include "InputTask.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "InputOutputConsoleLayer.h"
 
 InputTask::InputTask() : State(StatesID::INPUT_TASK){}

@@ -3,7 +3,7 @@
 //
 
 #include "TaskViewClass.h"
-#include "Repository/Task/Date/Date.h"
+#include "Date.h"
 
 TaskViewClass::TaskViewClass() = default;
 

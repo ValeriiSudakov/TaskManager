@@ -2,7 +2,7 @@
 // Created by valeriisudakov on 11.09.20.
 //
 
-#include "States/State.h"
+#include "State.h"
 
 #ifndef TASKMANAGER_CLI_FACTORY_LASYINIT_H_
 #define TASKMANAGER_CLI_FACTORY_LASYINIT_H_

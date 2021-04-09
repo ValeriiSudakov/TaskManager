@@ -7,7 +7,7 @@
 
 TaskStorageClass::TaskStorageClass() = default;
 
-std::optional<std::shared_ptr<TaskEntity>>  TaskStorageClass::AddTask(const TaskEntity& task){
+std::optional<std::shared_ptr<TaskEntity>> TaskStorageClass::AddTask(const TaskEntity& task){
   auto newEntityTask = std::make_shared<TaskEntity>(task);
   tasks_.insert(std::make_pair(task.GetId(), newEntityTask));
   return newEntityTask;

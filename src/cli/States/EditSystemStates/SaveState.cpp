@@ -3,7 +3,7 @@
 //
 
 #include "SaveState.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "InputOutputConsoleLayer.h"
 
 SaveState::SaveState() : State(StatesID::SAVE){}

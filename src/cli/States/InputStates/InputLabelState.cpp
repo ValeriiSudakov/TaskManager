@@ -16,7 +16,7 @@ StateOperationResult InputLabelState::Do(const std::shared_ptr<Context>& context
 
   if (labelStr.empty()){
     std::string emptyLabelError { "label must be non-empty.\n" };
-   io.Output(emptyLabelError);
+    io.Output(emptyLabelError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 

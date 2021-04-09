@@ -4,8 +4,8 @@
 
 #ifndef TASKMANAGER_CLI_STATESCONTROLLERS_STATEMACHINE_H_
 #define TASKMANAGER_CLI_STATESCONTROLLERS_STATEMACHINE_H_
-#include "States/State.h"
-#include "States/StatesID.h"
+#include "State.h"
+#include "StatesID.h"
 #include "InputOutputLayer.h"
 
 class StateMachine {

@@ -3,8 +3,8 @@
 //
 
 #include "TaskRepositoryController.h"
-#include "Persister/TaskPersister.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
+#include "TaskPersister.h"
+#include "TaskPersisterUtils.h"
 #include <future>
 
 const std::unique_ptr<TaskRepository>& TaskRepositoryController::Get() const {

@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_STATES_SHOWBYNAMESTATE_H_
 #define TASKMANAGER_CLI_STATES_SHOWBYNAMESTATE_H_
-#include "States/State.h"
+#include "State.h"
 
 class ShowByNameState : public State {
  public:

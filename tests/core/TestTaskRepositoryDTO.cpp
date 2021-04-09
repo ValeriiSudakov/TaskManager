@@ -1,13 +1,13 @@
 //
-// Created by R2D2 on 29.07.2020.
+// Created by valeriisudakov on 29.07.2020.
 //
 
 #include <gtest/gtest.h>
-#include "Repository/DTO/TaskRepositoryDTO.h"
-#include "Repository/Task/Date/Date.h"
-#include "Repository/Task/ID/TaskIDGenerate.h"
+#include "TaskRepositoryDTO.h"
+#include "Date.h"
+#include "TaskIDGenerate.h"
 #include <iostream>
-#include "Repository/Task/Task.h"
+#include "Task.h"
 
 class TestTaskRepositoryDTO : public ::testing::Test {
 

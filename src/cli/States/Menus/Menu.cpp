@@ -4,9 +4,9 @@
 
 #include "Menu.h"
 #include "InputOutputConsoleLayer.h"
-#include "States/ShowStates/ShowState.h"
-#include "States/EditSystemStates/EditState.h"
-#include "Factory/Factory.h"
+#include "ShowState.h"
+#include "EditState.h"
+#include "Factory.h"
 
 
 std::shared_ptr<State> Menu::ReadAction(InputOutputLayer& io) {
@@ -40,7 +40,7 @@ void Menu::PrintNextStates(InputOutputLayer& io) const {
   for (const auto& action : actions_->show_){
     io.Output({action.first + "\n"});
   }
- io.Output({actions_->exit_.first + "\n"});
+  io.Output({actions_->exit_.first + "\n"});
 }
 
 StateOperationResult Menu::Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) {

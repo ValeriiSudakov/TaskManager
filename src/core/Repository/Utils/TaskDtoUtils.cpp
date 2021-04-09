@@ -2,7 +2,7 @@
 // Created by valeriisudakov on 01.10.20.
 //
 
-#include "TaskServiceUtils.h"
+#include "TaskDtoUtils.h"
 
 std::optional<TaskServiceDTO> TaskServiceUtils::MakeTaskDTO(const TaskRepositoryDTO& task) {
   auto newTask = TaskServiceDTO::Create(task.GetName(), task.GetLabel(), task.GetPriority(), task.GetDate(),

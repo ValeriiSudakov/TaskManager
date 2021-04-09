@@ -1,9 +1,9 @@
 //
-// Created by R2D2 on 16.07.2020.
+// Created by valeriisudakov on 16.07.2020.
 //
 
 #include <gtest/gtest.h>
-#include "API/Service/TaskService.h"
+#include "TaskService.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -59,6 +59,7 @@ TEST_F(TestDate, shouldBeThisWeek){
   for (int i = 0; i < 6; i++){
     Date date(boost::gregorian::date(beginning_of_week+i));
     ASSERT_TRUE(Date::IsThisWeek(date.Get()));
+    std::cout<<i<<"\t";
   }
 }
 

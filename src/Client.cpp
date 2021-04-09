@@ -6,12 +6,12 @@
 #include <grpcpp/grpcpp.h>
 
 #include "TaskServiceTransport.grpc.pb.h"
-#include "API/Service/TaskServiceClient.h"
+#include "TaskServiceClient.h"
 
-#include "StatesControllers/StateMachineMenu.h"
+#include "StateMachineMenu.h"
 #include "InputOutputConsoleLayer.h"
-#include "States/StatesID.h"
-#include "Factory/Factory.h"
+#include "StatesID.h"
+#include "Factory.h"
 #include <thread>
 #include <chrono>
 #include "conifg.h"

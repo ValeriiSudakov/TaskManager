@@ -5,11 +5,11 @@
 #ifndef TASKMANAGER_CLI_FACTORY_FACTORY_H_
 #define TASKMANAGER_CLI_FACTORY_FACTORY_H_
 
-#include "StatesControllers/FiniteStatesMachinesList.h"
-#include "States/StatesID.h"
+#include "FiniteStatesMachinesList.h"
+#include "StatesID.h"
 #include <memory>
-#include "States/State.h"
-#include "StatesControllers/StateMachine.h"
+#include "State.h"
+#include "StateMachine.h"
 
 class Context;
 class InputOutputLayer;

@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "Repository/TaskRepositoryClass.h"
+#include "TaskRepositoryClass.h"
 
 class TestTaskRepository : public ::testing::Test {
 };

@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_REPOSITORYCONTROLLER_H_
 #define TASKMANAGER_CORE_MEMORY_MODEL_STORAGE_REPOSITORYCONTROLLER_H_
 #include <memory>
-#include "Repository/TaskRepository.h"
+#include "TaskRepository.h"
 
 /*
  *  Owner of the TaskRepository class.

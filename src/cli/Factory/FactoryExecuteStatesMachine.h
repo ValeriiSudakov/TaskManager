@@ -4,9 +4,9 @@
 
 #ifndef TASKMANAGER_CLI_FACTORY_FACTORYEXECUTESTATESMACHINE_H_
 #define TASKMANAGER_CLI_FACTORY_FACTORYEXECUTESTATESMACHINE_H_
-#include "StatesControllers/StateMachine.h"
-#include "StatesControllers/FiniteStatesMachinesList.h"
-#include <set>
+#include "StateMachine.h"
+#include "FiniteStatesMachinesList.h"
+#include <map>
 
 class FactoryExecuteStatesMachine {
  public:

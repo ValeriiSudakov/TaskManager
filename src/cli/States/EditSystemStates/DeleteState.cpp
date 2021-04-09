@@ -3,7 +3,7 @@
 //
 
 #include "DeleteState.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "InputOutputConsoleLayer.h"
 
 DeleteState::DeleteState() : State(StatesID::DELETE){}

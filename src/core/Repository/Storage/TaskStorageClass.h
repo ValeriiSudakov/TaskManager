@@ -5,6 +5,8 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_TASKSTORAGE_H_
 
+#include <map>
+#include <memory>
 #include "TaskStorage.h"
 
 /*

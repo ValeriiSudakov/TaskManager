@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_STATES_EDITSYSTEMSTATES_EDITSTATE_H_
 #define TASKMANAGER_CLI_STATES_EDITSYSTEMSTATES_EDITSTATE_H_
-#include "States/State.h"
+#include "State.h"
 
 class EditState : public State{
  public:

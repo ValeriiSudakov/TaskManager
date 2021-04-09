@@ -3,7 +3,8 @@
 //
 
 #include "TaskServiceServerUtils.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
+#include "TaskPersisterUtils.h"
+#include "utils.h"
 
 void task_service_server_utils::SortTasks(std::vector<TaskRepositoryDTO> &tasks) {
   std::sort(tasks.begin(), tasks.end(),
@@ -55,7 +56,7 @@ transport::Error task_service_server_utils::ToTransport(const AddTaskResult::Err
 
 std::optional<TaskRepositoryDTO> task_service_server_utils::ToTaskRepositoryDTO(const transport::Task &task) {
   auto DTO = TaskRepositoryDTO::Create(task.name(), task.label(),
-                                       persister_utils::SerializedPriorityToPriority(task.priority()),
+                                       SerializedPriorityToPriority(task.priority()),
                                        boost::gregorian::date(task.date().value()),
                                        task.complete(), TaskID(task.id().value()),
                                 TaskID(0));

@@ -3,7 +3,7 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTIDSTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTIDSTATE_H_
-#include "States/State.h"
+#include "State.h"
 
 class InputIDState : public State{
  public:

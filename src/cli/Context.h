@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_CONTEXT_H_
 #define TASKMANAGER_CLI_CONTEXT_H_
-#include "API/Service/TaskService.h"
+#include "TaskService.h"
 
 struct Context {
   Context(TaskService& taskService) : taskService_(taskService){}

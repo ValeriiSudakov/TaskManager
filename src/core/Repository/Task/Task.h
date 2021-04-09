@@ -1,5 +1,5 @@
 //
-// Created by R2D2 on 15.07.2020.
+// Created by valeriisudakov on 15.07.2020.
 //
 
 #ifndef TASKMANAGER_SRC_TASK_H_
@@ -7,13 +7,13 @@
 #include <iostream>
 #include <ctime>
 #include <optional>
-#include "Date/Date.h"
+#include "Date.h"
 #include "Priority.h"
 
 class Task {
 
 public:
-  static std::optional<Task>  Create(const std::string &name, const std::string &label, Priority priority, const Date& dueDate);
+  static std::optional<Task> Create(const std::string &name, const std::string &label, Priority priority, const Date& dueDate);
   Task(const Task& task);
 
  public:

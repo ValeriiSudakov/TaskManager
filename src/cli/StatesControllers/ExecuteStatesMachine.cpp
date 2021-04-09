@@ -3,7 +3,7 @@
 //
 
 #include "ExecuteStatesMachine.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 
 void ExecuteStatesMachine::Execute(){
   auto statesIterator = states_.begin();

@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTPRIORITYSTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTPRIORITYSTATE_H_
-#include "States/State.h"
+#include "State.h"
 
 class InputPriorityState : public State{
  public:

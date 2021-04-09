@@ -1,9 +1,9 @@
 //
-// Created by R2D2 on 29.07.2020.
+// Created by valeriisudakov on 29.07.2020.
 //
 
 #include "TaskServiceDTO.h"
-#include "Utils/TaskServiceDTOUtils.h"
+#include "TaskServiceDTOUtils.h"
 
 TaskServiceDTO::TaskServiceDTO(const std::string &name, const std::string &label, const Priority &priority, const Date &date,
                                bool taskComplete, const TaskID &taskId)

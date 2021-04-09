@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTDATESTATE_H_
 #define TASKMANAGER_CLI_STATES_INPUTSTATES_INPUTDATESTATE_H_
-#include "States/State.h"
+#include "State.h"
 
 class InputDateState : public State{
  public:

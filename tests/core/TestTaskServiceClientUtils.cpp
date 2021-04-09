@@ -3,9 +3,10 @@
 ////
 
 #include <gtest/gtest.h>
-#include "API/Service/TaskServiceClient.h"
-#include "API/Utils/TaskServiceClientUtils.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
+#include "TaskServiceClient.h"
+#include "TaskServiceClientUtils.h"
+#include "TaskPersisterUtils.h"
+#include "utils.h"
 
 class TestTaskServiceClientUtils : public ::testing::Test {
 
@@ -17,7 +18,7 @@ TEST_F(TestTaskServiceClientUtils, shouldFillTransportTaskFromDTO){
   task_service_client_utils::FillTransportTaskFromDTO(dto.value(), task.get());
   ASSERT_EQ(task->name(), dto.value().GetName());
   ASSERT_EQ(task->label(), dto.value().GetLabel());
-  ASSERT_EQ(persister_utils::SerializedPriorityToPriority(task->priority()), dto.value().GetPriority());
+  ASSERT_EQ(SerializedPriorityToPriority(task->priority()), dto.value().GetPriority());
   ASSERT_EQ(task->date().value(), dto.value().GetDate().Get().day_number());
 }
 
@@ -45,7 +46,7 @@ TEST_F(TestTaskServiceClientUtils, shouldConvertTaskServiceDTOfromTransportTask)
 
   ASSERT_EQ(task->name(), dto.value().GetName());
   ASSERT_EQ(task->label(), dto.value().GetLabel());
-  ASSERT_EQ(persister_utils::SerializedPriorityToPriority(task->priority()), dto.value().GetPriority());
+  ASSERT_EQ(SerializedPriorityToPriority(task->priority()), dto.value().GetPriority());
   ASSERT_EQ(task->date().value(), dto.value().GetDate().Get().day_number());
 }
 

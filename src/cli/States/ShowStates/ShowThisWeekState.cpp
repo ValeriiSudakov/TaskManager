@@ -11,7 +11,7 @@ ShowThisWeekState::~ShowThisWeekState() = default;
 StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) {
 
   std::string output { "Tasks list will be updated. Sort tasks by priority? [y/n]: " };
- io.Output(output);
+  io.Output(output);
   std::string inputSort {io.Input()};
 
   if (inputSort == "y") {
@@ -25,15 +25,14 @@ StateOperationResult ShowThisWeekState::Do(const std::shared_ptr<Context>& conte
   }
   if (context->tasks_.empty()){
     std::string notFound { "Tasks were not found.\n" };
-   io.Output(notFound);
+    io.Output(notFound);
     return StateOperationResult::TASKS_LIST_EMPTY;
   }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };
-   io.Output(taskStr);
+    io.Output(taskStr);
   }
-
 
   return StateOperationResult::SUCCESS;
 }

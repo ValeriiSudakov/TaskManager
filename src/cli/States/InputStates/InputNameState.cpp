@@ -16,7 +16,7 @@ StateOperationResult InputNameState::Do(const std::shared_ptr<Context>& context,
 
   if (name.empty()){
     std::string emptyNameError { "name must be non-empty.\n"};
-   io.Output(emptyNameError);
+    io.Output(emptyNameError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 

@@ -4,7 +4,7 @@
 
 #include "EditState.h"
 #include "InputOutputConsoleLayer.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 
 StateOperationResult EditState::Do(const std::shared_ptr<Context> &context, InputOutputLayer& io) {
   auto editMachine = Factory::CreateAfterMenuState(   editStateID_,

@@ -1,9 +1,11 @@
 //
 // Created by valeriisudakov on 13.09.20.
 //
-#include "StatesControllers/ExecuteStatesMachine.h"
-#include "StatesControllers/StateMachineMenu.h"
+#include "ExecuteStatesMachine.h"
+#include "StateMachineMenu.h"
 #include "FactoryExecuteStatesMachine.h"
+#include <vector>
+#include <memory>
 
 FactoryExecuteStatesMachine::FactoryExecuteStatesMachine(){
   stateMachines_[FiniteStateMachineID::INPUT_ID] = nullptr;

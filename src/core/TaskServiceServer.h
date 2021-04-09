@@ -8,7 +8,7 @@
 
 #include "TaskServiceTransport.pb.h"
 #include "TaskServiceTransport.grpc.pb.h"
-#include "Repository/RepositoryController/RepositoryController.h"
+#include "RepositoryController.h"
 
  class TaskServiceServer : public transport::TaskService::Service{
  public:

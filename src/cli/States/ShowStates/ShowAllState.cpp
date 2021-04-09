@@ -19,21 +19,19 @@ StateOperationResult ShowAllState::Do(const std::shared_ptr<Context>& context, I
     context->tasks_ = context->taskService_.GetTasks(false);
   } else {
     std::string error { "Incorrect input.\n" };
-   io.Output(error);
+    io.Output(error);
     return StateOperationResult::INCORRECT_INPUT;
   }
   if (context->tasks_.empty()){
     std::string notFound { "Tasks were not found.\n" };
-   io.Output(notFound);
+    io.Output(notFound);
     return StateOperationResult::TASKS_LIST_EMPTY;
   }
   int taskNumber = 0;
   for (const auto& task : context->tasks_){
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };
-   io.Output(taskStr);
+    io.Output(taskStr);
   }
-
-
 
   return StateOperationResult::SUCCESS;
 }

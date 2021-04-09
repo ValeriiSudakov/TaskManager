@@ -1,10 +1,10 @@
 //
-// Created by R2D2 on 16.07.2020.
+// Created by valeriisudakov on 16.07.2020.
 //
 
 #include <gtest/gtest.h>
-#include "Repository/Task/ID/TaskID.h"
-#include "Repository/Task/ID/TaskIDGenerate.h"
+#include "TaskID.h"
+#include "TaskIDGenerate.h"
 #include <iostream>
 
 class TestTaskID : public ::testing::Test {

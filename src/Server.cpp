@@ -10,9 +10,9 @@
 
 #include "TaskServiceTransport.pb.h"
 #include "InputOutputConsoleLayer.h"
-#include "API/Service/TaskServiceServer.h"
-#include "Repository/RepositoriesFactory/TaskRepositoryFactory.h"
-#include "Repository/RepositoryController/TaskRepositoryController.h"
+#include "TaskServiceServer.h"
+#include "TaskRepositoryFactory.h"
+#include "TaskRepositoryController.h"
 
 #include "conifg.h"
 

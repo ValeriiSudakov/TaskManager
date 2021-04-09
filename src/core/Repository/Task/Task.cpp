@@ -1,9 +1,8 @@
 //
-// Created by R2D2 on 15.07.2020.
+// Created by valeriisudakov on 15.07.2020.
 //
 
 #include "Task.h"
-#include "Date/Date.h"
 
 Task::Task(const std::string &name, const std::string &label, Priority priority, const Date& dueDate)
     : name_(name), label_(label), priority_(priority), dueDate_(dueDate) {}

@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_STATES_ADDSUBTASK_H_
 #define TASKMANAGER_CLI_STATES_ADDSUBTASK_H_
-#include "States/State.h"
+#include "State.h"
 
 class AddSubtaskState : public State {
  public:

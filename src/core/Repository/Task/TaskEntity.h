@@ -1,11 +1,11 @@
 //
-// Created by R2D2 on 15.07.2020.
+// Created by valeriisudakov on 15.07.2020.
 //
 
 #ifndef TASKMANAGER_SRC_TASKENTITY_H_
 #define TASKMANAGER_SRC_TASKENTITY_H_
 #include "Task.h"
-#include "Repository/Task/ID/TaskID.h"
+#include "TaskID.h"
 #include <memory>
 #include <map>
 

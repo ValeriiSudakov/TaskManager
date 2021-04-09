@@ -5,8 +5,8 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKREPOSITORYINTERFACE_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_STORAGE_TASKREPOSITORYINTERFACE_H_
 #include "AddTaskResult.h"
-#include "Repository/DTO/TaskRepositoryDTO.h"
-#include "Repository/Task/Priority.h"
+#include "TaskRepositoryDTO.h"
+#include "Priority.h"
 
 /*
  * Tasks repository interface.

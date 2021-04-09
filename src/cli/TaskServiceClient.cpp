@@ -3,9 +3,9 @@
 //
 
 #include "TaskServiceClient.h"
-#include "API/Utils/TaskServiceClientUtils.h"
-#include "API/Utils/TaskServiceServerUtils.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
+#include "TaskServiceClientUtils.h"
+#include "TaskServiceServerUtils.h"
+#include "TaskPersisterUtils.h"
 
 AddTaskResult TaskServiceClient::AddTask(const TaskServiceDTO &task) {
   grpc::ClientContext context;

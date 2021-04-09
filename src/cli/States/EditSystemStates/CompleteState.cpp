@@ -3,7 +3,7 @@
 //
 
 #include "CompleteState.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "InputOutputConsoleLayer.h"
 
 CompleteState::CompleteState() : State(StatesID::COMPLETE) {}

@@ -4,7 +4,7 @@
 
 #include "Factory.h"
 
-#include "StatesControllers/StateMachine.h"
+#include "StateMachine.h"
 #include "FactoryExecuteStatesMachine.h"
 #include "FactoryStates.h"
 

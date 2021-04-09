@@ -1,12 +1,13 @@
 //
-// Created by R2D2 on 31.07.2020.
+// Created by valeriisudakov on 31.07.2020.
 //
 
 #ifndef TASKMANAGER_SRC_TASKREPOSITORY_H_
 #define TASKMANAGER_SRC_TASKREPOSITORY_H_
 #include "TaskRepository.h"
-#include "Repository/View/TaskViewClass.h"
-#include "Repository/Storage/TaskStorageClass.h"
+#include "TaskViewClass.h"
+#include "TaskStorageClass.h"
+#include "TaskIDGenerate.h"
 /*
  * TaskRepository class.
  * Class-holder of TaskStorage, TaskView and TaskIDGenerator.

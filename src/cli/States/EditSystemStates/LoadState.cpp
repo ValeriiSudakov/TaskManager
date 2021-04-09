@@ -3,7 +3,7 @@
 //
 
 #include "LoadState.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "InputOutputConsoleLayer.h"
 
 LoadState::LoadState() : State(StatesID::LOAD){}

@@ -1,5 +1,9 @@
+//
+// Created by valeriisudakov on 29.07.2020.
+//
+
 #include "gtest/gtest.h"
-#include "Repository/Utils/TaskRepositoryUtils.h"
+#include "TaskRepositoryUtils.h"
 
 class TestTaskRepositoryUtils : public ::testing::Test {
 

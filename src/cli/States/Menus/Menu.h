@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CLI_STATES_MENUS_MENU_H_
 #define TASKMANAGER_CLI_STATES_MENUS_MENU_H_
-#include "States/State.h"
+#include "State.h"
 #include "MenuActions.h"
 
 class Menu : public State {

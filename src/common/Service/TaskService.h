@@ -5,10 +5,10 @@
 #ifndef TASKMANAGER_CORE_API_TASKSERVICE_H_
 #define TASKMANAGER_CORE_API_TASKSERVICE_H_
 
-#include "Repository/Task/ID/TaskID.h"
-#include "Repository/Task/Date/Date.h"
-#include "API/DTO/TaskServiceDTO.h"
-#include "Repository/AddTaskResult.h"
+#include "TaskID.h"
+#include "Date.h"
+#include "TaskServiceDTO.h"
+#include "AddTaskResult.h"
 /*
 *  Enter point to the program.
 *

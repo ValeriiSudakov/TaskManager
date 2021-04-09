@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_TESTS_MOCK_SERVICE_H_
 #define TASKMANAGER_TESTS_MOCK_SERVICE_H_
-#include "API/Service/TaskService.h"
+#include "TaskService.h"
 #include <gmock/gmock.h>
 
 class MockService : public TaskService{

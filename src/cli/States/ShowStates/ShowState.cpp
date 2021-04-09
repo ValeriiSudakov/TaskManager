@@ -1,7 +1,7 @@
 //
 // Created by valeriisudakov on 09.09.20.
 //
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "ShowState.h"
 #include "InputOutputConsoleLayer.h"
 

@@ -4,7 +4,7 @@
 
 #ifndef TASKMANAGER_CORE_PERSISTER_TASKPERSISTERUTILS_H_
 #define TASKMANAGER_CORE_PERSISTER_TASKPERSISTERUTILS_H_
-#include "Repository/TaskRepository.h"
+#include "TaskRepository.h"
 #include "RepositoryData.pb.h"
 
 /*
@@ -15,14 +15,6 @@
 class Persister;
 
 namespace persister_utils{
-/*
- * Convert function from proto::Priority to Priority.
- *
- * @param: proto::Priority.
- *
- * @return-type: Priority.
- */
-  Priority                              SerializedPriorityToPriority(const proto::Priority& priority);
 
 /*
  * Convert function from Priority to proto::Priority.
@@ -31,7 +23,7 @@ namespace persister_utils{
  *
  * @return-type: proto::Priority.
  */
-  proto::Priority                  PriorityToSerializedPriority(const Priority& priority);
+  proto::Priority                       PriorityToSerializedPriority(const Priority& priority);
 
 /*
  * Convert function from TaskRepositoryDTO to proto::Task

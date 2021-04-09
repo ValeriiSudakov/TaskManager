@@ -3,7 +3,7 @@
 //
 
 #include "TaskPersister.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
+#include "TaskPersisterUtils.h"
 
 bool TaskPersister::Load() {
   proto::Storage storage;

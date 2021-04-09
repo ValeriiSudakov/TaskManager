@@ -1,9 +1,9 @@
 //
-// Created by R2D2 on 28.07.2020.
+// Created by valeriisudakov on 28.07.2020.
 //
 
 #include <gtest/gtest.h>
-#include "Repository/TaskRepositoryClass.h"
+#include "TaskRepositoryClass.h"
 #include <iostream>
 
 class TestTaskView : public ::testing::Test {

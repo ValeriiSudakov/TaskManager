@@ -1,9 +1,9 @@
 //
-// Created by R2D2 on 31.07.2020.
+// Created by valeriisudakov on 31.07.2020.
 //
 
 #include "TaskRepositoryClass.h"
-#include "Utils/TaskRepositoryUtils.h"
+#include "TaskRepositoryUtils.h"
 
 TaskRepositoryClass::TaskRepositoryClass(std::unique_ptr<TaskView> view, std::unique_ptr<TaskStorage> storage)
  : taskView_(std::move(view)), taskStorage_(std::move(storage)){}

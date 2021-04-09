@@ -3,8 +3,9 @@
 //
 
 #include "AddSubtaskState.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "InputOutputConsoleLayer.h"
+#include "TaskServiceDTO.h"
 
 AddSubtaskState::AddSubtaskState() : State(StatesID::ADD_SUBTASK){ }
 

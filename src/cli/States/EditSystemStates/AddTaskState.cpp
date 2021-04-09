@@ -3,8 +3,9 @@
 //
 
 #include "AddTaskState.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include "InputOutputConsoleLayer.h"
+#include "TaskServiceDTO.h"
 
 AddTaskState::AddTaskState() : State(StatesID::ADD_TASK){}
 

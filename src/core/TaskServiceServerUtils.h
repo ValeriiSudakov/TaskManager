@@ -4,10 +4,10 @@
 
 #ifndef TASKMANAGER_CORE_API_UTILS_TASKSERVICESERVERUTILS_H_
 #define TASKMANAGER_CORE_API_UTILS_TASKSERVICESERVERUTILS_H_
-#include "Repository/DTO/TaskRepositoryDTO.h"
+#include "TaskRepositoryDTO.h"
 #include "TransportTaskData.pb.h"
 #include "AddTaskResult.pb.h"
-#include "Repository/AddTaskResult.h"
+#include "AddTaskResult.h"
 #include "Response.pb.h"
 
 namespace task_service_server_utils {

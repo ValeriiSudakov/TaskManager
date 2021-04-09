@@ -2,7 +2,7 @@
 // Created by valeriisudakov on 14.09.20.
 //
 
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include <gtest/gtest.h>
 #include <memory>
 #include "InputOutputConsoleLayer.h"

@@ -1,5 +1,5 @@
 //
-// Created by R2D2 on 16.07.2020.
+// Created by valeriisudakov on 16.07.2020.
 //
 #define _CRT_SECURE_NO_WARNINGS
 #include "Date.h"
@@ -37,6 +37,7 @@ std::uint32_t Date::EndOfWeek(){
   return (dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + 7 - dayOfWeek);
 }
 
+//TODO: fix it
 std::uint32_t Date::BeginOfWeek(){
           /** days of week begins from 0 - sunday **/
   auto currentDate = Date::GetCurrentTime();

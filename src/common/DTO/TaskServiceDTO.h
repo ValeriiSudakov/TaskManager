@@ -1,12 +1,12 @@
 //
-// Created by R2D2 on 29.07.2020.
+// Created by valeriisudakov on 29.07.2020.
 //
 
 #ifndef TASKMANAGER_SRC_TASKDTO_H_
 #define TASKMANAGER_SRC_TASKDTO_H_
-#include "Repository/Task/Date/Date.h"
-#include "Repository/Task/ID/TaskID.h"
-#include "Repository/Task/Priority.h"
+#include "Date.h"
+#include "TaskID.h"
+#include "Priority.h"
 
 /*
  * DTO TaskService information.

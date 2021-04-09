@@ -4,9 +4,9 @@
 
 #ifndef TASKMANAGER_CORE_REPOSITORY_UTILS_TASKREPOSITORYUTILS_H_
 #define TASKMANAGER_CORE_REPOSITORY_UTILS_TASKREPOSITORYUTILS_H_
-#include "Repository/DTO/TaskRepositoryDTO.h"
-#include "Repository/Task/TaskEntity.h"
-#include "Repository/Task/ID/TaskIDGenerate.h"
+#include "TaskRepositoryDTO.h"
+#include "TaskEntity.h"
+#include "TaskIDGenerate.h"
 
 namespace task_repository_utils {
 

@@ -3,8 +3,9 @@
 //
 
 #include "TaskServiceServer.h"
-#include "Persister/Utils/TaskPersisterUtils.h"
-#include "API/Utils/TaskServiceServerUtils.h"
+#include "TaskPersisterUtils.h"
+#include "TaskServiceServerUtils.h"
+#include "utils.h"
 
 ::grpc::Status TaskServiceServer::AddTask(::grpc::ServerContext *context,
                                           const ::requests::AddTask *request,
@@ -176,7 +177,7 @@
 ::grpc::Status TaskServiceServer::GetTasksByPriority(::grpc::ServerContext *context,
                                                      const ::requests::GetTasksByPriority *request,
                                                      ::response::GetTasksByPriority *response) {
-  auto tasks = repositoryController_->Get()->GetTasksByPriority(persister_utils::SerializedPriorityToPriority(request->priority()));
+  auto tasks = repositoryController_->Get()->GetTasksByPriority(SerializedPriorityToPriority(request->priority()));
   for (const auto& task : tasks){
     auto newTask = response->add_tasks();
     task_service_server_utils::FillTransportTask(task_service_server_utils::ToTransport(task), newTask);

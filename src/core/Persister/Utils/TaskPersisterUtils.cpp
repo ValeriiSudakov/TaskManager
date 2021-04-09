@@ -3,7 +3,8 @@
 //
 
 #include "TaskPersisterUtils.h"
-#include "Persister/TaskPersister.h"
+#include "TaskPersister.h"
+#include "utils.h"
 #include <memory>
 
 std::unique_ptr<Persister> persister_utils::Create(TaskRepository &repository, std::fstream &stream) {
@@ -65,18 +66,5 @@ proto::Priority persister_utils::PriorityToSerializedPriority(const Priority& pr
     return proto::Priority::NONE;
   }
   return proto::Priority::NONE;
-}
-
-Priority persister_utils::SerializedPriorityToPriority(const proto::Priority& priority){
-  if (proto::Priority::FIRST == priority){
-    return Priority::FIRST;
-  } else if (proto::Priority::SECOND == priority){
-    return Priority::SECOND;
-  } else if (proto::Priority::THIRD == priority){
-    return Priority::THIRD;
-  } else if (proto::Priority::NONE == priority) {
-    return Priority::NONE;
-  }
-  return Priority::NONE;
 }
 

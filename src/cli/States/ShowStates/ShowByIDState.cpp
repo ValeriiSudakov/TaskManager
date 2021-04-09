@@ -4,7 +4,7 @@
 
 #include "InputOutputConsoleLayer.h"
 #include "ShowByIDState.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 ShowByIDState::ShowByIDState():State(StatesID::SHOW_BY_ID){}
 
 ShowByIDState::~ShowByIDState() = default;

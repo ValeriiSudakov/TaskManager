@@ -3,7 +3,7 @@
 //
 
 #include "StateMachineMenu.h"
-#include "Factory/Factory.h"
+#include "Factory.h"
 
 void StateMachineMenu::Execute(){
   auto state = Factory::CreateState(menuID_);

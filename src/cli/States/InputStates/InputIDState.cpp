@@ -16,12 +16,12 @@ StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, I
 
   if (idStr.empty()){
     std::string emptyStrError { "ID must be non-empty.\n" };
-   io.Output(emptyStrError);
+    io.Output(emptyStrError);
     return StateOperationResult::INCORRECT_INPUT;
   }
   if (idStr.find_first_not_of("0123456789") != std::string::npos){
     std::string strContainNumberError { "ID must contains only numbers!\n" };
-   io.Output(strContainNumberError);
+    io.Output(strContainNumberError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 
@@ -29,7 +29,7 @@ StateOperationResult InputIDState::Do(const std::shared_ptr<Context>& context, I
   int tasksNumber = context->tasks_.size()-1;
   if (id > tasksNumber){
     std::string idOutOfRangeError{ "ID out of tasks range.\n" };
-   io.Output(idOutOfRangeError);
+    io.Output(idOutOfRangeError);
     return StateOperationResult::INCORRECT_INPUT;
   }
 

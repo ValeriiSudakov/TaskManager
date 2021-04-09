@@ -5,7 +5,7 @@
 #ifndef TASKMANAGER_SRC_MEMORY_MODEL_ADDTASKRESULT_H_
 #define TASKMANAGER_SRC_MEMORY_MODEL_ADDTASKRESULT_H_
 #include <optional>
-#include "Repository/Task/ID/TaskID.h"
+#include "TaskID.h"
 
 /*
  * Contains information about result of the add operation
