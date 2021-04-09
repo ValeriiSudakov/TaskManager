@@ -17,6 +17,7 @@ StateOperationResult ShowByIDState::Do(const std::shared_ptr<Context>& context, 
   auto task = context->taskService_.GetTask(context->buffer_.id);
 
   if (task.has_value()){
+    io.Output(std::string{"\n"});
     io.Output(task->ToString());
 
     auto subtasks = context->taskService_.GetSubtask(context->buffer_.id);

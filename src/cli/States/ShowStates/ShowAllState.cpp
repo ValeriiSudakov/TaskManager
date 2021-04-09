@@ -28,6 +28,8 @@ StateOperationResult ShowAllState::Do(const std::shared_ptr<Context>& context, I
     return StateOperationResult::TASKS_LIST_EMPTY;
   }
   int taskNumber = 0;
+
+  io.Output(std::string{"\n"});
   for (const auto& task : context->tasks_){
     std::string taskStr { std::to_string(taskNumber++) + ": " + task.GetName() + "\n" };
     io.Output(taskStr);
