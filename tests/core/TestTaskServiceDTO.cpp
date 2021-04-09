@@ -1,14 +1,14 @@
 //
-// Created by R2D2 on 29.07.2020.
+// Created by valeriisudakov on 29.07.2020.
 //
 
 #include <gtest/gtest.h>
-#include "API/DTO/TaskServiceDTO.h"
-#include "Repository/Task/Date/Date.h"
-#include "Repository/Task/ID/TaskIDGenerate.h"
-#include "API/DTO/Utils/TaskServiceDTOUtils.h"
 #include <iostream>
-#include "Repository/Task/Task.h"
+#include "TaskServiceDTO.h"
+#include "Date.h"
+#include "TaskIDGenerate.h"
+#include "TaskServiceDTOUtils.h"
+#include "Task.h"
 
 class TestTaskServiceDTO : public ::testing::Test {
 

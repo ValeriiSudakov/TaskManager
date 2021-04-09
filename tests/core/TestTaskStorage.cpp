@@ -1,10 +1,10 @@
 //
-// Created by R2D2 on 31.07.2020.
+// Created by valeriisudakov on 31.07.2020.
 //
 
 #include <gtest/gtest.h>
-#include "Repository/Storage/TaskStorageClass.h"
-#include "Repository/Task/Date/Date.h"
+#include "TaskStorageClass.h"
+#include "Date.h"
 
 class TestTaskStorage : public ::testing::Test {
 

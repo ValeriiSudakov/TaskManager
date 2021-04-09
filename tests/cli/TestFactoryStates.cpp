@@ -2,7 +2,7 @@
 // Created by valeriisudakov on 13.09.20.
 //
 
-#include "Factory/FactoryStates.h"
+#include "FactoryStates.h"
 #include <gtest/gtest.h>
 
 class TestFactoryStates :  public ::testing::Test {

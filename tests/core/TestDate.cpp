@@ -1,9 +1,9 @@
 //
-// Created by R2D2 on 16.07.2020.
+// Created by valeriisudakov on 16.07.2020.
 //
 
 #include <gtest/gtest.h>
-#include "API/Service/TaskService.h"
+#include "TaskService.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -54,14 +54,13 @@ TEST_F(TestDate, shouldntBeToday){
 }
 
 TEST_F(TestDate, shouldBeThisWeek){
-  Date date(Date::GetCurrentTime());
-  ASSERT_TRUE(Date::IsThisWeek(date.Get()));
+  auto beginning_of_week = Date::BeginOfWeek();
 
-  Date EndOfWeek(boost::gregorian::date( (int)Date::EndOfWeek()));
-  ASSERT_TRUE(Date::IsThisWeek(EndOfWeek.Get()));
-
-  Date beginOfWeek(boost::gregorian::date( (int)Date::BeginOfWeek()));
-  ASSERT_TRUE(Date::IsThisWeek(beginOfWeek.Get()));
+  for (int i = 0; i < 6; i++){
+    Date date(boost::gregorian::date(beginning_of_week+i));
+    ASSERT_TRUE(Date::IsThisWeek(date.Get()));
+    std::cout<<i<<"\t";
+  }
 }
 
 TEST_F(TestDate, shouldntBeThisWeek){

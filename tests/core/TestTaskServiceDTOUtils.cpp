@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "API/DTO/Utils/TaskServiceDTOUtils.h"
+#include "TaskServiceDTOUtils.h"
 
 class TestTaskServiceDTOUtils : public ::testing::Test {
 

@@ -1,15 +1,15 @@
 //
-// Created by R2D2 on 15.07.2020.
+// Created by valeriisudakov on 15.07.2020.
 //
 
 //
-// Created by R2D2 on 15.07.2020.
+// Created by valeriisudakov on 15.07.2020.
 //
 #include <gtest/gtest.h>
-#include "Repository/Task/TaskEntity.h"
-#include "Repository/Task/ID/TaskIDGenerate.h"
-#include "Repository/Task/Priority.h"
-#include "Repository/Task/Date/Date.h"
+#include "TaskEntity.h"
+#include "TaskIDGenerate.h"
+#include "Priority.h"
+#include "Date.h"
 #include <iostream>
 
 class TestTaskEntity : public ::testing::Test {

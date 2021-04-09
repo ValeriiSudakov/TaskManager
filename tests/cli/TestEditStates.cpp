@@ -4,7 +4,7 @@
 
 
 #include <gtest/gtest.h>
-#include "Factory/Factory.h"
+#include "Factory.h"
 #include <memory>
 #include "mock/Service.h"
 #include "mock/InputOutput.h"
