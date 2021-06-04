@@ -28,21 +28,22 @@ bool Date::IsToday(const boost::gregorian::date& day) {
   return Date::GetCurrentTime().day_number() == day.day_number();
 }
 
+//TODO: fix it
+std::uint32_t Date::BeginOfWeek(){
+  /** days of week begins from 0 - sunday **/
+  auto currentDate = Date::GetCurrentTime();
+  auto dayOfWeek = currentDate.day_of_week();
+  // if today is sunday - beginning of week is: current day - 6
+  // else: current day - current day of week + 1 (Monday is the first day of the week, but in boost :: date_time it is 0)
+  return (dayOfWeek == 0 ? currentDate.day_number() - 6 : currentDate.day_number() - dayOfWeek + 1);
+}
+
 std::uint32_t Date::EndOfWeek(){
         /** days of week begins from 0 - sunday **/
   auto currentDate = Date::GetCurrentTime();
   auto dayOfWeek = currentDate.day_of_week();
   // if today is sunday - ending of week is today;
   // else: current day + number days of week(7) - current day of week
-  return (dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + 7 - dayOfWeek);
+  return (dayOfWeek == 0 ? currentDate.day_number() : currentDate.day_number() + (7 - dayOfWeek));
 }
 
-//TODO: fix it
-std::uint32_t Date::BeginOfWeek(){
-          /** days of week begins from 0 - sunday **/
-  auto currentDate = Date::GetCurrentTime();
-  auto dayOfWeek = currentDate.day_of_week();
-  // if today is sunday - beginning of week is: current day - 6
-  // else: current day - number days of week(7) + current day of week
-  return (dayOfWeek == 0 ? currentDate.day_number() - 6 : currentDate.day_number() - 7 + dayOfWeek);
-}

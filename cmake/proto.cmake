@@ -36,4 +36,4 @@ endforeach(proto_file)
 SET_SOURCE_FILES_PROPERTIES(${proto_generated_files} PROPERTIES GENERATED TRUE)
 
 add_library(proto_files STATIC ${proto_generated_files})
-target_include_directories(proto_files PRIVATE ${GRPC_ROOT}/include)
+target_include_directories(proto_files PRIVATE ${GRPC_ROOT}/include ${ABSL_ROOT}/include)

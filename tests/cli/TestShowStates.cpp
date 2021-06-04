@@ -45,8 +45,8 @@ TEST_F(TestEditStates, shouldShowAll){
 
 TEST_F(TestEditStates, shouldShowByID){
   auto state = Factory::CreateState(StatesID::SHOW_BY_ID);
-  // 2 times input id,  1 times task info, 1 time subtasks, 1 time subtask, 1 time not found
-  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  // 2 times input id, 1 empty line, 1 times task info, 1 time subtasks, 1 time subtask, 1 time not found
+  EXPECT_CALL(*io, Output).Times(7).WillRepeatedly(Return());
   EXPECT_CALL(*io, Input).Times(2).WillOnce(Return("0"))
                                       .WillOnce(Return("0"));
 

@@ -11,6 +11,7 @@ For MacOS and Linux:
 -DProtobuf_ROOT=/<path_to_your_protobuf_lib>/protobuf\ \
 -DGRPC_ROOT=/<path_to_your_grpc_lib>/grpc\ \
 -DGTEST_ROOT=/<path_to_your_gtest_lib>/googletest\ \
+-DABSL_ROOT=/<path_to_your_absl_lib>/abseil\ \
 .
 * cmake --build .
 

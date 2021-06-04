@@ -56,7 +56,7 @@ TEST_F(TestDate, shouldntBeToday){
 TEST_F(TestDate, shouldBeThisWeek){
   auto beginning_of_week = Date::BeginOfWeek();
 
-  for (int i = 0; i < 6; i++){
+  for (int i = 0; i < 7; i++){
     Date date(boost::gregorian::date(beginning_of_week+i));
     ASSERT_TRUE(Date::IsThisWeek(date.Get()));
     std::cout<<i<<"\t";
@@ -64,7 +64,7 @@ TEST_F(TestDate, shouldBeThisWeek){
 }
 
 TEST_F(TestDate, shouldntBeThisWeek){
-                                                // calc day after end of week
+  // calc day after end of week
   Date dayAfterEndOfWeek(boost::gregorian::date( (int)Date::EndOfWeek() + 1));
   ASSERT_FALSE(Date::IsThisWeek(dayAfterEndOfWeek.Get()));
 

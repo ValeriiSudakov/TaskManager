@@ -3,9 +3,9 @@ set(CLI ${SRC_ROOT}/cli)
 set(CORE ${SRC_ROOT}/core)
 
 set(COMMON_INCLUDE_DIRS  ${COMMON} ${COMMON}/Task ${COMMON}/Task/Date ${COMMON}/Task/ID ${COMMON}/DTO ${COMMON}/DTO/Utils ${COMMON}/Service ${COMMON}/Utils)
-set(CLI_INCLUDE_DIRS     ${CLI} ${CLI}/Factory ${CLI}/States ${CLI}/States/EditSystemStates ${CLI}/States/InputStates
+set(CLI_INCLUDE_DIRS     ${CLI} ${CLI}/Service ${CLI}/Factory ${CLI}/States ${CLI}/States/EditSystemStates ${CLI}/States/InputStates
                          ${CLI}/States/ShowStates ${CLI}/States/Menus ${CLI}/StatesControllers)
-set(CORE_INCLUDE_DIRS    ${CORE} ${CORE}/Persister ${CORE}/Persister/Utils ${CORE}/Repository ${CORE}/Repository/Utils
+set(CORE_INCLUDE_DIRS    ${CORE} ${CORE}/Service ${CORE}/Persister ${CORE}/Persister/Utils ${CORE}/Repository ${CORE}/Repository/Utils
                          ${CORE}/Repository/DTO ${CORE}/Repository/RepositoriesFactory ${CORE}/Repository/RepositoryController
                          ${CORE}/Repository/Storage ${CORE}/Repository/Task ${CORE}/Repository/Task/Date ${CORE}/Repository/Task/ID
                          ${CORE}/Repository/View)
@@ -18,7 +18,7 @@ file(GLOB_RECURSE cli_SOURCES "${SRC_ROOT}/cli/*.cpp")
 file(GLOB_RECURSE core_SOURCES "${SRC_ROOT}/core/*.cpp")
 
 ############ Common #####################################################
-add_library(common_lib ${common_SOURCES} ${service_proto_srcs} ${service_grpc_srcs} ${PROTO_SRCS})
+add_library(common_lib ${common_SOURCES} ${service_proto_srcs} ${service_grpc_srcs})
 target_include_directories(common_lib PUBLIC ${COMMON_INCLUDE_DIRS} ${PROTO_HDRS})
 target_link_libraries(common_lib gRPC::grpc++ gRPC::grpc++_reflection ${Protobuf_LIBRARIES} proto_files)
 

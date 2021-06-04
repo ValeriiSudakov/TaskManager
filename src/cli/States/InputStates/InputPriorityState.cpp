@@ -12,7 +12,7 @@ InputPriorityState::~InputPriorityState() = default;
 
 StateOperationResult InputPriorityState::Do(const std::shared_ptr<Context>& context, InputOutputLayer& io){
 
-  std::string output { "Input task priority [first/1, second/2, third/3, none/0/" ": " };
+  std::string output { "Input task priority [first/1, second/2, third/3, none/0]" ": " };
   io.Output(output);
 
   std::string priorityStr {io.Input() };
