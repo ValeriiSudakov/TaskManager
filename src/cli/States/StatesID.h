@@ -12,6 +12,7 @@ enum class StatesID{
   SHOW_BY_ID,
   SHOW_BY_LABEL,
   SHOW_BY_NAME,
+  SHOW_BY_DATE,
   SHOW_THIS_WEEK,
   SHOW_TODAY,
 
