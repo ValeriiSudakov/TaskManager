@@ -3,7 +3,12 @@
 //
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include "mock/View.h"
 #include "TaskRepositoryClass.h"
+
+using ::MockView;
+using ::testing::Return;
 
 class TestTaskRepository : public ::testing::Test {
 };
@@ -80,4 +85,16 @@ TEST_F(TestTaskRepository, shouldSetComplete){
   auto completeTask = tr.GetTask(TaskID(0));
   ASSERT_TRUE(completeTask.value().Complete());
 
+}
+
+TEST_F(TestTaskRepository, shouldReturnTaskByDate) {
+  std::vector<TaskEntity> tasks;
+  tasks.emplace_back(Task::Create("name", "label", Priority::NONE, Date::GetCurrentTime()).value(), TaskID(0));
+  auto mock_view = std::make_unique<MockView>();
+  EXPECT_CALL(*mock_view, GetTasksByDate).Times(1).WillOnce(Return(tasks));
+
+  TaskRepositoryClass tr(std::move(mock_view), std::move(std::make_unique<TaskStorageClass>()));
+  auto result = tr.GetTasksByDate(Date::GetCurrentTime(), false);
+  ASSERT_FALSE(result.empty());
+  ASSERT_EQ(result.size(), 1);
 }
