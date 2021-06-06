@@ -219,6 +219,32 @@ TEST_F(TestTaskServiceServer, shouldFoundTodayTasks) {
   ASSERT_EQ(response2->tasks().Get(0).name(), "name");
 }
 
+TEST_F(TestTaskServiceServer, shouldFoundTasksByDate) {
+  auto response = std::make_unique<::response::GetByDateTasks>();
+  auto request = std::make_unique<::requests::GetByDateTasks>();
+  request->mutable_date()->set_value(Date::GetCurrentTime().day_number());
+  ts->GetByDateTasks(nullptr, request.get(), response.get());
+  ASSERT_EQ(response->tasks().size(), 1);
+  ASSERT_EQ(response->tasks().Get(0).date().value(), Date::GetCurrentTime().day_number());
+}
+
+TEST_F(TestTaskServiceServer, shouldFoundTasksByDateByPriority) {
+  auto response = std::make_unique<::response::GetByDateTasks>();
+  auto request = std::make_unique<::requests::GetByDateTasks>();
+  request->mutable_date()->set_value(Date::GetCurrentTime().day_number());
+  ts->GetByDateTasks(nullptr, request.get(), response.get());
+  ASSERT_EQ(response->tasks().size(), 1);
+  ASSERT_EQ(response->tasks().Get(0).date().value(), Date::GetCurrentTime().day_number());
+}
+
+TEST_F(TestTaskServiceServer, shouldNotFoundTasksByDateByPriority) {
+  auto response = std::make_unique<::response::GetByDateTasks>();
+  auto request = std::make_unique<::requests::GetByDateTasks>();
+  request->mutable_date()->set_value(Date::GetCurrentTime().day_number() + 1);
+  ts->GetByDateTasks(nullptr, request.get(), response.get());
+  ASSERT_EQ(response->tasks().size(), 0);
+}
+
 TEST_F(TestTaskServiceServer, shouldFoundTodayTasksByPriority) {
   auto response2 = std::make_unique<::response::GetTodayTasks>();
   auto request2 = std::make_unique<::requests::GetTodayTasks>();
