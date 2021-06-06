@@ -5,6 +5,7 @@
 //
 
 #include "TaskView.h"
+#include <gmock/gmock.h>
 
 class MockView : public TaskView {
  public:
