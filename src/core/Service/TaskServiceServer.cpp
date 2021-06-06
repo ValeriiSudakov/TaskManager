@@ -151,6 +151,17 @@
   return grpc::Status::OK;
 }
 
+::grpc::Status TaskServiceServer::GetByDate(::grpc::ServerContext *context,
+                                            const ::requests::GetByDate *request,
+                                            ::response::GetByDate *response) {
+  auto tasks = repositoryController_->Get()->GetTasksByDate(boost::gregorian::date(request->date().value()), request->sortbypriority());
+  for (const auto& task : tasks) {
+    auto newTask = response->add_tasks();
+    task_service_server_utils::FillTransportTask(task_service_server_utils::ToTransport(task), newTask);
+  }
+  return grpc::Status::OK;
+}
+
 ::grpc::Status TaskServiceServer::GetTasksByName(::grpc::ServerContext *context,
                                                  const ::requests::GetTasksByName *request,
                                                  ::response::GetTasksByName *response) {
