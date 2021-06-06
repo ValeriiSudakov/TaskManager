@@ -151,9 +151,9 @@
   return grpc::Status::OK;
 }
 
-::grpc::Status TaskServiceServer::GetByDate(::grpc::ServerContext *context,
-                                            const ::requests::GetByDate *request,
-                                            ::response::GetByDate *response) {
+::grpc::Status TaskServiceServer::GetByDateTasks(::grpc::ServerContext *context,
+                                                 const ::requests::GetByDateTasks *request,
+                                                 ::response::GetByDateTasks *response) {
   auto tasks = repositoryController_->Get()->GetTasksByDate(boost::gregorian::date(request->date().value()), request->sortbypriority());
   for (const auto& task : tasks) {
     auto newTask = response->add_tasks();

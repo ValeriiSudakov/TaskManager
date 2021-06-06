@@ -30,7 +30,7 @@
   ::grpc::Status GetTasks(::grpc::ServerContext *context, const ::requests::GetTasks *request, ::response::GetTasks *response) override;
   ::grpc::Status GetTodayTasks(::grpc::ServerContext *context, const ::requests::GetTodayTasks *request, ::response::GetTodayTasks *response) override;
   ::grpc::Status GetWeekTasks(::grpc::ServerContext *context, const ::requests::GetWeekTasks *request, ::response::GetWeekTasks *response) override;
-  ::grpc::Status GetByDate(::grpc::ServerContext *context, const ::requests::GetByDate *request, ::response::GetByDate *response) override;
+  ::grpc::Status GetByDateTasks(::grpc::ServerContext *context, const ::requests::GetByDateTasks *request, ::response::GetByDateTasks *response) override;
   ::grpc::Status GetTasksByName(::grpc::ServerContext *context, const ::requests::GetTasksByName *request, ::response::GetTasksByName *response) override;
   ::grpc::Status GetTasksByLabel(::grpc::ServerContext *context, const ::requests::GetTasksByLabel *request, ::response::GetTasksByLabel *response) override;
   ::grpc::Status GetTasksByPriority(::grpc::ServerContext *context, const ::requests::GetTasksByPriority *request, ::response::GetTasksByPriority *response) override;

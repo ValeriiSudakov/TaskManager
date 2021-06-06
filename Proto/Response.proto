@@ -52,7 +52,7 @@ message GetWeekTasks{
   repeated transport.Task tasks = 1;
 }
 
-message GetByDate{
+message GetByDateTasks {
   repeated transport.Task tasks = 1;
 }
 

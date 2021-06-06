@@ -56,7 +56,7 @@ message GetWeekTasks{
   bool sortByPriority = 1;
 }
 
-message GetByDate{
+message GetByDateTasks {
   proto.Date date = 1;
   bool sortByPriority = 2;
 }
