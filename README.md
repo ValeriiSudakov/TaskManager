@@ -5,7 +5,6 @@ For MacOS and Linux:
 - Install: 
 * git clone https://github.com/ValeriiSudakov/TaskManager.git 
 * cd TaskManager
-* git checkout production
 * cmake -DBoost_NO_SYSTEM_PATHS=ON\ \
 -DBOOST_ROOT=/<path_to_your_boost_lib>/boost\ \
 -DProtobuf_ROOT=/<path_to_your_protobuf_lib>/protobuf\ \
