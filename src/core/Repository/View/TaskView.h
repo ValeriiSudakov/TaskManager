@@ -61,6 +61,13 @@ class TaskView {
   virtual std::vector<TaskEntity>   GetWeekTasks() const = 0;
 
 /*
+ * Get tasks method. Return all tasks by date.
+ *
+ * @return-type: vector of TaskEntity.
+ */
+  virtual std::vector<TaskEntity>   GetTasksByDate(const Date& date) const = 0;
+
+/*
  * Get tasks method. Return all tasks sorted by label.
  *
  * @param: label of task
