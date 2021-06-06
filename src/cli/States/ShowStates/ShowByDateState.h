@@ -14,7 +14,7 @@ class ShowByDateState : public State {
   ~ShowByDateState();
 
  public:
-  ShowByDateState        Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) override;
+  StateOperationResult        Do(const std::shared_ptr<Context>& context, InputOutputLayer& io) override;
 };
 
 

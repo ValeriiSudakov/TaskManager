@@ -18,7 +18,7 @@ service TaskService{
   rpc GetTasks            (requests.GetTasks)             returns (response.GetTasks) {};
   rpc GetTodayTasks       (requests.GetTodayTasks)        returns (response.GetTodayTasks) {};
   rpc GetWeekTasks        (requests.GetWeekTasks)         returns (response.GetWeekTasks) {};
-  rpc GetByDateTasks      (requests.GetByDateTasks)       returns (response.GetByDateTasks) {}
+  rpc GetByDateTasks      (requests.GetByDateTasks)       returns (response.GetByDateTasks) {};
   rpc GetTasksByName      (requests.GetTasksByName)       returns (response.GetTasksByName) {};
   rpc GetTasksByLabel     (requests.GetTasksByLabel)      returns (response.GetTasksByLabel) {};
   rpc GetTasksByPriority  (requests.GetTasksByPriority)   returns (response.GetTasksByPriority) {};
