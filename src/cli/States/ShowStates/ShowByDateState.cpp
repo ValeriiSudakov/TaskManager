@@ -8,7 +8,7 @@
 #include "InputOutputConsoleLayer.h"
 #include "Factory.h"
 
-ShowByDateState::ShowByDateState() : State(StatesID::SHOW_THIS_WEEK) {}
+ShowByDateState::ShowByDateState() : State(StatesID::SHOW_BY_DATE) {}
 
 ShowByDateState::~ShowByDateState() = default;
 
