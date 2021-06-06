@@ -110,6 +110,15 @@ class TaskRepository{
   virtual std::vector<TaskRepositoryDTO>      GetWeekTasks(bool byPriority) const = 0;
 
 /*
+ * Returns all tasks by date from the repository.
+ *
+ * @param: byPriority. if true - returned tasks will be sorted by priority, not if false.
+ *
+ * @return-type: std::vector of TaskRepositoryDTO.
+ */
+  virtual std::vector<TaskRepositoryDTO>      GetTasksByDate(const Date& date, bool byPriority) const = 0;
+
+/*
  * Returns all tasks by label from the repository.
  *
  * @param: label - search criteria for tasks in the system

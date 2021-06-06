@@ -38,6 +38,7 @@
   std::vector<TaskRepositoryDTO>      GetTasks() const override;
   std::vector<TaskRepositoryDTO>      GetTodayTasks(bool byPriority) const override;
   std::vector<TaskRepositoryDTO>      GetWeekTasks(bool byPriority) const override;
+  std::vector<TaskRepositoryDTO>      GetTasksByDate(const Date& date, bool byPriority) const override;
   std::vector<TaskRepositoryDTO>      GetTasksByLabel(const std::string& label, bool byPriority) const override;
   std::vector<TaskRepositoryDTO>      GetTasksByName(const std::string& name, bool byPriority) const override;
   std::vector<TaskRepositoryDTO>      GetTasksByPriority(const Priority& priority) const override;

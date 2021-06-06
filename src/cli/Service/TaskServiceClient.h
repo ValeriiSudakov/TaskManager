@@ -27,6 +27,7 @@ class TaskServiceClient : public TaskService {
   std::vector<TaskServiceDTO>     GetSubtask(const TaskID &id) const override;
   std::vector<TaskServiceDTO>     GetTasks(bool byPriority) const override;
   std::vector<TaskServiceDTO>     GetTodayTasks(bool byPriority) const override;
+  std::vector<TaskServiceDTO>     GetTasksByDate(const Date &date, bool byPriority) const override;
   std::vector<TaskServiceDTO>     GetWeekTasks(bool byPriority) const override;
   std::vector<TaskServiceDTO>     GetTasksByLabel(const std::string &label, bool byPriority) const override;
   std::vector<TaskServiceDTO>     GetTasksByName(const std::string &name, bool byPriority) const override;

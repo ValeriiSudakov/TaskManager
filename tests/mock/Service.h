@@ -21,6 +21,7 @@ class MockService : public TaskService{
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasks, (bool), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTodayTasks, (bool), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetWeekTasks, (bool), (const override));
+  MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByDate, (const Date&, bool), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByName, (const std::string&, bool), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByLabel, (const std::string&, bool), (const override));
   MOCK_METHOD(std::vector<TaskServiceDTO>,   GetTasksByPriority, (const Priority&), (const override));

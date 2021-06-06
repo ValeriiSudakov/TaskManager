@@ -134,6 +134,15 @@ class TaskService{
   virtual std::vector<TaskServiceDTO>      GetWeekTasks(bool byPriority) const = 0;
 
 /*
+ * Returns all tasks by date from the systems
+ *
+ * @param: byPriority. if true - returned tasks will be sorted by priority, not if false.
+ *
+ * @return-type: std::vector of TaskServiceDTO.
+ */
+  virtual std::vector<TaskServiceDTO>      GetTasksByDate(const Date& date, bool byPriority) const = 0;
+
+/*
  * Returns all tasks by label from the systems
  *
  * @param: label - search criteria for tasks in the system

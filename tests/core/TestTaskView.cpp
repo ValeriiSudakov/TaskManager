@@ -68,6 +68,35 @@ TEST_F(TestTaskView, shouldGetWeekTasks){
   ASSERT_EQ(resultThisWeek1.size(), 2);
 }
 
+TEST_F(TestTaskView, shouldGetTasksByDate){
+  auto current_date = Date::GetCurrentTime();
+  std::optional<Task> task = Task::Create("task", "label", Priority::NONE, current_date);
+  auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());
+  tv.AddTask(newTask);
+
+  auto resultThisWeek = tv.GetTasksByDate(current_date);
+  ASSERT_FALSE(resultThisWeek.empty());
+  ASSERT_EQ(resultThisWeek.size(), 1);
+}
+
+TEST_F(TestTaskView, shouldntGetTasksByDate) {
+  {
+    Date date(boost::gregorian::date(Date::GetCurrentTime().day_number() + 1));
+    std::optional<Task> task = Task::Create("task", "label", Priority::NONE, date);
+    auto newTask = std::make_shared<TaskEntity>(task.value(), taskIDGenerate.Generate());
+    tv.AddTask(newTask);
+  }
+  {
+    Date date(boost::gregorian::date(Date::GetCurrentTime().day_number() - 1));
+    std::optional<Task> task = Task::Create("task", "label", Priority::NONE, date);
+    auto newTask = std::make_shared<TaskEntity>(task.value(), taskIDGenerate.Generate());
+    tv.AddTask(newTask);
+  }
+  auto resultByDate = tv.GetTasksByDate(Date::GetCurrentTime());
+  ASSERT_TRUE(resultByDate.empty());
+  ASSERT_EQ(resultByDate.size(), 0);
+}
+
 TEST_F(TestTaskView, shouldGetCorrectTaskData){
   std::optional<Task> task = Task::Create("task", "label", Priority::NONE, Date::GetCurrentTime());
   auto newTask = std::make_shared<TaskEntity>(task.value(),  taskIDGenerate.Generate());

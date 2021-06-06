@@ -68,6 +68,9 @@ TEST_F(TestFactoryStates, shouldCreateCorrectState){
   auto showWeek = factory.Create(StatesID::SHOW_THIS_WEEK);
   ASSERT_EQ(showWeek->GetStateID(), StatesID::SHOW_THIS_WEEK);
 
+  auto showByDate = factory.Create(StatesID::SHOW_BY_DATE);
+  ASSERT_EQ(showByDate->GetStateID(), StatesID::SHOW_BY_DATE);
+
   auto save = factory.Create(StatesID::SAVE);
   ASSERT_EQ(save->GetStateID(), StatesID::SAVE);
 

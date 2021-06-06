@@ -142,6 +142,18 @@ std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetWeekTasks(bool byPriority
   return tasksDTO;
 }
 
+std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasksByDate(const Date &date, bool byPriority) const {
+  auto tasks = taskView_->GetTasksByDate(date);
+  std::vector<TaskRepositoryDTO> tasksDTO;
+  if (!tasks.empty()) {
+    task_repository_utils::VectorFromEntitiesToDTO(tasks, tasksDTO);
+    if (byPriority){
+      task_repository_utils::SortByPriority(tasksDTO);
+    }
+  }
+  return tasksDTO;
+}
+
 std::vector<TaskRepositoryDTO> TaskRepositoryClass::GetTasksByLabel(const std::string& label, bool byPriority) const {
   auto tasks = taskView_->GetTasksByLabel(label);
   std::vector<TaskRepositoryDTO> tasksDTO;

@@ -18,7 +18,7 @@ file(GLOB CORE_TESTS_SOURCES ${CORE_TEST_SOURCES} ${PROTO_SRCS})
 
 add_executable(coreTests ${CORE_TESTS_SOURCES})
 target_include_directories(coreTests PRIVATE ${COMMON_INCLUDE_DIRS} ${CORE_INCLUDE_DIRS})
-target_link_libraries(coreTests gtest gtest_main
+target_link_libraries(coreTests gtest gtest_main gmock
                                 gRPC::grpc++ gRPC::grpc++_reflection
                                 ${Protobuf_LIBRARIES} proto_files
                                 common_lib core_lib)

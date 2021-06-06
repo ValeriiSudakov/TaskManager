@@ -118,3 +118,13 @@ TEST_F(TestEditStates, shouldShowByLabel){
   state->Do(context, *io);
   state->Do(context, *io);
 }
+
+TEST_F(TestEditStates, shouldShowByDate){
+  auto state = Factory::CreateState(StatesID::SHOW_BY_DATE);
+  EXPECT_CALL(*io, Output).Times(6).WillRepeatedly(Return());
+  EXPECT_CALL(*io, Input).Times(4).WillOnce(Return("now")).WillOnce(Return("12312312"))
+                                       .WillOnce(Return("now")).WillOnce(Return("y"));
+  EXPECT_CALL(*service, GetTasksByDate).Times(1).WillRepeatedly(Return(std::vector<TaskServiceDTO>()));
+  state->Do(context, *io); //incorrect input
+  state->Do(context, *io);
+}

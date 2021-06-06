@@ -67,6 +67,17 @@ std::vector<TaskEntity> TaskViewClass::GetTodayTasks() const{
   return returnTasks;
 }
 
+std::vector<TaskEntity> TaskViewClass::GetTasksByDate(const Date &date) const {
+  std::vector<TaskEntity> returnTasks;
+  auto tasksByDate = byDate_.find(date.Get());
+  if (tasksByDate != byDate_.end()) {
+    for (const auto& task : tasksByDate->second) {
+      returnTasks.push_back(*task.second.lock());
+    }
+  }
+  return returnTasks;
+}
+
 std::vector<TaskEntity> TaskViewClass::GetWeekTasks() const{
   std::vector<TaskEntity> returnTasks;
 

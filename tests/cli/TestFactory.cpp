@@ -82,6 +82,9 @@ TEST_F(TestFactory, shouldCorrectCreateStates){
   auto showWeek = Factory::CreateState(StatesID::SHOW_THIS_WEEK);
   ASSERT_EQ(showWeek->GetStateID(), StatesID::SHOW_THIS_WEEK);
 
+  auto showByDate = Factory::CreateState(StatesID::SHOW_BY_DATE);
+  ASSERT_EQ(showByDate->GetStateID(), StatesID::SHOW_BY_DATE);
+
   auto save = Factory::CreateState(StatesID::SAVE);
   ASSERT_EQ(save->GetStateID(), StatesID::SAVE);
 

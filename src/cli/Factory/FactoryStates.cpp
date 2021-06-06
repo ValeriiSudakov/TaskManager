@@ -25,6 +25,7 @@
 #include "ShowByNameState.h"
 #include "ShowByLabelState.h"
 #include "ShowByIDState.h"
+#include "ShowByDateState.h"
 #include "Menu.h"
 
 #include "LazyInitClass.h"
@@ -53,6 +54,7 @@ FactoryStates::FactoryStates() {
   states_[StatesID::SHOW_BY_ID] = std::make_unique<LazyInitClass<ShowByIDState>>();
   states_[StatesID::SHOW_BY_LABEL] = std::make_unique<LazyInitClass<ShowByLabelState>>();
   states_[StatesID::SHOW_BY_NAME] = std::make_unique<LazyInitClass<ShowByNameState>>();
+  states_[StatesID::SHOW_BY_DATE] = std::make_unique<LazyInitClass<ShowByDateState>>();
   states_[StatesID::SHOW_TODAY] = std::make_unique<LazyInitClass<ShowTodayState>>();
   states_[StatesID::SHOW_THIS_WEEK] = std::make_unique<LazyInitClass<ShowThisWeekState>>();
 
@@ -93,6 +95,7 @@ std::shared_ptr<State>  CreateMenu(StatesID id){
     actions->show_.insert(std::make_pair("show today",    StatesID::SHOW_TODAY));
     actions->show_.insert(std::make_pair("show by name",  StatesID::SHOW_BY_NAME));
     actions->show_.insert(std::make_pair("show by label", StatesID::SHOW_BY_LABEL));
+    actions->show_.insert(std::make_pair("show by date",  StatesID::SHOW_BY_DATE));
     actions->exit_.first = "exit";
     actions->exit_.second = StatesID::EXIT;
 
