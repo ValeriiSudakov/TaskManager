@@ -197,6 +197,25 @@ std::vector<TaskServiceDTO> TaskServiceClient::GetWeekTasks(bool byPriority) con
   }
   return tasks;
 }
+
+std::vector<TaskServiceDTO> TaskServiceClient::GetTasksByDate(const Date &date, bool byPriority) const {
+  grpc::ClientContext context;
+
+  requests::GetByDateTasks request;
+  request.mutable_date()->set_value(date.Get().day_number());
+  request.set_sortbypriority(byPriority);
+
+  response::GetByDateTasks response;
+  auto result = server_requests_maker_->GetByDateTasks(&context, request, &response);
+  std::vector<TaskServiceDTO> tasks;
+  if (result.ok()) {
+    for (const auto& task : response.tasks()){
+      tasks.push_back(task_service_client_utils::FromTransportTask(task).value());
+    }
+  }
+  return tasks;
+}
+
 std::vector<TaskServiceDTO> TaskServiceClient::GetTasksByLabel(const std::string &label, bool byPriority) const {
   grpc::ClientContext context;
 
